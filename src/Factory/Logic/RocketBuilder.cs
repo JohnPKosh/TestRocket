@@ -4,8 +4,14 @@ using Factory.Models;
 
 namespace Factory.Logic
 {
+  /// <summary>
+  /// This is the rocket builder logic that spits out the descriptions of the rockets in the provided RocketOrder collection.
+  /// </summary>
   public static class RocketBuilder
   {
+    /// <summary>
+    /// Method to build rocket descriptions from the supplied orders
+    /// </summary>
     public static async IAsyncEnumerable<string> Build(IEnumerable<RocketOrder> orders)
     {
       foreach (var order in orders)
@@ -15,6 +21,9 @@ namespace Factory.Logic
       }
     }
 
+    /// <summary>
+    /// Create a description of the RocketOrder here using fancy new CSharp 8 switch syntactic sugar.
+    /// </summary>
     public static string CreateRocket(RocketOrder order)
     => (order.BallisticRocket, order.CarrierRocket, order.Spaceship) switch
     {
@@ -26,6 +35,7 @@ namespace Factory.Logic
       _ => $"[{order.OrderId}:{order.Customer}] A few rockets were built but I am too lazy to name them all."
     };
 
+    #region Private Utility Methods
     private static string DescribeRocket(IRocket rocket, RocketOrder order)
     => $"[{order.OrderId}:{order.Customer}] A {rocket.Height} meter {rocket.GetType().Name} was built to reach {rocket.MaximumVelocity()} feet per second.";
 
@@ -34,5 +44,6 @@ namespace Factory.Logic
       return $@"[{order.OrderId}:{order.Customer}] A {rocket.Height} meter {rocket.GetType().Name} was built to reach {rocket.MaximumVelocity()} feet per second 
       and can carry {(rocket.PayloadCapacity.HasValue ? rocket.PayloadCapacity.Value : 0)} pounds of cargo.";
     }
+    #endregion
   }
 }
