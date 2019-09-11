@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\out\Debug\</OutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\out\Release\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\data\Erx.Business.Data.Access.CarePoint\Erx.Business.Data.Access.CarePoint.csproj" />
+    <ProjectReference Include="..\..\data\Erx.Business.Data.Access.CmsPartD\Erx.Business.Data.Access.CmsPartD.csproj" />
+    <ProjectReference Include="..\..\data\Erx.Business.Data.Access.EPSROI\Erx.Business.Data.Access.EPSROI.csproj" />
+    <ProjectReference Include="..\..\data\Erx.Business.Data.Access.IVR\Erx.Business.Data.Access.IVR.csproj" />
+    <ProjectReference Include="..\..\data\Erx.Business.Data.Access.Laker.Security\Erx.Business.Data.Access.Laker.Security.csproj" />
+    <ProjectReference Include="..\..\data\Erx.Business.Data.Access.Laker\Erx.Business.Data.Access.Laker.csproj" />
+    <ProjectReference Include="..\..\data\Erx.Business.Data.Access\Erx.Business.Data.Access.csproj" />
+    <ProjectReference Include="..\..\Erx.Business.Api\Erx.Business.Api.csproj" />
+    <ProjectReference Include="..\..\Erx.Business.Logic\Erx.Business.Logic.csproj" />
+    <ProjectReference Include="..\..\Erx.Business.Security\Erx.Business.Security.csproj" />
+    <ProjectReference Include="..\..\Erx.Business.Serialization\Erx.Business.Serialization.csproj" />
+    <ProjectReference Include="..\..\Erx.Business\Erx.Business.csproj" />
+    <ProjectReference Include="..\..\sforce\Erx.SalesForce.App.Api\Erx.SalesForce.App.Api.csproj" />
+    <ProjectReference Include="..\Erx.Business.Tests.Integ\Erx.Business.Tests.Integ.csproj" />
+    <ProjectReference Include="..\Erx.Business.Tests.Unit\Erx.Business.Tests.Unit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Erx" Version="$(ErxVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="itc.laconf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

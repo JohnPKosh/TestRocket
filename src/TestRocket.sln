@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryXUnit", "Test\Factor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketFactoryTests", "Test\Factory\RocketFactoryTests.csproj", "{81C4E168-8260-4F74-88CD-A1DA4B303A44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itc", "itc\itc.csproj", "{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,18 @@ Global
 		{81C4E168-8260-4F74-88CD-A1DA4B303A44}.Release|x64.Build.0 = Release|Any CPU
 		{81C4E168-8260-4F74-88CD-A1DA4B303A44}.Release|x86.ActiveCfg = Release|Any CPU
 		{81C4E168-8260-4F74-88CD-A1DA4B303A44}.Release|x86.Build.0 = Release|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Debug|x64.Build.0 = Debug|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Debug|x86.Build.0 = Debug|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|x64.ActiveCfg = Release|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|x64.Build.0 = Release|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|x86.ActiveCfg = Release|Any CPU
+		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0BB9BB07-C330-4E58-9F40-E20BF2D6AE30} = {B0E342E9-703C-41B4-A781-9BC356EC1108}
