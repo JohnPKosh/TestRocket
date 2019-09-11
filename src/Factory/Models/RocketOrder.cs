@@ -2,6 +2,10 @@ namespace Factory.Models
 {
   /* Using new C# Language feature here */
 #nullable enable
+
+  /// <summary>
+  /// Needed some way to complicate some simple data enough by applying some business order logic.
+  /// </summary>
   public class RocketOrder
   {
     public int OrderId { get; set; }

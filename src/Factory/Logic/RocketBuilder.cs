@@ -37,12 +37,12 @@ namespace Factory.Logic
 
     #region Private Utility Methods
     private static string DescribeRocket(IRocket rocket, RocketOrder order)
-    => $"[{order.OrderId}:{order.Customer}] A {rocket.Height} meter {rocket.GetType().Name} was built to reach {rocket.MaximumVelocity()} feet per second.";
+    => $"[{order.OrderId}:{order.Customer}] A {rocket.Height} meter {rocket.GetType().Name} was built to reach {rocket.MaximumVelocity()} feet per second. Explodes: {rocket.Explodes}";
 
     private static string DescribeCarrierRocket(IRocket rocket, RocketOrder order)
     {
       return $@"[{order.OrderId}:{order.Customer}] A {rocket.Height} meter {rocket.GetType().Name} was built to reach {rocket.MaximumVelocity()} feet per second 
-      and can carry {(rocket.PayloadCapacity.HasValue ? rocket.PayloadCapacity.Value : 0)} pounds of cargo.";
+      and can carry {(rocket.PayloadCapacity.HasValue ? rocket.PayloadCapacity.Value : 0)} pounds of cargo. Explodes: {rocket.Explodes}";
     }
     #endregion
   }

@@ -5,9 +5,11 @@ using Factory.Common;
 
 namespace Factory.Logic
 {
+  /// <summary>
+  /// This is not a real mocking framework, but this will work for launching rockets.
+  /// </summary>
   public static class MockRockets
   {
-
     public static IEnumerable<RocketOrder> GetSimpleOrders()
     {
       var rv = new List<RocketOrder>();
@@ -37,8 +39,7 @@ namespace Factory.Logic
       {
         OrderId = 1001,
         Customer = MockConstants.TEST_CUSTOMER_1,
-        Spaceship = new Spaceship(),
-        CarrierRocket = new CargoRocket()
+        Spaceship = GetExplodingSpaceship()
       };
       rv.Add(o1);
       var o2 = new RocketOrder()

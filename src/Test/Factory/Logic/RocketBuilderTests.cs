@@ -54,5 +54,49 @@ namespace Factory.Logic
       }      
     }
 
+    [Run]
+    public void CreateOneComplexRocket()
+    {
+      /* Arrange */
+      IEnumerable<RocketOrder> got;
+
+      /* Act */
+      got = MockRockets.GetComplexOrders();
+      //got.See();
+
+      /* Assert */
+      Aver.IsNotNull(got);
+      Aver.IsTrue(got.Any());
+
+      var gotDescription = RocketBuilder.CreateRocket(got.FirstOrDefault());
+      gotDescription.See(); 
+
+      Aver.IsTrue(!string.IsNullOrWhiteSpace(gotDescription));
+    }
+
+    
+    [Run]
+    public async Task BuildComplexRockets()
+    {
+      /* Arrange */
+      IEnumerable<RocketOrder> got;
+
+      /* Act */
+      got = MockRockets.GetComplexOrders();
+      //got.See();
+
+      /* Assert */
+      Aver.IsNotNull(got);
+      Aver.IsTrue(got.Any());
+
+      var builtRockets = RocketBuilder.Build(got);
+      Aver.IsTrue(await builtRockets.AnyAsync());
+
+      await foreach (var rocket in builtRockets)
+      {
+        rocket.See();
+      }      
+    }
+
   }
 }

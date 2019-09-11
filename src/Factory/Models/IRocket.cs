@@ -1,7 +1,8 @@
 namespace Factory.Models
 {
   /// <summary>
-  /// This is the main interface definition for rockets. I only started with height, but we may want to add more properties.
+  /// This is the main interface definition for rockets. I only started with height, but we may want to add more properties. 
+  /// See how typical business requirements can be addressed using C# 8 default interface implementations.
   /// </summary>
   public interface IRocket
   {

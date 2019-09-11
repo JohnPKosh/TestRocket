@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace RocketFactoryTests
 {
+  /// <summary>
+  /// Just a few tests to get you started.
+  /// </summary>
   [Runnable]
   public class SampleTests
   {
