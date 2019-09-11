@@ -61,6 +61,18 @@
             "options": {
                 "cwd": "${workspaceRoot}/src/Test/FactoryXUnit"
             }
+        },
+        {
+            "label": "trun",
+            "command": "itc-local.cmd",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceRoot}/out/Debug/netcoreapp3.0"
+            }
         }
     ]
 }

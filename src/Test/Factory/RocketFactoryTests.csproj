@@ -29,4 +29,8 @@
       <PackageReference Include="Azos" Version="1.0.511" />
     </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Factory\RocketFactory.csproj" />
+  </ItemGroup>
+
 </Project>
