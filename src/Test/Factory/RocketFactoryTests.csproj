@@ -1,7 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+
+    <ItemGroup>
+    <None Include="*.laconf" CopyToOutputDirectory="Always" />
+    <!-- CopyToOutputDirectory = { Always, PreserveNewest, Never } -->
+
+    <Content Include="*.laconf" CopyToPublishDirectory="Always" />  
+    <!-- CopyToPublishDirectory = { Always, PreserveNewest, Never } -->
+  </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Azos" Version="1.0.511" />
+    </ItemGroup>
 
 </Project>

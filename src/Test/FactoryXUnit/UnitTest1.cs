@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Factory.Logic;
 using Xunit;
 
 namespace FactoryXUnit
@@ -10,6 +12,14 @@ namespace FactoryXUnit
         {
             var x = 1;
             Assert.True(x == 1);
+        }
+
+        [Fact]
+        public void CanLoadRockets()
+        {
+            IRocketLoader loader = new RocketOrderFileLoader();
+            var orders = new CurrentRocketOrders(loader);
+            Assert.True(orders.RocketsOrders.Any());
         }
     }
 }

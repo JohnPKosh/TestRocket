@@ -1,0 +1,8 @@
+app
+{
+  id="itloc"
+  name="itloc"
+  environment-name="local"
+  description="Rocket Factory Testing CLI"
+  unit-test=true
+}
