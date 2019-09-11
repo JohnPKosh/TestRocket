@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit/FactoryXUnit.csproj",
+                "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit/FactoryXUnit.csproj",
+                "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,11 +32,35 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit/FactoryXUnit.csproj",
+                "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "dotnet build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceRoot}/src/"
+            }
+        },
+        {
+            "label": "test",
+            "command": "dotnet test",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceRoot}/src/Test/FactoryXUnit"
+            }
         }
     ]
 }

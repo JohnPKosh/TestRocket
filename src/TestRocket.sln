@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B0E342E9-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FactoryXUnit", "FactoryXUnit", "{0BB9BB07-C330-4E58-9F40-E20BF2D6AE30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryXUnit", "Test\FactoryXUnit\FactoryXUnit\FactoryXUnit.csproj", "{B062F8C1-5B8B-40A8-871B-92F8B9E71189}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryXUnit", "Test\FactoryXUnit\FactoryXUnit.csproj", "{B062F8C1-5B8B-40A8-871B-92F8B9E71189}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketFactoryTests", "Test\Factory\RocketFactoryTests.csproj", "{81C4E168-8260-4F74-88CD-A1DA4B303A44}"
 EndProject

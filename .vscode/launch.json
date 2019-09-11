@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit/bin/Debug/netcoreapp3.0/FactoryXUnit.dll",
+            "program": "${workspaceFolder}/src/Test/FactoryXUnit/bin/Debug/netcoreapp3.0/FactoryXUnit.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Test/FactoryXUnit/FactoryXUnit",
+            "cwd": "${workspaceFolder}/src/Test/FactoryXUnit",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
