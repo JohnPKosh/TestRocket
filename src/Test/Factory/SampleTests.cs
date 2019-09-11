@@ -34,7 +34,7 @@ namespace RocketFactoryTests
 
       /* Act */
       var got = new CurrentRocketOrders(loader);
-      got.See();
+      //got.See();
 
       /* Assert */
       Aver.IsTrue(got.RocketsOrders.Any());
