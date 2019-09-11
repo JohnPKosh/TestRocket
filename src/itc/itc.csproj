@@ -7,15 +7,15 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
   </PropertyGroup>
 
-  <!-- <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\..\out\Debug\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\out\Debug\</OutputPath>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\out\Release\</OutputPath>
-  </PropertyGroup> -->
+    <OutputPath>..\..\out\Release\</OutputPath>
+  </PropertyGroup>
 
   <ItemGroup>
     <!-- <ProjectReference Include="..\..\data\Erx.Business.Data.Access.CarePoint\Erx.Business.Data.Access.CarePoint.csproj" />
@@ -33,6 +33,7 @@
     <ProjectReference Include="..\..\sforce\Erx.SalesForce.App.Api\Erx.SalesForce.App.Api.csproj" />
     <ProjectReference Include="..\Erx.Business.Tests.Integ\Erx.Business.Tests.Integ.csproj" /> -->
     <ProjectReference Include="..\Factory\RocketFactory.csproj" />
+    <ProjectReference Include="..\Test\Factory\RocketFactoryTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

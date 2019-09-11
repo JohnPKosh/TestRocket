@@ -7,7 +7,7 @@ namespace itc
     static void Main(string[] args)
     {
       new Azos.Platform.Abstraction.NetCore.NetCore20Runtime();
-      //Erx.Business.Tests.Integ.ProgramBody.Main(args);
+      RocketFactoryTests.ProgramBody.Main(args);
     }
   }
 }

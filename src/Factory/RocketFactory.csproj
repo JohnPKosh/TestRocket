@@ -11,6 +11,16 @@
     <PackageReference Include="System.Linq.Async" Version="4.0.0-preview.6.build.801" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\out\Debug\</OutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\out\Release\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="*.json" CopyToOutputDirectory="PreserveNewest" />
     <!-- CopyToOutputDirectory = { Always, PreserveNewest, Never } -->
