@@ -20,9 +20,9 @@ namespace Factory.Logic
     {
       (null, null, null) => $"[{order.OrderId}:{order.Customer}] Nothing to build here",
       (null, null, Spaceship _) => DescribeRocket(order.Spaceship, order),
-      (null, CarrierRocket _, null) => DescribeCarrierRocket(order.CarrierRocket, order),
+      (null, CargoRocket _, null) => DescribeCarrierRocket(order.CarrierRocket, order),
       (BallisticRocket _, null, null) => DescribeRocket(order.BallisticRocket, order),
-      (BallisticRocket _, CarrierRocket _, Spaceship _) => $"[{order.OrderId}:{order.Customer}] All Rockets Built!",
+      (BallisticRocket _, CargoRocket _, Spaceship _) => $"[{order.OrderId}:{order.Customer}] All Rockets Built!",
       _ => $"[{order.OrderId}:{order.Customer}] A few rockets were built but I am too lazy to name them all."
     };
 

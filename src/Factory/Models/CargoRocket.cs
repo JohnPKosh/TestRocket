@@ -1,8 +1,8 @@
 namespace Factory.Models
 {
-  public class CarrierRocket : IRocket
+  public class CargoRocket : IRocket
   {
-    public CarrierRocket()
+    public CargoRocket()
     {
       Height = 92;
     }

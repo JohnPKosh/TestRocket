@@ -15,14 +15,14 @@ namespace Factory.Logic
             OrderId = 1001,
             Customer = MockConstants.TEST_CUSTOMER_1,
             Spaceship = new Spaceship(),
-            CarrierRocket = new CarrierRocket()
+            CarrierRocket = new CargoRocket()
         };
         rv.Add(o1);
         var o2 = new RocketOrder(){
             OrderId = 1001,
             Customer = MockConstants.TEST_CUSTOMER_8,
             BallisticRocket = new BallisticRocket(),
-            CarrierRocket = new CarrierRocket()
+            CarrierRocket = new CargoRocket()
         };
         rv.Add(o2);
         return rv;

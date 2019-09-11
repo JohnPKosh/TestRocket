@@ -8,7 +8,7 @@ namespace Factory.Models
     public string? Customer { get; set; }
     public BallisticRocket? BallisticRocket { get; set; }
     public Spaceship? Spaceship { get; set; }
-    public CarrierRocket? CarrierRocket { get; set; }
+    public CargoRocket? CarrierRocket { get; set; }
   }
 #nullable disable
 }
