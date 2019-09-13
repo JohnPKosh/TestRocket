@@ -14,7 +14,7 @@ namespace ZipLib.Ext
       outputFile.Refresh();
 
       var m_OutputFileInfo = string.IsNullOrWhiteSpace(outputFile.DirectoryName) ? new FileInfo(Path.Combine(inputFile.DirectoryName, outputFile.Name)) : outputFile;
-      if (inputFile.FullName.Equals(m_OutputFileInfo.FullName, System.StringComparison.InvariantCultureIgnoreCase))
+      if (inputFile.FullName.Equals(m_OutputFileInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
         throw new IOException($"{nameof(inputFile)} ({inputFile.FullName}) and {nameof(outputFile)} ({m_OutputFileInfo.FullName}) cannot be the same!");
       if (m_OutputFileInfo.Exists)
       {
@@ -34,7 +34,28 @@ namespace ZipLib.Ext
             throw new IOException(IoConstants.FILE_EXISTS_ERROR_MSG);
         }
       }
+      return ExecuteGzip(inputFile, lockWaitMs, bufferSize, m_OutputFileInfo);
+    }
 
+    public static FileInfo GUnZip(this FileInfo inputFile, FileInfo outputFile, bool overwrite, int bufferSize = 4096)
+    {
+      if (overwrite && outputFile.Exists) outputFile.Delete();
+      using (var instream = new FileStream(inputFile.FullName, FileMode.Open, FileAccess.Read, FileShare.Delete | FileShare.Read, bufferSize, FileOptions.SequentialScan))
+      {
+        using (var outstream = new FileStream(outputFile.FullName, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize))
+        {
+          using (var gz = new GZipStream(instream, CompressionMode.Decompress))
+          {
+            gz.CopyTo(outstream);
+          }
+        }
+      }
+      outputFile.Refresh();
+      return outputFile;
+    }
+
+    private static FileInfo ExecuteGzip(FileInfo inputFile, int lockWaitMs, int bufferSize, FileInfo m_OutputFileInfo)
+    {
       using (var inputfs = inputFile.OpenFileStream(FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, lockWaitMs, false))
       {
         using (var outputfs = m_OutputFileInfo.OpenFileStream(FileMode.CreateNew, FileAccess.Write, FileShare.None, 60000, true))
@@ -76,22 +97,6 @@ namespace ZipLib.Ext
       return m_OutputFileInfo;
     }
 
-    public static FileInfo GUnZip(this FileInfo inputFile, FileInfo outputFile, bool overwrite, int bufferSize = 4096)
-    {
-      if (overwrite && outputFile.Exists) outputFile.Delete();
-      using (var instream = new FileStream(inputFile.FullName, FileMode.Open, FileAccess.Read, FileShare.Delete | FileShare.Read, bufferSize, FileOptions.SequentialScan))
-      {
-        using (var outstream = new FileStream(outputFile.FullName, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize))
-        {
-          using (var gz = new GZipStream(instream, CompressionMode.Decompress))
-          {
-            gz.CopyTo(outstream);
-          }
-        }
-      }
-      outputFile.Refresh();
-      return outputFile;
-    }
 
     public static string GetArchiveFullName(FileInfo fileInfo)
     {
