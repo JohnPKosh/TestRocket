@@ -6,7 +6,10 @@ namespace ZipLib.Ext
 {
   public static class StreamExtensions
   {
-    public static void BufferCopyStream(this byte[] data, Stream outputStream, int bufferSize = 4096)
+    public static void BufferCopyStream(
+      this byte[] data,
+      Stream outputStream,
+      int bufferSize = 4096)
     {
       var inputStream = new MemoryStream(data);
       if (inputStream.CanSeek) inputStream.Seek(0, SeekOrigin.Begin);
@@ -16,7 +19,10 @@ namespace ZipLib.Ext
         outputStream.Write(buffer, 0, readCount);
     }
 
-    public static void BufferCopyStream(this Stream inputStream, Stream outputStream, int bufferSize = 4096)
+    public static void BufferCopyStream(
+      this Stream inputStream,
+      Stream outputStream,
+      int bufferSize = 4096)
     {
       if (inputStream.CanSeek) inputStream.Seek(0, SeekOrigin.Begin);
       int readCount;

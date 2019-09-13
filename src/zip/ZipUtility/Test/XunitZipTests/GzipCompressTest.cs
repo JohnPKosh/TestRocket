@@ -35,12 +35,12 @@ namespace XunitZipTests
       Assert.True(got.Exists);
     }
 
-    [Fact]    
+    [Fact]
     public void CanCopyFile_Test01_True()
     {
       /* Arrange */
       var sutFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.INPUT_FILE_01_PATH);
-      var sutCopyFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.INPUT_FILE_01_COPY_PATH); 
+      var sutCopyFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.INPUT_FILE_01_COPY_PATH);
 
       var gotInput = new FileInfo(sutFilePath);
       var gotCopy = new FileInfo(sutCopyFilePath);

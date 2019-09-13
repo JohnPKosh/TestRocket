@@ -6,8 +6,13 @@ namespace ZipLib.Ext
 {
   public static class FileInfoUtility
   {
-
-    public static FileStream OpenFileStream(this FileInfo file, FileMode mode, FileAccess access, FileShare share, int lockWaitMs, bool lockStream)
+    public static FileStream OpenFileStream(
+      this FileInfo file,
+      FileMode mode,
+      FileAccess access,
+      FileShare share,
+      int lockWaitMs,
+      bool lockStream)
     {
       var lockWaitUntil = DateTime.Now.AddMilliseconds(lockWaitMs);
       while (true)
@@ -26,7 +31,15 @@ namespace ZipLib.Ext
       }
     }
 
-    public static FileStream OpenFileStream(this FileInfo file, FileMode mode, FileAccess access, FileShare share, int bufferSize, FileOptions options, int lockWaitMs, bool lockStream)
+    public static FileStream OpenFileStream(
+      this FileInfo file,
+      FileMode mode,
+      FileAccess access,
+      FileShare share,
+      int bufferSize,
+      FileOptions options,
+      int lockWaitMs,
+      bool lockStream)
     {
       var lockWaitUntil = DateTime.Now.AddMilliseconds(lockWaitMs);
       while (true)
