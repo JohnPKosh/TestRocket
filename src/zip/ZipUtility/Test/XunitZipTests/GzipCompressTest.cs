@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Xunit;
+using Xunit.Abstractions;
 using ZipLib.Enums;
 using ZipLib.Ext;
 
@@ -8,6 +9,13 @@ namespace XunitZipTests
 {
   public class GzipCompressTest
   {
+    private readonly ITestOutputHelper output;
+
+    public GzipCompressTest(ITestOutputHelper output)
+    {
+      this.output = output;
+    }
+
     [Fact]
     public void CanRun_xUnit_True()
     {
@@ -26,7 +34,6 @@ namespace XunitZipTests
       /* Assert */
       Assert.True(got.Exists);
     }
-
 
     [Fact]    
     public void CanCopyFile_Test01_True()
@@ -59,21 +66,38 @@ namespace XunitZipTests
       var sutFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.INPUT_FILE_01_PATH);
       var sutOutputFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.OUTPUT_FILE_01_PATH);
       var gotInput = new FileInfo(sutFilePath);
+      var got = new FileInfo(sutOutputFilePath);
+
+      /* Act */
+      output.WriteLine("File already exists:{0}", got.Exists);
+      got = gotInput.GZip(got, 60000);
+
+      /* Assert */
+      output.WriteLine("File created:{0}", got?.FullName);
+      Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
+    }
+
+    [Fact]
+    public void CanDeleteAndGzipFile_Test01_True()
+    {
+      /* Arrange */
+      var sutFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.INPUT_FILE_01_PATH);
+      var sutOutputFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.OUTPUT_FILE_01_PATH);
+      var gotInput = new FileInfo(sutFilePath);
       var got= new FileInfo(sutOutputFilePath);
 
-      try
+      /* Act */
+      if (got != null && got.Exists)
       {
-        /* Act */
-        if (got != null && got.Exists) File.Delete(got.FullName);
-        got = gotInput.GZip(got, 60000);
+        File.Delete(got.FullName);
+        got.Refresh();
+      }
+      output.WriteLine("File already exists:{0}", got.Exists);
+      got = gotInput.GZip(got, 60000);
 
-        /* Assert */
-        Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
-      }
-      finally
-      {
-        if (got != null && sutOutputFilePath != got.FullName && got.Exists) File.Delete(got.FullName);
-      }
+      /* Assert */
+      output.WriteLine("File created:{0}", got?.FullName);
+      Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
     }
 
     [Fact]
@@ -84,23 +108,15 @@ namespace XunitZipTests
       var sutOutputFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.OUTPUT_FILE_01_PATH);
       var gotInput = new FileInfo(sutFilePath);
       var got = new FileInfo(sutOutputFilePath);
-      var gotExists = got.Exists;
 
-      try
-      {
-        /* Act */
-        got = gotInput.GZip(got, 60000, ExistingFileHandling.Overwrite);
+      /* Act */
+      output.WriteLine("File already exists:{0}", got.Exists);
+      got = gotInput.GZip(got, 60000, ExistingFileHandling.Overwrite);
 
-        /* Assert */
-        Assert.True(gotExists);
-        Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
-      }
-      finally
-      {
-        if (got != null && sutOutputFilePath != got.FullName && got.Exists) File.Delete(got.FullName);
-      }
+      /* Assert */
+      output.WriteLine("File created:{0}", got?.FullName);
+      Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got?.FullName}");
     }
-
 
     [Fact]
     public void CanReplaceAndArchiveGzipFile_Test01_True()
@@ -110,21 +126,14 @@ namespace XunitZipTests
       var sutOutputFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.OUTPUT_FILE_01_PATH);
       var gotInput = new FileInfo(sutFilePath);
       var got = new FileInfo(sutOutputFilePath);
-      var gotExists = got.Exists;
 
-      try
-      {
-        /* Act */
-        got = gotInput.GZip(got, 60000, ExistingFileHandling.ReplaceAndArchive);
+      /* Act */
+      output.WriteLine("File already exists:{0}", got.Exists);
+      got = gotInput.GZip(got, 60000, ExistingFileHandling.ReplaceAndArchive);
 
-        /* Assert */
-        Assert.True(gotExists);
-        Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
-      }
-      finally
-      {
-        if (got != null && sutOutputFilePath != got.FullName && got.Exists) File.Delete(got.FullName);
-      }
+      /* Assert */
+      output.WriteLine("File created:{0}", got?.FullName);
+      Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
     }
 
     [Theory]
@@ -138,21 +147,14 @@ namespace XunitZipTests
       var sutOutputFilePath = Path.Combine(Environment.CurrentDirectory, TestConstants.OUTPUT_FILE_01_PATH);
       var gotInput = new FileInfo(sutFilePath);
       var got = new FileInfo(sutOutputFilePath);
-      var gotExists = got.Exists;
 
-      try
-      {
-        /* Act */
-        got = gotInput.GZip(got, 60000, handling);
+      /* Act */
+      output.WriteLine("File already exists:{0}", got.Exists);
+      got = gotInput.GZip(got, 60000, handling);
 
-        /* Assert */
-        Assert.True(gotExists);
-        Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
-      }
-      finally
-      {
-        if (got != null && sutOutputFilePath != got.FullName && got.Exists) File.Delete(got.FullName);
-      }
+      /* Assert */
+      output.WriteLine("File created:{0}", got?.FullName);
+      Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got.FullName}");
     }
 
   }
