@@ -34,7 +34,7 @@ namespace ZipLib.Ext
         }
       }
       if(compressionMode == GZipType.Compress) return ExecuteCompress(inputFile, m_OutputFileInfo, bufferSize, lockWaitMs);
-      return ExecuteUncompress(inputFile, outputFile, bufferSize, lockWaitMs);
+      return ExecuteDecompress(inputFile, outputFile, bufferSize, lockWaitMs);
     }
 
     public static FileInfo GZipCompress(this FileInfo inputFile, FileInfo outputFile, int lockWaitMs = 60000, ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting, int bufferSize = 4096)
@@ -42,12 +42,12 @@ namespace ZipLib.Ext
       return GZip(inputFile, outputFile, GZipType.Compress, lockWaitMs, onExisting, bufferSize);
     }
 
-    public static FileInfo GZipUncompress(this FileInfo inputFile, FileInfo outputFile, int lockWaitMs = 60000, ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting, int bufferSize = 4096)
+    public static FileInfo GZipDecompress(this FileInfo inputFile, FileInfo outputFile, int lockWaitMs = 60000, ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting, int bufferSize = 4096)
     {
       return GZip(inputFile, outputFile, GZipType.Decompress, lockWaitMs, onExisting, bufferSize);
     }
 
-    private static FileInfo ExecuteUncompress(FileInfo inputFile, FileInfo outputFile, int bufferSize, int lockWaitMs)
+    private static FileInfo ExecuteDecompress(FileInfo inputFile, FileInfo outputFile, int bufferSize, int lockWaitMs)
     {
       using (var instream = inputFile.OpenFileStream(FileMode.Open, FileAccess.Read, FileShare.Delete | FileShare.Read, bufferSize, FileOptions.SequentialScan, lockWaitMs, false))
       {
