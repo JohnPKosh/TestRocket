@@ -26,14 +26,14 @@ namespace ZipLib.Ext
       }
     }
 
-    public static FileStream OpenFileStream(this FileInfo file, FileMode mode, FileAccess access, FileShare share, int bufferSize, int lockWaitMs, bool lockStream)
+    public static FileStream OpenFileStream(this FileInfo file, FileMode mode, FileAccess access, FileShare share, int bufferSize, FileOptions options, int lockWaitMs, bool lockStream)
     {
       var lockWaitUntil = DateTime.Now.AddMilliseconds(lockWaitMs);
       while (true)
       {
         try
         {
-          var stream = new FileStream(file.FullName, mode, access, share, bufferSize);
+          var stream = new FileStream(file.FullName, mode, access, share, bufferSize, options);
           if (lockStream) stream.Lock(0, stream.Length);
           return stream;
         }

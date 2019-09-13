@@ -70,7 +70,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZip(got, 60000);
+      got = gotInput.GZipCompress(got, 60000);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);
@@ -93,7 +93,7 @@ namespace XunitZipTests
         got.Refresh();
       }
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZip(got, 60000);
+      got = gotInput.GZipCompress(got, 60000);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);
@@ -111,7 +111,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZip(got, 60000, ExistingFileHandling.Overwrite);
+      got = gotInput.GZipCompress(got, 60000, ExistingFileHandling.Overwrite);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);
@@ -129,7 +129,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZip(got, 60000, ExistingFileHandling.ReplaceAndArchive);
+      got = gotInput.GZipCompress(got, 60000, ExistingFileHandling.ReplaceAndArchive);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);
@@ -150,7 +150,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZip(got, 60000, handling);
+      got = gotInput.GZipCompress(got, 60000, handling);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);

@@ -27,7 +27,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GUnZip(got, true, 60000);
+      got = gotInput.GZipUncompress(got);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);

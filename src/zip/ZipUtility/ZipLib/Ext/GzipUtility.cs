@@ -1,14 +1,13 @@
 ﻿using System.IO;
 using System.IO.Compression;
 using ZipLib.Enums;
-using ZipLib;
 using System;
 
 namespace ZipLib.Ext
 {
   public static class GzipUtility
   {
-    public static FileInfo GZip(this FileInfo inputFile, FileInfo outputFile, int lockWaitMs, ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting, int bufferSize = 4096)
+    public static FileInfo GZip(this FileInfo inputFile, FileInfo outputFile, GZipType compressionMode, int lockWaitMs = 60000, ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting, int bufferSize = 4096)
     {
       inputFile.Refresh();
       outputFile.Refresh();
@@ -34,13 +33,23 @@ namespace ZipLib.Ext
             throw new IOException(IoConstants.FILE_EXISTS_ERROR_MSG);
         }
       }
-      return ExecuteGzip(inputFile, lockWaitMs, bufferSize, m_OutputFileInfo);
+      if(compressionMode == GZipType.Compress) return ExecuteCompress(inputFile, m_OutputFileInfo, bufferSize, lockWaitMs);
+      return ExecuteUncompress(inputFile, outputFile, bufferSize, lockWaitMs);
     }
 
-    public static FileInfo GUnZip(this FileInfo inputFile, FileInfo outputFile, bool overwrite, int bufferSize = 4096)
+    public static FileInfo GZipCompress(this FileInfo inputFile, FileInfo outputFile, int lockWaitMs = 60000, ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting, int bufferSize = 4096)
     {
-      if (overwrite && outputFile.Exists) outputFile.Delete();
-      using (var instream = new FileStream(inputFile.FullName, FileMode.Open, FileAccess.Read, FileShare.Delete | FileShare.Read, bufferSize, FileOptions.SequentialScan))
+      return GZip(inputFile, outputFile, GZipType.Compress, lockWaitMs, onExisting, bufferSize);
+    }
+
+    public static FileInfo GZipUncompress(this FileInfo inputFile, FileInfo outputFile, int lockWaitMs = 60000, ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting, int bufferSize = 4096)
+    {
+      return GZip(inputFile, outputFile, GZipType.Decompress, lockWaitMs, onExisting, bufferSize);
+    }
+
+    private static FileInfo ExecuteUncompress(FileInfo inputFile, FileInfo outputFile, int bufferSize, int lockWaitMs)
+    {
+      using (var instream = inputFile.OpenFileStream(FileMode.Open, FileAccess.Read, FileShare.Delete | FileShare.Read, bufferSize, FileOptions.SequentialScan, lockWaitMs, false))
       {
         using (var outstream = new FileStream(outputFile.FullName, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize))
         {
@@ -54,9 +63,9 @@ namespace ZipLib.Ext
       return outputFile;
     }
 
-    private static FileInfo ExecuteGzip(FileInfo inputFile, int lockWaitMs, int bufferSize, FileInfo m_OutputFileInfo)
+    private static FileInfo ExecuteCompress(FileInfo inputFile, FileInfo m_OutputFileInfo, int bufferSize, int lockWaitMs)
     {
-      using (var inputfs = inputFile.OpenFileStream(FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, lockWaitMs, false))
+      using (var inputfs = inputFile.OpenFileStream(FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan, lockWaitMs, false))
       {
         using (var outputfs = m_OutputFileInfo.OpenFileStream(FileMode.CreateNew, FileAccess.Write, FileShare.None, 60000, true))
         {
@@ -97,8 +106,7 @@ namespace ZipLib.Ext
       return m_OutputFileInfo;
     }
 
-
-    public static string GetArchiveFullName(FileInfo fileInfo)
+    private static string GetArchiveFullName(FileInfo fileInfo)
     {
       var m_lastWrite = fileInfo.Exists ? fileInfo.LastWriteTimeUtc.ToString("yyyyMMddHHmmssfff") : DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");
       if (string.IsNullOrWhiteSpace(fileInfo.FullName)) throw new ArgumentException("Cannot rename a file with no full name.", nameof(fileInfo));
