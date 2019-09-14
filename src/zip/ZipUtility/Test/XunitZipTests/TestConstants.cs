@@ -27,5 +27,13 @@ namespace XunitZipTests
     public const string INPUT_FILE_02_PATH = @"elm\test-file-02.gz";
 
     public const string OUTPUT_FILE_02_PATH = @"elm\test-file-02.txt";
+
+    /* Roundtrip */
+
+    public const string INPUT_FILE_03_PATH = @"elm\test-file-03.txt";
+
+    public const string OUTPUT_FILE_03_PATH = @"elm\test-file-03.gz";
+
+    public const string COMPARE_FILE_03_PATH = @"elm\compare-file-03.txt";
   }
 }
