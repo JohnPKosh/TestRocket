@@ -24,20 +24,69 @@ namespace XunitZipTests
     {
       /* Arrange */
       var gotInput = m_Fixture.sutFile03;
-      var got = m_Fixture.sutOutputFile03;
-      var gotCompare = m_Fixture.sutCompareFile03;
+      var gotOutput = m_Fixture.sutOutputFile03;
+      var gotFinal = m_Fixture.sutFinalFile03;
+      var gotControl = m_Fixture.sutControlFile03;
 
       /* Act */
-      got = gotInput.GZipCompress(got, 60000, ExistingFileHandling.Overwrite);
-      gotCompare = got.GZipDecompress(gotCompare, onExisting: ExistingFileHandling.Overwrite);
+      gotOutput = gotInput.GZipCompress(gotOutput, 60000, ExistingFileHandling.Overwrite);
+      output.WriteLine("Compressed File created:{0} with {1} bytes", gotOutput?.FullName, gotOutput?.Length);
+      gotFinal = gotOutput.GZipDecompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
 
       /* Assert */
-      Assert.True(got.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got?.FullName}");
+      Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
 
-      output.WriteLine("File created:{0} with {1} bytes", gotCompare?.FullName, gotCompare?.Length);
-      Assert.True(gotCompare.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {got?.FullName}");
+      output.WriteLine("File created:{0} with {1} bytes", gotFinal?.FullName, gotFinal?.Length);
+      Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
+      Assert.Equal(gotControl.Length, gotFinal.Length);
+      output.WriteLine("File matches:{0} with {1} bytes", gotControl?.FullName, gotControl?.Length);
+    }
 
-      Assert.Equal(gotInput.Length, gotCompare.Length);
+    [Fact]
+    public void CanRoundTripMissingExt_Test01_True()
+    {
+      /* Arrange */
+      var gotInput = m_Fixture.sutFile04;
+      var gotOutput = m_Fixture.sutOutputFile04;
+      var gotFinal = m_Fixture.sutFinalFile04;
+      var gotControl = m_Fixture.sutControlFile04;
+
+      /* Act */
+      gotOutput = gotInput.GZipCompress(gotOutput, 60000, ExistingFileHandling.Overwrite);
+      output.WriteLine("Compressed File created:{0} with {1} bytes", gotOutput?.FullName, gotOutput?.Length);
+      gotFinal = gotOutput.GZipDecompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
+
+      /* Assert */
+      Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
+
+      output.WriteLine("File created:{0} with {1} bytes", gotFinal?.FullName, gotFinal?.Length);
+      Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
+      Assert.Equal(gotControl.Length, gotFinal.Length);
+      output.WriteLine("File matches:{0} with {1} bytes", gotControl?.FullName, gotControl?.Length);
+    }
+
+
+    [Fact]
+    public void CanRoundTripNoDir_Test01_True()
+    {
+      /* Arrange */
+      var gotInput = m_Fixture.sutFile04;
+      var gotOutput = new FileInfo(m_Fixture.sutOutputFile04.Name); // just want to provide just a file name with no dir here
+      var gotFinal = m_Fixture.sutFinalFile04;
+      var gotControl = m_Fixture.sutControlFile04;
+
+      /* Act */
+      gotOutput = gotInput.GZipCompress(gotOutput, 60000, ExistingFileHandling.Overwrite);
+      output.WriteLine("Compressed File created:{0} with {1} bytes", gotOutput?.FullName, gotOutput?.Length);
+      gotFinal = gotOutput.GZipDecompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
+
+      /* Assert */
+      Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
+
+      output.WriteLine("File created:{0} with {1} bytes", gotFinal?.FullName, gotFinal?.Length);
+      Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
+      Assert.Equal(gotControl.Length, gotFinal.Length);
+      output.WriteLine("File matches:{0} with {1} bytes", gotControl?.FullName, gotControl?.Length);
     }
 
 
