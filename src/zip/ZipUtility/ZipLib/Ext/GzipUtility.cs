@@ -16,19 +16,12 @@ namespace ZipLib.Ext
       ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting,
       int bufferSize = 4096)
     {
-      if (inputFile == null)
-      {
-        throw new ArgumentNullException(nameof(inputFile));
-      }
-      inputFile.Refresh();
-      outputFile.Refresh();
-
-      var m_OutputFileInfo = string.IsNullOrWhiteSpace(outputFile.DirectoryName)
-        ? new FileInfo(Path.Combine(inputFile.DirectoryName, outputFile.Name))
-        : outputFile;
+      VerifyFileParams(inputFile, outputFile);
+      FileInfo m_OutputFileInfo = EnsureOutputDirectory(inputFile, outputFile);
 
       if (inputFile.FullName.Equals(m_OutputFileInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
         throw new IOException($"{nameof(inputFile)} ({inputFile.FullName}) and {nameof(outputFile)} ({m_OutputFileInfo.FullName}) cannot be the same!");
+
       if (m_OutputFileInfo.Exists)
       {
         switch (onExisting)
@@ -50,6 +43,7 @@ namespace ZipLib.Ext
       if (compressionMode == GZipType.Compress) return ExecuteCompress(inputFile, m_OutputFileInfo, bufferSize, lockWaitMs);
       return ExecuteDecompress(inputFile, outputFile, bufferSize, lockWaitMs);
     }
+
 
     public static FileInfo GZipCompress(this FileInfo inputFile,
       FileInfo outputFile,
@@ -152,15 +146,43 @@ namespace ZipLib.Ext
       return m_OutputFileInfo;
     }
 
+
+    private static void VerifyFileParams(FileInfo inputFile, FileInfo outputFile)
+    {
+      if (inputFile == null)
+      {
+        throw new ArgumentNullException(nameof(inputFile));
+      }
+      if (outputFile == null)
+      {
+        throw new ArgumentNullException(nameof(outputFile));
+      }
+      inputFile.Refresh();
+      if (!inputFile.Exists) throw new IOException(IoConstants.IO_MISSING_FILE_MSG + inputFile.FullName);
+      outputFile.Refresh();
+    }
+
+    private static FileInfo EnsureOutputDirectory(FileInfo inputFile, FileInfo outputFile)
+    {
+      /* TODO: determine best approach to allow other whitelisted directories.
+       * We don't want to expose any potentially malicous file system access
+       * or allow any dangerous bugs to cause system issues.
+       */
+      return !outputFile.DirectoryName.ToUpperInvariant().Contains(inputFile.DirectoryName.ToUpperInvariant())
+        ? new FileInfo(Path.Combine(inputFile.DirectoryName, outputFile.Name))
+        : outputFile;
+    }
+
     private static string GetArchiveFullName(FileInfo fileInfo)
     {
       var m_lastWrite = fileInfo.Exists ? fileInfo.LastWriteTimeUtc.ToString("yyyyMMddHHmmssfff") : DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");
-      if (string.IsNullOrWhiteSpace(fileInfo.FullName)) throw new ArgumentException("Cannot rename a file with no full name.", nameof(fileInfo));
       if (string.IsNullOrWhiteSpace(fileInfo.Extension)) return fileInfo.FullName + $".{m_lastWrite}{fileInfo.Extension}";
 
       var m_NewName = GetArchiveName(fileInfo, m_lastWrite);
-      if (File.Exists(Path.Combine(fileInfo.DirectoryName, m_NewName))) m_NewName = GetArchiveName(fileInfo, DateTime.UtcNow.ToString("yyyyMMddHHmmssfff") + Guid.NewGuid().ToString().Substring(0, 5));
-
+      if (File.Exists(Path.Combine(fileInfo.DirectoryName, m_NewName)))
+      {
+        m_NewName = GetArchiveName(fileInfo, DateTime.UtcNow.ToString("yyyyMMddHHmmssfff") + Guid.NewGuid().ToString().Substring(0, 5));
+      }
       return Path.Combine(fileInfo.DirectoryName, m_NewName);
     }
 
