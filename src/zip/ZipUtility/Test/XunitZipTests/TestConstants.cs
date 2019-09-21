@@ -45,5 +45,9 @@ namespace XunitZipTests
     public const string FINAL_FILE_04_PATH = @"elm\test-file-04-final.txt";
 
     public const string CONTROL_OUTPUT_FILE_04_PATH = @"elm\control-file-04.txt";
+
+    /* Shapes DTO */
+
+    public const string SHAPES_FILE_01_PATH = @"elm\shapes-01.json";
   }
 }
