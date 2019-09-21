@@ -82,5 +82,70 @@ namespace XunitZipTests
       }
     }
 
+    [Fact]
+    public void CanCountColors_True()
+    {
+      var m_CommantText = TestConstants.SELECT_COLOR_COUNT;
+      using (var db = new SqlConnection(m_Fixture.sutConnectionString))
+      {
+        SqlCommand command = new SqlCommand(m_CommantText, db);
+        db.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+          output.WriteLine(String.Format("{0} {1}", reader[0], reader[1]));
+        }
+      }
+    }
+
+    [Theory]
+    [InlineData(100)]
+    [InlineData(1000)]
+    [InlineData(10000)]
+    [InlineData(100000)]
+    //[InlineData(1000000)]
+    public void CanCountColorsSeveralTimes_True(int count)
+    {
+      var m_Blue = 0;
+      var m_Grey = 0;
+      var m_Orange = 0;
+      var m_Red = 0;
+
+      using (var db = new SqlConnection(m_Fixture.sutConnectionString))
+      {
+        SqlCommand command = new SqlCommand(TestConstants.SELECT_COLOR_COUNT, db);
+        db.Open();
+
+        for (int i = 0; i < count; i++)
+        {
+          using (SqlDataReader reader = command.ExecuteReader())
+          {
+            while (reader.Read())
+            {
+              switch (reader[0])
+              {
+                case "blue":
+                  m_Blue += reader.GetInt32(1);
+                  break;
+                case "grey":
+                  m_Grey += reader.GetInt32(1);
+                  break;
+                case "orange":
+                  m_Orange += reader.GetInt32(1);
+                  break;
+                case "red":
+                  m_Red += reader.GetInt32(1);
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        }
+      }
+      output.WriteLine($"Blue Shapes: {m_Blue.ToString("N0")} Grey Shapes: {m_Grey.ToString("N0")} Orange Shapes: {m_Orange.ToString("N0")} Red Shapes: {m_Red.ToString("N0")}");
+      Assert.True((m_Blue + m_Grey + m_Orange + m_Red) > 0);
+    }
+
   }
 }

@@ -64,5 +64,12 @@ namespace XunitZipTests
     public const string SELECT_ALL_STRATEGY01_COLORS = "SELECT * FROM [dbo].[Strategy01Colors]";
 
     public const string SELECT_ALL_STRATEGY01_SHAPES = "SELECT * FROM [dbo].[Strategy01Shapes]";
+
+    public const string SELECT_COLOR_COUNT = @"SELECT b.[Color]
+	  ,COUNT(*) as [RecordCount]
+FROM [dbo].[Strategy01] as a
+JOIN [dbo].[Strategy01Colors] as b
+ON a.[ColorId] = b.[Id]
+GROUP BY b.[Color]";
   }
 }
