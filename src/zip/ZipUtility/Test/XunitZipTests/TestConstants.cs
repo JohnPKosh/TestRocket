@@ -49,5 +49,20 @@ namespace XunitZipTests
     /* Shapes DTO */
 
     public const string SHAPES_FILE_01_PATH = @"elm\shapes-01.json";
+
+    /* Sample Shapes Database */
+
+    public const string SHAPES_DATA_DIRECTORY = "App_Data";
+
+    public const string SHAPES_DB_FILE = @"ShapeSampleData.mdf";
+    //@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\ShapeSampleData.mdf;Integrated Security=True";
+
+    public const string SELECT_ALL_NOSTRATEGY = "SELECT * FROM [dbo].[NoStrategy]";
+
+    public const string SELECT_ALL_STRATEGY01 = "SELECT * FROM [dbo].[Strategy01]";
+
+    public const string SELECT_ALL_STRATEGY01_COLORS = "SELECT * FROM [dbo].[Strategy01Colors]";
+
+    public const string SELECT_ALL_STRATEGY01_SHAPES = "SELECT * FROM [dbo].[Strategy01Shapes]";
   }
 }
