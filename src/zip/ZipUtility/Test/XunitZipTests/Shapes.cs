@@ -25,39 +25,6 @@ namespace XunitZipTests
       m_Shapes.AddRange(m_NewShapes.Hexagons);
       m_Shapes.AddRange(m_NewShapes.Stars);
       m_Shapes.AddRange(m_NewShapes.Circles);
-
-      //m_Shapes.AddRange(LoadHexagons(5, ColorType.Orange));
-      //m_Shapes.AddRange(LoadHexagons(5, ColorType.Blue));
-      //m_Shapes.AddRange(LoadHexagons(5, ColorType.Red));
-      //m_Shapes.AddRange(LoadHexagons(5, ColorType.Grey));
-      //m_Shapes.AddRange(LoadStars(5, ColorType.Grey));
-      //m_Shapes.AddRange(LoadStars(5, ColorType.Blue));
-      //m_Shapes.AddRange(LoadCircles(10, ColorType.Grey));
-      //m_Shapes.AddRange(LoadCircles(10, ColorType.Red));
-    }
-
-    private static IEnumerable<Hexagon> LoadHexagons(int qty, ColorType color)
-    {
-      for (int i = 0; i < qty; i++)
-      {
-        yield return new Hexagon() { Color = color };
-      }
-    }
-
-    private static IEnumerable<Star> LoadStars(int qty, ColorType color)
-    {
-      for (int i = 0; i < qty; i++)
-      {
-        yield return new Star() { Color = color };
-      }
-    }
-
-    private static IEnumerable<Circle> LoadCircles(int qty, ColorType color)
-    {
-      for (int i = 0; i < qty; i++)
-      {
-        yield return new Circle() { Color = color };
-      }
     }
   }
 
