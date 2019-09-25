@@ -29,4 +29,10 @@
     <!-- CopyToPublishDirectory = { Always, PreserveNewest, Never } -->
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="basic-rocket-orders.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
