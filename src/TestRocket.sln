@@ -1,19 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketFactory", "Factory\RocketFactory.csproj", "{C7D6B727-639A-4166-98E6-338D0ADD71EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketFactory", "Factory\RocketFactory.csproj", "{C7D6B727-639A-4166-98E6-338D0ADD71EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B0E342E9-703C-41B4-A781-9BC356EC1108}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FactoryXUnit", "FactoryXUnit", "{0BB9BB07-C330-4E58-9F40-E20BF2D6AE30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryXUnit", "Test\FactoryXUnit\FactoryXUnit.csproj", "{B062F8C1-5B8B-40A8-871B-92F8B9E71189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryXUnit", "Test\FactoryXUnit\FactoryXUnit.csproj", "{B062F8C1-5B8B-40A8-871B-92F8B9E71189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketFactoryTests", "Test\Factory\RocketFactoryTests.csproj", "{81C4E168-8260-4F74-88CD-A1DA4B303A44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketFactoryTests", "Test\Factory\RocketFactoryTests.csproj", "{81C4E168-8260-4F74-88CD-A1DA4B303A44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itc", "itc\itc.csproj", "{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "itc", "itc\itc.csproj", "{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketWorker", "RocketWorker\RocketWorker.csproj", "{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketConsole", "RocketConsole\RocketConsole.csproj", "{28655363-68FA-42CD-998C-05BA32BC2C07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,9 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C7D6B727-639A-4166-98E6-338D0ADD71EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,10 +77,40 @@ Global
 		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|x64.Build.0 = Release|Any CPU
 		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|x86.ActiveCfg = Release|Any CPU
 		{CA27432B-7380-4AD1-8FEF-EAA2FECE6E92}.Release|x86.Build.0 = Release|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Debug|x64.Build.0 = Debug|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Debug|x86.Build.0 = Debug|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Release|x64.ActiveCfg = Release|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Release|x64.Build.0 = Release|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Release|x86.ActiveCfg = Release|Any CPU
+		{5F8B040E-3CA6-40ED-AEA6-7004AD1CDEF2}.Release|x86.Build.0 = Release|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Debug|x64.Build.0 = Debug|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Debug|x86.Build.0 = Debug|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Release|x64.ActiveCfg = Release|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Release|x64.Build.0 = Release|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Release|x86.ActiveCfg = Release|Any CPU
+		{28655363-68FA-42CD-998C-05BA32BC2C07}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0BB9BB07-C330-4E58-9F40-E20BF2D6AE30} = {B0E342E9-703C-41B4-A781-9BC356EC1108}
 		{B062F8C1-5B8B-40A8-871B-92F8B9E71189} = {0BB9BB07-C330-4E58-9F40-E20BF2D6AE30}
 		{81C4E168-8260-4F74-88CD-A1DA4B303A44} = {B0E342E9-703C-41B4-A781-9BC356EC1108}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D62221C-BDDB-4F21-8046-86EDD463D5E6}
 	EndGlobalSection
 EndGlobal
