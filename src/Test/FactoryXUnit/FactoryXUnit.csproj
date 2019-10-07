@@ -7,6 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="elm\input\AK.txt" />
+    <None Remove="elm\output\simple-tests-01.json" />
+    <None Remove="elm\output\US.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="elm\input\AK.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="elm\output\simple-tests-01.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="elm\input\US.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Factory\RocketFactory.csproj" />
     <ProjectReference Include="..\..\RocketWriter\RocketWriter.csproj" />
   </ItemGroup>
@@ -22,6 +40,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Fixtures\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
 
 </Project>

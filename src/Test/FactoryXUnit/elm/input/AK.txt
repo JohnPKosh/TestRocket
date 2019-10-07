@@ -1,0 +1,273 @@
+US	99553	Akutan	Alaska	AK	Aleutians East	013			54.143	-165.7854	1
+US	99571	Cold Bay	Alaska	AK	Aleutians East	013			55.1858	-162.7211	1
+US	99583	False Pass	Alaska	AK	Aleutians East	013			54.8542	-163.4113	1
+US	99612	King Cove	Alaska	AK	Aleutians East	013			55.0628	-162.3056	1
+US	99661	Sand Point	Alaska	AK	Aleutians East	013			55.3192	-160.4914	1
+US	99546	Adak	Alaska	AK	Aleutians West (CA)	016			51.874	-176.634	1
+US	99547	Atka	Alaska	AK	Aleutians West (CA)	016			52.1961	-174.2006	1
+US	99591	Saint George Island	Alaska	AK	Aleutians West (CA)	016			56.5944	-169.6186	1
+US	99638	Nikolski	Alaska	AK	Aleutians West (CA)	016			52.9381	-168.8678	1
+US	99660	Saint Paul Island	Alaska	AK	Aleutians West (CA)	016			57.1842	-170.2764	1
+US	99685	Unalaska	Alaska	AK	Aleutians West (CA)	016			53.8871	-166.5199	1
+US	99692	Dutch Harbor	Alaska	AK	Aleutians West (CA)	016			53.8898	-166.5422	1
+US	99501	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2116	-149.8761	1
+US	99502	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1661	-149.96	1
+US	99503	Anchorage	Alaska	AK	Anchorage Municipality	020			61.19	-149.8938	1
+US	99504	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2037	-149.7447	1
+US	99505	Jber	Alaska	AK	Anchorage Municipality	020			59.8666	-158.5996	1
+US	99506	Jber	Alaska	AK	Anchorage Municipality	020			59.8666	-158.5996	1
+US	99507	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1535	-149.8289	1
+US	99508	Anchorage	Alaska	AK	Anchorage Municipality	020			61.206	-149.8101	1
+US	99509	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2181	-149.9003	1
+US	99510	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1446	-149.8784	1
+US	99511	Anchorage	Alaska	AK	Anchorage Municipality	020			61.0683	-149.8005	1
+US	99513	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2149	-149.8862	1
+US	99514	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2181	-149.9003	1
+US	99515	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1194	-149.8974	1
+US	99516	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1054	-149.78	1
+US	99517	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1901	-149.9361	1
+US	99518	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1549	-149.8866	1
+US	99519	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1089	-149.4403	1
+US	99520	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2181	-149.9003	1
+US	99521	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2181	-149.9003	1
+US	99522	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2181	-149.9003	1
+US	99523	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2181	-149.9003	1
+US	99524	Anchorage	Alaska	AK	Anchorage Municipality	020			61.2181	-149.9003	1
+US	99529	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1515	-149.9443	1
+US	99530	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1515	-149.9443	1
+US	99540	Indian	Alaska	AK	Anchorage Municipality	020			61.1089	-149.4403	1
+US	99567	Chugiak	Alaska	AK	Anchorage Municipality	020			61.4098	-149.4537	1
+US	99577	Eagle River	Alaska	AK	Anchorage Municipality	020			61.3114	-149.5085	1
+US	99587	Girdwood	Alaska	AK	Anchorage Municipality	020			60.9577	-149.1406	1
+US	99599	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1872	-149.8804	1
+US	99695	Anchorage	Alaska	AK	Anchorage Municipality	020			61.1089	-149.4403	1
+US	99545	Kongiganak	Alaska	AK	Bethel Census Area	050			59.9599	-162.8919	1
+US	99551	Akiachak	Alaska	AK	Bethel Census Area	050			60.9094	-161.4314	4
+US	99552	Akiak	Alaska	AK	Bethel Census Area	050			60.9122	-161.2139	4
+US	99557	Aniak	Alaska	AK	Bethel Census Area	050			61.5783	-159.5222	4
+US	99559	Bethel	Alaska	AK	Bethel Census Area	050			60.7922	-161.7558	4
+US	99561	Chefornak	Alaska	AK	Bethel Census Area	050			60.1537	-164.2103	1
+US	99575	Crooked Creek	Alaska	AK	Bethel Census Area	050			61.8181	-158.0025	1
+US	99578	Eek	Alaska	AK	Bethel Census Area	050			60.2151	-162.0323	1
+US	99589	Goodnews Bay	Alaska	AK	Bethel Census Area	050			59.1189	-161.5875	1
+US	99607	Kalskag	Alaska	AK	Bethel Census Area	050			61.541	-160.3261	1
+US	99609	Kasigluk	Alaska	AK	Bethel Census Area	050			60.8956	-162.5181	1
+US	99614	Kipnuk	Alaska	AK	Bethel Census Area	050			59.9232	-164.101	1
+US	99621	Kwethluk	Alaska	AK	Bethel Census Area	050			60.8122	-161.4358	4
+US	99622	Kwigillingok	Alaska	AK	Bethel Census Area	050			59.8644	-163.1342	1
+US	99626	Lower Kalskag	Alaska	AK	Bethel Census Area	050			61.5138	-160.36	1
+US	99630	Mekoryuk	Alaska	AK	Bethel Census Area	050			60.3657	-166.2836	1
+US	99634	Napakiak	Alaska	AK	Bethel Census Area	050			60.6967	-161.9519	1
+US	99637	Toksook Bay	Alaska	AK	Bethel Census Area	050			60.5338	-165.1037	1
+US	99641	Nunapitchuk	Alaska	AK	Bethel Census Area	050			60.8969	-162.4594	1
+US	99651	Platinum	Alaska	AK	Bethel Census Area	050			59.0131	-161.8164	1
+US	99655	Quinhagak	Alaska	AK	Bethel Census Area	050			59.7381	-161.8749	1
+US	99656	Red Devil	Alaska	AK	Bethel Census Area	050			61.7611	-157.3125	1
+US	99668	Sleetmute	Alaska	AK	Bethel Census Area	050			61.7025	-157.1697	1
+US	99679	Tuluksak	Alaska	AK	Bethel Census Area	050			61.1088	-160.9389	4
+US	99680	Tuntutuliak	Alaska	AK	Bethel Census Area	050			60.3431	-162.6631	4
+US	99681	Tununak	Alaska	AK	Bethel Census Area	050			60.5856	-165.2558	1
+US	99690	Nightmute	Alaska	AK	Bethel Census Area	050			60.4794	-164.7239	1
+US	99613	King Salmon	Alaska	AK	Bristol Bay	060			58.6883	-156.6614	1
+US	99633	Naknek	Alaska	AK	Bristol Bay	060			58.783	-156.8992	1
+US	99670	South Naknek	Alaska	AK	Bristol Bay	060			58.6639	-156.9756	1
+US	99704	Clear	Alaska	AK	Denali	068			64.2966	-149.1608	4
+US	99729	Cantwell	Alaska	AK	Denali	068			63.3955	-148.8973	1
+US	99743	Healy	Alaska	AK	Denali	068			63.9171	-149.0111	4
+US	99744	Anderson	Alaska	AK	Denali	068			64.3442	-149.1869	4
+US	99755	Denali National Park	Alaska	AK	Denali	068			63.5436	-149.9867	4
+US	99555	Aleknagik	Alaska	AK	Dillingham (CA)	070			59.2697	-158.6199	1
+US	99569	Clarks Point	Alaska	AK	Dillingham (CA)	070			58.8173	-158.5299	1
+US	99576	Dillingham	Alaska	AK	Dillingham (CA)	070			59.0402	-158.5231	1
+US	99580	Ekwok	Alaska	AK	Dillingham (CA)	070			59.3628	-157.4782	4
+US	99628	Manokotak	Alaska	AK	Dillingham (CA)	070			59.0096	-158.9897	1
+US	99636	New Stuyahok	Alaska	AK	Dillingham (CA)	070			59.4882	-157.2905	1
+US	99678	Togiak	Alaska	AK	Dillingham (CA)	070			59.0619	-160.3764	1
+US	99701	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8378	-147.7164	4
+US	99702	Eielson Afb	Alaska	AK	Fairbanks North Star	090			64.6735	-147.0805	1
+US	99703	Fort Wainwright	Alaska	AK	Fairbanks North Star	090			64.8283	-147.6557	1
+US	99705	North Pole	Alaska	AK	Fairbanks North Star	090			64.7805	-147.3694	4
+US	99706	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8521	-147.9377	4
+US	99707	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8378	-147.7164	4
+US	99708	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.9475	-147.8564	4
+US	99709	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8544	-147.8469	4
+US	99710	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8378	-147.7164	4
+US	99711	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8378	-147.7164	4
+US	99712	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.9109	-147.5105	4
+US	99714	Salcha	Alaska	AK	Fairbanks North Star	090			64.5091	-146.953	1
+US	99716	Two Rivers	Alaska	AK	Fairbanks North Star	090			64.8746	-146.8982	4
+US	99725	Ester	Alaska	AK	Fairbanks North Star	090			64.871	-148.0949	4
+US	99775	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8591	-147.8267	4
+US	99790	Fairbanks	Alaska	AK	Fairbanks North Star	090			64.8378	-147.7164	1
+US	99827	Haines	Alaska	AK	Haines	100			59.2519	-135.542	4
+US	99801	Juneau	Alaska	AK	Juneau City and Borough	110			58.3628	-134.5294	4
+US	99802	Juneau	Alaska	AK	Juneau City and Borough	110			58.3019	-134.4197	4
+US	99803	Juneau	Alaska	AK	Juneau City and Borough	110			58.3019	-134.4197	4
+US	99811	Juneau	Alaska	AK	Juneau City and Borough	110			58.3019	-134.4197	4
+US	99812	Juneau	Alaska	AK	Juneau City and Borough	110			58.3271	-134.4742	4
+US	99821	Auke Bay	Alaska	AK	Juneau City and Borough	110			58.4494	-134.7003	4
+US	99824	Douglas	Alaska	AK	Juneau City and Borough	110			58.2756	-134.395	4
+US	99850	Juneau	Alaska	AK	Juneau City and Borough	110			58.3019	-134.4197	4
+US	99556	Anchor Point	Alaska	AK	Kenai Peninsula	122			59.8371	-151.7078	1
+US	99568	Clam Gulch	Alaska	AK	Kenai Peninsula	122			60.2311	-151.3936	4
+US	99572	Cooper Landing	Alaska	AK	Kenai Peninsula	122			60.4767	-149.8235	1
+US	99603	Homer	Alaska	AK	Kenai Peninsula	122			59.5374	-151.2356	1
+US	99605	Hope	Alaska	AK	Kenai Peninsula	122			60.8726	-149.4683	1
+US	99610	Kasilof	Alaska	AK	Kenai Peninsula	122			60.3164	-151.2896	4
+US	99611	Kenai	Alaska	AK	Kenai Peninsula	122			60.6145	-151.2546	4
+US	99631	Moose Pass	Alaska	AK	Kenai Peninsula	122			60.6148	-149.4056	1
+US	99635	Nikiski	Alaska	AK	Kenai Peninsula	122			60.7007	-151.2766	1
+US	99639	Ninilchik	Alaska	AK	Kenai Peninsula	122			60.0108	-151.6396	1
+US	99663	Seldovia	Alaska	AK	Kenai Peninsula	122			59.4495	-151.7009	4
+US	99664	Seward	Alaska	AK	Kenai Peninsula	122			60.1329	-149.3985	1
+US	99669	Soldotna	Alaska	AK	Kenai Peninsula	122			60.4818	-151.1358	1
+US	99672	Sterling	Alaska	AK	Kenai Peninsula	122			60.5136	-150.8532	4
+US	99682	Tyonek	Alaska	AK	Kenai Peninsula	122			61.0681	-151.1369	4
+US	99901	Ketchikan	Alaska	AK	Ketchikan Gateway	130			55.372	-131.6832	4
+US	99928	Ward Cove	Alaska	AK	Ketchikan Gateway	130			55.3954	-131.6754	4
+US	99950	Ketchikan	Alaska	AK	Ketchikan Gateway	130			55.3422	-131.6478	4
+US	99550	Port Lions	Alaska	AK	Kodiak Island	150			57.8675	-152.8822	1
+US	99608	Karluk	Alaska	AK	Kodiak Island	150			57.5689	-154.4551	1
+US	99615	Kodiak	Alaska	AK	Kodiak Island	150			57.6036	-153.3751	1
+US	99619	Kodiak	Alaska	AK	Kodiak Island	150			57.79	-152.4072	1
+US	99624	Larsen Bay	Alaska	AK	Kodiak Island	150			57.54	-153.9786	1
+US	99643	Old Harbor	Alaska	AK	Kodiak Island	150			57.2028	-153.3039	1
+US	99644	Ouzinkie	Alaska	AK	Kodiak Island	150			57.9236	-152.5022	4
+US	99697	Kodiak	Alaska	AK	Kodiak Island	150			57.79	-152.4072	1
+US	99554	Alakanuk	Alaska	AK	Kusilvak	158			62.6944	-164.6475	1
+US	99563	Chevak	Alaska	AK	Kusilvak	158			61.529	-165.5905	1
+US	99581	Emmonak	Alaska	AK	Kusilvak	158			62.7818	-164.5335	1
+US	99585	Marshall	Alaska	AK	Kusilvak	158			61.9287	-162.268	1
+US	99604	Hooper Bay	Alaska	AK	Kusilvak	158			61.527	-166.1151	1
+US	99620	Kotlik	Alaska	AK	Kusilvak	158			63.0295	-163.5542	1
+US	99632	Mountain Village	Alaska	AK	Kusilvak	158			62.1123	-163.6644	1
+US	99650	Pilot Station	Alaska	AK	Kusilvak	158			61.9462	-162.8747	1
+US	99657	Russian Mission	Alaska	AK	Kusilvak	158			61.7744	-161.3939	4
+US	99658	Saint Marys	Alaska	AK	Kusilvak	158			62.1172	-163.2376	1
+US	99662	Scammon Bay	Alaska	AK	Kusilvak	158			61.845	-165.5819	1
+US	99666	Nunam Iqua	Alaska	AK	Kusilvak	158			62.5309	-164.8496	1
+US	99548	Chignik Lake	Alaska	AK	Lake and Peninsula	164			56.2448	-158.7578	1
+US	99549	Port Heiden	Alaska	AK	Lake and Peninsula	164			56.9643	-158.5664	4
+US	99564	Chignik	Alaska	AK	Lake and Peninsula	164			56.3016	-158.4157	1
+US	99565	Chignik Lagoon	Alaska	AK	Lake and Peninsula	164			58.2687	-156.6484	1
+US	99579	Egegik	Alaska	AK	Lake and Peninsula	164			58.2062	-157.3422	4
+US	99606	Iliamna	Alaska	AK	Lake and Peninsula	164			59.7525	-154.8236	1
+US	99625	Levelock	Alaska	AK	Lake and Peninsula	164			59.2905	-156.6503	1
+US	99640	Nondalton	Alaska	AK	Lake and Peninsula	164			59.9736	-154.8458	1
+US	99647	Pedro Bay	Alaska	AK	Lake and Peninsula	164			59.8681	-154.0757	1
+US	99648	Perryville	Alaska	AK	Lake and Peninsula	164			55.9453	-159.2593	1
+US	99649	Pilot Point	Alaska	AK	Lake and Peninsula	164			57.5642	-157.5792	1
+US	99653	Port Alsworth	Alaska	AK	Lake and Peninsula	164			60.2025	-154.3128	1
+US	99623	Wasilla	Alaska	AK	Matanuska-Susitna Borough	170			61.5463	-149.5901	1
+US	99629	Wasilla	Alaska	AK	Matanuska-Susitna Borough	170			61.5841	-149.4436	1
+US	99645	Palmer	Alaska	AK	Matanuska-Susitna Borough	170			61.6303	-148.9872	1
+US	99652	Big Lake	Alaska	AK	Matanuska-Susitna Borough	170			61.5214	-149.9544	1
+US	99654	Wasilla	Alaska	AK	Matanuska-Susitna Borough	170			61.5923	-149.3959	1
+US	99667	Skwentna	Alaska	AK	Matanuska-Susitna Borough	170			61.9903	-151.3978	1
+US	99674	Sutton	Alaska	AK	Matanuska-Susitna Borough	170			61.7327	-148.7837	1
+US	99676	Talkeetna	Alaska	AK	Matanuska-Susitna Borough	170			62.2605	-150.1101	1
+US	99683	Trapper Creek	Alaska	AK	Matanuska-Susitna Borough	170			62.3167	-150.2314	1
+US	99687	Wasilla	Alaska	AK	Matanuska-Susitna Borough	170			61.5313	-149.4784	1
+US	99688	Willow	Alaska	AK	Matanuska-Susitna Borough	170			61.8966	-150.0038	1
+US	99694	Houston	Alaska	AK	Matanuska-Susitna Borough	170			61.6303	-149.8181	1
+US	99659	Saint Michael	Alaska	AK	Nome (CA)	180			63.4776	-162.1091	1
+US	99671	Stebbins	Alaska	AK	Nome (CA)	180			63.5222	-162.2881	1
+US	99684	Unalakleet	Alaska	AK	Nome (CA)	180			63.8835	-160.7884	1
+US	99739	Elim	Alaska	AK	Nome (CA)	180			64.6217	-162.2604	1
+US	99742	Gambell	Alaska	AK	Nome (CA)	180			63.7766	-171.7017	1
+US	99753	Koyuk	Alaska	AK	Nome (CA)	180			64.9319	-161.1569	4
+US	99762	Nome	Alaska	AK	Nome (CA)	180			64.5011	-165.4064	1
+US	99769	Savoonga	Alaska	AK	Nome (CA)	180			63.6797	-170.4709	1
+US	99771	Shaktoolik	Alaska	AK	Nome (CA)	180			64.3537	-161.1932	1
+US	99772	Shishmaref	Alaska	AK	Nome (CA)	180			66.2306	-166.1373	1
+US	99778	Teller	Alaska	AK	Nome (CA)	180			65.2402	-166.3833	1
+US	99783	Wales	Alaska	AK	Nome (CA)	180			65.6092	-168.0875	1
+US	99784	White Mountain	Alaska	AK	Nome (CA)	180			64.6814	-163.4056	1
+US	99785	Brevig Mission	Alaska	AK	Nome (CA)	180			65.3342	-166.4786	1
+US	99721	Anaktuvuk Pass	Alaska	AK	North Slope	185			68.1433	-151.7358	1
+US	99723	Barrow	Alaska	AK	North Slope	185			71.2346	-156.8174	1
+US	99734	Prudhoe Bay	Alaska	AK	North Slope	185			70.2922	-148.6694	1
+US	99747	Kaktovik	Alaska	AK	North Slope	185			70.1319	-143.6239	1
+US	99759	Point Lay	Alaska	AK	North Slope	185			69.7439	-163.0084	1
+US	99766	Point Hope	Alaska	AK	North Slope	185			68.3486	-166.7347	1
+US	99782	Wainwright	Alaska	AK	North Slope	185			70.6369	-160.0383	1
+US	99789	Nuiqsut	Alaska	AK	North Slope	185			70.1927	-150.9971	1
+US	99791	Atqasuk	Alaska	AK	North Slope	185			70.4947	-157.4411	1
+US	99727	Buckland	Alaska	AK	Northwest Arctic	188			65.9789	-161.1262	1
+US	99736	Deering	Alaska	AK	Northwest Arctic	188			66.0737	-162.714	1
+US	99749	Kiana	Alaska	AK	Northwest Arctic	188			66.975	-160.4228	1
+US	99750	Kivalina	Alaska	AK	Northwest Arctic	188			67.7269	-164.5333	1
+US	99751	Kobuk	Alaska	AK	Northwest Arctic	188			66.9072	-156.8811	1
+US	99752	Kotzebue	Alaska	AK	Northwest Arctic	188			66.8985	-162.5981	1
+US	99761	Noatak	Alaska	AK	Northwest Arctic	188			67.5711	-162.9653	1
+US	99763	Noorvik	Alaska	AK	Northwest Arctic	188			66.8364	-161.0441	1
+US	99770	Selawik	Alaska	AK	Northwest Arctic	188			66.6039	-160.0069	1
+US	99773	Shungnak	Alaska	AK	Northwest Arctic	188			66.8881	-157.1364	1
+US	99786	Ambler	Alaska	AK	Northwest Arctic	188			67.0861	-157.8514	1
+US	99903	Meyers Chuck	Alaska	AK	Prince of Wales-Hyder	198			55.7408	-132.2564	4
+US	99918	Coffman Cove	Alaska	AK	Prince of Wales-Hyder	198			55.9524	-132.7503	4
+US	99919	Thorne Bay	Alaska	AK	Prince of Wales-Hyder	198			55.6609	-132.5138	4
+US	99921	Craig	Alaska	AK	Prince of Wales-Hyder	198			55.4732	-133.1171	4
+US	99922	Hydaburg	Alaska	AK	Prince of Wales-Hyder	198			55.2087	-132.8259	4
+US	99923	Hyder	Alaska	AK	Prince of Wales-Hyder	198			55.9169	-130.0247	1
+US	99925	Klawock	Alaska	AK	Prince of Wales-Hyder	198			55.5526	-133.0555	4
+US	99926	Metlakatla	Alaska	AK	Prince of Wales-Hyder	198			55.1215	-131.579	4
+US	99927	Point Baker	Alaska	AK	Prince of Wales-Hyder	198			56.3528	-133.6211	4
+US	99835	Sitka	Alaska	AK	Sitka City and Borough	220			57.0514	-135.3166	4
+US	99689	Yakutat	Alaska	AK	Skagway-Hoonah-Angoon	232			59.812	-139.5505	1
+US	99820	Angoon	Alaska	AK	Skagway-Hoonah-Angoon	232			57.5005	-134.586	4
+US	99825	Elfin Cove	Alaska	AK	Skagway-Hoonah-Angoon	232			58.1944	-136.3433	4
+US	99826	Gustavus	Alaska	AK	Skagway-Hoonah-Angoon	232			58.4284	-135.7615	4
+US	99829	Hoonah	Alaska	AK	Skagway-Hoonah-Angoon	232			58.0977	-135.4316	4
+US	99832	Pelican	Alaska	AK	Skagway-Hoonah-Angoon	232			57.9608	-136.2275	4
+US	99840	Skagway	Alaska	AK	Skagway-Hoonah-Angoon	232			59.4685	-135.3018	1
+US	99841	Tenakee Springs	Alaska	AK	Skagway-Hoonah-Angoon	232			57.7808	-135.2189	4
+US	99731	Fort Greely	Alaska	AK	Southeast Fairbanks Census Area	240			63.952	-146.451	1
+US	99732	Chicken	Alaska	AK	Southeast Fairbanks Census Area	240			64.0733	-141.9361	1
+US	99737	Delta Junction	Alaska	AK	Southeast Fairbanks Census Area	240			64.0378	-145.7322	1
+US	99738	Eagle	Alaska	AK	Southeast Fairbanks Census Area	240			64.7881	-141.2	1
+US	99764	Northway	Alaska	AK	Southeast Fairbanks Census Area	240			62.9617	-141.9372	1
+US	99776	Tanacross	Alaska	AK	Southeast Fairbanks Census Area	240			63.3853	-143.3464	1
+US	99780	Tok	Alaska	AK	Southeast Fairbanks Census Area	240			63.3367	-142.9856	1
+US	99566	Chitina	Alaska	AK	Valdez-Cordova (CA)	261			61.5156	-144.4396	1
+US	99573	Copper Center	Alaska	AK	Valdez-Cordova (CA)	261			61.977	-145.3297	1
+US	99574	Cordova	Alaska	AK	Valdez-Cordova (CA)	261			60.5362	-145.7534	1
+US	99586	Gakona	Alaska	AK	Valdez-Cordova (CA)	261			62.3014	-145.3027	1
+US	99588	Glennallen	Alaska	AK	Valdez-Cordova (CA)	261			62.1039	-145.6617	1
+US	99677	Tatitlek	Alaska	AK	Valdez-Cordova (CA)	261			60.8906	-146.6703	1
+US	99686	Valdez	Alaska	AK	Valdez-Cordova (CA)	261			61.101	-146.9	1
+US	99693	Whittier	Alaska	AK	Valdez-Cordova (CA)	261			60.7734	-148.6839	1
+US	99830	Kake	Alaska	AK	Wrangell-Petersburg (C	280			56.9736	-133.936	4
+US	99833	Petersburg	Alaska	AK	Wrangell-Petersburg (C	280			56.8271	-133.1607	4
+US	99836	Port Alexander	Alaska	AK	Wrangell-Petersburg (C	280			56.2497	-134.6444	4
+US	99929	Wrangell	Alaska	AK	Wrangell-Petersburg (C	280			56.4335	-132.3529	4
+US	99558	Anvik	Alaska	AK	Yukon-Koyukuk (CA)	290			62.6561	-160.2067	1
+US	99590	Grayling	Alaska	AK	Yukon-Koyukuk (CA)	290			62.9036	-160.0647	1
+US	99602	Holy Cross	Alaska	AK	Yukon-Koyukuk (CA)	290			62.1926	-159.8251	1
+US	99627	Mc Grath	Alaska	AK	Yukon-Koyukuk (CA)	290			62.9457	-155.5712	1
+US	99665	Shageluk	Alaska	AK	Yukon-Koyukuk (CA)	290			62.6822	-159.5619	1
+US	99675	Takotna	Alaska	AK	Yukon-Koyukuk (CA)	290			62.9886	-156.0642	1
+US	99691	Nikolai	Alaska	AK	Yukon-Koyukuk (CA)	290			63.0133	-154.375	1
+US	99720	Allakaket	Alaska	AK	Yukon-Koyukuk (CA)	290			66.5656	-152.6456	1
+US	99722	Arctic Village	Alaska	AK	Yukon-Koyukuk (CA)	290			68.1269	-145.5378	1
+US	99724	Beaver	Alaska	AK	Yukon-Koyukuk (CA)	290			66.3594	-147.3964	4
+US	99726	Bettles Field	Alaska	AK	Yukon-Koyukuk (CA)	290			65.2264	-151.0251	1
+US	99730	Central	Alaska	AK	Yukon-Koyukuk (CA)	290			65.4681	-144.7489	1
+US	99733	Circle	Alaska	AK	Yukon-Koyukuk (CA)	290			65.8245	-144.0826	1
+US	99740	Fort Yukon	Alaska	AK	Yukon-Koyukuk (CA)	290			66.5647	-145.2739	1
+US	99741	Galena	Alaska	AK	Yukon-Koyukuk (CA)	290			64.7333	-156.9275	1
+US	99745	Hughes	Alaska	AK	Yukon-Koyukuk (CA)	290			66.0382	-154.2644	4
+US	99746	Huslia	Alaska	AK	Yukon-Koyukuk (CA)	290			65.6899	-156.292	4
+US	99748	Kaltag	Alaska	AK	Yukon-Koyukuk (CA)	290			64.3305	-158.7243	1
+US	99754	Koyukuk	Alaska	AK	Yukon-Koyukuk (CA)	290			64.8803	-157.7008	4
+US	99756	Manley Hot Springs	Alaska	AK	Yukon-Koyukuk (CA)	290			65.0011	-150.6339	4
+US	99757	Lake Minchumina	Alaska	AK	Yukon-Koyukuk (CA)	290			63.8828	-152.3122	4
+US	99758	Minto	Alaska	AK	Yukon-Koyukuk (CA)	290			65.0584	-149.6912	1
+US	99760	Nenana	Alaska	AK	Yukon-Koyukuk (CA)	290			64.5577	-149.0867	1
+US	99765	Nulato	Alaska	AK	Yukon-Koyukuk (CA)	290			64.7194	-158.1031	1
+US	99767	Rampart	Alaska	AK	Yukon-Koyukuk (CA)	290			65.509	-150.1619	1
+US	99768	Ruby	Alaska	AK	Yukon-Koyukuk (CA)	290			64.7201	-155.5039	1
+US	99774	Stevens Village	Alaska	AK	Yukon-Koyukuk (CA)	290			66.0064	-149.0908	4
+US	99777	Tanana	Alaska	AK	Yukon-Koyukuk (CA)	290			65.1719	-152.0789	1
+US	99781	Venetie	Alaska	AK	Yukon-Koyukuk (CA)	290			67.0104	-146.4137	1
+US	99788	Chalkyitsik	Alaska	AK	Yukon-Koyukuk (CA)	290			66.6544	-143.7222	1

@@ -10,7 +10,7 @@ namespace FactoryXUnit
 {
   public class TabReaderSimpleTests
   {
-    public const string JSON_FILE_PATH = @"C:\vscode\github\TestRocket\src\Test\FactoryXUnit\tab-json-strings.json";
+    public const string JSON_FILE_NAME = @"simple-tests-01.json";
 
     public const string TAB_HEADER_SIMPLE = "country code	postal code	place name	admin name1	admin code1	admin name2	admin code2	admin name3	admin code3	latitude	longitude	accuracy";
 
@@ -23,7 +23,7 @@ namespace FactoryXUnit
       var tr = new TabReader();
 
       /* Act */
-      var got = tr.GetTabStrings();
+      var got = tr.ReadLineTabStrings(TAB_LINE_SIMPLE);
       Console.WriteLine(got.ToArray().ToPrettyString()); // TODO: replace with output.WriteLine logic
 
       /* Assert */
@@ -36,11 +36,11 @@ namespace FactoryXUnit
     {
       /* Arrange */
       var tr = new TabReader();
-      var jsonFile = new FileInfo(JSON_FILE_PATH);
+      var jsonFile = TestConstants.GetSUT_OUTPUT_FileInfo(JSON_FILE_NAME);
 
       /* Act */
-      var got = tr.GetTabJsonStrings();
-      var gotHeader = tr.GetTabJsonStrings(TAB_HEADER_SIMPLE);
+      var got = tr.ReadLineTabJsonStrings(TAB_LINE_SIMPLE);
+      var gotHeader = tr.ReadLineTabJsonStrings(TAB_HEADER_SIMPLE);
 
       using var writefs = jsonFile.OpenWrite();
       using var writer = new Utf8JsonWriter(writefs);
@@ -51,8 +51,6 @@ namespace FactoryXUnit
       {
         writer.WriteString(gotHeader[i], got[i]);
       }
-
-
       writer.WriteEndObject();
       writer.WriteEndArray();
       // await writer.FlushAsync();
