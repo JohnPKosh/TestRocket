@@ -37,7 +37,7 @@ SELECT TOP (1000) [PostalCode]
       ,[Latitude]
       ,[Longitude]
       ,[Accuracy]
-FROM [junk].[dbo].[USGeoName]
+FROM [dbo].[USGeoName]
 FOR JSON PATH
 ";
 
