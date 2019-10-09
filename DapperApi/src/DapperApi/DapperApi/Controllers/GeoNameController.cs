@@ -7,6 +7,7 @@ using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace DapperApi.Controllers
 {
@@ -18,17 +19,17 @@ namespace DapperApi.Controllers
     [HttpGet]
     public async Task Get()
     {
-      var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
-      if (syncIOFeature != null)
-      {
-        syncIOFeature.AllowSynchronousIO = true;
-      }
+      //var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
+      //if (syncIOFeature != null)
+      //{
+      //  syncIOFeature.AllowSynchronousIO = true;
+      //}
 
       using var db = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=junk;Integrated Security=True;");
 
       var QUERY =
 @"
-SELECT TOP (1000) [PostalCode]
+SELECT TOP (5000) [PostalCode]
       ,[PlaceName]
       ,[AdminName1]
       ,[AdminCode1]
@@ -40,13 +41,57 @@ SELECT TOP (1000) [PostalCode]
 FROM [dbo].[USGeoName]
 FOR JSON PATH
 ";
-
-      await Task.Run(() =>
-       {
-         db.QueryInto(Response.Body, QUERY);
-       });
+      await db.QueryAsyncInto(Response.Body, QUERY, buffered: false);
+      //await Task.Run(() =>
+      // {
+      //   db.QueryInto(Response.Body, QUERY);
+      // });
     }
 
+
+    [HttpGet("query")]
+    public async Task<ActionResult> QueryGeoName()
+    {
+      //var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
+      //if (syncIOFeature != null)
+      //{
+      //  syncIOFeature.AllowSynchronousIO = true;
+      //}
+
+      using var db = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=junk;Integrated Security=True;");
+
+      var QUERY =
+@"
+SELECT TOP (5000) [PostalCode]
+      ,[PlaceName]
+      ,[AdminName1]
+      ,[AdminCode1]
+      ,[AdminName2]
+      ,[AdminCode2]
+      ,[Latitude]
+      ,[Longitude]
+      ,[Accuracy]
+FROM [dbo].[USGeoName]
+";
+      //var data = await db.QueryAsync(QUERY);
+      //return new OkObjectResult((await db.QueryAsync(QUERY)).Select(x => new {x.PostalCode, x.PlaceName, x.AdminName1, x.AdminCode1, x.AdminName2, x.AdminCode2, x.Latitude, x.Longitude, x.Accuracy }));
+      return new OkObjectResult((await db.QueryAsync<Geo>(QUERY)));
+      //return new OkObjectResult(data.Select(x=> (JObject)x));
+    }
+
+  }
+
+  public class Geo
+  {
+    public int PostalCode { get; set; }
+    public string PlaceName { get; set; }
+    public string AdminName1 { get; set; }
+    public string AdminCode1 { get; set; }
+    public string AdminName2 { get; set; }
+    public string AdminCode2 { get; set; }
+    public decimal? Latitude { get; set; }
+    public decimal? Longitude { get; set; }
+    public byte Accuracy { get; set; }
   }
 }
 
