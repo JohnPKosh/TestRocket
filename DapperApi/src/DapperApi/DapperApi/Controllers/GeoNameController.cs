@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace DapperApi.Controllers
 {
@@ -29,7 +31,7 @@ namespace DapperApi.Controllers
 
       var QUERY =
 @"
-SELECT TOP (5000) [PostalCode]
+SELECT TOP 100 [PostalCode]
       ,[PlaceName]
       ,[AdminName1]
       ,[AdminCode1]
@@ -62,7 +64,7 @@ FOR JSON PATH
 
       var QUERY =
 @"
-SELECT TOP (5000) [PostalCode]
+SELECT TOP 100 [PostalCode]
       ,[PlaceName]
       ,[AdminName1]
       ,[AdminCode1]
@@ -77,6 +79,34 @@ FROM [dbo].[USGeoName]
       //return new OkObjectResult((await db.QueryAsync(QUERY)).Select(x => new {x.PostalCode, x.PlaceName, x.AdminName1, x.AdminCode1, x.AdminName2, x.AdminCode2, x.Latitude, x.Longitude, x.Accuracy }));
       return new OkObjectResult((await db.QueryAsync<Geo>(QUERY)));
       //return new OkObjectResult(data.Select(x=> (JObject)x));
+    }
+
+    [HttpGet("pipe")]
+    public async Task GetPipeContent()
+    {
+      QueryExecutor qe = new QueryExecutor();
+      var query =
+@"
+SELECT TOP 100 [PostalCode]
+      ,[PlaceName]
+      ,[AdminName1]
+      ,[AdminCode1]
+      ,[AdminName2]
+      ,[AdminCode2]
+      ,[Latitude]
+      ,[Longitude]
+      ,[Accuracy]
+FROM [dbo].[USGeoName]
+";
+
+      var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
+      await Response.Body.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
+
+
+      //byte[] buffer = Encoding.Default.GetBytes("Hello World");
+      //await Response.Body.WriteAsync(buffer, 0, buffer.Length);
+
+      // https://localhost:5001/api/geoname/pipe
     }
 
   }
