@@ -87,16 +87,20 @@ FROM [dbo].[USGeoName]
       QueryExecutor qe = new QueryExecutor();
       var query =
 @"
-SELECT TOP 100 [PostalCode]
-      ,[PlaceName]
-      ,[AdminName1]
-      ,[AdminCode1]
-      ,[AdminName2]
-      ,[AdminCode2]
-      ,[Latitude]
-      ,[Longitude]
-      ,[Accuracy]
-FROM [dbo].[USGeoName]
+SELECT TOP (1000) [AccessFailedCount]
+      ,[UserName]
+      ,[PasswordHash]
+      ,[PasswordExpiration]
+      ,[ConcurrencyStamp]
+      ,[IsBlocked]
+      ,[IsDeleted]
+      ,[LockoutEnabled]
+      ,[LockoutEnd]
+      ,[SecurityStamp]
+      ,[Data]
+      ,[ModifiedBy]
+      ,[ModifiedDate]
+  FROM [dbo].[UserAuthentication]
 ";
 
       var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
