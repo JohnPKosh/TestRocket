@@ -113,6 +113,38 @@ SELECT TOP (1000) [AccessFailedCount]
       // https://localhost:5001/api/geoname/pipe
     }
 
+    [HttpGet("json")]
+    public async Task GetJsonContent()
+    {
+      using var qe = new SqlJsonQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
+      var query =
+@"
+SELECT TOP (1000) [AccessFailedCount]
+      ,[UserName]
+      ,[PasswordHash]
+      ,[PasswordExpiration]
+      ,[ConcurrencyStamp]
+      ,[IsBlocked]
+      ,[IsDeleted]
+      ,[LockoutEnabled]
+      ,[LockoutEnd]
+      ,[SecurityStamp]
+      ,[Data]
+      ,[ModifiedBy]
+      ,[ModifiedDate]
+  FROM [dbo].[UserAuthentication]
+";
+
+      var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
+      await Response.Body.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
+
+
+      //byte[] buffer = Encoding.Default.GetBytes("Hello World");
+      //await Response.Body.WriteAsync(buffer, 0, buffer.Length);
+
+      // https://localhost:5001/api/geoname/pipe
+    }
+
   }
 
   public class Geo

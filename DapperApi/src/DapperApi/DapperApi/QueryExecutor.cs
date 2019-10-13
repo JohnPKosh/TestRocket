@@ -26,21 +26,14 @@ namespace DapperApi
       jw = new Utf8JsonWriter(ms);
       jw.WriteStartArray();
 
-      var columnNames = new List<string>();
-      var columnTypes = new List<string>();
-
-      for (int i = 0; i < sqlreader.FieldCount; i++)
-      {
-        columnNames.Add(sqlreader.GetName(i));
-        columnTypes.Add(sqlreader.GetDataTypeName(i));
-      }
+      ReadOnlyMemory<DbColumnInfo> cols = new ReadOnlyMemory<DbColumnInfo>(GetColumnInfo().ToArray());
 
       while (await sqlreader.ReadAsync())
       {
         jw.WriteStartObject();
         for (int i = 0; i < sqlreader.FieldCount; i++)
         {
-          await WriteValueAsync(i, columnNames[i], columnTypes[i]);
+          await WriteValueAsync(i, cols.Span[i]);
         }
         jw.WriteEndObject();
       }
@@ -56,87 +49,101 @@ namespace DapperApi
       return ms;
     }
 
-    private async Task WriteValueAsync(int i, string columnName, string typeName)
+    private async Task WriteValueAsync(int i, DbColumnInfo info)
     {
-      if(await sqlreader.IsDBNullAsync(i)) jw.WriteNull(columnName);
+      if(await sqlreader.IsDBNullAsync(i)) jw.WriteNull(info.Name);
       else
       {
-        switch (typeName)
+        switch (info.Type)
         {
           case "int":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<int>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<int>(i));
             break;
           case "bigint":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<long>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<long>(i));
             break;
           case "smallint":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<short>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<short>(i));
             break;
           case "tinyint":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<byte>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<byte>(i));
             break;
           case "bit":
-            jw.WriteBoolean(columnName, await sqlreader.GetFieldValueAsync<bool>(i));
+            jw.WriteBoolean(info.Name, await sqlreader.GetFieldValueAsync<bool>(i));
             break;
           case "numeric":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<decimal>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<decimal>(i));
             break;
           case "decimal":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<decimal>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<decimal>(i));
             break;
           case "smallmoney":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<decimal>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<decimal>(i));
             break;
           case "money":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<decimal>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<decimal>(i));
             break;
           case "float":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<double>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<double>(i));
             break;
           case "real":
-            jw.WriteNumber(columnName, await sqlreader.GetFieldValueAsync<float>(i));
+            jw.WriteNumber(info.Name, await sqlreader.GetFieldValueAsync<float>(i));
             break;
           case "date":
-            jw.WriteString(columnName, await sqlreader.GetFieldValueAsync<DateTime>(i));
+            jw.WriteString(info.Name, await sqlreader.GetFieldValueAsync<DateTime>(i));
             break;
           case "datetime":
-            jw.WriteString(columnName, await sqlreader.GetFieldValueAsync<DateTime>(i));
+            jw.WriteString(info.Name, await sqlreader.GetFieldValueAsync<DateTime>(i));
             break;
           case "datetime2":
-            jw.WriteString(columnName, await sqlreader.GetFieldValueAsync<DateTime>(i));
+            jw.WriteString(info.Name, await sqlreader.GetFieldValueAsync<DateTime>(i));
             break;
           case "smalldatetime":
-            jw.WriteString(columnName, await sqlreader.GetFieldValueAsync<DateTime>(i));
+            jw.WriteString(info.Name, await sqlreader.GetFieldValueAsync<DateTime>(i));
             break;
           case "datetimeoffset":
-            jw.WriteString(columnName, await sqlreader.GetFieldValueAsync<DateTimeOffset>(i));
+            jw.WriteString(info.Name, await sqlreader.GetFieldValueAsync<DateTimeOffset>(i));
             break;
           case "time":
-            jw.WriteString(columnName, (await sqlreader.GetFieldValueAsync<TimeSpan>(i)).ToString());
+            jw.WriteString(info.Name, (await sqlreader.GetFieldValueAsync<TimeSpan>(i)).ToString());
             break;
           case "binary":
-            jw.WriteBase64String(columnName, await sqlreader.GetFieldValueAsync<byte[]>(i));
+            jw.WriteBase64String(info.Name, await sqlreader.GetFieldValueAsync<byte[]>(i));
             break;
           case "varbinary":
-            jw.WriteBase64String(columnName, await sqlreader.GetFieldValueAsync<byte[]>(i));
+            jw.WriteBase64String(info.Name, await sqlreader.GetFieldValueAsync<byte[]>(i));
             break;
           case "image":
-            jw.WriteBase64String(columnName, await sqlreader.GetFieldValueAsync<byte[]>(i));
+            jw.WriteBase64String(info.Name, await sqlreader.GetFieldValueAsync<byte[]>(i));
             break;
           case "rowversion":
-            jw.WriteBase64String(columnName, await sqlreader.GetFieldValueAsync<byte[]>(i));
+            jw.WriteBase64String(info.Name, await sqlreader.GetFieldValueAsync<byte[]>(i));
             break;
           case "timestamp":
-            jw.WriteBase64String(columnName, await sqlreader.GetFieldValueAsync<byte[]>(i));
+            jw.WriteBase64String(info.Name, await sqlreader.GetFieldValueAsync<byte[]>(i));
             break;
           case "uniqueidentifier":
-            jw.WriteString(columnName, await sqlreader.GetFieldValueAsync<Guid>(i));
+            jw.WriteString(info.Name, await sqlreader.GetFieldValueAsync<Guid>(i));
             break;
           default:
-            jw.WriteString(columnName, await sqlreader.GetFieldValueAsync<string>(i));
+            jw.WriteString(info.Name, await sqlreader.GetFieldValueAsync<string>(i));
             break;
         }
       }
+    }
+
+    private IEnumerable<DbColumnInfo> GetColumnInfo()
+    {
+      for (int i = 0; i < sqlreader.FieldCount; i++)
+      {
+        yield return new DbColumnInfo() { Name = sqlreader.GetName(i), Type = sqlreader.GetDataTypeName(i) };
+      }
+    }
+
+    private class DbColumnInfo
+    {
+      public string Name { get; set; }
+      public string Type { get; set; }
     }
   }
 }
