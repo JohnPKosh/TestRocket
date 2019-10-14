@@ -27,7 +27,7 @@ namespace DapperApi.Controllers
       //  syncIOFeature.AllowSynchronousIO = true;
       //}
 
-      using var db = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=junk;Integrated Security=True;");
+      using var db = new SqlConnection(ApiConstants.MASTER_REF_CONNECT_STRING);
 
       var QUERY =
 @"
@@ -60,7 +60,7 @@ FOR JSON PATH
       //  syncIOFeature.AllowSynchronousIO = true;
       //}
 
-      using var db = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=junk;Integrated Security=True;");
+      using var db = new SqlConnection(ApiConstants.MASTER_REF_CONNECT_STRING);
 
       var QUERY =
 @"
@@ -138,11 +138,7 @@ SELECT TOP (1000) [AccessFailedCount]
       var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
       await Response.Body.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
 
-
-      //byte[] buffer = Encoding.Default.GetBytes("Hello World");
-      //await Response.Body.WriteAsync(buffer, 0, buffer.Length);
-
-      // https://localhost:5001/api/geoname/pipe
+      // https://localhost:5001/api/geoname/json
     }
 
   }

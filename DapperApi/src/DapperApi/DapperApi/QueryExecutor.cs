@@ -16,7 +16,7 @@ namespace DapperApi
 
     public async Task<Stream> ExecuteJsonQueryAsync(string query)
     {
-      using var DbConnection = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=junk;Integrated Security=True;");
+      using var DbConnection = new SqlConnection(ApiConstants.TEST_CONNECT_STRING);
       DbConnection.Open();
 
       using var sqlcmd = new SqlCommand(query, DbConnection);
