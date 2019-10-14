@@ -74,6 +74,7 @@ SELECT TOP (1000) [AccessFailedCount]
       ,[ModifiedDate]
   FROM [dbo].[UserAuthentication]
 ";
+      var firstPass = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
 
       return await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
     }

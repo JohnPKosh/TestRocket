@@ -48,14 +48,14 @@ namespace DapperApi
       SetColumnsFromReader();
 
       var ms = new MemoryStream();
-      await WriteJson(ms);
+      await WriteJsonAsync(ms);
 
       await m_JsonWriter.DisposeAsync();
       await m_SqlDataReader.DisposeAsync();
       return ms;
     }
 
-    private async Task WriteJson(Stream stream)
+    private async Task WriteJsonAsync(Stream stream)
     {
       m_JsonWriter = new Utf8JsonWriter(stream);
       m_JsonWriter.WriteStartArray();
