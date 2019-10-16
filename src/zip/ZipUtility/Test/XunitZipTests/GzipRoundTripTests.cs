@@ -29,9 +29,9 @@ namespace XunitZipTests
       var gotControl = m_Fixture.sutControlFile03;
 
       /* Act */
-      gotOutput = gotInput.GZipCompress(gotOutput, 60000, ExistingFileHandling.Overwrite);
+      gotOutput = gotInput.Compress(gotOutput, 60000, ExistingFileHandling.Overwrite);
       output.WriteLine("Compressed File created:{0} with {1} bytes", gotOutput?.FullName, gotOutput?.Length);
-      gotFinal = gotOutput.GZipDecompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
+      gotFinal = gotOutput.Decompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
 
       /* Assert */
       Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
@@ -52,9 +52,9 @@ namespace XunitZipTests
       var gotControl = m_Fixture.sutControlFile04;
 
       /* Act */
-      gotOutput = gotInput.GZipCompress(gotOutput, 60000, ExistingFileHandling.Overwrite);
+      gotOutput = gotInput.Compress(gotOutput, 60000, ExistingFileHandling.Overwrite);
       output.WriteLine("Compressed File created:{0} with {1} bytes", gotOutput?.FullName, gotOutput?.Length);
-      gotFinal = gotOutput.GZipDecompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
+      gotFinal = gotOutput.Decompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
 
       /* Assert */
       Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");
@@ -76,9 +76,9 @@ namespace XunitZipTests
       var gotControl = m_Fixture.sutControlFile04;
 
       /* Act */
-      gotOutput = gotInput.GZipCompress(gotOutput, 60000, ExistingFileHandling.Overwrite);
+      gotOutput = gotInput.Compress(gotOutput, 60000, ExistingFileHandling.Overwrite);
       output.WriteLine("Compressed File created:{0} with {1} bytes", gotOutput?.FullName, gotOutput?.Length);
-      gotFinal = gotOutput.GZipDecompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
+      gotFinal = gotOutput.Decompress(gotFinal, onExisting: ExistingFileHandling.Overwrite);
 
       /* Assert */
       Assert.True(gotFinal.Exists, $"{TestConstants.CANNOT_FIND_FILE_MSG} {gotFinal?.FullName}");

@@ -44,8 +44,7 @@ namespace ZipLib.Ext
       return ExecuteDecompress(inputFile, outputFile, bufferSize, lockWaitMs);
     }
 
-
-    public static FileInfo GZipCompress(this FileInfo inputFile,
+    public static FileInfo Compress(this FileInfo inputFile,
       FileInfo outputFile,
       int lockWaitMs = 60000,
       ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting,
@@ -54,13 +53,29 @@ namespace ZipLib.Ext
       return GZip(inputFile, outputFile, GZipType.Compress, lockWaitMs, onExisting, bufferSize);
     }
 
-    public static FileInfo GZipDecompress(this FileInfo inputFile,
+    public static FileInfo Decompress(this FileInfo inputFile,
       FileInfo outputFile,
       int lockWaitMs = 60000,
       ExistingFileHandling onExisting = ExistingFileHandling.PreserveExisting,
       int bufferSize = 4096)
     {
       return GZip(inputFile, outputFile, GZipType.Decompress, lockWaitMs, onExisting, bufferSize);
+    }
+
+    public static void CompressStream(int bufferSize, Stream instream, Stream outstream, bool leaveOpen = false)
+    {
+      using (var stream = new GZipStream(outstream, mode: CompressionMode.Compress, leaveOpen))
+      {
+        instream.CopyTo(stream, bufferSize);
+      }
+    }
+
+    public static void DecompressStream(int bufferSize, Stream instream, Stream outstream, bool leaveOpen = false)
+    {
+      using (var stream = new GZipStream(instream, CompressionMode.Decompress, leaveOpen))
+      {
+        stream.CopyTo(outstream, bufferSize);
+      }
     }
 
     #endregion
@@ -89,16 +104,13 @@ namespace ZipLib.Ext
           FileShare.None,
           bufferSize))
         {
-          using (var gz = new GZipStream(instream, CompressionMode.Decompress))
-          {
-            gz.CopyTo(outstream);
-          }
+          DecompressStream(bufferSize, instream, outstream);
         }
       }
       outputFile.Refresh();
       return outputFile;
     }
-
+    
     private static FileInfo ExecuteCompress(
       FileInfo inputFile,
       FileInfo m_OutputFileInfo,
@@ -109,43 +121,12 @@ namespace ZipLib.Ext
       {
         using (var outputfs = m_OutputFileInfo.OpenFileStream(FileMode.CreateNew, FileAccess.Write, FileShare.None, 60000, true))
         {
-          using (var stream = new GZipStream(outputfs, mode: CompressionMode.Compress, true))
-          {
-            if (inputfs.CanSeek) inputfs.Seek(0, SeekOrigin.Begin); // Important!
-
-            const long maxint = int.MaxValue / 2; // Reduce 2GB limit to around 1GB for Int32.MaxValue********
-            var length = inputfs.Length < maxint ? (int)inputfs.Length : (int)maxint;
-            int buffersize;
-            if (bufferSize > 0)
-            {
-              buffersize = length > bufferSize ? bufferSize : length;
-            }
-            else
-            {
-              buffersize = length > 4096 ? 4096 : length;
-            }
-            var bytes = new byte[buffersize];
-
-            while (true) // Loops Rule!!!!!!!!
-            {
-              var bytecount = inputfs.Read(bytes, 0, bytes.Length);
-              if (bytecount > 0)
-              {
-                stream.Write(bytes, 0, bytecount);
-                stream.Flush();
-              }
-              else
-              {
-                break;
-              }
-            }
-          }
+          CompressStream(bufferSize, inputfs, outputfs);
         }
       }
       m_OutputFileInfo.Refresh();
       return m_OutputFileInfo;
     }
-
 
     private static void VerifyFileParams(FileInfo inputFile, FileInfo outputFile)
     {
