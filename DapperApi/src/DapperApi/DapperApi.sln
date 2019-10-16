@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperApi", "DapperApi\DapperApi.csproj", "{11132E7A-1A8A-467C-A795-B3D5E9DFB413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperTests", "DapperTests\DapperTests.csproj", "{7926F692-5961-424F-8F1A-F9E94C232AEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperTests", "DapperTests\DapperTests.csproj", "{7926F692-5961-424F-8F1A-F9E94C232AEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperGRPC", "DapperGRPC\DapperGRPC.csproj", "{91AC3B03-0A94-427D-91B2-6C5DD08C50E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRPCClient", "GRPCClient\GRPCClient.csproj", "{4885694D-37CE-4331-B316-000534CF5D08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{7926F692-5961-424F-8F1A-F9E94C232AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7926F692-5961-424F-8F1A-F9E94C232AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7926F692-5961-424F-8F1A-F9E94C232AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91AC3B03-0A94-427D-91B2-6C5DD08C50E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91AC3B03-0A94-427D-91B2-6C5DD08C50E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91AC3B03-0A94-427D-91B2-6C5DD08C50E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91AC3B03-0A94-427D-91B2-6C5DD08C50E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4885694D-37CE-4331-B316-000534CF5D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4885694D-37CE-4331-B316-000534CF5D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4885694D-37CE-4331-B316-000534CF5D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4885694D-37CE-4331-B316-000534CF5D08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
