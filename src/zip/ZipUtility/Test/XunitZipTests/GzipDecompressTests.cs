@@ -28,7 +28,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZipDecompress(got);
+      got = gotInput.Decompress(got);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);
@@ -45,7 +45,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZipDecompress(got, onExisting: ExistingFileHandling.Overwrite);
+      got = gotInput.Decompress(got, onExisting: ExistingFileHandling.Overwrite);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);
@@ -62,7 +62,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      var ex = Assert.Throws<IOException>(() => gotInput.GZipDecompress(got, onExisting: ExistingFileHandling.ThrowException));
+      var ex = Assert.Throws<IOException>(() => gotInput.Decompress(got, onExisting: ExistingFileHandling.ThrowException));
 
       /* Assert */
       Assert.NotNull(ex);
@@ -81,7 +81,7 @@ namespace XunitZipTests
 
       /* Act */
       output.WriteLine("File already exists:{0}", got.Exists);
-      got = gotInput.GZipDecompress(got, onExisting: handling);
+      got = gotInput.Decompress(got, onExisting: handling);
 
       /* Assert */
       output.WriteLine("File created:{0}", got?.FullName);

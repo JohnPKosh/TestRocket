@@ -27,7 +27,7 @@ namespace MSNetZipTests
 
       /* Act */
       Trace.WriteLine("File already exists:{0}", got.Exists.ToString());
-      got = gotInput.GZipCompress(got, 60000);
+      got = gotInput.Compress(got, 60000);
 
       /* Assert */
       Trace.WriteLine("File created:{0}", got?.FullName);

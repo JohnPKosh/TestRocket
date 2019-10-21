@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OpenIddict.Validation;
 
 namespace DapperApi.Controllers
 {
-  //[Authorize]
+  [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
   [ApiController]
   [Route("[controller]")]
   public class WeatherForecastController : ControllerBase

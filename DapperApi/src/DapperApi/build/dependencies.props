@@ -1,0 +1,9 @@
+<Project>
+
+  <PropertyGroup>
+    <AspNetCoreVersion>3.0.0</AspNetCoreVersion>
+    <JsonNetVersion>12.0.2</JsonNetVersion>
+    <OpenIddictVersion>2.0.1</OpenIddictVersion>
+  </PropertyGroup>
+
+</Project>
