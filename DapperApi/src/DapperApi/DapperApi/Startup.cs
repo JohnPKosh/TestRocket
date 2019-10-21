@@ -26,6 +26,12 @@ namespace DapperApi
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+
+      // Add NSwag OpenAPI/Swagger DI services and configure documents
+      // For more advanced setup, see NSwag.Sample.NETCore20 project
+
+      services.AddOpenApiDocument(document => document.DocumentName = "a");
+      services.AddSwaggerDocument(document => document.DocumentName = "b");
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +52,16 @@ namespace DapperApi
       {
         endpoints.MapControllers();
       });
+
+      // Add middlewares to service the OpenAPI/Swagger document and the web UI
+
+      // URLs:
+      // - http://localhost:32367/swagger/a/swagger.json
+      // - http://localhost:32367/swagger/b/swagger.json
+      // - http://localhost:32367/swagger
+
+      app.UseOpenApi(); // registers the two documents in separate routes
+      app.UseSwaggerUi3(); // registers a single Swagger UI (v3) with the two documents
     }
   }
 }
