@@ -59,3 +59,9 @@ namespace OpenApiDemo.Logic
     }
   }
 }
+
+/*
+https://swagger.io/docs/specification/basic-structure/
+https://github.com/microsoft/OpenAPI.NET
+
+*/
