@@ -1,0 +1,95 @@
+openapi: 3.0.2
+info:
+  title: API Title
+  description: Single or multi-line description in
+    [CommonMark](http://commonmark.org/help/) or HTML.
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+paths:
+  "/test/{id}/":
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The user ID
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /test?id=1234:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in `CommonMark` or HTML
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The user ID
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfUsers"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ArrayOfUsers"
+            text/plain:
+              schema:
+                type: string
+components:
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+    ArrayOfUsers:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+      
