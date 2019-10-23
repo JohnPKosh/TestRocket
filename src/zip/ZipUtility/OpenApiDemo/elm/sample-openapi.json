@@ -20,6 +20,23 @@
       "get": {
         "parameters": [
           {
+            "in": "header",
+            "name": "X-Request-ID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "erx-data-cts",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Primary"
+          },
+          {
             "in": "path",
             "name": "id",
             "required": true,
@@ -32,7 +49,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "The response was successfully completed",
             "content": {
               "text/plain": {
                 "schema": {
@@ -90,6 +107,48 @@
           }
         }
       }
+    },
+    "/users": {
+      "post": {
+        "summary": "Adds a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "id": 10,
+                  "name": "Jessica Smith"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A user object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "id": 10,
+                  "name": "Jessica Smith"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -132,20 +191,38 @@
         ]
       },
       "ArrayOfUsers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ]
+        }
+      },
+      "User": {
         "type": "object",
         "properties": {
-          "code": {
-            "type": "string"
+          "id": {
+            "type": "integer"
           },
-          "message": {
+          "name": {
             "type": "string"
           }
         },
         "required": [
-          "code",
-          "message"
+          "id",
+          "name"
         ]
       }
     }
   }
-}        
+}

@@ -13,6 +13,17 @@ paths:
   "/test/{id}/":
     get:
       parameters:
+        - in: header
+          name: X-Request-ID
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: header
+          name: erx-data-cts
+          schema:
+            type: string
+          description: Primary
         - in: path
           name: id
           required: true
@@ -22,7 +33,7 @@ paths:
           description: The user ID
       responses:
         "200":
-          description: OK
+          description: The response was successfully completed
           content:
             text/plain:
               schema:
@@ -57,6 +68,33 @@ paths:
             text/plain:
               schema:
                 type: string
+  /users:
+    post:
+      summary: Adds a new user
+      requestBody:
+        content:
+          application/json:
+            schema:      # Request body contents
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              example:   # Sample object
+                id: 10
+                name: Jessica Smith
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'   # Reference to an object
+              example: 
+                # Properties of the referenced object
+                id: 10
+                name: Jessica Smith
 components:
   responses:
     NotFound:
@@ -83,13 +121,25 @@ components:
         - code
         - message
     ArrayOfUsers:
+      type: array
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+          message:
+            type: string
+        required:
+          - code
+          - message
+    User:
       type: object
       properties:
-        code:
-          type: string
-        message:
+        id:
+          type: integer
+        name:
           type: string
       required:
-        - code
-        - message
+        - id
+        - name
       
