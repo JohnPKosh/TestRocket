@@ -149,6 +149,34 @@
           }
         }
       }
+    },
+    "/people": {
+      "post": {
+        "summary": "Gets a filtered list of people by PeopleFilterRequest",
+        "requestBody": {
+          "description": "Gets a filtered list of people using the supplied `firstName` and `lastName` properties in the PeopleFilterRequest object.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PeopleFilterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns an array of people objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayOfPeople"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -222,6 +250,82 @@
           "id",
           "name"
         ]
+      },
+      "PeopleFilterRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "example": "G*"
+          },
+          "lastName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "example": "Jetson"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ]
+      },
+      "ArrayOfPeople": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "dateOfBirth": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "firstName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50,
+              "example": "George"
+            },
+            "lastName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50,
+              "example": "Jetson"
+            },
+            "middleInitial": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1,
+              "nullable": true,
+              "example": "Z"
+            },
+            "middleName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50,
+              "nullable": true,
+              "example": "Zulu"
+            },
+            "nickName": {
+              "type": "string",
+              "nullable": true,
+              "example": null
+            },
+            "numberOfDependants": {
+              "type": "integer",
+              "nullable": true,
+              "minimum": 0,
+              "maximum": 99,
+              "example": 2
+            }
+          },
+          "required": [
+            "dateOfBirth",
+            "firstName",
+            "lastName"
+          ]
+        }
       }
     }
   }

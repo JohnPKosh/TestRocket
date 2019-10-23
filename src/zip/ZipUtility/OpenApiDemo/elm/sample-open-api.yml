@@ -95,6 +95,23 @@ paths:
                 # Properties of the referenced object
                 id: 10
                 name: Jessica Smith
+  /people:
+    post:
+      summary: Gets a filtered list of people by PeopleFilterRequest
+      requestBody:
+        description: Gets a filtered list of people using the supplied `firstName` and `lastName` properties in the PeopleFilterRequest.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PeopleFilterRequest'
+      responses:
+        "200":
+          description: Returns an array of people objects
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfPeople"
 components:
   responses:
     NotFound:
@@ -110,6 +127,7 @@ components:
           schema:
             $ref: "#/components/schemas/Error"
   schemas:
+# Error Components
     Error:
       type: object
       properties:
@@ -120,6 +138,7 @@ components:
       required:
         - code
         - message
+# Additional components see https://swagger.io/docs/specification/data-models/data-types/
     ArrayOfUsers:
       type: array
       items:
@@ -142,4 +161,80 @@ components:
       required:
         - id
         - name
-      
+    PeopleFilterRequest:
+      type: object
+      properties:
+        firstName: 
+          type: string
+          minLength: 1
+          maxLength: 50
+          example: G*
+        lastName: 
+          type: string
+          minLength: 1
+          maxLength: 50
+          example: Jetson
+      required:
+        - firstName
+        - lastName
+    ArrayOfPeople:
+      type: array
+      items:
+        type: object
+        properties:
+          dateOfBirth:
+            type: string
+            format: date-time
+          firstName:
+            type: string
+            minLength: 1
+            maxLength: 50
+            example: George
+          lastName:
+            type: string
+            minLength: 1
+            maxLength: 50
+            example: Jetson
+          middleInitial:
+            type: string
+            minLength: 1
+            maxLength: 1
+            nullable: true
+            example: Z
+          middleName:
+            type: string
+            minLength: 1
+            maxLength: 50
+            nullable: true
+            example: Zulu
+          nickName:
+            type: string
+            nullable: true
+            example:
+          numberOfDependants:
+            type: integer
+            nullable: true
+            minimum: 0
+            maximum: 99
+            example: 2
+        required:
+          - dateOfBirth
+          - firstName
+          - lastName
+
+# Media type samples
+
+#application/json
+#application/xml
+#application/x-www-form-urlencoded
+#multipart/form-data
+#text/plain; charset=utf-8
+#text/html
+#application/pdf
+#image/png
+#application/vnd.mycompany.myapp.v2+json
+#application/vnd.ms-excel
+#application/vnd.openstreetmap.data+xml
+#application/vnd.github-issue.text+json
+#application/vnd.github.v3.diff
+#image/vnd.djvu
