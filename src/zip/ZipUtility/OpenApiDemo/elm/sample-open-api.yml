@@ -211,16 +211,33 @@ components:
             type: string
             nullable: true
             example:
-          numberOfDependants:
+          favoriteColor:            
+            $ref: '#/components/schemas/Color'
+            nullable: true
+            example:
+          numberOfDependents:
             type: integer
             nullable: true
             minimum: 0
             maximum: 99
             example: 2
+          dependentNames:
+            type: array
+            items:
+              type: string
+            example: ["Elroy", "Judy"]
         required:
           - dateOfBirth
           - firstName
           - lastName
+    Color:
+      type: string
+      enum:
+        - black
+        - white
+        - red
+        - green
+        - blue
 
 # Media type samples
 
