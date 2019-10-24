@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Net.Mime;
 
 namespace DapperApi.Controllers
 {
@@ -52,6 +53,9 @@ FOR JSON PATH
 
 
     [HttpGet("query")]
+    [ProducesDefaultResponseType(typeof(Geo))]
+    [ProducesResponseType(typeof(Geo), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> QueryGeoName()
     {
       //var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
@@ -82,6 +86,10 @@ FROM [dbo].[USGeoName]
     }
 
     [HttpGet("pipe")]
+    [ProducesDefaultResponseType(typeof(Geo))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(Geo), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task GetPipeContent()
     {
       QueryExecutor qe = new QueryExecutor();
@@ -114,6 +122,7 @@ SELECT TOP (1000) [AccessFailedCount]
     }
 
     [HttpGet("json")]
+    [ProducesDefaultResponseType(typeof(Geo))]
     public async Task GetJsonContent()
     {
       using var qe = new SqlJsonQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
