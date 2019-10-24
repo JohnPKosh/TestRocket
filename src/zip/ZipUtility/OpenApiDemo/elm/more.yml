@@ -1,0 +1,336 @@
+x-generator: NSwag v13.1.3.0 (NJsonSchema v10.0.27.0 (Newtonsoft.Json v12.0.0.0))
+openapi: 3.0.0
+info:
+  title: Test API
+  description: A simple ASP.NET Core web API
+  termsOfService: None
+  contact:
+    name: Alan Touring
+    url: https://twitter.com/tourman
+    email: ""
+  license:
+    name: Use under LICX
+    url: https://example.com/license
+  version: v1
+servers:
+  - url: https://localhost:5001
+paths:
+  /api/message:
+    get:
+      tags:
+        - Resource
+      operationId: Resource_GetMessage
+      responses:
+        "200":
+          description: ""
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  /connect/token:
+    post:
+      tags:
+        - Authorization
+      operationId: Authorization_Exchange
+      parameters:
+        - name: request
+          in: query
+          schema:
+            nullable: true
+            oneOf:
+              - $ref: "#/components/schemas/OpenIdConnectRequest"
+          x-position: 1
+      responses:
+        "200":
+          description: ""
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  /api/GeoName:
+    get:
+      tags:
+        - GeoName
+      summary: Does some fake stuff
+      operationId: GeoName_Get
+      responses:
+        "200":
+          description: some data
+  /api/GeoName/query:
+    get:
+      tags:
+        - GeoName
+      operationId: GeoName_QueryGeoName
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Geo"
+        "500":
+          description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Geo"
+  /api/GeoName/pipe:
+    get:
+      tags:
+        - GeoName
+      operationId: GeoName_GetPipeContent
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QueryResults"
+        "500":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerError"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QueryResults"
+  /api/GeoName/json:
+    get:
+      tags:
+        - GeoName
+      operationId: GeoName_GetJsonContent
+      responses:
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QueryResults"
+  /WeatherForecast:
+    get:
+      tags:
+        - WeatherForecast
+      operationId: WeatherForecast_Get
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WeatherForecast"
+components:
+  schemas:
+    OpenIdConnectRequest:
+      allOf:
+        - $ref: "#/components/schemas/OpenIdConnectMessage"
+        - type: object
+          additionalProperties: false
+          properties:
+            accessToken:
+              type: string
+              nullable: true
+            acrValues:
+              type: string
+              nullable: true
+            assertion:
+              type: string
+              nullable: true
+            audiences:
+              type: array
+              nullable: true
+              items:
+                type: string
+            claims:
+              nullable: true
+            claimsLocales:
+              type: string
+              nullable: true
+            clientAssertion:
+              type: string
+              nullable: true
+            clientAssertionType:
+              type: string
+              nullable: true
+            clientId:
+              type: string
+              nullable: true
+            clientSecret:
+              type: string
+              nullable: true
+            code:
+              type: string
+              nullable: true
+            codeChallenge:
+              type: string
+              nullable: true
+            codeChallengeMethod:
+              type: string
+              nullable: true
+            codeVerifier:
+              type: string
+              nullable: true
+            display:
+              type: string
+              nullable: true
+            grantType:
+              type: string
+              nullable: true
+            identityProvider:
+              type: string
+              nullable: true
+            idTokenHint:
+              type: string
+              nullable: true
+            loginHint:
+              type: string
+              nullable: true
+            maxAge:
+              type: integer
+              format: int64
+              nullable: true
+            nonce:
+              type: string
+              nullable: true
+            password:
+              type: string
+              nullable: true
+            postLogoutRedirectUri:
+              type: string
+              nullable: true
+            prompt:
+              type: string
+              nullable: true
+            redirectUri:
+              type: string
+              nullable: true
+            refreshToken:
+              type: string
+              nullable: true
+            request:
+              type: string
+              nullable: true
+            requestId:
+              type: string
+              nullable: true
+            requestUri:
+              type: string
+              nullable: true
+            resources:
+              type: array
+              nullable: true
+              items:
+                type: string
+            responseMode:
+              type: string
+              nullable: true
+            responseType:
+              type: string
+              nullable: true
+            scope:
+              type: string
+              nullable: true
+            state:
+              type: string
+              nullable: true
+            token:
+              type: string
+              nullable: true
+            tokenTypeHint:
+              type: string
+              nullable: true
+            registration:
+              nullable: true
+            uiLocales:
+              type: string
+              nullable: true
+            username:
+              type: string
+              nullable: true
+    OpenIdConnectMessage:
+      type: object
+      additionalProperties: false
+    Geo:
+      type: object
+      additionalProperties: false
+      properties:
+        postalCode:
+          type: integer
+          format: int32
+        placeName:
+          type: string
+          nullable: true
+        adminName1:
+          type: string
+          nullable: true
+        adminCode1:
+          type: string
+          nullable: true
+        adminName2:
+          type: string
+          nullable: true
+        adminCode2:
+          type: string
+          nullable: true
+        latitude:
+          type: number
+          format: decimal
+          nullable: true
+        longitude:
+          type: number
+          format: decimal
+          nullable: true
+        accuracy:
+          type: integer
+          format: byte
+    QueryResults:
+      type: object
+      additionalProperties: false
+    ServerError:
+      type: object
+      description: Something bad happened and this is why
+      additionalProperties: false
+      properties:
+        errorCode:
+          type: integer
+          description: Error Code Number
+          format: int32
+        message:
+          type: string
+          description: What you did wrong
+          nullable: true
+        correlationId:
+          type: string
+          description: Way to keep in sync
+          format: guid
+    WeatherForecast:
+      type: object
+      additionalProperties: false
+      properties:
+        date:
+          type: string
+          format: date-time
+        temperatureC:
+          type: integer
+          format: int32
+        temperatureF:
+          type: integer
+          format: int32
+        summary:
+          type: string
+          nullable: true

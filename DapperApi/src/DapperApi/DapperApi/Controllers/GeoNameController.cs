@@ -19,6 +19,10 @@ namespace DapperApi.Controllers
     public class GeoNameController : ControllerBase
     {
 
+    /// <summary>
+    /// Does some fake stuff
+    /// </summary>
+    /// <returns>some data</returns>
     [HttpGet]
     public async Task Get()
     {
@@ -181,10 +185,24 @@ public class DataRow
   public object Value { get; set; }
 }
 
+/// <summary>
+/// Something bad happened and this is why
+/// </summary>
 public class ServerError
 {
+  /// <summary>
+  /// Error Code Number
+  /// </summary>
   public int ErrorCode { get; set; }
+
+  /// <summary>
+  /// What you did wrong
+  /// </summary>
   public string Message { get; set; }
+
+  /// <summary>
+  /// Way to keep in sync
+  /// </summary>
   public Guid CorrelationId { get; set; }
 }
 

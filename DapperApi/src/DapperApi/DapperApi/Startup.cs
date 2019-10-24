@@ -76,8 +76,11 @@ namespace DapperApi
     // Register the OpenIddict validation handler.
     .AddValidation();
 
-      // Register the Swagger services
-      services.AddSwaggerDocument(config =>
+      // Register the Swagger or OpenAPI services (OpenAPI will show xml comments automagically
+      // if you add PropertyGroup <GenerateDocumentationFile>true</GenerateDocumentationFile> to .csproj)
+
+      //services.AddSwaggerDocument(config =>
+      services.AddOpenApiDocument(config =>
       {
         config.PostProcess = document =>
         {
@@ -122,6 +125,7 @@ namespace DapperApi
       app.UseAuthentication();
 
       // Register the Swagger generator and the Swagger UI middlewares
+      // then go to https://localhost:5001/swagger/v1/swagger.json or https://localhost:5001/swagger/index.html
       app.UseOpenApi();
       app.UseSwaggerUi3();
 
