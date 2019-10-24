@@ -44,6 +44,7 @@ SELECT TOP 100 [PostalCode]
 FROM [dbo].[USGeoName]
 FOR JSON PATH
 ";
+      Response.ContentType = MediaTypeNames.Application.Json;
       await db.QueryAsyncInto(Response.Body, QUERY, buffered: false);
       //await Task.Run(() =>
       // {
@@ -89,7 +90,7 @@ FROM [dbo].[USGeoName]
     [ProducesDefaultResponseType(typeof(Geo))]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(Geo), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ServerError), StatusCodes.Status500InternalServerError)]
     public async Task GetPipeContent()
     {
       QueryExecutor qe = new QueryExecutor();
@@ -110,7 +111,7 @@ SELECT TOP (1000) [AccessFailedCount]
       ,[ModifiedDate]
   FROM [dbo].[UserAuthentication]
 ";
-
+      Response.ContentType = MediaTypeNames.Application.Json;
       var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
       await Response.Body.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
 
@@ -123,6 +124,7 @@ SELECT TOP (1000) [AccessFailedCount]
 
     [HttpGet("json")]
     [ProducesDefaultResponseType(typeof(Geo))]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task GetJsonContent()
     {
       using var qe = new SqlJsonQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
@@ -143,7 +145,7 @@ SELECT TOP (1000) [AccessFailedCount]
       ,[ModifiedDate]
   FROM [dbo].[UserAuthentication]
 ";
-
+      Response.ContentType = MediaTypeNames.Application.Json;
       var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
       await Response.Body.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
 
@@ -164,6 +166,13 @@ SELECT TOP (1000) [AccessFailedCount]
     public decimal? Longitude { get; set; }
     public byte Accuracy { get; set; }
   }
+}
+
+public class ServerError
+{
+  public int ErrorCode { get; set; }
+  public string Message { get; set; }
+  public Guid CorrelationId { get; set; }
 }
 
 // or do this in ConfigureServices
