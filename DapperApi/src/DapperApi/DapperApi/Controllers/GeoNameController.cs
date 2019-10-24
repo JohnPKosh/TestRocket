@@ -87,9 +87,9 @@ FROM [dbo].[USGeoName]
     }
 
     [HttpGet("pipe")]
-    [ProducesDefaultResponseType(typeof(Geo))]
+    [ProducesDefaultResponseType(typeof(QueryResults[]))]
     [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(Geo), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(QueryResults[]), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ServerError), StatusCodes.Status500InternalServerError)]
     public async Task GetPipeContent()
     {
@@ -123,7 +123,7 @@ SELECT TOP (1000) [AccessFailedCount]
     }
 
     [HttpGet("json")]
-    [ProducesDefaultResponseType(typeof(Geo))]
+    [ProducesDefaultResponseType(typeof(QueryResults[]))]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task GetJsonContent()
     {
@@ -166,6 +166,19 @@ SELECT TOP (1000) [AccessFailedCount]
     public decimal? Longitude { get; set; }
     public byte Accuracy { get; set; }
   }
+}
+
+// Some fake objects for swagger to show
+
+
+public class QueryResults
+{
+  IEnumerable<DataRow> Rows { get; set; }
+}
+
+public class DataRow
+{
+  public object Value { get; set; }
 }
 
 public class ServerError
