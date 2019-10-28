@@ -22,7 +22,7 @@ namespace XunitZipTests
         [Fact]
         public void CanGetLogDirectoryName_True()
         {
-            var got = LibraryInfo.LogDirectoryName;
+            var got = IoConfig.AppData.FullName;
             output.WriteLine(got);
             Assert.NotNull(got);
         }
@@ -31,7 +31,7 @@ namespace XunitZipTests
         [Fact]
         public void CanGetLogDirectoryExists_True()
         {
-            var got = LibraryInfo.LogDirectoryExists;
+            var got = IoConfig.AppData.Exists;
             output.WriteLine(got.ToString());
             Assert.NotNull(got.ToString());
         }
