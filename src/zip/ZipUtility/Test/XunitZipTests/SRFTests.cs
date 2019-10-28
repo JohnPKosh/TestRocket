@@ -4,7 +4,7 @@ using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
-using SRF.Core;
+using SRF;
 
 
 namespace XunitZipTests
