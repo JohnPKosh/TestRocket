@@ -31,13 +31,17 @@ namespace DapperTests
       //using var fs = new FileStream("rawdata.json", FileMode.Create);
       //await JsonSerializer.SerializeAsync(fs, got, new JsonSerializerOptions() {  IgnoreNullValues = true}, CancellationToken.None).ConfigureAwait(false);
 
+      var gotout = got.GetResults();
       var output = new DbResultOutput()
       {
-        ColumnInfo = got.ColumnInfo.ToArray(),
-        Rows = got.Rows.ToArray()
+        ColumnInfo = gotout.Item1,
+        Rows = gotout.Item2
       };
 
-      var result = JsonSerializer.Serialize<object[]>(output.Rows.Select(x=> x.Row).ToArray());
+      var dbresults = JsonSerializer.Serialize(output, output.GetType());
+
+      //var result = JsonSerializer.Serialize<object[]>(output.Rows.Select(x=> x.Row).ToArray());
+      var result = JsonSerializer.Serialize<object[][]>(gotout.Item2);
     }
 
     [Theory]

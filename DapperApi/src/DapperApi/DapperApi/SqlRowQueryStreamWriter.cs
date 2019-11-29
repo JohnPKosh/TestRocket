@@ -119,12 +119,17 @@ namespace DapperApi
     {
       public ReadOnlyMemory<DbColumnInfo> ColumnInfo { get; set; }
       public ReadOnlyMemory<DbRowData> Rows { get; set; }
+
+      public (DbColumnInfo[], object[][]) GetResults()
+      {
+        return (ColumnInfo.ToArray(), Rows.ToArray().Select(x => x.Row).ToArray());
+      }
     }
 
     public class DbResultOutput
     {
       public DbColumnInfo[] ColumnInfo { get; set; }
-      public DbRowData[] Rows { get; set; }
+      public object[][] Rows { get; set; }
     }
 
     #endregion
