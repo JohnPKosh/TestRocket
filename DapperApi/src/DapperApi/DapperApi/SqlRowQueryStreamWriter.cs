@@ -30,7 +30,7 @@ namespace DapperApi
     private SqlDataReader m_SqlDataReader;
     private SqlConnection m_Connection;
     private SqlCommand m_SqlCommand;
-    private ReadOnlyMemory<DbColumnInfo> m_DbColumns;
+    private Memory<DbColumnInfo> m_DbColumns;
 
     #endregion
 
@@ -48,14 +48,14 @@ namespace DapperApi
       m_SqlDataReader = await sqlCommand.ExecuteReaderAsync();
       SetColumnsFromReader();
       rv.ColumnInfo = m_DbColumns;
-      rv.Rows = await ReadRowsAsync();
+      rv.Rows = await ReadRowsAsync(m_DbColumns.Length);
 
       //await m_JsonWriter.DisposeAsync();
       await m_SqlDataReader.DisposeAsync();
       return rv;
     }
 
-    private async Task<DbRowData[]> ReadRowsAsync()
+    private async Task<DbRowData[]> ReadRowsAsync(int columnCount)
     {
       var rows = new List<DbRowData>();
       while (await m_SqlDataReader.ReadAsync())
@@ -78,7 +78,7 @@ namespace DapperApi
 
     private void SetColumnsFromReader()
     {
-      m_DbColumns = new ReadOnlyMemory<DbColumnInfo>(GetColumnInfo().ToArray());
+      m_DbColumns = new Memory<DbColumnInfo>(GetColumnInfo().ToArray());
     }
 
     private IEnumerable<DbColumnInfo> GetColumnInfo()
@@ -118,24 +118,37 @@ namespace DapperApi
     public class DbResults
     {
       public ReadOnlyMemory<DbColumnInfo> ColumnInfo { get; set; }
-      public ReadOnlyMemory<DbRowData> Rows { get; set; }
+      public Memory<DbRowData> Rows { get; set; }
 
-      public (DbColumnInfo[], IEnumerable<List<object>>) GetResults()
+      public (DbColumnInfo[], IEnumerable<object[]>) GetResults()
       {
-        return (ColumnInfo.ToArray(), ReplaceDBNulls(Rows));
+        return (ColumnInfo.ToArray(), ReplaceDBNulls(Rows.Span.ToArray()));
       }
 
-      private IEnumerable<List<object>> ReplaceDBNulls(ReadOnlyMemory<DbRowData> rows)
+      private IEnumerable<object[]> ReplaceDBNulls(DbRowData[] rows)
       {
-        foreach (var r in rows.ToArray())
+        var len = rows.Length;
+        Span<object> cur;
+        Span<object> rv;
+        for (int i = 0; i < len; i++)
         {
-          var rv = new List<object>();
-          foreach (var o in r.Row)
+          cur = new Span<object>(rows[i].Row);
+          rv = new Span<object>(new object[cur.Length]);
+          for (int j = 0; j < cur.Length; j++)
           {
-            rv.Add(o == DBNull.Value ? null : o);
+            rv[j] = cur[j] == DBNull.Value ? null : cur[j];
           }
-          yield return rv;
+          yield return rv.ToArray();
         }
+        //foreach (var r in rows.ToArray())
+        //{
+        //  var rv = new List<object>();
+        //  foreach (var o in r.Row)
+        //  {
+        //    rv.Add(o == DBNull.Value ? null : o);
+        //  }
+        //  yield return rv;
+        //}
       }
     }
 
@@ -144,28 +157,41 @@ namespace DapperApi
     public class DbResultOutput
     {
       public DbColumnInfo[] ColumnInfo { get; set; }
-      public IEnumerable<List<object>> Rows { get; set; }
+      public IEnumerable<object[]> Rows { get; set; }
 
       public static implicit operator DbResultOutput(DbResults value)
       {
         return new DbResultOutput()
         {
           ColumnInfo = value.ColumnInfo.ToArray(),
-          Rows = ReplaceDBNulls(value.Rows)
+          Rows = ReplaceDBNulls(value.Rows.Span.ToArray())
         };
       }
 
-      private static IEnumerable<List<object>> ReplaceDBNulls(ReadOnlyMemory<DbRowData> rows)
+      private static IEnumerable<object[]> ReplaceDBNulls(DbRowData[] rows)
       {
-        foreach (var r in rows.ToArray())
+        var len = rows.Length;
+        Span<object> cur;
+        Span<object> rv;
+        for (int i = 0; i < len; i++)
         {
-          var rv = new List<object>();
-          foreach (var o in r.Row)
+          cur = new Span<object>(rows[i].Row);
+          rv = new Span<object>(new object[cur.Length]);
+          for (int j = 0; j < cur.Length; j++)
           {
-            rv.Add(o == DBNull.Value ? null : o);
+            rv[j] = cur[j] == DBNull.Value ? null : cur[j];
           }
-          yield return rv;
+          yield return rv.ToArray();
         }
+        //foreach (var r in rows.ToArray())
+        //{
+        //  var rv = new List<object>();
+        //  foreach (var o in r.Row)
+        //  {
+        //    rv.Add(o == DBNull.Value ? null : o);
+        //  }
+        //  yield return rv;
+        //}
       }
     }
 

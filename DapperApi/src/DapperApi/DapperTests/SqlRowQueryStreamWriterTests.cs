@@ -42,7 +42,7 @@ namespace DapperTests
       var dbresults = JsonSerializer.Serialize(output, output.GetType());
 
       //var result = JsonSerializer.Serialize<object[]>(output.Rows.Select(x=> x.Row).ToArray());
-      var result = JsonSerializer.Serialize<IEnumerable<List<object>>>(gotout.Item2);
+      var result = JsonSerializer.Serialize<IEnumerable<object[]>>(gotout.Item2);
     }
 
     [Fact]
