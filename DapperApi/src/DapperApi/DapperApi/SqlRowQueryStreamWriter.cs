@@ -120,16 +120,53 @@ namespace DapperApi
       public ReadOnlyMemory<DbColumnInfo> ColumnInfo { get; set; }
       public ReadOnlyMemory<DbRowData> Rows { get; set; }
 
-      public (DbColumnInfo[], object[][]) GetResults()
+      public (DbColumnInfo[], IEnumerable<List<object>>) GetResults()
       {
-        return (ColumnInfo.ToArray(), Rows.ToArray().Select(x => x.Row).ToArray());
+        return (ColumnInfo.ToArray(), ReplaceDBNulls(Rows));
+      }
+
+      private IEnumerable<List<object>> ReplaceDBNulls(ReadOnlyMemory<DbRowData> rows)
+      {
+        foreach (var r in rows.ToArray())
+        {
+          var rv = new List<object>();
+          foreach (var o in r.Row)
+          {
+            rv.Add(o == DBNull.Value ? null : o);
+          }
+          yield return rv;
+        }
       }
     }
+
+
 
     public class DbResultOutput
     {
       public DbColumnInfo[] ColumnInfo { get; set; }
-      public object[][] Rows { get; set; }
+      public IEnumerable<List<object>> Rows { get; set; }
+
+      public static implicit operator DbResultOutput(DbResults value)
+      {
+        return new DbResultOutput()
+        {
+          ColumnInfo = value.ColumnInfo.ToArray(),
+          Rows = ReplaceDBNulls(value.Rows)
+        };
+      }
+
+      private static IEnumerable<List<object>> ReplaceDBNulls(ReadOnlyMemory<DbRowData> rows)
+      {
+        foreach (var r in rows.ToArray())
+        {
+          var rv = new List<object>();
+          foreach (var o in r.Row)
+          {
+            rv.Add(o == DBNull.Value ? null : o);
+          }
+          yield return rv;
+        }
+      }
     }
 
     #endregion

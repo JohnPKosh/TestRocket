@@ -1,0 +1,61 @@
+{
+  "ColumnInfo": [
+    {
+      "Ordinal": 0,
+      "Name": "PostalCode",
+      "TypeName": "int"
+    },
+    {
+      "Ordinal": 1,
+      "Name": "PlaceName",
+      "TypeName": "varchar"
+    },
+    {
+      "Ordinal": 2,
+      "Name": "AdminName1",
+      "TypeName": "varchar"
+    },
+    {
+      "Ordinal": 3,
+      "Name": "AdminCode1",
+      "TypeName": "varchar"
+    },
+    {
+      "Ordinal": 4,
+      "Name": "AdminName2",
+      "TypeName": "varchar"
+    },
+    {
+      "Ordinal": 5,
+      "Name": "AdminCode2",
+      "TypeName": "varchar"
+    },
+    {
+      "Ordinal": 6,
+      "Name": "Latitude",
+      "TypeName": "decimal"
+    },
+    {
+      "Ordinal": 7,
+      "Name": "Longitude",
+      "TypeName": "decimal"
+    },
+    {
+      "Ordinal": 8,
+      "Name": "Accuracy",
+      "TypeName": "tinyint"
+    }
+  ],
+  "Rows": [
+    [ 96598, "FPO AA", null, null, null, null, -89.9976, 139.2729, null ],
+    [ 96599, "FPO AA", null, null, null, null, -77.8460, 166.6760, null ],
+    [ 96531, "FPO AA", null, null, null, null, -43.5333, 172.6333, null ],
+    [ 96551, "APO AA", null, null, null, null, -37.8470, 144.9809, null ],
+    [ 96549, "APO AA", null, null, null, null, -35.3065, 149.1162, null ],
+    [ 34035, "APO AA", null, null, null, null, -34.9033, -56.1882, null ],
+    [ 34034, "APO AA", null, null, null, null, -34.6131, -58.3772, null ],
+    [ 96553, "APO AA", null, null, null, null, -33.8678, 151.2073, null ],
+    [ 96554, "APO AA", null, null, null, null, -33.8678, 151.2073, null ],
+    [ 34033, "APO AA", null, null, null, null, -33.4569, -70.6483, null ]
+  ]
+}
