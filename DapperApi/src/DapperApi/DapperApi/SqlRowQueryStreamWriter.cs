@@ -48,14 +48,13 @@ namespace DapperApi
       m_SqlDataReader = await sqlCommand.ExecuteReaderAsync();
       SetColumnsFromReader();
       rv.ColumnInfo = m_DbColumns;
-      rv.Rows = await ReadRowsAsync(m_DbColumns.Length);
+      rv.Rows = await ReadRowsAsync();
 
-      //await m_JsonWriter.DisposeAsync();
       await m_SqlDataReader.DisposeAsync();
       return rv;
     }
 
-    private async Task<DbRowData[]> ReadRowsAsync(int columnCount)
+    private async Task<DbRowData[]> ReadRowsAsync()
     {
       var rows = new List<DbRowData>();
       while (await m_SqlDataReader.ReadAsync())
@@ -110,46 +109,24 @@ namespace DapperApi
     {
       public DbRowData(object[] row)
       {
-        Row = row;
+        Row = CleanRow(ref row);
       }
-      public object[] Row;
+      public object[] Row { get; private set; }
+
+      private static object[] CleanRow(ref object[] cur)
+      {
+        for (int j = 0; j < cur.Length; j++)
+        {
+          if (cur[j] == DBNull.Value) cur[j] = null;
+        }
+        return cur;
+      }
     }
 
     public class DbResults
     {
       public ReadOnlyMemory<DbColumnInfo> ColumnInfo { get; set; }
-      public Memory<DbRowData> Rows { get; set; }
-
-      public (DbColumnInfo[], IEnumerable<object[]>) GetResults()
-      {
-        return (ColumnInfo.ToArray(), ReplaceDBNulls(Rows.Span.ToArray()));
-      }
-
-      private IEnumerable<object[]> ReplaceDBNulls(DbRowData[] rows)
-      {
-        var len = rows.Length;
-        Span<object> cur;
-        Span<object> rv;
-        for (int i = 0; i < len; i++)
-        {
-          cur = new Span<object>(rows[i].Row);
-          rv = new Span<object>(new object[cur.Length]);
-          for (int j = 0; j < cur.Length; j++)
-          {
-            rv[j] = cur[j] == DBNull.Value ? null : cur[j];
-          }
-          yield return rv.ToArray();
-        }
-        //foreach (var r in rows.ToArray())
-        //{
-        //  var rv = new List<object>();
-        //  foreach (var o in r.Row)
-        //  {
-        //    rv.Add(o == DBNull.Value ? null : o);
-        //  }
-        //  yield return rv;
-        //}
-      }
+      public Memory<DbRowData> Rows { get; set; }      
     }
 
 
@@ -164,34 +141,8 @@ namespace DapperApi
         return new DbResultOutput()
         {
           ColumnInfo = value.ColumnInfo.ToArray(),
-          Rows = ReplaceDBNulls(value.Rows.Span.ToArray())
+          Rows = value.Rows.Span.ToArray().Select(x=> x.Row)
         };
-      }
-
-      private static IEnumerable<object[]> ReplaceDBNulls(DbRowData[] rows)
-      {
-        var len = rows.Length;
-        Span<object> cur;
-        Span<object> rv;
-        for (int i = 0; i < len; i++)
-        {
-          cur = new Span<object>(rows[i].Row);
-          rv = new Span<object>(new object[cur.Length]);
-          for (int j = 0; j < cur.Length; j++)
-          {
-            rv[j] = cur[j] == DBNull.Value ? null : cur[j];
-          }
-          yield return rv.ToArray();
-        }
-        //foreach (var r in rows.ToArray())
-        //{
-        //  var rv = new List<object>();
-        //  foreach (var o in r.Row)
-        //  {
-        //    rv.Add(o == DBNull.Value ? null : o);
-        //  }
-        //  yield return rv;
-        //}
       }
     }
 

@@ -24,7 +24,7 @@ namespace DapperTests
 
 
     [Fact]
-    public void CanReadStream()
+    public void CanReadString()
     {
       var got = GetJsonStreamAsync().Result;
       Assert.NotNull(got);
@@ -32,17 +32,12 @@ namespace DapperTests
       //using var fs = new FileStream("rawdata.json", FileMode.Create);
       //await JsonSerializer.SerializeAsync(fs, got, new JsonSerializerOptions() {  IgnoreNullValues = true}, CancellationToken.None).ConfigureAwait(false);
 
-      var gotout = got.GetResults();
-      var output = new DbResultOutput()
-      {
-        ColumnInfo = gotout.Item1,
-        Rows = gotout.Item2
-      };
+      DbResultOutput output = got;
 
       var dbresults = JsonSerializer.Serialize(output, output.GetType());
 
       //var result = JsonSerializer.Serialize<object[]>(output.Rows.Select(x=> x.Row).ToArray());
-      var result = JsonSerializer.Serialize<IEnumerable<object[]>>(gotout.Item2);
+      //var result = JsonSerializer.Serialize<IEnumerable<object[]>>(output.Rows);
     }
 
     [Fact]
@@ -122,16 +117,20 @@ namespace DapperTests
       using var qe = new SqlRowQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
       var query =
 @"
-SELECT TOP (100) [PostalCode]
-      ,[PlaceName]
-      ,[AdminName1]
-      ,[AdminCode1]
-      ,[AdminName2]
-      ,[AdminCode2]
-      ,[Latitude]
-      ,[Longitude]
-      ,[Accuracy]
-  FROM [junk].[dbo].[USGeoName]
+SELECT TOP (1000) [AccessFailedCount]
+      ,[UserName]
+      ,[PasswordHash]
+      ,[PasswordExpiration]
+      ,[ConcurrencyStamp]
+      ,[IsBlocked]
+      ,[IsDeleted]
+      ,[LockoutEnabled]
+      ,[LockoutEnd]
+      ,[SecurityStamp]
+      ,[Data]
+      ,[ModifiedBy]
+      ,[ModifiedDate]
+  FROM [junk].[dbo].[UserAuthentication]
 ";
       var firstPass = await qe.ExecuteQueryAsync(query);
 
