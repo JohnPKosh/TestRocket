@@ -26,7 +26,7 @@ namespace DapperTests
     [Fact]
     public void CanReadString()
     {
-      var got = GetJsonStreamAsync().Result;
+      var got = GetDbResultsAsync().Result;
       Assert.NotNull(got);
 
       //using var fs = new FileStream("rawdata.json", FileMode.Create);
@@ -43,7 +43,7 @@ namespace DapperTests
     [Fact]
     public async Task CanReadStream2()
     {
-      DbResultOutput got = GetJsonStreamAsync().Result;
+      DbResultOutput got = GetDbResultsAsync().Result;
       Assert.NotNull(got);
 
       //using var fs = new FileStream("rawdata.json", FileMode.Create);
@@ -72,12 +72,12 @@ namespace DapperTests
       var sw = new Stopwatch();
       // run once to rule out first run anomolies in speed.
       sw.Restart();
-      var got1 = await GetJsonStreamAsync().ConfigureAwait(false);
+      var got1 = await GetDbResultsAsync().ConfigureAwait(false);
       sw.Stop();
       output.WriteLine($"Ran {nameof(got1)} in {sw.ElapsedMilliseconds} milliseconds. {got1.Rows.Length} rows.");
 
       sw.Restart();
-      DbResultOutput got1output = await GetJsonStreamAsync().ConfigureAwait(false);
+      DbResultOutput got1output = await GetDbResultsAsync().ConfigureAwait(false);
       sw.Stop();
       output.WriteLine($"Ran {nameof(got1output)} in {sw.ElapsedMilliseconds} milliseconds. {got1output.Rows.Count()} rows.");
 
@@ -89,14 +89,14 @@ namespace DapperTests
       for (int i = 0; i < n; i++)
       {
         sw.Restart();
-        var gotResults = await GetJsonStreamAsync().ConfigureAwait(false);
+        var gotResults = await GetDbResultsAsync().ConfigureAwait(false);
         sw.Stop();
         resultsTotalMs += sw.ElapsedMilliseconds;
         resultsCount += gotResults.Rows.Length;
         output.WriteLine($"Ran {nameof(gotResults)} in {sw.ElapsedMilliseconds} milliseconds.");
 
         sw.Restart();
-        DbResultOutput gotOutput = await GetJsonStreamAsync().ConfigureAwait(false);
+        DbResultOutput gotOutput = await GetDbResultsAsync().ConfigureAwait(false);
         sw.Stop();
         outputTotalMs += sw.ElapsedMilliseconds;
         outputCount += gotOutput.Rows.Count();
@@ -115,12 +115,12 @@ namespace DapperTests
 
       // run once to rule out first run anomolies in speed.
       sw.Restart();
-      DbResultOutput got1output = await GetJsonStreamAsync().ConfigureAwait(false);
+      DbResultOutput got1output = await GetDbResultsAsync().ConfigureAwait(false);
       sw.Stop();
       output.WriteLine($"Ran {nameof(got1output)} in {sw.ElapsedMilliseconds} milliseconds. {got1output.Rows.Count()} rows.");
 
       sw.Restart();
-      var got1 = await GetJsonStreamAsync().ConfigureAwait(false);
+      var got1 = await GetDbResultsAsync().ConfigureAwait(false);
       sw.Stop();
       output.WriteLine($"Ran {nameof(got1)} in {sw.ElapsedMilliseconds} milliseconds. {got1.Rows.Length} rows.");
 
@@ -132,14 +132,14 @@ namespace DapperTests
       for (int i = 0; i < n; i++)
       {
         sw.Restart();
-        DbResultOutput gotOutput = await GetJsonStreamAsync().ConfigureAwait(false);
+        DbResultOutput gotOutput = await GetDbResultsAsync().ConfigureAwait(false);
         sw.Stop();
         outputTotalMs += sw.ElapsedMilliseconds;
         outputCount += gotOutput.Rows.Count();
         output.WriteLine($"Ran {nameof(gotOutput)} in {sw.ElapsedMilliseconds} milliseconds.");
 
         sw.Restart();
-        var gotResults = await GetJsonStreamAsync().ConfigureAwait(false);
+        var gotResults = await GetDbResultsAsync().ConfigureAwait(false);
         sw.Stop();
         resultsTotalMs += sw.ElapsedMilliseconds;
         resultsCount += gotResults.Rows.Length;
@@ -159,7 +159,7 @@ namespace DapperTests
       sw.Start();
       for (int i = 0; i < n; i++)
       {
-        DbResultOutput got = GetJsonStreamAsync().Result;
+        DbResultOutput got = GetDbResultsAsync().Result;
         using var ms = new MemoryStream();
         await JsonSerializer.SerializeAsync(ms, got, got.GetType()).ConfigureAwait(false);
         totalbytes += ms.Length;
@@ -177,7 +177,7 @@ namespace DapperTests
       sw.Start();
       for (int i = 0; i < n; i++)
       {
-        DbResultOutput got = GetJsonStreamAsync().Result;
+        DbResultOutput got = GetDbResultsAsync().Result;
         var dbresults = JsonSerializer.Serialize(got, got.GetType());
         Assert.NotNull(dbresults);
       }
@@ -197,7 +197,7 @@ namespace DapperTests
     //  Assert.Contains("20190803084204", text);
     //}
 
-    private async Task<DbResults> GetJsonStreamAsync()
+    private async Task<DbResults> GetDbResultsAsync()
     {
       using var qe = new SqlRowQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
       var query =
