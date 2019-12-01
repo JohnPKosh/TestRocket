@@ -59,20 +59,16 @@ namespace DapperTests
       using var qe = new SqlJsonQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
       var query =
 @"
-SELECT TOP (1000) [AccessFailedCount]
-      ,[UserName]
-      ,[PasswordHash]
-      ,[PasswordExpiration]
-      ,[ConcurrencyStamp]
-      ,[IsBlocked]
-      ,[IsDeleted]
-      ,[LockoutEnabled]
-      ,[LockoutEnd]
-      ,[SecurityStamp]
-      ,[Data]
-      ,[ModifiedBy]
-      ,[ModifiedDate]
-  FROM [dbo].[UserAuthentication]
+SELECT TOP (1000) [PostalCode]
+      ,[PlaceName]
+      ,[AdminName1]
+      ,[AdminCode1]
+      ,[AdminName2]
+      ,[AdminCode2]
+      ,[Latitude]
+      ,[Longitude]
+      ,[Accuracy]
+  FROM [junk].[dbo].[USGeoName]
 ";
       var firstPass = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
 

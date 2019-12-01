@@ -66,6 +66,91 @@ namespace DapperTests
     }
 
     [Theory]
+    [InlineData(10)]
+    public async Task SpeedTests(int n)
+    {
+      var sw = new Stopwatch();
+      // run once to rule out first run anomolies in speed.
+      sw.Restart();
+      var got1 = await GetJsonStreamAsync().ConfigureAwait(false);
+      sw.Stop();
+      output.WriteLine($"Ran {nameof(got1)} in {sw.ElapsedMilliseconds} milliseconds. {got1.Rows.Length} rows.");
+
+      sw.Restart();
+      DbResultOutput got1output = await GetJsonStreamAsync().ConfigureAwait(false);
+      sw.Stop();
+      output.WriteLine($"Ran {nameof(got1output)} in {sw.ElapsedMilliseconds} milliseconds. {got1output.Rows.Count()} rows.");
+
+      long resultsTotalMs = 0;
+      long outputTotalMs = 0;
+      long resultsCount = 0;
+      long outputCount = 0;
+
+      for (int i = 0; i < n; i++)
+      {
+        sw.Restart();
+        var gotResults = await GetJsonStreamAsync().ConfigureAwait(false);
+        sw.Stop();
+        resultsTotalMs += sw.ElapsedMilliseconds;
+        resultsCount += gotResults.Rows.Length;
+        output.WriteLine($"Ran {nameof(gotResults)} in {sw.ElapsedMilliseconds} milliseconds.");
+
+        sw.Restart();
+        DbResultOutput gotOutput = await GetJsonStreamAsync().ConfigureAwait(false);
+        sw.Stop();
+        outputTotalMs += sw.ElapsedMilliseconds;
+        outputCount += gotOutput.Rows.Count();
+        output.WriteLine($"Ran {nameof(gotOutput)} in {sw.ElapsedMilliseconds} milliseconds.");
+      }
+
+      output.WriteLine($"Ran {nameof(resultsTotalMs)} in {resultsTotalMs} milliseconds. {resultsCount} rows.");
+      output.WriteLine($"Ran {nameof(outputTotalMs)} in {outputTotalMs} milliseconds. {outputCount} rows.");
+    }
+
+    [Theory]
+    [InlineData(10)]
+    public async Task SpeedTestsInverted(int n)
+    {
+      var sw = new Stopwatch();
+
+      // run once to rule out first run anomolies in speed.
+      sw.Restart();
+      DbResultOutput got1output = await GetJsonStreamAsync().ConfigureAwait(false);
+      sw.Stop();
+      output.WriteLine($"Ran {nameof(got1output)} in {sw.ElapsedMilliseconds} milliseconds. {got1output.Rows.Count()} rows.");
+
+      sw.Restart();
+      var got1 = await GetJsonStreamAsync().ConfigureAwait(false);
+      sw.Stop();
+      output.WriteLine($"Ran {nameof(got1)} in {sw.ElapsedMilliseconds} milliseconds. {got1.Rows.Length} rows.");
+
+      long resultsTotalMs = 0;
+      long outputTotalMs = 0;
+      long resultsCount = 0;
+      long outputCount = 0;
+
+      for (int i = 0; i < n; i++)
+      {
+        sw.Restart();
+        DbResultOutput gotOutput = await GetJsonStreamAsync().ConfigureAwait(false);
+        sw.Stop();
+        outputTotalMs += sw.ElapsedMilliseconds;
+        outputCount += gotOutput.Rows.Count();
+        output.WriteLine($"Ran {nameof(gotOutput)} in {sw.ElapsedMilliseconds} milliseconds.");
+
+        sw.Restart();
+        var gotResults = await GetJsonStreamAsync().ConfigureAwait(false);
+        sw.Stop();
+        resultsTotalMs += sw.ElapsedMilliseconds;
+        resultsCount += gotResults.Rows.Length;
+        output.WriteLine($"Ran {nameof(gotResults)} in {sw.ElapsedMilliseconds} milliseconds.");
+      }
+
+      output.WriteLine($"Ran {nameof(resultsTotalMs)} in {resultsTotalMs} milliseconds. {resultsCount} rows.");
+      output.WriteLine($"Ran {nameof(outputTotalMs)} in {outputTotalMs} milliseconds. {outputCount} rows.");
+    }
+
+    [Theory]
     [InlineData(1000)]
     public async Task CanReadStreamOverNTimes(int n)
     {
@@ -117,20 +202,16 @@ namespace DapperTests
       using var qe = new SqlRowQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
       var query =
 @"
-SELECT TOP (1000) [AccessFailedCount]
-      ,[UserName]
-      ,[PasswordHash]
-      ,[PasswordExpiration]
-      ,[ConcurrencyStamp]
-      ,[IsBlocked]
-      ,[IsDeleted]
-      ,[LockoutEnabled]
-      ,[LockoutEnd]
-      ,[SecurityStamp]
-      ,[Data]
-      ,[ModifiedBy]
-      ,[ModifiedDate]
-  FROM [junk].[dbo].[UserAuthentication]
+SELECT TOP (1000) [PostalCode]
+      ,[PlaceName]
+      ,[AdminName1]
+      ,[AdminCode1]
+      ,[AdminName2]
+      ,[AdminCode2]
+      ,[Latitude]
+      ,[Longitude]
+      ,[Accuracy]
+  FROM [junk].[dbo].[USGeoName]
 ";
       var firstPass = await qe.ExecuteQueryAsync(query);
 
