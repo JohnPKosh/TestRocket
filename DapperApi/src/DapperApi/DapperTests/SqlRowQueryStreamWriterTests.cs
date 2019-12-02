@@ -24,7 +24,7 @@ namespace DapperTests
 
 
     [Fact]
-    public void CanReadString()
+    public void CanReadStringAsync()
     {
       var got = GetDbResultsAsync().Result;
       Assert.NotNull(got);
@@ -41,7 +41,7 @@ namespace DapperTests
     }
 
     [Fact]
-    public async Task CanReadStream2()
+    public async Task CanReadStream2Async()
     {
       DbResultOutput got = GetDbResultsAsync().Result;
       Assert.NotNull(got);
@@ -67,7 +67,7 @@ namespace DapperTests
 
     [Theory]
     [InlineData(10)]
-    public async Task SpeedTests(int n)
+    public async Task SpeedTestsAsync(int n)
     {
       var sw = new Stopwatch();
       // run once to rule out first run anomolies in speed.
@@ -109,7 +109,7 @@ namespace DapperTests
 
     [Theory]
     [InlineData(10)]
-    public async Task SpeedTestsInverted(int n)
+    public async Task SpeedTestsInvertedAsync(int n)
     {
       var sw = new Stopwatch();
 
@@ -152,14 +152,14 @@ namespace DapperTests
 
     [Theory]
     [InlineData(1000)]
-    public async Task CanReadStreamOverNTimes(int n)
+    public async Task CanReadStreamOverNTimesAsync(int n)
     {
       var totalbytes = 0L;
       var sw = new Stopwatch();
       sw.Start();
       for (int i = 0; i < n; i++)
       {
-        DbResultOutput got = GetDbResultsAsync().Result;
+        DbResultOutput got = await GetDbResultsAsync().ConfigureAwait(false);
         using var ms = new MemoryStream();
         await JsonSerializer.SerializeAsync(ms, got, got.GetType()).ConfigureAwait(false);
         totalbytes += ms.Length;
@@ -171,13 +171,13 @@ namespace DapperTests
 
     [Theory]
     [InlineData(1000)]
-    public void CanReadStringOverNTimes(int n)
+    public async Task CanReadStringOverNTimesAsync(int n)
     {
       var sw = new Stopwatch();
       sw.Start();
       for (int i = 0; i < n; i++)
       {
-        DbResultOutput got = GetDbResultsAsync().Result;
+        DbResultOutput got = await GetDbResultsAsync().ConfigureAwait(false);
         var dbresults = JsonSerializer.Serialize(got, got.GetType());
         Assert.NotNull(dbresults);
       }
@@ -213,9 +213,67 @@ SELECT TOP (1000) [PostalCode]
       ,[Accuracy]
   FROM [junk].[dbo].[USGeoName]
 ";
-      var firstPass = await qe.ExecuteQueryAsync(query);
+      //var firstPass = await qe.ExecuteQueryAsync(query);
 
       return await qe.ExecuteQueryAsync(query);
+    }
+
+
+
+    [Theory]
+    [InlineData(1000)]
+    public void CanReadStreamOverNTimes(int n)
+    {
+      var totalbytes = 0L;
+      var sw = new Stopwatch();
+      sw.Start();
+      for (int i = 0; i < n; i++)
+      {
+        DbResultOutput got = GetDbResults();
+        using var ms = new MemoryStream();
+        JsonSerializer.SerializeAsync(ms, got, got.GetType());
+        totalbytes += ms.Length;
+        Assert.True(ms.Length > 64);
+      }
+      sw.Stop();
+      output.WriteLine($"Ran {n} times in {sw.ElapsedMilliseconds} milliseconds. Total Bytes {totalbytes}");
+    }
+
+    [Theory]
+    [InlineData(1000)]
+    public void CanReadStringOverNTimes(int n)
+    {
+      var sw = new Stopwatch();
+      sw.Start();
+      for (int i = 0; i < n; i++)
+      {
+        DbResultOutput got = GetDbResults();
+        var dbresults = JsonSerializer.Serialize(got, got.GetType());
+        Assert.NotNull(dbresults);
+      }
+      sw.Stop();
+      output.WriteLine($"Ran {n} times in {sw.ElapsedMilliseconds} milliseconds.");
+    }
+
+    private DbResults GetDbResults()
+    {
+      using var qe = new SqlRowQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
+      var query =
+@"
+SELECT TOP (1000) [PostalCode]
+      ,[PlaceName]
+      ,[AdminName1]
+      ,[AdminCode1]
+      ,[AdminName2]
+      ,[AdminCode2]
+      ,[Latitude]
+      ,[Longitude]
+      ,[Accuracy]
+  FROM [junk].[dbo].[USGeoName]
+";
+      //var firstPass = qe.ExecuteQuery(query);
+
+      return qe.ExecuteQuery(query);
     }
 
   }

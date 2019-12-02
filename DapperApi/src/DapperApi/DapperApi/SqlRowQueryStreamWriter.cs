@@ -34,6 +34,40 @@ namespace DapperApi
 
     #endregion
 
+    public DbResults ExecuteQuery(string query)
+    {
+      m_SqlCommand = new SqlCommand(query);
+      return ExecuteQuery(m_SqlCommand);
+    }
+
+    public DbResults ExecuteQuery(SqlCommand sqlCommand)
+    {
+      var rv = new DbResults();
+      EnsureConnection(sqlCommand);
+
+      m_SqlDataReader = sqlCommand.ExecuteReader();
+      SetColumnsFromReader();
+      rv.ColumnInfo = m_DbColumns;
+      rv.Rows = ReadRows();
+
+      m_SqlDataReader.Dispose();
+      return rv;
+    }
+
+    private DbRowData[] ReadRows()
+    {
+      var rows = new List<DbRowData>();
+      while (m_SqlDataReader.Read())
+      {
+        object[] raw = new object[m_DbColumns.Length];
+        _ = m_SqlDataReader.GetValues(raw);
+        rows.Add(new DbRowData(raw));
+      }
+      return rows.ToArray();
+    }
+
+
+
     public async Task<DbResults> ExecuteQueryAsync(string query)
     {
       m_SqlCommand = new SqlCommand(query);
