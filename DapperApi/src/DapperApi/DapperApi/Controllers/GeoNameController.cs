@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Net.Mime;
 using DapperApi.Model;
 
 namespace DapperApi.Controllers
@@ -19,6 +20,10 @@ namespace DapperApi.Controllers
     public class GeoNameController : ControllerBase
     {
 
+    /// <summary>
+    /// Does some fake stuff
+    /// </summary>
+    /// <returns>some data</returns>
     [HttpGet]
     [Produces("application/json")]
     public async Task Get()
@@ -47,6 +52,7 @@ SELECT TOP 100 [PostalCode]
 FROM [dbo].[USGeoName]
 FOR JSON PATH
 ";
+      Response.ContentType = MediaTypeNames.Application.Json;
       await db.QueryAsyncInto(Response.Body, QUERY, buffered: false);
       //await Task.Run(() =>
       // {
@@ -108,8 +114,10 @@ FROM [dbo].[USGeoName]
     }
 
     [HttpGet("query")]
-    [Produces("application/json")]
-    public async Task<IEnumerable<Geo>> QueryGeoName()
+    [ProducesDefaultResponseType(typeof(Geo))]
+    [ProducesResponseType(typeof(Geo), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult> QueryGeoName()
     {
       using var db = new SqlConnection(ApiConstants.MASTER_REF_CONNECT_STRING);
 
@@ -133,7 +141,10 @@ FROM [dbo].[USGeoName]
     }
 
     [HttpGet("pipe")]
-    [Produces("application/json")]
+    [ProducesDefaultResponseType(typeof(QueryResults[]))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(QueryResults[]), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ServerError), StatusCodes.Status500InternalServerError)]
     public async Task GetPipeContent()
     {
       Response.ContentType = "application/json; charset=utf-8";
@@ -155,7 +166,7 @@ SELECT TOP (1000) [AccessFailedCount]
       ,[ModifiedDate]
   FROM [dbo].[UserAuthentication]
 ";
-
+      Response.ContentType = MediaTypeNames.Application.Json;
       var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
       await Response.Body.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
 
@@ -167,7 +178,8 @@ SELECT TOP (1000) [AccessFailedCount]
     }
 
     [HttpGet("json")]
-    [Produces("application/json")]
+    [ProducesDefaultResponseType(typeof(QueryResults[]))]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task GetJsonContent()
     {
       Response.ContentType = "application/json; charset=utf-8";
@@ -189,7 +201,7 @@ SELECT TOP (1000) [AccessFailedCount]
       ,[ModifiedDate]
   FROM [dbo].[UserAuthentication]
 ";
-
+      Response.ContentType = MediaTypeNames.Application.Json;
       var ms = await qe.ExecuteJsonQueryAsync(query) as MemoryStream;
       await Response.Body.WriteAsync(ms.ToArray(), 0, (int)ms.Length);
 
@@ -210,6 +222,40 @@ SELECT TOP (1000) [AccessFailedCount]
     public decimal? Longitude { get; set; }
     public byte? Accuracy { get; set; }
   }
+}
+
+// Some fake objects for swagger to show
+
+
+public class QueryResults
+{
+  IEnumerable<DataRow> Rows { get; set; }
+}
+
+public class DataRow
+{
+  public object Value { get; set; }
+}
+
+/// <summary>
+/// Something bad happened and this is why
+/// </summary>
+public class ServerError
+{
+  /// <summary>
+  /// Error Code Number
+  /// </summary>
+  public int ErrorCode { get; set; }
+
+  /// <summary>
+  /// What you did wrong
+  /// </summary>
+  public string Message { get; set; }
+
+  /// <summary>
+  /// Way to keep in sync
+  /// </summary>
+  public Guid CorrelationId { get; set; }
 }
 
 // or do this in ConfigureServices

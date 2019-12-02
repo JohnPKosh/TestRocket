@@ -75,6 +75,32 @@ namespace DapperApi
 
     // Register the OpenIddict validation handler.
     .AddValidation();
+
+      // Register the Swagger or OpenAPI services (OpenAPI will show xml comments automagically
+      // if you add PropertyGroup <GenerateDocumentationFile>true</GenerateDocumentationFile> to .csproj)
+
+      //services.AddSwaggerDocument(config =>
+      services.AddOpenApiDocument(config =>
+      {
+        config.PostProcess = document =>
+        {
+          document.Info.Version = "v1";
+          document.Info.Title = "Test API";
+          document.Info.Description = "A simple ASP.NET Core web API";
+          document.Info.TermsOfService = "None";
+          document.Info.Contact = new NSwag.OpenApiContact
+          {
+            Name = "Alan Touring",
+            Email = string.Empty,
+            Url = "https://twitter.com/tourman"
+          };
+          document.Info.License = new NSwag.OpenApiLicense
+          {
+            Name = "Use under LICX",
+            Url = "https://example.com/license"
+          };
+        };
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,6 +123,11 @@ namespace DapperApi
       //});
 
       app.UseAuthentication();
+
+      // Register the Swagger generator and the Swagger UI middlewares
+      // then go to https://localhost:5001/swagger/v1/swagger.json or https://localhost:5001/swagger/index.html
+      app.UseOpenApi();
+      app.UseSwaggerUi3();
 
       app.UseMvcWithDefaultRoute();
 
