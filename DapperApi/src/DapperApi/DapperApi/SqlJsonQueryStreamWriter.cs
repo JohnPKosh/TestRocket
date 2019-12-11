@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DapperApi.Model;
 using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace DapperApi
 {
@@ -33,6 +34,15 @@ namespace DapperApi
     private ReadOnlyMemory<DbColumnInfo> m_DbColumns;
 
     #endregion
+
+    public async Task<Stream> ExecuteJsonQueryAsync(QueryCommandOption queryCommand)
+    {
+      m_SqlCommand = new SqlCommand(queryCommand.CommandText);
+      m_SqlCommand.CommandTimeout = queryCommand.CommandTimeout;
+      m_SqlCommand.CommandType = queryCommand.CommandType;
+      // TODO: add parameter create logic here
+      return await ExecuteJsonQueryAsync(m_SqlCommand);
+    }
 
     public async Task<Stream> ExecuteJsonQueryAsync(string query)
     {
