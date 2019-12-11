@@ -34,39 +34,47 @@ namespace DapperApi
 
     #endregion
 
-    public DbResults ExecuteQuery(string query)
+    public DbResultOutput ExecuteQuery(string query)
     {
       m_SqlCommand = new SqlCommand(query);
       return ExecuteQuery(m_SqlCommand);
     }
 
-    public DbResults ExecuteQuery(SqlCommand sqlCommand)
+    public DbResultOutput ExecuteQuery(SqlCommand sqlCommand)
     {
-      var rv = new DbResults();
+      var rv = new DbResultOutput();
       EnsureConnection(sqlCommand);
 
       m_SqlDataReader = sqlCommand.ExecuteReader();
       SetColumnsFromReader();
-      rv.ColumnInfo = m_DbColumns;
-      rv.Rows = ReadRows();
+      rv.ColumnInfo = m_DbColumns.ToArray();
+      rv.Rows = ReadRows().ToArray();
 
       m_SqlDataReader.Dispose();
       return rv;
     }
 
-    private DbRowData[] ReadRows()
+    private IEnumerable<object[]> ReadRows()
     {
-      var rows = new List<DbRowData>();
+      //var rows = new List<object[]>();
       while (m_SqlDataReader.Read())
       {
         object[] raw = new object[m_DbColumns.Length];
         _ = m_SqlDataReader.GetValues(raw);
-        rows.Add(new DbRowData(raw));
+        yield return CleanRow(ref raw);
+        //rows.Add(CleanRow(ref raw));
       }
-      return rows.ToArray();
+      //return rows;
     }
 
-
+    private static object[] CleanRow(ref object[] cur)
+    {
+      for (int j = 0; j < cur.Length; j++)
+      {
+        if (cur[j] == DBNull.Value) cur[j] = null;
+      }
+      return cur;
+    }
 
     public async Task<DbResults> ExecuteQueryAsync(string query)
     {

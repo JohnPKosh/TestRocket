@@ -229,7 +229,7 @@ SELECT TOP (1000) [PostalCode]
       sw.Start();
       for (int i = 0; i < n; i++)
       {
-        DbResultOutput got = GetDbResults();
+        var got = GetDbResults();
         using var ms = new MemoryStream();
         JsonSerializer.SerializeAsync(ms, got, got.GetType());
         totalbytes += ms.Length;
@@ -255,7 +255,7 @@ SELECT TOP (1000) [PostalCode]
       output.WriteLine($"Ran {n} times in {sw.ElapsedMilliseconds} milliseconds.");
     }
 
-    private DbResults GetDbResults()
+    private DbResultOutput GetDbResults()
     {
       using var qe = new SqlRowQueryStreamWriter(ApiConstants.TEST_CONNECT_STRING);
       var query =
