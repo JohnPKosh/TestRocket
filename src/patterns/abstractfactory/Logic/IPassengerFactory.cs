@@ -1,21 +1,28 @@
-﻿using factorymethod.Models.Interfaces;
+﻿using abstractfactory.Enums;
+using abstractfactory.Models.Interfaces;
 
-namespace factorymethod.Logic
+namespace abstractfactory.Logic
 {
   /// <summary>
-  /// Factory method lets a class defer instantiation to subclasses.
-  /// The following method is acting like a factory (of creation).</summary>
-  public abstract class IPassengerFactory
+  /// The abstract factory pattern lets a class defer instantiation to subclasses.
+  /// The following interface is acting like a factory of factories.</summary>
+  public interface IPassengerFactory
   {
-    public IPassenger NewPassenger()
-    {
-      return CreatePassenger();
-    }
+    /// <summary>
+    /// *** This is the public method used to create a new Astronaut ***
+    /// </summary>
+    public IAstronaut NewAstronaut();
 
     /// <summary>
-    /// The abstract factory method that our IPassengerFactory concrete classes
-    /// must implement to create the subordinated factory method IPassenger result.
+    /// *** This is the public method used to create a new Cosmonaut ***
     /// </summary>
-    protected abstract IPassenger CreatePassenger();
+    public ICosmonaut NewCosmonaut();
+
+    /// <summary>
+    /// *** This is the public method used to create a new Toy ***
+    /// </summary>
+    public IToy NewToy();
   }
+
+
 }

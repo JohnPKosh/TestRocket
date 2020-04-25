@@ -7,6 +7,9 @@ namespace factorymethod.Logic
   /// The following method is acting like a factory (of creation).</summary>
   public abstract class IPassengerFactory
   {
+    /// <summary>
+    /// *** This is the public method used to create a new passenger ***
+    /// </summary>
     public IPassenger NewPassenger()
     {
       return CreatePassenger();

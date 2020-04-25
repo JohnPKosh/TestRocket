@@ -1,26 +1,12 @@
 ﻿using System;
-using factorymethod.Logic;
-using factorymethod.Models.Interfaces;
+using abstractfactory.Models.Interfaces;
 
-namespace factorymethod.Models
+namespace abstractfactory.Models
 {
-  /// <summary>
-  /// The IPassengerFactory defers NewPassenger creation to the CosmonautFactory
-  /// so we will create it below near the concrete model.
-  /// There is no need for seperate code file in this case.
-  /// </summary>
-  public class CosmonautFactory : IPassengerFactory
-  {
-    protected override IPassenger CreatePassenger()
-    {
-      return new Cosmonaut();
-    }
-  }
-
   /// <summary>
   /// This is the Cosmonaut concrete model implementation of the IPassenger interface.
   /// </summary>
-  public class Cosmonaut : IPassenger
+  public class Cosmonaut : ICosmonaut
   {
     /// <summary>Say some clever phrase here.</summary>
     public void Speak()
@@ -33,5 +19,36 @@ namespace factorymethod.Models
     {
       Console.WriteLine("Slava stalinu...");
     }
+
+    public void FlipSwitch()
+    {
+      Console.WriteLine("pit' bol'she vodki");
+    }
   }
+
+  /// <summary>
+  /// This is the Weightless Cosmonaut concrete model implementation of the IPassenger interface.
+  /// </summary>
+  public class WeightlessCosmonaut : ICosmonaut
+  {
+    /// <summary>Say some clever phrase here.</summary>
+    public void Speak()
+    {
+      Console.WriteLine("slava gosudarstvu!");
+    }
+
+    /// <summary>Begin launch command instruction.</summary>
+    public void LaunchCommand()
+    {
+      Console.WriteLine("do svidaniya tovarishchi");
+    }
+
+    /// <summary>Flip out cosmonaut.</summary>
+    public void FlipSwitch()
+    {
+      Console.WriteLine("initsiirovaniye vyklyucheniya");
+    }
+  }
+
+
 }

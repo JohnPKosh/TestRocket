@@ -22,6 +22,17 @@ namespace factorymethod.Logic
         default:
           return new AstronautFactory().NewPassenger();
       }
+
+      // Could also be done in C# 8+ like so:
+      /*
+      return type switch
+      {
+        PassengerType.Astronaut => new AstronautFactory().NewPassenger(),
+        PassengerType.Cosmonaut => new CosmonautFactory().NewPassenger(),
+        PassengerType.Toy => new ToyFactory().NewPassenger(),
+        _ => new AstronautFactory().NewPassenger(),
+      };
+      */
     }
   }
 }

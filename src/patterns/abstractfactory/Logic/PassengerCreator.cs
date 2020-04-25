@@ -1,26 +1,53 @@
-﻿using factorymethod.Enums;
-using factorymethod.Models;
-using factorymethod.Models.Interfaces;
+﻿using abstractfactory.Enums;
+using abstractfactory.Models.Interfaces;
 
-namespace factorymethod.Logic
+namespace abstractfactory.Logic
 {
-  /// <summary>
-  /// A static creator class that extends how we are using our factory method pattern.
-  /// </summary>
   public static class PassengerCreator
   {
-    public static IPassenger Create(PassengerType type)
+    public static IAstronaut GetAstronaut(GravityType gravity)
     {
-      switch (type)
+      switch (gravity)
       {
-        case PassengerType.Astronaut:
-          return new AstronautFactory().NewPassenger();
-        case PassengerType.Cosmonaut:
-          return new CosmonautFactory().NewPassenger();
-        case PassengerType.Toy:
-          return new ToyFactory().NewPassenger();
+        case GravityType.Weightless:
+          return new WeightlessPassengerFactory().NewAstronaut();
         default:
-          return new AstronautFactory().NewPassenger();
+          return new PassengerFactory().NewAstronaut();
+      }
+    }
+
+    public static ICosmonaut GetCosmonaut(GravityType gravity)
+    {
+      switch (gravity)
+      {
+        case GravityType.Weightless:
+          return new WeightlessPassengerFactory().NewCosmonaut();
+        default:
+          return new PassengerFactory().NewCosmonaut();
+      }
+    }
+
+    public static IToy GetToy(GravityType gravity)
+    {
+      switch (gravity)
+      {
+        case GravityType.Weightless:
+          return new WeightlessPassengerFactory().NewToy();
+        default:
+          return new PassengerFactory().NewToy();
+      }
+    }
+
+    public static IPassenger GetPassenger(PassengerType passengerType, GravityType gravity)
+    {
+      switch (passengerType)
+      {
+        case PassengerType.Cosmonaut:
+          return GetCosmonaut(gravity);
+        case PassengerType.Toy:
+          return GetToy(gravity);
+        default:
+          return GetAstronaut(gravity);
       }
     }
   }
