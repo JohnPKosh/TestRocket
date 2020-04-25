@@ -14,21 +14,19 @@ namespace abstractfactory
       AddBreak();
 
       /* Using specific raw abstract factory pattern example */
-      var earthFactory = new PassengerFactory();
+      var earthFactory = new PassengerFactory(); // normal gravity
       RawPatternExample(earthFactory);
       AddBreak();
 
-      /* Using specific raw abstract factory pattern example */
-      var spaceFactory = new WeightlessPassengerFactory();
+      var spaceFactory = new WeightlessPassengerFactory(); // weightless
       RawPatternExample(spaceFactory);
       AddBreak();
 
       /* Using gravity type and static creator logic */
-      GravityCreator(GravityType.Normal);
+      GravityCreator(GravityType.Normal); // normal gravity
       AddBreak();
 
-      /* Using gravity type and static creator logic */
-      GravityCreator(GravityType.Weightless);
+      GravityCreator(GravityType.Weightless); // weightless
       AddBreak();
 
       /* Do some fancy construction here */
@@ -105,7 +103,7 @@ namespace abstractfactory
       }
     }
 
-    // making things easier to read.
+    // Helpers to make things easier to read above.
 
     private static void AddBreak() => Console.WriteLine("\n**********************************\n");
     private static void ConOut(string text) => Console.WriteLine($"\n{text}\n");

@@ -20,6 +20,7 @@ namespace abstractfactory.Models
       Console.WriteLine("Slava stalinu...");
     }
 
+    /// <summary>Flip out cosmonaut.</summary>
     public void FlipSwitch()
     {
       Console.WriteLine("pit' bol'she vodki");

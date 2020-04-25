@@ -1,5 +1,4 @@
-﻿using abstractfactory.Enums;
-using abstractfactory.Models.Interfaces;
+﻿using abstractfactory.Models.Interfaces;
 
 namespace abstractfactory.Logic
 {
@@ -23,6 +22,4 @@ namespace abstractfactory.Logic
     /// </summary>
     public IToy NewToy();
   }
-
-
 }
