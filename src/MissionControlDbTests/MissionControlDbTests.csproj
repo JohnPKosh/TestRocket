@@ -64,7 +64,7 @@
       <SubType>Designer</SubType>
     </Compile>
     <Compile Include="SqlDatabaseSetup.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="NormalUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
