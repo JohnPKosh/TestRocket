@@ -13,7 +13,7 @@ namespace GrpcGreeterClient
   class Program
   {
     // The port number(5001) must match the port of the gRPC server.
-    private const string Address = "localhost:5001";
+    private const string Address = "localhost:44391";
 
     private static string _token;
 
@@ -45,13 +45,15 @@ namespace GrpcGreeterClient
             await PurchaseTicket(client);
             break;
           case '3':
-            _token = await Authenticate();
+            _token = await Authenticate().ConfigureAwait(false);
+            Console.WriteLine(_token);
             break;
           case '4':
             exiting = true;
             break;
           case '5':
             _token = await AuthenticatePost();
+            Console.WriteLine(_token);
             break;
         }
       }

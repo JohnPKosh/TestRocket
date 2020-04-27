@@ -114,10 +114,10 @@ FROM [dbo].[USGeoName]
     }
 
     [HttpGet("query")]
-    [ProducesDefaultResponseType(typeof(Geo))]
-    [ProducesResponseType(typeof(Geo), StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType(typeof(IEnumerable<Geo>))]
+    [ProducesResponseType(typeof(IEnumerable<Geo>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult> QueryGeoName()
+    public async Task<IEnumerable<Geo>> QueryGeoName()
     {
       using var db = new SqlConnection(ApiConstants.MASTER_REF_CONNECT_STRING);
 
@@ -136,7 +136,7 @@ FROM [dbo].[USGeoName]
 ";
       //var data = await db.QueryAsync(QUERY);
       //return new OkObjectResult((await db.QueryAsync(QUERY)).Select(x => new {x.PostalCode, x.PlaceName, x.AdminName1, x.AdminCode1, x.AdminName2, x.AdminCode2, x.Latitude, x.Longitude, x.Accuracy }));
-      return await db.QueryAsync<Geo>(QUERY);
+      return await db.QueryAsync<Geo>(QUERY).ConfigureAwait(false);
       //return new OkObjectResult(data.Select(x=> (JObject)x));
     }
 

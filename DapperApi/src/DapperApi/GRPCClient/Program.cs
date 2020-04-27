@@ -13,7 +13,7 @@ namespace GRPCClient
     {
       Console.ReadKey(true);
       // The port number(5001) must match the port of the gRPC server.
-      var channel = GrpcChannel.ForAddress("https://localhost:5009");
+      var channel = GrpcChannel.ForAddress("https://localhost:44355/");
       var client = new Greeter.GreeterClient(channel);
       var reply = await client.SayHelloAsync(
                         new HelloRequest { Name = "GreeterClient" });
