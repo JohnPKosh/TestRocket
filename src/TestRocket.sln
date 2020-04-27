@@ -23,13 +23,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketWriter", "RocketWrite
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns", "Patterns", "{C05CA845-D5FC-42CD-AF52-42538C26FC20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "factorymethod", "factorymethod\factorymethod.csproj", "{D041424D-CD12-4E0B-BB6B-8BBAB7BC98BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "factorymethod", "factorymethod\factorymethod.csproj", "{D041424D-CD12-4E0B-BB6B-8BBAB7BC98BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "abstractfactory", "patterns\abstractfactory\abstractfactory.csproj", "{53E668B2-01D5-4F21-8530-DBE864A9AECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abstractfactory", "patterns\abstractfactory\abstractfactory.csproj", "{53E668B2-01D5-4F21-8530-DBE864A9AECB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Db", "Db", "{77A2E2B9-247F-40D8-BD90-F21C3E50C46F}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MissionControl", "Db\MissionControl\MissionControl.sqlproj", "{B57BCE65-4B55-4564-9106-58A7129B8311}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionControlDbTests", "MissionControlDbTests\MissionControlDbTests.csproj", "{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,6 +169,18 @@ Global
 		{B57BCE65-4B55-4564-9106-58A7129B8311}.Release|x86.ActiveCfg = Release|Any CPU
 		{B57BCE65-4B55-4564-9106-58A7129B8311}.Release|x86.Build.0 = Release|Any CPU
 		{B57BCE65-4B55-4564-9106-58A7129B8311}.Release|x86.Deploy.0 = Release|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Debug|x86.Build.0 = Debug|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Release|x64.Build.0 = Release|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{24E6EB6B-C696-4DB1-95B0-FC98E839D1AD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
