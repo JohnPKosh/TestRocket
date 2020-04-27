@@ -60,12 +60,19 @@
     <Folder Include="Scripts" />
     <Folder Include="ForeignKeys" />
     <Folder Include="Indexes" />
+    <Folder Include="StoredProcedures" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\LaunchCenter.sql" />
     <Build Include="Tables\TakeoutMenu.sql" />
     <Build Include="ForeignKeys\FK_LaunchCenter_TakeoutMenu.sql" />
     <Build Include="Indexes\IX_TakeoutMenu_SKU.sql" />
+    <Build Include="StoredProcedures\GetAllLaunchCenters.sql" />
+    <Build Include="StoredProcedures\GetLaunchCenterByCommandName.sql" />
+    <Build Include="StoredProcedures\GetTakeoutMenuByLaunchCenterId.sql" />
+    <Build Include="Views\LaunchCenterTakeoutMenu.sql" />
+    <Build Include="StoredProcedures\FindMenuItem.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeployment.sql" />
