@@ -60,6 +60,9 @@
     <Compile Include="CarryOutTests.cs">
       <SubType>Designer</SubType>
     </Compile>
+    <Compile Include="LaunchCenterTests.cs">
+      <SubType>Designer</SubType>
+    </Compile>
     <Compile Include="SqlDatabaseSetup.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CarryOutTests.resx">
       <DependentUpon>CarryOutTests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaunchCenterTests.resx">
+      <DependentUpon>LaunchCenterTests.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup Condition="$(VisualStudioVersion) == '16.0'">
