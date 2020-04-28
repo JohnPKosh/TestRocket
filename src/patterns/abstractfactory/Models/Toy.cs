@@ -9,21 +9,21 @@ namespace abstractfactory.Models
   public class Toy : IToy
   {
     /// <summary>Say some clever phrase here.</summary>
-    public void Speak()
+    public string Speak()
     {
-      Console.WriteLine("Hello I am Buzz");
+      return "Hello I am Buzz";
     }
 
     /// <summary>Begin launch command instruction.</summary>
-    public void LaunchCommand()
+    public string LaunchCommand()
     {
-      Console.WriteLine("To infinity and beyond!");
+      return "To infinity and beyond!";
     }
 
     /// <summary>Pull his strings.</summary>
-    public void PullString()
+    public string PullString()
     {
-      Console.WriteLine("Help I am unravelling!");
+      return "Help I am unravelling!";
     }
   }
 
@@ -33,21 +33,21 @@ namespace abstractfactory.Models
   public class WeightlessToy : IToy
   {
     /// <summary>Say some clever phrase here.</summary>
-    public void Speak()
+    public string Speak()
     {
-      Console.WriteLine("Hello I am Buzz");
+      return "Hello I am Buzz";
     }
 
     /// <summary>Begin launch command instruction.</summary>
-    public void LaunchCommand()
+    public string LaunchCommand()
     {
-      Console.WriteLine("To the Stars!");
+      return "To the Stars!";
     }
 
     /// <summary>Pull his strings.</summary>
-    public void PullString()
+    public string PullString()
     {
-      Console.WriteLine("Hip Hip Hooray!");
+      return "Hip Hip Hooray!";
     }
   }
 }

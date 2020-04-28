@@ -10,21 +10,21 @@ namespace abstractfactory.Models
   public class Astronaut : IAstronaut
   {
     /// <summary>Say some clever phrase here.</summary>
-    public void Speak()
+    public string Speak()
     {
-      Console.WriteLine("Where is my Tang?");
+      return "Where is my Tang?";
     }
 
     /// <summary>Begin launch command instruction.</summary>
-    public void LaunchCommand()
+    public string LaunchCommand()
     {
-      Console.WriteLine("Git-r-Done!");
+      return "Git-r-Done!";
     }
 
     /// <summary>Push astronaut's button.</summary>
-    public void PushButton()
+    public string PushButton()
     {
-      Console.WriteLine("Why did you push that?");
+      return "Why did you push that?";
     }
   }
 
@@ -34,21 +34,21 @@ namespace abstractfactory.Models
   public class WeightlessAstronaut : IAstronaut
   {
     /// <summary>Say some clever phrase here.</summary>
-    public void Speak()
+    public string Speak()
     {
-      Console.WriteLine("Look at me I am floating!");
+      return "Look at me I am floating!";
     }
 
     /// <summary>Begin launch command instruction.</summary>
-    public void LaunchCommand()
+    public string LaunchCommand()
     {
-      Console.WriteLine("Up up and away!");
+      return "Up up and away!";
     }
 
     /// <summary>Push astronaut's button.</summary>
-    public void PushButton()
+    public string PushButton()
     {
-      Console.WriteLine("Look at the blinky lights!");
+      return "Look at the blinky lights!";
     }
   }
 }

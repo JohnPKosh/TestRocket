@@ -9,42 +9,47 @@ namespace abstractfactory
   {
     static void Main(string[] args)
     {
-      AddBreak();
-      ConOut("Houston we have a problem...");
-      AddBreak();
+      hr();
+      con("Houston we have a problem...");
+      hr();
 
       /* Using specific raw abstract factory pattern example */
       var earthFactory = new PassengerFactory(); // normal gravity
-      RawPatternExample(earthFactory);
-      AddBreak();
+      ExecuteBasicExample(earthFactory);
+      hr();
 
       var spaceFactory = new WeightlessPassengerFactory(); // weightless
-      RawPatternExample(spaceFactory);
-      AddBreak();
+      ExecuteBasicExample(spaceFactory);
+      hr();
 
       /* Using gravity type and static creator logic */
-      GravityCreator(GravityType.Normal); // normal gravity
-      AddBreak();
+      ExecuteGravityCreator(GravityType.Normal); // normal gravity
+      hr();
 
-      GravityCreator(GravityType.Weightless); // weightless
-      AddBreak();
+      ExecuteGravityCreator(GravityType.Weightless); // weightless
+      hr();
 
       /* Do some fancy construction here */
-      ComplexLaunchCommand(PassengerType.Astronaut, GravityType.Normal);
-      ComplexLaunchCommand(PassengerType.Astronaut, GravityType.Weightless);
-      ComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Normal);
-      ComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Weightless);
-      ComplexLaunchCommand(PassengerType.Toy, GravityType.Normal);
-      ComplexLaunchCommand(PassengerType.Toy, GravityType.Weightless);
-      AddBreak();
+      con("[Incoming Astronaut Transmissions]:");
+      ExecuteComplexLaunchCommand(PassengerType.Astronaut, GravityType.Normal);
+      ExecuteComplexLaunchCommand(PassengerType.Astronaut, GravityType.Weightless);
+      hr();
+      con("[Incoming Cosmonaut Transmissions]:");
+      ExecuteComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Normal);
+      ExecuteComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Weightless);
+      hr();
+      con("[Incoming Toy Transmissions]:");
+      ExecuteComplexLaunchCommand(PassengerType.Toy, GravityType.Normal);
+      ExecuteComplexLaunchCommand(PassengerType.Toy, GravityType.Weightless);
+      hr();
 
-      ConOut("Thanks for flying with us!");
+      con("Thanks for flying with us!");
     }
 
     /// <summary>
     /// The basic abstract factory approach.
     /// </summary>
-    private static void RawPatternExample(IPassengerFactory earthFactory)
+    private static void ExecuteBasicExample(IPassengerFactory earthFactory)
     {
       // Create our passengers using the basic abstract factory methods.
       var astronaut = earthFactory.NewAstronaut();
@@ -52,60 +57,59 @@ namespace abstractfactory
       var toy = earthFactory.NewToy();
 
       // push buttons
-      astronaut.Speak();
+      con(astronaut.Speak());
 
       // flip switch
-      cosmonaut.Speak();
+      con(cosmonaut.Speak());
 
       // pull string
-      toy.Speak();
+      con(toy.Speak());
     }
 
     /// <summary>
     /// A slightly easier approach.
     /// </summary>
-    private static void GravityCreator(GravityType gravity)
+    private static void ExecuteGravityCreator(GravityType gravity)
     {
       var astronaut = PassengerCreator.GetAstronaut(gravity);
       var cosmonaut = PassengerCreator.GetCosmonaut(gravity);
       var toy = PassengerCreator.GetToy(gravity);
 
       // push buttons
-      astronaut.PushButton();
+      con(astronaut.PushButton());
 
       // flip switch
-      cosmonaut.FlipSwitch();
+      con(cosmonaut.FlipSwitch());
 
       // pull string
-      toy.PullString();
+      con(toy.PullString());
     }
 
     /// <summary>
     /// A more complex approach where are passengers have different things they can do.
     /// </summary>
-    private static void ComplexLaunchCommand(PassengerType passengerType, GravityType gravity)
+    private static void ExecuteComplexLaunchCommand(PassengerType passengerType, GravityType gravity)
     {
       var passenger = PassengerCreator.GetPassenger(passengerType, gravity);
       if(passenger is IAstronaut astronaut)
       {
-        astronaut.LaunchCommand();
-        astronaut.PushButton(); // Astronauts push buttons
+        con(astronaut.LaunchCommand());
+        con(astronaut.PushButton()); // Astronauts push buttons
       }
       else if (passenger is ICosmonaut cosmonaut)
       {
-        cosmonaut.LaunchCommand();
-        cosmonaut.FlipSwitch(); // Cosmonaut flips switches
+        con(cosmonaut.LaunchCommand());
+        con(cosmonaut.FlipSwitch()); // Cosmonaut flips switches
       }
       else if (passenger is IToy toy)
       {
-        toy.LaunchCommand();
-        toy.PullString(); // Pull Toy's string
+        con(toy.LaunchCommand());
+        con(toy.PullString()); // Pull Toy's string
       }
     }
 
     // Helpers to make things easier to read above.
-
-    private static void AddBreak() => Console.WriteLine("\n**********************************\n");
-    private static void ConOut(string text) => Console.WriteLine($"\n{text}\n");
+    private static void hr() => Console.WriteLine("\n**********************************\n");
+    private static void con(string text) => Console.WriteLine(text);
   }
 }

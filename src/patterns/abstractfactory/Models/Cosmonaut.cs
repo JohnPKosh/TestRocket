@@ -9,21 +9,21 @@ namespace abstractfactory.Models
   public class Cosmonaut : ICosmonaut
   {
     /// <summary>Say some clever phrase here.</summary>
-    public void Speak()
+    public string Speak()
     {
-      Console.WriteLine("Sukin syn!");
+      return "Sukin syn!";
     }
 
     /// <summary>Begin launch command instruction.</summary>
-    public void LaunchCommand()
+    public string LaunchCommand()
     {
-      Console.WriteLine("Slava stalinu...");
+      return "Slava stalinu...";
     }
 
     /// <summary>Flip out cosmonaut.</summary>
-    public void FlipSwitch()
+    public string FlipSwitch()
     {
-      Console.WriteLine("pit' bol'she vodki");
+      return "pit' bol'she vodki";
     }
   }
 
@@ -33,21 +33,21 @@ namespace abstractfactory.Models
   public class WeightlessCosmonaut : ICosmonaut
   {
     /// <summary>Say some clever phrase here.</summary>
-    public void Speak()
+    public string Speak()
     {
-      Console.WriteLine("slava gosudarstvu!");
+      return "slava gosudarstvu!";
     }
 
     /// <summary>Begin launch command instruction.</summary>
-    public void LaunchCommand()
+    public string LaunchCommand()
     {
-      Console.WriteLine("do svidaniya tovarishchi");
+      return "do svidaniya tovarishchi";
     }
 
     /// <summary>Flip out cosmonaut.</summary>
-    public void FlipSwitch()
+    public string FlipSwitch()
     {
-      Console.WriteLine("initsiirovaniye vyklyucheniya");
+      return "initsiirovaniye vyklyucheniya";
     }
   }
 

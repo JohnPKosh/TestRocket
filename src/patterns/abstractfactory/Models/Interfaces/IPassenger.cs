@@ -6,10 +6,10 @@
   public interface IPassenger
   {
     /// <summary>Say some clever phrase here.</summary>
-    void Speak();
+    string Speak();
 
     /// <summary>Begin launch command instruction.</summary>
-    void LaunchCommand();
+    string LaunchCommand();
   }
 
   /// <summary>
@@ -18,7 +18,7 @@
   public interface IAstronaut : IPassenger
   {
     /// <summary>Push astronaut's button.</summary>
-    void PushButton();
+    string PushButton();
   }
 
   /// <summary>
@@ -27,7 +27,7 @@
   public interface ICosmonaut : IPassenger
   {
     /// <summary>Flip out cosmonaut.</summary>
-    void FlipSwitch();
+    string FlipSwitch();
   }
 
   /// <summary>
@@ -36,6 +36,6 @@
   public interface IToy : IPassenger
   {
     /// <summary>Pull his strings.</summary>
-    void PullString();
+    string PullString();
   }
 }
