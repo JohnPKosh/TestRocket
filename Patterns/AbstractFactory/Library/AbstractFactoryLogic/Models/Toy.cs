@@ -1,7 +1,7 @@
-﻿using System;
-using abstractfactory.Models.Interfaces;
+﻿using AbstractFactoryLogic.Common;
+using AbstractFactoryLogic.Models.Interfaces;
 
-namespace abstractfactory.Models
+namespace AbstractFactoryLogic.Models
 {
   /// <summary>
   /// This is the Toy concrete model implementation of the IPassenger interface.
@@ -11,19 +11,19 @@ namespace abstractfactory.Models
     /// <summary>Say some clever phrase here.</summary>
     public string Speak()
     {
-      return "Hello I am Buzz";
+      return FactoryConstants.TOY_SPK;
     }
 
     /// <summary>Begin launch command instruction.</summary>
     public string LaunchCommand()
     {
-      return "To infinity and beyond!";
+      return FactoryConstants.TOY_LAUNCH;
     }
 
     /// <summary>Pull his strings.</summary>
     public string PullString()
     {
-      return "Help I am unravelling!";
+      return FactoryConstants.TOY_PULL_STR;
     }
   }
 
@@ -35,19 +35,19 @@ namespace abstractfactory.Models
     /// <summary>Say some clever phrase here.</summary>
     public string Speak()
     {
-      return "Hello I am Buzz";
+      return FactoryConstants.TOY_SPK_ZERO_G;
     }
 
     /// <summary>Begin launch command instruction.</summary>
     public string LaunchCommand()
     {
-      return "To the Stars!";
+      return FactoryConstants.TOY_LAUNCH_ZERO_G;
     }
 
     /// <summary>Pull his strings.</summary>
     public string PullString()
     {
-      return "Hip Hip Hooray!";
+      return FactoryConstants.TOY_PULL_STR_ZERO_G;
     }
   }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using abstractfactory.Models.Interfaces;
+﻿using AbstractFactoryLogic.Common;
+using AbstractFactoryLogic.Models.Interfaces;
 
-namespace abstractfactory.Models
+namespace AbstractFactoryLogic.Models
 {
-
   /// <summary>
   /// This is the Astronaut concrete model implementation of the IPassenger interface.
   /// </summary>
@@ -12,19 +11,19 @@ namespace abstractfactory.Models
     /// <summary>Say some clever phrase here.</summary>
     public string Speak()
     {
-      return "Where is my Tang?";
+      return FactoryConstants.AST_SPK;
     }
 
     /// <summary>Begin launch command instruction.</summary>
     public string LaunchCommand()
     {
-      return "Git-r-Done!";
+      return FactoryConstants.AST_LAUNCH;
     }
 
     /// <summary>Push astronaut's button.</summary>
     public string PushButton()
     {
-      return "Why did you push that?";
+      return FactoryConstants.AST_PUSH_BTN;
     }
   }
 
@@ -36,19 +35,19 @@ namespace abstractfactory.Models
     /// <summary>Say some clever phrase here.</summary>
     public string Speak()
     {
-      return "Look at me I am floating!";
+      return FactoryConstants.AST_SPK_ZERO_G;
     }
 
     /// <summary>Begin launch command instruction.</summary>
     public string LaunchCommand()
     {
-      return "Up up and away!";
+      return FactoryConstants.AST_LAUNCH_ZERO_G;
     }
 
     /// <summary>Push astronaut's button.</summary>
     public string PushButton()
     {
-      return "Look at the blinky lights!";
+      return FactoryConstants.AST_PUSH_BTN_ZERO_G;
     }
   }
 }

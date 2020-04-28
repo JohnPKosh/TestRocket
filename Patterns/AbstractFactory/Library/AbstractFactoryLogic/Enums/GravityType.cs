@@ -1,5 +1,5 @@
 ﻿
-namespace abstractfactory.Enums
+namespace AbstractFactoryLogic.Enums
 {
   public enum GravityType
   {

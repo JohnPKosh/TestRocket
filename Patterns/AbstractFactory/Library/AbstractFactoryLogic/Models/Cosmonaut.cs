@@ -1,7 +1,7 @@
-﻿using System;
-using abstractfactory.Models.Interfaces;
+﻿using AbstractFactoryLogic.Common;
+using AbstractFactoryLogic.Models.Interfaces;
 
-namespace abstractfactory.Models
+namespace AbstractFactoryLogic.Models
 {
   /// <summary>
   /// This is the Cosmonaut concrete model implementation of the IPassenger interface.
@@ -11,19 +11,19 @@ namespace abstractfactory.Models
     /// <summary>Say some clever phrase here.</summary>
     public string Speak()
     {
-      return "Sukin syn!";
+      return FactoryConstants.CSM_SPK;
     }
 
     /// <summary>Begin launch command instruction.</summary>
     public string LaunchCommand()
     {
-      return "Slava stalinu...";
+      return FactoryConstants.CSM_LAUNCH;
     }
 
     /// <summary>Flip out cosmonaut.</summary>
     public string FlipSwitch()
     {
-      return "pit' bol'she vodki";
+      return FactoryConstants.CSM_FLIP;
     }
   }
 
@@ -35,19 +35,19 @@ namespace abstractfactory.Models
     /// <summary>Say some clever phrase here.</summary>
     public string Speak()
     {
-      return "slava gosudarstvu!";
+      return FactoryConstants.CSM_SPK_ZERO_G;
     }
 
     /// <summary>Begin launch command instruction.</summary>
     public string LaunchCommand()
     {
-      return "do svidaniya tovarishchi";
+      return FactoryConstants.CSM_LAUNCH_ZERO_G;
     }
 
     /// <summary>Flip out cosmonaut.</summary>
     public string FlipSwitch()
     {
-      return "initsiirovaniye vyklyucheniya";
+      return FactoryConstants.CSM_FLIP_ZERO_G;
     }
   }
 

@@ -1,7 +1,7 @@
-﻿using abstractfactory.Models;
-using abstractfactory.Models.Interfaces;
+﻿using AbstractFactoryLogic.Models;
+using AbstractFactoryLogic.Models.Interfaces;
 
-namespace abstractfactory.Logic
+namespace AbstractFactoryLogic.Logic
 {
   /// <summary>
   /// A concrete passenger factory class.

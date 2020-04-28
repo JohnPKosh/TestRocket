@@ -1,7 +1,7 @@
-﻿using abstractfactory.Enums;
-using abstractfactory.Models.Interfaces;
+﻿using AbstractFactoryLogic.Enums;
+using AbstractFactoryLogic.Models.Interfaces;
 
-namespace abstractfactory.Logic
+namespace AbstractFactoryLogic.Logic
 {
   public static class PassengerCreator
   {

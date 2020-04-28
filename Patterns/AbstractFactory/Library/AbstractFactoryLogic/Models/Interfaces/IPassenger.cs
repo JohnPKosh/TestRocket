@@ -1,4 +1,4 @@
-﻿namespace abstractfactory.Models.Interfaces
+﻿namespace AbstractFactoryLogic.Models.Interfaces
 {
   /// <summary>
   /// An interface used for passenger models functionality

@@ -1,7 +1,7 @@
 ﻿using System;
-using abstractfactory.Logic;
-using abstractfactory.Enums;
-using abstractfactory.Models.Interfaces;
+using AbstractFactoryLogic.Logic;
+using AbstractFactoryLogic.Enums;
+using AbstractFactoryLogic.Models.Interfaces;
 
 namespace abstractfactory
 {

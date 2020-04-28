@@ -1,4 +1,4 @@
-﻿namespace abstractfactory.Enums
+﻿namespace AbstractFactoryLogic.Enums
 {
   /// <summary>The passenger type enumeration</summary>
   public enum PassengerType

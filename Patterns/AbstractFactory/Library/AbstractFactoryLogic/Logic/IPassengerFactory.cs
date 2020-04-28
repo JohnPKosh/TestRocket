@@ -1,6 +1,6 @@
-﻿using abstractfactory.Models.Interfaces;
+﻿using AbstractFactoryLogic.Models.Interfaces;
 
-namespace abstractfactory.Logic
+namespace AbstractFactoryLogic.Logic
 {
   /// <summary>
   /// The abstract factory pattern lets a class defer instantiation to subclasses.
@@ -10,16 +10,16 @@ namespace abstractfactory.Logic
     /// <summary>
     /// *** This is the public method used to create a new Astronaut ***
     /// </summary>
-    public IAstronaut NewAstronaut();
+    IAstronaut NewAstronaut();
 
     /// <summary>
     /// *** This is the public method used to create a new Cosmonaut ***
     /// </summary>
-    public ICosmonaut NewCosmonaut();
+    ICosmonaut NewCosmonaut();
 
     /// <summary>
     /// *** This is the public method used to create a new Toy ***
     /// </summary>
-    public IToy NewToy();
+    IToy NewToy();
   }
 }
