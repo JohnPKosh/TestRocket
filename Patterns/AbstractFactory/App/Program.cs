@@ -15,32 +15,32 @@ namespace abstractfactory
 
       /* Using specific raw abstract factory pattern example */
       var earthFactory = new PassengerFactory(); // normal gravity
-      ExecuteBasicExample(earthFactory);
+      executeBasicExample(earthFactory);
       hr();
 
       var spaceFactory = new WeightlessPassengerFactory(); // weightless
-      ExecuteBasicExample(spaceFactory);
+      executeBasicExample(spaceFactory);
       hr();
 
       /* Using gravity type and static creator logic */
-      ExecuteGravityCreator(GravityType.Normal); // normal gravity
+      executeGravityCreator(GravityType.Normal); // normal gravity
       hr();
 
-      ExecuteGravityCreator(GravityType.Weightless); // weightless
+      executeGravityCreator(GravityType.Weightless); // weightless
       hr();
 
       /* Do some fancy construction here */
       con("[Incoming Astronaut Transmissions]:");
-      ExecuteComplexLaunchCommand(PassengerType.Astronaut, GravityType.Normal);
-      ExecuteComplexLaunchCommand(PassengerType.Astronaut, GravityType.Weightless);
+      executeComplexLaunchCommand(PassengerType.Astronaut, GravityType.Normal);
+      executeComplexLaunchCommand(PassengerType.Astronaut, GravityType.Weightless);
       hr();
       con("[Incoming Cosmonaut Transmissions]:");
-      ExecuteComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Normal);
-      ExecuteComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Weightless);
+      executeComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Normal);
+      executeComplexLaunchCommand(PassengerType.Cosmonaut, GravityType.Weightless);
       hr();
       con("[Incoming Toy Transmissions]:");
-      ExecuteComplexLaunchCommand(PassengerType.Toy, GravityType.Normal);
-      ExecuteComplexLaunchCommand(PassengerType.Toy, GravityType.Weightless);
+      executeComplexLaunchCommand(PassengerType.Toy, GravityType.Normal);
+      executeComplexLaunchCommand(PassengerType.Toy, GravityType.Weightless);
       hr();
 
       con("Thanks for flying with us!");
@@ -49,7 +49,7 @@ namespace abstractfactory
     /// <summary>
     /// The basic abstract factory approach.
     /// </summary>
-    private static void ExecuteBasicExample(IPassengerFactory earthFactory)
+    private static void executeBasicExample(IPassengerFactory earthFactory)
     {
       // Create our passengers using the basic abstract factory methods.
       var astronaut = earthFactory.NewAstronaut();
@@ -69,7 +69,7 @@ namespace abstractfactory
     /// <summary>
     /// A slightly easier approach.
     /// </summary>
-    private static void ExecuteGravityCreator(GravityType gravity)
+    private static void executeGravityCreator(GravityType gravity)
     {
       var astronaut = PassengerCreator.GetAstronaut(gravity);
       var cosmonaut = PassengerCreator.GetCosmonaut(gravity);
@@ -88,7 +88,7 @@ namespace abstractfactory
     /// <summary>
     /// A more complex approach where are passengers have different things they can do.
     /// </summary>
-    private static void ExecuteComplexLaunchCommand(PassengerType passengerType, GravityType gravity)
+    private static void executeComplexLaunchCommand(PassengerType passengerType, GravityType gravity)
     {
       var passenger = PassengerCreator.GetPassenger(passengerType, gravity);
       if(passenger is IAstronaut astronaut)

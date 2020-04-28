@@ -44,7 +44,6 @@ namespace factorymethod
       //Console.ReadKey(true);
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
     private static void prepareForLaunch(PassengerType type)
     {
       var passenger = PassengerCreator.Create(type);
