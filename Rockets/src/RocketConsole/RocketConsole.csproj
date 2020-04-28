@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Factory\RocketFactory.csproj" />
+    <ProjectReference Include="..\RocketFactory\RocketFactory.csproj" />
   </ItemGroup>
 
 </Project>
