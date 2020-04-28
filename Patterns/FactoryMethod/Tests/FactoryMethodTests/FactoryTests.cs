@@ -92,6 +92,21 @@ namespace FactoryMethodTests
       Assert.NotEqual(expected, got);
     }
 
+
+    [Fact]
+    public void DifferentSpeechExpected()
+    {
+      // Arrange
+      var expected = m_Fix.sut_ExpectedAstronaut.Speak();
+
+      // Act
+      var got = m_Fix.sut_CosmonautFactory.NewPassenger().Speak();
+      m_Output.WriteLine("expecting: [{0}] and got: [{1}] as expected they should not match!", expected, got);
+
+      // Assert
+      Assert.NotEqual(expected, got);
+    }
+
     #endregion
   }
 }
