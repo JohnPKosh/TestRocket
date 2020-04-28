@@ -1,17 +1,23 @@
 ﻿using System;
-using AbstractFactoryLogic.Common;
+using FactoryMethodLogic.Common;
+using FactoryMethodLogic.Enums;
+using FactoryMethodLogic.Logic;
+using FactoryMethodLogic.Models.Interfaces;
 
-namespace AbstractFactoryTests.Fixtures
+namespace FactoryMethodTests.Fixtures
 {
   public class ToyFixture : IDisposable
   {
     public ToyFixture()
     {
-
+      sut_Passenger = PassengerCreator.Create(PassengerType.Toy);
     }
 
     public readonly string sut_SpeakExpected = FactoryConstants.TOY_SPK;
 
+    public readonly string sut_LaunchExpected = FactoryConstants.TOY_LAUNCH;
+
+    public IPassenger sut_Passenger {get;set;}
 
     #region IDisposable Support
 

@@ -6,20 +6,20 @@ namespace AbstractFactoryTests
 {
   public class ToyTests : IClassFixture<ToyFixture>
   {
-    private readonly ITestOutputHelper output;
+    private readonly ITestOutputHelper m_Output;
     private readonly ToyFixture m_Fix;
 
     public ToyTests(ITestOutputHelper output, ToyFixture fixture)
     {
-      this.output = output;
+      m_Output = output;
       m_Fix = fixture;
     }
 
 
     [Fact]
-    public void Test1()
+    public void CanWriteOutput()
     {
-      output.WriteLine(m_Fix.sut_SpeakExpected);
+      m_Output.WriteLine(m_Fix.sut_SpeakExpected);
     }
   }
 }
