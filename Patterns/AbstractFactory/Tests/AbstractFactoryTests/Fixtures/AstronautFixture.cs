@@ -7,24 +7,24 @@ using AbstractFactoryLogic.Models.Interfaces;
 
 namespace AbstractFactoryTests.Fixtures
 {
-  public class ToyFixture : IDisposable, IModelFixture
+  public class AstronautFixture : IDisposable, IModelFixture
   {
-    public ToyFixture()
+    public AstronautFixture()
     {
-      sut_Passenger = PassengerCreator.GetToy(GravityType.Normal);
-      sut_ZeroGPassenger = PassengerCreator.GetToy(GravityType.Weightless);
+      sut_Passenger = PassengerCreator.GetAstronaut(GravityType.Normal);
+      sut_ZeroGPassenger = PassengerCreator.GetAstronaut(GravityType.Weightless);
 
-      sut_NormalTypeExpected = typeof(Toy);
-      sut_ZeroGTypeExpected = typeof(WeightlessToy);
+      sut_NormalTypeExpected = typeof(Astronaut);
+      sut_ZeroGTypeExpected = typeof(WeightlessAstronaut);
     }
 
-    public string sut_SpeakExpected { get; protected set; } = FactoryConstants.TOY_SPK;
+    public string sut_SpeakExpected { get; protected set; } = FactoryConstants.AST_SPK;
 
-    public string sut_LaunchExpected { get; protected set; } = FactoryConstants.TOY_LAUNCH;
+    public string sut_LaunchExpected { get; protected set; } = FactoryConstants.AST_LAUNCH;
 
-    public string sut_SpeakZeroGExpected { get; protected set; } = FactoryConstants.TOY_SPK_ZERO_G;
+    public string sut_SpeakZeroGExpected { get; protected set; } = FactoryConstants.AST_SPK_ZERO_G;
 
-    public string sut_LaunchZeroGExpected { get; protected set; } = FactoryConstants.TOY_LAUNCH_ZERO_G;
+    public string sut_LaunchZeroGExpected { get; protected set; } = FactoryConstants.AST_LAUNCH_ZERO_G;
 
     public Type sut_NormalTypeExpected { get; protected set; }
 
