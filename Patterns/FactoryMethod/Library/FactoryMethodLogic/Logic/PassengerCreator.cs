@@ -1,8 +1,8 @@
-﻿using factorymethod.Enums;
-using factorymethod.Models;
-using factorymethod.Models.Interfaces;
+﻿using FactoryMethodLogic.Enums;
+using FactoryMethodLogic.Models;
+using FactoryMethodLogic.Models.Interfaces;
 
-namespace factorymethod.Logic
+namespace FactoryMethodLogic.Logic
 {
   /// <summary>
   /// A static creator class that extends how we are using our factory method pattern.

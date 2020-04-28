@@ -1,6 +1,6 @@
-﻿using factorymethod.Models.Interfaces;
+﻿using FactoryMethodLogic.Models.Interfaces;
 
-namespace factorymethod.Logic
+namespace FactoryMethodLogic.Logic
 {
   /// <summary>
   /// Factory method lets a class defer instantiation to subclasses.

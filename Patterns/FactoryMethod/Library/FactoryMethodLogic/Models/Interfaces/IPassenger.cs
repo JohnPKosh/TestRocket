@@ -1,4 +1,4 @@
-﻿namespace factorymethod.Models.Interfaces
+﻿namespace FactoryMethodLogic.Models.Interfaces
 {
   /// <summary>
   /// An interface used for passenger models functionality
@@ -6,9 +6,9 @@
   public interface IPassenger
   {
     /// <summary>Say some clever phrase here.</summary>
-    void Speak();
+    string Speak();
 
     /// <summary>Begin launch command instruction.</summary>
-    void LaunchCommand();
+    string LaunchCommand();
   }
 }

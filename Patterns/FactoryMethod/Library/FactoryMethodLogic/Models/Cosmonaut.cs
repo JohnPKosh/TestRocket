@@ -1,8 +1,8 @@
-﻿using System;
-using factorymethod.Logic;
-using factorymethod.Models.Interfaces;
+﻿using FactoryMethodLogic.Common;
+using FactoryMethodLogic.Logic;
+using FactoryMethodLogic.Models.Interfaces;
 
-namespace factorymethod.Models
+namespace FactoryMethodLogic.Models
 {
   /// <summary>
   /// The IPassengerFactory defers NewPassenger creation to the CosmonautFactory
@@ -23,15 +23,15 @@ namespace factorymethod.Models
   public class Cosmonaut : IPassenger
   {
     /// <summary>Say some clever phrase here.</summary>
-    public void Speak()
+    public string Speak()
     {
-      Console.WriteLine("Sukin syn!");
+      return FactoryConstants.CSM_SPK;
     }
 
     /// <summary>Begin launch command instruction.</summary>
-    public void LaunchCommand()
+    public string LaunchCommand()
     {
-      Console.WriteLine("Slava stalinu...");
+      return FactoryConstants.CSM_LAUNCH;
     }
   }
 }

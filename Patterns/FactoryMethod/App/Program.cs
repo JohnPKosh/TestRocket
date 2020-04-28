@@ -1,6 +1,6 @@
 ﻿using System;
-using factorymethod.Logic;
-using factorymethod.Enums;
+using FactoryMethodLogic.Enums;
+using FactoryMethodLogic.Logic;
 
 namespace factorymethod
 {
@@ -13,6 +13,10 @@ namespace factorymethod
        * we just add some PassengerCreator and a private method
        * so as not to be repetitive
       */
+
+      hr();
+      con("Prepare to Launch!");
+      hr();
 
       prepareForLaunch(PassengerType.Astronaut);
       prepareForLaunch(PassengerType.Cosmonaut);
@@ -44,8 +48,14 @@ namespace factorymethod
     private static void prepareForLaunch(PassengerType type)
     {
       var passenger = PassengerCreator.Create(type);
-      passenger.Speak();
-      passenger.LaunchCommand();
+      con(passenger.Speak());
+      con(passenger.LaunchCommand());
+      hr();
     }
+
+    // Helpers to make things easier to read above.
+    private static void hr() => Console.WriteLine("\n**********************************\n");
+    private static void con(string text) => Console.WriteLine(text);
+
   }
 }
