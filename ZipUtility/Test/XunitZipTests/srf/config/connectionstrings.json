@@ -1,0 +1,44 @@
+{
+  "Environments": {
+    "DEV": {
+      "Id": null,
+      "Items": [
+        {
+          "Name": "Test",
+          "ProviderName": "System.Data.SqlClient",
+          "ConnectionString": "Data Source=.\\SQLEXPRESS;initial catalog=DbClientTest;integrated security=True;"
+        }
+      ]
+    },
+    "SIT": {
+      "Id": null,
+      "Items": [
+        {
+          "Name": "Test",
+          "ProviderName": "System.Data.SqlClient",
+          "ConnectionString": "Data Source=.\\SQLEXPRESS;initial catalog=DbClientTest;integrated security=True;"
+        }
+      ]
+    },
+    "UAT": {
+      "Id": null,
+      "Items": [
+        {
+          "Name": "Test",
+          "ProviderName": "System.Data.SqlClient",
+          "ConnectionString": "Data Source=.\\SQLEXPRESS;initial catalog=DbClientTest;integrated security=True;"
+        }
+      ]
+    },
+    "PROD": {
+      "Id": null,
+      "Items": [
+        {
+          "Name": "Test",
+          "ProviderName": "System.Data.SqlClient",
+          "ConnectionString": "Data Source=.\\SQLEXPRESS;initial catalog=DbClientTest;integrated security=True;"
+        }
+      ]
+    }
+  }
+}

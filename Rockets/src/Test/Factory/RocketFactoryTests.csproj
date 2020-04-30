@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\out\Debug\</OutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\out\Release\</OutputPath>
+  </PropertyGroup>
+
+    <ItemGroup>
+    <None Include="*.laconf" CopyToOutputDirectory="Always" />
+    <None Include="*.cmd" CopyToOutputDirectory="Always" />
+    <!-- CopyToOutputDirectory = { Always, PreserveNewest, Never } -->
+
+    <Content Include="*.laconf" CopyToPublishDirectory="Always" /> 
+    <Content Include="*.cmd" CopyToPublishDirectory="Always" />  
+    <!-- CopyToPublishDirectory = { Always, PreserveNewest, Never } -->
+  </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Azos" Version="1.0.511" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\RocketFactory\RocketFactory.csproj" />
+    </ItemGroup>
+
+</Project>

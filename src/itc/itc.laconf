@@ -1,5 +1,0 @@
-﻿app
-{
-  process-includes="_include"
-  _include{file="./it-local.laconf" }
-}
