@@ -6,9 +6,9 @@ namespace ProxyLogic.Models
 {
   public class ProtectedPassenger : IPassenger
   {
-    private IPassenger m_Passenger { get; set; }
+    private IPassenger m_Passenger { get; set; } // Here we store the target of our proxy wrapper class.
 
-    public bool IsWearingSpaceSuit { get; set; }
+    public bool IsWearingSpaceSuit { get; set; } // Here we extend and add a proxy property without modifying IPassenger.
 
     public static ProtectedPassenger Create(PassengerType type, bool isWearingSpaceSuit)
     {

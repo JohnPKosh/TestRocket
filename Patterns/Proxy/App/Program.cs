@@ -25,6 +25,7 @@ namespace proxy
       prepareForLaunch(PassengerType.Astronaut, true);
       prepareForLaunch(PassengerType.Cosmonaut, true);
       prepareForLaunch(PassengerType.Toy, false);
+      prepareForLaunch(PassengerType.RemoteControlToy, true);
 
       /*
         The point of this sample is to see how we can use a proxy to not violate the

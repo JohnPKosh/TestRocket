@@ -19,6 +19,8 @@ namespace ProxyLogic.Logic
           return new CosmonautFactory().NewPassenger();
         case PassengerType.Toy:
           return new ToyFactory().NewPassenger();
+        case PassengerType.RemoteControlToy:
+          return new RemoteControlFactory().NewPassenger();
         default:
           return new AstronautFactory().NewPassenger();
       }

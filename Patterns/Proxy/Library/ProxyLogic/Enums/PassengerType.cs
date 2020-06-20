@@ -5,6 +5,7 @@
   {
     Astronaut,
     Cosmonaut,
-    Toy
+    Toy,
+    RemoteControlToy
   }
 }
