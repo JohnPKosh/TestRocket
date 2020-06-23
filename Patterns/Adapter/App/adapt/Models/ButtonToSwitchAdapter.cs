@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using adapt.Models.Interfaces;
+﻿using adapt.Models.Interfaces;
 
 namespace adapt.Models
 {

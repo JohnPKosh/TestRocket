@@ -1,22 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace decorate.Models
+﻿namespace decorate.Models
 {
+  /// <summary>
+  /// The ModuleDecorator is a Static Decorator implementation
+  /// that will decorate an object based on the generic type argument
+  /// passed in to the constructor.
+  /// </summary>
+  /// <example>
+  ///   var controlPanelDecorator = new ModuleDecorator<Sticker>("control panel");
+  ///   con(controlPanelDecorator.Apply());
+  /// </example>
   public class ModuleDecorator<T> : Decorator where T : Decorator, new()
   {
+    private const string DEFAULT_LOCATION = "capsule";
+
+    /// <summary>A new private readonly Decorator of T created on instantiation.</summary>
     private readonly T m_Decoration = new T();
 
-    public ModuleDecorator() : this("capsule") { }
+    /// <summary>A default constructor that applies the DEFAULT_LOCATION</summary>
+    public ModuleDecorator() : this(DEFAULT_LOCATION) { }
 
+    /// <summary>A constructor that accepts a location argument to be applied on the Decorator base class property.</summary>
     public ModuleDecorator(string location)
     {
       Location = location;
     }
 
+    /// <summary>The overridden Apply method of the base abstract method.</summary>
     public override string Apply()
     {
+      // The below is fairly bloated logic, normally you would want to externalize
+      // this logic into seperate code components (private methods etc.)
       if (m_Decoration is Paint)
       {
         var paint = m_Decoration as Paint;
