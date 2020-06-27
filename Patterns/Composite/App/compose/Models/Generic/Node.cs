@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace compose.Models
+namespace compose.Models.Generic
 {
   public class Node<T> : IEnumerable<Node<T>>
   {
