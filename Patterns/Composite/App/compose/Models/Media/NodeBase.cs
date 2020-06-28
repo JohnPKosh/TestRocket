@@ -25,17 +25,21 @@ namespace compose.Models.Media
   public abstract class NodeBase
   {
     public virtual int Id { get; set; }
+
     public virtual string Name { get; protected set; }
 
-    public abstract void Add(NodeBase item); // leaf only
-    public abstract void Remove(NodeBase item); // leaf only
-    public abstract int Count();  // leaf only child count
-    public abstract bool IsLeaf { get; } // true when leaf false when not
-    public abstract IEnumerable<NodeBase> GetChildren();   // true when leaf
+    public abstract bool IsLeaf { get; }
 
-    public IEnumerable<NodeBase> Find(Func<NodeBase, bool> finder)
+    public abstract IEnumerable<NodeBase> GetChildren();
+
+    public IEnumerable<NodeBase> FindLeafNodes(Func<NodeBase, bool> finder)
     {
-      return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
+      return GetChildren().Descendants(i => i.GetChildren()).Where(x=> x.IsLeaf).Where(finder);
+    }
+
+    public IEnumerable<NodeBase> FindCompositeNodes(Func<NodeBase, bool> finder)
+    {
+      return GetChildren().Descendants(i => i.GetChildren()).Where(x => !x.IsLeaf).Where(finder);
     }
 
     protected static readonly IReadOnlyCollection<NodeBase> Dummy;
@@ -47,36 +51,46 @@ namespace compose.Models.Media
     }
   }
 
-  public class NodeLeaf : NodeBase
+  public interface ICompositeNode
+  {
+    void Add(NodeBase item);
+    void Remove(NodeBase item);
+    int Count();
+    //IEnumerable<NodeBase> GetChildren();
+
+    //IEnumerable<NodeBase> Find(Func<NodeBase, bool> finder);
+  }
+
+  public class CompositeNode : NodeBase , ICompositeNode
   {
     private readonly IList<NodeBase> _items;
     private readonly IReadOnlyCollection<NodeBase> _children;
 
-    public NodeLeaf(string title)
+    public CompositeNode(string name)
     {
-      Name = title;
+      Name = name;
       _items = new Collection<NodeBase>();
       _children = new ReadOnlyCollection<NodeBase>(_items);
     }
 
-    public override void Add(NodeBase item)
+    public void Add(NodeBase item)
     {
       _items.Add(item);
     }
 
-    public override void Remove(NodeBase item)
+    public void Remove(NodeBase item)
     {
       _items.Remove(item);
     }
 
-    public override int Count()
+    public int Count()
     {
       return _items.Count;
     }
 
     public override bool IsLeaf
     {
-      get { return true; }
+      get { return false; }
     }
 
     public override IEnumerable<NodeBase> GetChildren()
@@ -90,30 +104,16 @@ namespace compose.Models.Media
   {
     private readonly string _path;
 
-    public NodeItem(string path, string name)
+    public NodeItem(string path, string name, int id)
     {
       _path = path;
       Name = name;
-    }
-
-    public override void Add(NodeBase item)
-    {
-      throw new NotImplementedException();
-    }
-
-    public override void Remove(NodeBase item)
-    {
-      throw new NotImplementedException();
-    }
-
-    public override int Count()
-    {
-      throw new NotImplementedException();
+      Id = id;
     }
 
     public override bool IsLeaf
     {
-      get { return false; }
+      get { return true; }
     }
 
     public override IEnumerable<NodeBase> GetChildren()
