@@ -11,7 +11,7 @@ namespace compose
   {
     static void Main(string[] args)
     {
-      //RunGeneric();
+      RunGeneric();
       RunGenericWithNodeBase();
       //RunPlaylist();
       //RunGoF();
@@ -89,8 +89,8 @@ namespace compose
       dad.ConnectTo(mom);
 
       var childNames = new List<string>() { "Parker", "Sierra" };
-      var children = new ChildNodes<string>(childNames);
-      mom.ConnectTo(children);
+      //var children = new ChildNodes<string>(childNames);
+      mom.CreateNewChildren(childNames);
 
       Console.WriteLine("In: {0} / Out {1}", mom.In.Count, mom.Out.Count);
     }
@@ -99,14 +99,22 @@ namespace compose
     {
       var dad = new Node<NodeBase>(new NodeItem(string.Empty, "John", 1));
       var mom = new Node<NodeBase>(new NodeItem(string.Empty, "Wendy", 2));
+      var pc = new Node<NodeBase>(new NodeItem(string.Empty, "Computer", 6));
 
       dad.ConnectTo(mom);
+      dad.ConnectTo(pc);
 
       mom.ConnectTo(new Node<NodeBase>(new NodeItem(string.Empty, "Parker", 3)));
       mom.ConnectTo(new Node<NodeBase>(new NodeItem(string.Empty, "Sierra", 4)));
 
       var alien = new Node<NodeBase>(new NodeItem(string.Empty, "Bsdlkfjewkj", 5));
-      alien.ReParent(mom);
+      dad.ReParent(alien, mom);
+
+      mom.ReParentChildren(dad);
+
+      dad.ReParentChildren(alien, x => x.Value.Name == "Computer");
+
+      mom.CreateNewChild(new NodeItem(string.Empty, "Findley", 7));
 
       Console.WriteLine("In: {0} / Out {1}", mom.In.Count, mom.Out.Count);
     }
