@@ -153,7 +153,7 @@ namespace compose
       root.ConnectTo(defectRobots);
 
 
-      var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is Robot); // we would only need to check RobotInstance if we had other polymorphic classes to consider.
+      var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is Robot); // we really only need to check Robot if we had other polymorphic classes to consider.
 
       Console.WriteLine("\r\nGetting the more popular stooges.");
 
