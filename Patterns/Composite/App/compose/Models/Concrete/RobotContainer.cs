@@ -5,7 +5,7 @@ using compose.Models.Generic;
 
 namespace compose.Models.Concrete
 {
-  public class RobotContainer : CompositeNode<Robot>
+  public class RobotContainer : CompositeNode<RobotChassis>
   {
     private const string GROUP_NAME = "Robot Container";
 
@@ -16,7 +16,7 @@ namespace compose.Models.Concrete
       Meta.DisplayName = containerName;
     }
 
-    public void CreateNewComposite(Robot value, string containerName)
+    public void CreateNewComposite(RobotChassis value, string containerName)
     {
       var meta = new NodeMeta
       {
@@ -27,7 +27,7 @@ namespace compose.Models.Concrete
       base.CreateNewComposite(value, meta);
     }
 
-    public override void CreateNewComposite(Robot value, NodeMeta meta)
+    public override void CreateNewComposite(RobotChassis value, NodeMeta meta)
     {
       if (string.IsNullOrWhiteSpace(meta.GroupName)) meta.GroupName = GROUP_NAME;
       base.CreateNewComposite(value, meta);

@@ -135,29 +135,49 @@ namespace compose
       var root = new RobotContainer("ROOT");
 
       var autoRobots = new RobotContainer("Fully Autonomous Robots");
-      var autoList = new List<RobotInstance>
+      var autoList = new List<Robot>
       {
-        new RobotInstance(new Robot() { ArmCount = 3 }, "Larry", "3 stooges"),
-        new RobotInstance(new Robot() { ArmCount = 4 }, "Curly", "3 stooges"),
-        new RobotInstance(new Robot() { ArmCount = 5 }, "Moe", "3 stooges")
+        new Robot(new RobotChassis() { ArmCount = 3 }, "Larry", "3 stooges"),
+        new Robot(new RobotChassis() { ArmCount = 4 }, "Curly", "3 stooges"),
+        new Robot(new RobotChassis() { ArmCount = 5 }, "Moe", "3 stooges")
       };
       autoRobots.ConnectTo(autoList);
 
       var defectRobots = new RobotContainer("Faulty Robots");
-      var r4 = new RobotInstance(new Robot() { ArmCount = 12 }, "Shemp", "3 stooges");
+      var r4 = new Robot(new RobotChassis() { ArmCount = 13 }, "Shemp", "3 stooges");
       defectRobots.ConnectTo(r4);
 
       root.ConnectTo(autoRobots);
       root.ConnectTo(defectRobots);
 
       var all = root.GetDescendents();
-      var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is RobotInstance);
+      var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is Robot); // we would only need to check RobotInstance if we had other polymorphic classes to consider.
+
+      Console.WriteLine("\r\nGetting the more popular stooges.");
+
       foreach (var r in robotItems)
       {
+        // We get an instance name from the metadata.
+        // The arm count is a property of our generic T type of Robot.
+        // This is where the potential madness begins with
+        // all of the possible composite options.
         Console.WriteLine("{0} has {1} arms!",r.Meta.DisplayName, r.Value.ArmCount);
       }
 
-      Console.WriteLine("blah");
+      var faultyContainers = root.FindCompositeNodes(x => x.Meta.DisplayName == "Faulty Robots");
+
+      Console.WriteLine("\r\nGetting the faulty stooges.");
+      foreach (var c in faultyContainers)
+      {
+        // Now we go and lose all sanity...
+        var faultyBots = c.FindLeafNodes(x => x is Robot);
+        foreach (var f in faultyBots)
+        {
+          Console.WriteLine("{0} has {1} arms!", f.Meta.DisplayName, f.Value.ArmCount);
+        }
+      }
+
+      Console.WriteLine("\r\nknuck, knuck, knuck!");
     }
   }
 }

@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using compose.Models.Generic;
 
 namespace compose.Models.Concrete
 {
-  public class Robot
+  public class Robot :LeafNode<RobotChassis>
   {
-    public int? ArmCount { get; set; }
-
-    public string GetGuid()
+    public Robot(RobotChassis value, string robotName, string robotGroup)
     {
-      return Guid.NewGuid().ToString();
+      Value = value;
+      Meta.Name = Guid.NewGuid().ToString();
+      Meta.GroupName = robotGroup;
+      Meta.DisplayName = robotName;
     }
   }
 }
