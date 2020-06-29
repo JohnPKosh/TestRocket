@@ -130,6 +130,8 @@ namespace compose
     }
 
 
+    // TODO: consider mixing the below with the prototype pattern for some interesting code?
+
     private static void RunRobotTree()
     {
       var root = new RobotContainer("ROOT");
@@ -150,7 +152,7 @@ namespace compose
       root.ConnectTo(autoRobots);
       root.ConnectTo(defectRobots);
 
-      var all = root.GetDescendents();
+
       var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is Robot); // we would only need to check RobotInstance if we had other polymorphic classes to consider.
 
       Console.WriteLine("\r\nGetting the more popular stooges.");
