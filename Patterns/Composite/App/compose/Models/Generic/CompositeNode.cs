@@ -10,10 +10,11 @@ namespace compose.Models.Generic
 
     public CompositeNode() : base() { }
 
-    public CompositeNode(T value) : base(value) { }
+    public CompositeNode(T value, NodeMeta meta = null) : base(value, meta) { }
 
     #endregion
 
     public override bool IsLeaf { get; protected set; } = false;
+
   }
 }

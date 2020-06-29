@@ -9,6 +9,8 @@ namespace compose.Models.Generic
   public interface INode<T>
   {
     T Value { get; set; }
+
+    NodeMeta Meta { get; set; }
   }
 
   public abstract class Node<T> : IEnumerable<Node<T>>, INode<T>
@@ -17,9 +19,10 @@ namespace compose.Models.Generic
 
     public Node() { }
 
-    public Node(T value)
+    public Node(T value, NodeMeta meta = null)
     {
       Value = value;
+      if(meta != null) Meta = meta;
     }
 
     #endregion
@@ -28,7 +31,9 @@ namespace compose.Models.Generic
 
     public T Value { get; set; } = default;
 
-    public abstract bool IsLeaf { get; protected set; } // TODO: determine how to address this
+    public abstract bool IsLeaf { get; protected set; }
+
+    public NodeMeta Meta { get; set; } = new NodeMeta();
 
     public List<Node<T>> In = new List<Node<T>>();
 
@@ -38,16 +43,16 @@ namespace compose.Models.Generic
 
     #region Create New Child Methods
 
-    public void CreateNewLeaf(T value) =>
-      this.ConnectTo(new LeafNode<T>() { Value = value });
+    public virtual void CreateNewLeaf(T value, NodeMeta meta = null) =>
+      this.ConnectTo(new LeafNode<T>() { Value = value, Meta = meta });
 
-    public void CreateNewLeaves(IEnumerable<T> values) =>
+    public virtual void CreateNewLeaves(IEnumerable<T> values) =>
       this.ConnectTo(values.Select(x => new LeafNode<T>() { Value = x }));
 
-    public void CreateNewComposite(T value) =>
-      this.ConnectTo(new CompositeNode<T>() { Value = value });
+    public virtual void CreateNewComposite(T value, NodeMeta meta = null) =>
+      this.ConnectTo(new CompositeNode<T>() { Value = value, Meta = meta });
 
-    public void CreateNewComposites(IEnumerable<T> values) =>
+    public virtual void CreateNewComposites(IEnumerable<T> values) =>
       this.ConnectTo(values.Select(x => new CompositeNode<T>() { Value = x }));
 
     #endregion
@@ -193,6 +198,16 @@ namespace compose.Models.Generic
     #endregion
   }
 
+  public class NodeMeta
+  {
+    public string DisplayName { get; set; }
+
+    public string Name { get; set; }
+
+    public string GroupName { get; set; }
+
+    public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
+  }
 
   public static class NodeExtensions
   {

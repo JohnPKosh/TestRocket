@@ -10,7 +10,7 @@ namespace compose.Models.Generic
 
     public LeafNode():base() { }
 
-    public LeafNode(T value) : base(value) { }
+    public LeafNode(T value, NodeMeta meta = null) : base(value, meta) { }
 
     #endregion
 

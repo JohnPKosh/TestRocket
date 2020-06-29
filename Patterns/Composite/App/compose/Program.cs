@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using compose.Models.Concrete;
 using compose.Models.Generic;
 using compose.Models.GoF;
 using compose.Models.Media;
@@ -11,10 +12,11 @@ namespace compose
   {
     static void Main(string[] args)
     {
-      RunGeneric();
-      RunGenericWithNodeBase();
+      //RunGeneric();
+      //RunGenericWithNodeBase();
       //RunPlaylist();
       //RunGoF();
+      RunRobotTree();
     }
 
     private static void RunGoF()
@@ -125,6 +127,37 @@ namespace compose
       mom.CreateNewLeaf(new NodeItem(string.Empty, "Findley", 7));
 
       Console.WriteLine("In: {0} / Out {1}", mom.In.Count, mom.Out.Count);
+    }
+
+
+    private static void RunRobotTree()
+    {
+      var root = new RobotContainer("ROOT");
+
+      var autoRobots = new RobotContainer("Fully Autonomous Robots");
+      var autoList = new List<RobotInstance>
+      {
+        new RobotInstance(new Robot() { ArmCount = 3 }, "Larry", "3 stooges"),
+        new RobotInstance(new Robot() { ArmCount = 4 }, "Curly", "3 stooges"),
+        new RobotInstance(new Robot() { ArmCount = 5 }, "Moe", "3 stooges")
+      };
+      autoRobots.ConnectTo(autoList);
+
+      var defectRobots = new RobotContainer("Faulty Robots");
+      var r4 = new RobotInstance(new Robot() { ArmCount = 12 }, "Shemp", "3 stooges");
+      defectRobots.ConnectTo(r4);
+
+      root.ConnectTo(autoRobots);
+      root.ConnectTo(defectRobots);
+
+      var all = root.GetDescendents();
+      var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is RobotInstance);
+      foreach (var r in robotItems)
+      {
+        Console.WriteLine("{0} has {1} arms!",r.Meta.DisplayName, r.Value.ArmCount);
+      }
+
+      Console.WriteLine("blah");
     }
   }
 }
