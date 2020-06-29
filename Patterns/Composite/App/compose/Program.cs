@@ -76,12 +76,12 @@ namespace compose
 
     private static void RunGeneric()
     {
-      var dad = new Node<string>
+      var dad = new CompositeNode<string>
       {
         Value = "John"
       };
 
-      var mom = new Node<string>
+      var mom = new CompositeNode<string>
       {
         Value = "Wendy"
       };
@@ -90,31 +90,39 @@ namespace compose
 
       var childNames = new List<string>() { "Parker", "Sierra" };
       //var children = new ChildNodes<string>(childNames);
-      mom.CreateNewChildren(childNames);
+      mom.CreateNewLeaves(childNames);
+
+      var allNodes = dad.GetDescendents().ToList();
+      var findNodes =dad.FindNodes(x => x == x).ToList();
+      var findParkerNodes = dad.FindNodes(x => x.Value == "Parker").ToList();
+      var compNodes = dad.FindCompositeNodes(x => x == x).ToList();
+      var leafNodes = dad.FindLeafNodes(x => x == x).ToList();
 
       Console.WriteLine("In: {0} / Out {1}", mom.In.Count, mom.Out.Count);
     }
 
     private static void RunGenericWithNodeBase()
     {
-      var dad = new Node<NodeBase>(new NodeItem(string.Empty, "John", 1));
-      var mom = new Node<NodeBase>(new NodeItem(string.Empty, "Wendy", 2));
-      var pc = new Node<NodeBase>(new NodeItem(string.Empty, "Computer", 6));
+      var dad = new CompositeNode<NodeBase>(new NodeItem(string.Empty, "John", 1));
+      var mom = new CompositeNode<NodeBase>(new NodeItem(string.Empty, "Wendy", 2));
+      var pc = new LeafNode<NodeBase>(new NodeItem(string.Empty, "Computer", 6));
 
       dad.ConnectTo(mom);
       dad.ConnectTo(pc);
 
-      mom.ConnectTo(new Node<NodeBase>(new NodeItem(string.Empty, "Parker", 3)));
-      mom.ConnectTo(new Node<NodeBase>(new NodeItem(string.Empty, "Sierra", 4)));
+      mom.ConnectTo(new LeafNode<NodeBase>(new NodeItem(string.Empty, "Parker", 3)));
+      mom.ConnectTo(new LeafNode<NodeBase>(new NodeItem(string.Empty, "Sierra", 4)));
 
-      var alien = new Node<NodeBase>(new NodeItem(string.Empty, "Bsdlkfjewkj", 5));
+      var alien = new CompositeNode<NodeBase>(new NodeItem(string.Empty, "Bsdlkfjewkj", 5));
       dad.ReParent(alien, mom);
 
       mom.ReParentChildren(dad);
+      //mom.ReParent(dad);
 
       dad.ReParentChildren(alien, x => x.Value.Name == "Computer");
+      //dad.ReParent(alien, x => x.Value.Name == "Computer");
 
-      mom.CreateNewChild(new NodeItem(string.Empty, "Findley", 7));
+      mom.CreateNewLeaf(new NodeItem(string.Empty, "Findley", 7));
 
       Console.WriteLine("In: {0} / Out {1}", mom.In.Count, mom.Out.Count);
     }
