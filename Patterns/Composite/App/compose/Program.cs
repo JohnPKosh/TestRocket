@@ -149,6 +149,10 @@ namespace compose
       var r4 = new Robot(new RobotChassis() { ArmCount = 13 }, "Shemp", "3 stooges");
       defectRobots.ConnectTo(r4);
 
+      var spareParts = new RobotContainer("Spare Parts");
+      spareParts.ConnectTo(new Robot(new RobotChassis() { ArmCount = 2 }, "C3PO", "Star Wars"));
+      defectRobots.ConnectTo(spareParts);
+
       root.ConnectTo(autoRobots);
       root.ConnectTo(defectRobots);
 
