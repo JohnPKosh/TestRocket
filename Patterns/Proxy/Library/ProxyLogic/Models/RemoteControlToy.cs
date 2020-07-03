@@ -23,11 +23,13 @@ namespace ProxyLogic.Models
   {
     private RemoteController m_remoteController = new RemoteController(); // Imagine this is a remote controller operating a remote control toy.
 
+    /// <summary> Begin launch command instruction. </summary>
     public string LaunchCommand() // Here we implement the IPassenger method to launch
     {
       return m_remoteController.SendCommand(); // This is not implementing IPassenger. It is a remote system and has it's own logic.
     }
 
+    /// <summary> Say some clever phrase here. </summary>
     public string Speak() // Here we implement the IPassenger method to speak
     {
       return m_remoteController.Babble(); // This is not implementing IPassenger. It is a remote system and has it's own logic.

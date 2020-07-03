@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace single.Models
 {
   /// <summary>
-  /// The random load balanced instance.
+  /// The random load balanced instance
   /// </summary>
   sealed class RandomBalancer
   {
@@ -29,16 +29,15 @@ namespace single.Models
     }
 
     /// <summary>
-    /// The public static method to get the singleton instance of our class.
+    /// The public static method to get the singleton instance of our class
     /// </summary>
+    /// <remarks> Could be shortened to: "public static RandomBalancer GetBalancer() => m_Instance;" </remarks>
     public static RandomBalancer GetBalancer()
     {
       return m_Instance;
     }
 
-    /// <summary>
-    /// Gets the next resource from our resource collection.
-    /// </summary>
+    /// <summary> Gets the next resource from our resource collection </summary>
     public Resource NextResource
     {
       get
@@ -50,18 +49,14 @@ namespace single.Models
   }
 
   /// <summary>
-  /// The basic resource item class to hold a reference mapping to a particular distributed resource.
+  /// The basic resource item class to hold a reference mapping to a particular distributed resource
   /// </summary>
   public class Resource
   {
-    /// <summary>
-    /// The name of our resource item
-    /// </summary>
+    /// <summary> The name of our resource item </summary>
     public string Name { get; set; }
 
-    /// <summary>
-    /// The target resource path identifier of our resource.
-    /// </summary>
+    /// <summary> The target resource path identifier of our resource </summary>
     public string Target { get; set; }
   }
 }
