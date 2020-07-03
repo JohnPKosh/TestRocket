@@ -6,14 +6,7 @@ using System.Linq;
 
 namespace compose.Models.Generic
 {
-  public interface INode<T>
-  {
-    T Value { get; set; }
-
-    NodeMeta Meta { get; set; }
-  }
-
-  public abstract class Node<T> : IEnumerable<Node<T>>, INode<T>
+  public abstract class Node<T> : IEnumerable<Node<T>>
   {
     #region Constructors and Class Initialization
 

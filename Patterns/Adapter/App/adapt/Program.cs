@@ -26,7 +26,7 @@ namespace adapt
       con("FLIP the BUTTON 3 times!");  // Apparently ground control is a bit confused. How do you flip a button?
       hr();
 
-      var button = new Button(); // I can push a button but I cannot flip it? To avoid disaster, this is where the adapter pattern is used.
+      var button = new ButtonPusher(); // I can push a button but I cannot flip it? To avoid disaster, this is where the adapter pattern is used.
       var buttonAdapter = new ButtonToSwitchAdapter(button);
 
       for (int i = 0; i < 3; i++)
@@ -47,7 +47,7 @@ namespace adapt
       con("PUSH the SWITCH 5 times!");  // Apparently ground control is a bit confused. How do you push a switch?
       hr();
 
-      var @switch = new Switch(); // I can push a button but I cannot flip it? To avoid disaster, this is where the adapter pattern is used.
+      var @switch = new SwitchFlipper(); // I can push a button but I cannot flip it? To avoid disaster, this is where the adapter pattern is used.
       var switchAdapter = new SwitchToButtonAdapter(@switch);
 
       for (int i = 0; i < 5; i++)
