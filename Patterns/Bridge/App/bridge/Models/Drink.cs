@@ -9,17 +9,13 @@ namespace bridge.Models
   {
     private string m_DrinkName;
 
-    /// <summary>
-    /// Default constructor accepting an IDispenser and a drink name string.
-    /// </summary>
+    /// <summary> Default constructor accepting an IDispenser and a drink name string. </summary>
     public Drink(IDispenser dispenser, string drinkName) : base(dispenser)
     {
       m_DrinkName = drinkName;
     }
 
-    /// <summary>
-    /// The overriden vend method to call IDispenser bridge logic.
-    /// </summary>
+    /// <summary> The overriden vend method to call IDispenser bridge logic. </summary>
     public override string Vend()
     {
       return m_Dispenser.DispenseItem(m_DrinkName);

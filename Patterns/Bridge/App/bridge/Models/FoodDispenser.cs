@@ -8,7 +8,7 @@ namespace bridge.Models
   /// </summary>
   public class FoodDispenser : IDispenser
   {
-    /// <summary>Method to dispense a food related item with a specific name.</summary>
+    /// <summary> Method to dispense a food related item with a specific name. </summary>
     public string DispenseItem(string productName) => $"Food dispenser is now dispensing a {productName}.";
   }
 }

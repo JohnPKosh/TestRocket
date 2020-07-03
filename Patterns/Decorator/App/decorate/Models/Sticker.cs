@@ -6,13 +6,13 @@
   /// </summary>
   public class Sticker : Decorator
   {
-    /// <summary>We override the abstract Apply method with our custom decoration method.</summary>
+    /// <summary> We override the abstract Apply method with our custom decoration method. </summary>
     public override string Apply()
     {
       return string.Format("Applying {0} sticker to the {1}!", StickerShape, Location);
     }
 
-    /// <summary>Represents a new extended decorated property describing the shape of a sticker.</summary>
+    /// <summary> Represents a new extended decorated property describing the shape of a sticker. </summary>
     public string StickerShape { get; set; }
   }
 }

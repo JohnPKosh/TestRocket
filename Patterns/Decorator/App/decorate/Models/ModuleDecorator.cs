@@ -13,19 +13,19 @@
   {
     private const string DEFAULT_LOCATION = "capsule";
 
-    /// <summary>A new private readonly Decorator of T created on instantiation.</summary>
+    /// <summary> A new private readonly Decorator of T created on instantiation. </summary>
     private readonly T m_Decoration = new T();
 
-    /// <summary>A default constructor that applies the DEFAULT_LOCATION</summary>
+    /// <summary> A default constructor that applies the DEFAULT_LOCATION </summary>
     public ModuleDecorator() : this(DEFAULT_LOCATION) { }
 
-    /// <summary>A constructor that accepts a location argument to be applied on the Decorator base class property.</summary>
+    /// <summary> A constructor that accepts a location argument to be applied on the Decorator base class property. </summary>
     public ModuleDecorator(string location)
     {
       Location = location;
     }
 
-    /// <summary>The overridden Apply method of the base abstract method.</summary>
+    /// <summary> The overridden Apply method of the base abstract method. </summary>
     public override string Apply()
     {
       // The below is fairly bloated logic, normally you would want to externalize

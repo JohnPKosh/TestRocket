@@ -1,8 +1,10 @@
 namespace ProxyLogic.Models
 {
-  /* Just putting this Property Proxy code sample here for later disection */
+  /* Just putting this Property Proxy code sample here for later dissection */
 
-
+  /// <summary>
+  /// A generic Property of T class to allow encapsulation of generic property functionality.
+  /// </summary>
   public class Property<T> where T : new()
   {
     private T value;

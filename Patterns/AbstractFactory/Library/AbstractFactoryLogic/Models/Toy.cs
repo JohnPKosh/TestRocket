@@ -8,23 +8,14 @@ namespace AbstractFactoryLogic.Models
   /// </summary>
   public class Toy : IToy
   {
-    /// <summary>Say some clever phrase here.</summary>
-    public string Speak()
-    {
-      return FactoryConstants.TOY_SPK;
-    }
+    /// <summary> Say some clever phrase here. </summary>
+    public string Speak() => FactoryConstants.TOY_SPK;
 
-    /// <summary>Begin launch command instruction.</summary>
-    public string LaunchCommand()
-    {
-      return FactoryConstants.TOY_LAUNCH;
-    }
+    /// <summary> Begin launch command instruction. </summary>
+    public string LaunchCommand() => FactoryConstants.TOY_LAUNCH;
 
-    /// <summary>Pull his strings.</summary>
-    public string PullString()
-    {
-      return FactoryConstants.TOY_PULL_STR;
-    }
+    /// <summary> Pull his strings. </summary>
+    public string PullString() => FactoryConstants.TOY_PULL_STR;
   }
 
   /// <summary>
@@ -32,22 +23,13 @@ namespace AbstractFactoryLogic.Models
   /// </summary>
   public class WeightlessToy : IToy
   {
-    /// <summary>Say some clever phrase here.</summary>
-    public string Speak()
-    {
-      return FactoryConstants.TOY_SPK_ZERO_G;
-    }
+    /// <summary> Say some clever phrase here. </summary>
+    public string Speak() => FactoryConstants.TOY_SPK_ZERO_G;
 
-    /// <summary>Begin launch command instruction.</summary>
-    public string LaunchCommand()
-    {
-      return FactoryConstants.TOY_LAUNCH_ZERO_G;
-    }
+    /// <summary> Begin launch command instruction. </summary>
+    public string LaunchCommand() => FactoryConstants.TOY_LAUNCH_ZERO_G;
 
-    /// <summary>Pull his strings.</summary>
-    public string PullString()
-    {
-      return FactoryConstants.TOY_PULL_STR_ZERO_G;
-    }
+    /// <summary> Pull his strings. </summary>
+    public string PullString() => FactoryConstants.TOY_PULL_STR_ZERO_G;
   }
 }

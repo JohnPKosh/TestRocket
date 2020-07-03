@@ -8,10 +8,10 @@
   /// </summary>
   interface IDecorate
   {
-    /// <summary>Method used to apply a decoration.</summary>
+    /// <summary> Method used to apply a decoration. </summary>
     string Apply();
 
-    /// <summary>Property specifying a location of the decoration.</summary>
+    /// <summary> Property specifying a location of the decoration. </summary>
     string Location { get; set; }
   }
 }

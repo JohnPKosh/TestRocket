@@ -22,13 +22,13 @@ namespace ProxyLogic.Models
   /// </summary>
   public class Astronaut : IPassenger
   {
-    /// <summary>Say some clever phrase here.</summary>
+    /// <summary> Say some clever phrase here. </summary>
     public string Speak()
     {
       return FactoryConstants.AST_SPK;
     }
 
-    /// <summary>Begin launch command instruction.</summary>
+    /// <summary> Begin launch command instruction. </summary>
     public string LaunchCommand()
     {
       return FactoryConstants.AST_LAUNCH;

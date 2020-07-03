@@ -9,6 +9,7 @@ namespace ProxyLogic.Logic
   /// </summary>
   public static class PassengerCreator
   {
+    /// <summary> The static method to return an IPassenger with a specified PassengerType mapped value. </summary>
     public static IPassenger Create(PassengerType type)
     {
       switch (type)

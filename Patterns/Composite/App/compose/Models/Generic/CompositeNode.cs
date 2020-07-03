@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace compose.Models.Generic
+﻿namespace compose.Models.Generic
 {
   public class CompositeNode<T> : Node<T>
   {

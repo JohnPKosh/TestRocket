@@ -1,5 +1,4 @@
-﻿using System;
-using mediate.Models;
+﻿using mediate.Models;
 
 namespace mediate
 {

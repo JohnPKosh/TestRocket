@@ -6,13 +6,13 @@
   /// </summary>
   public class Paint : Decorator
   {
-    /// <summary>We override the abstract Apply method with our custom decoration method.</summary>
+    /// <summary> We override the abstract Apply method with our custom decoration method. </summary>
     public override string Apply()
     {
       return string.Format("Giving the {0} a little {1} color!", Location, Color);
     }
 
-    /// <summary>Represents a new extended decorated property describing the color of a Paint.</summary>
+    /// <summary> Represents a new extended decorated property describing the color of a Paint. </summary>
     public string Color { get; set; }
   }
 }

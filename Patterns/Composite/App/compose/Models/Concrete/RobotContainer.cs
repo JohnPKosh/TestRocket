@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using compose.Models.Generic;
 
 namespace compose.Models.Concrete

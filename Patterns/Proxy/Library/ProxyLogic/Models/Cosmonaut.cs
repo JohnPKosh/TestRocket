@@ -22,13 +22,13 @@ namespace ProxyLogic.Models
   /// </summary>
   public class Cosmonaut : IPassenger
   {
-    /// <summary>Say some clever phrase here.</summary>
+    /// <summary> Say some clever phrase here. </summary>
     public string Speak()
     {
       return FactoryConstants.CSM_SPK;
     }
 
-    /// <summary>Begin launch command instruction.</summary>
+    /// <summary> Begin launch command instruction. </summary>
     public string LaunchCommand()
     {
       return FactoryConstants.CSM_LAUNCH;

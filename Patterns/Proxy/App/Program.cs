@@ -1,6 +1,5 @@
 ﻿using System;
 using ProxyLogic.Enums;
-using ProxyLogic.Logic;
 using ProxyLogic.Models;
 using ProxyLogic.Models.Interfaces;
 

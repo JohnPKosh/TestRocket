@@ -10,15 +10,13 @@ namespace bridge.Models
   {
     protected IDispenser m_Dispenser;
 
-    /// <summary>The default constructor that accepts an IDispenser interface.</summary>
+    /// <summary> The default constructor that accepts an IDispenser interface. </summary>
     public Product(IDispenser dispenser)
     {
       m_Dispenser = dispenser;
     }
 
-    /// <summary>
-    /// The abstract method to override when bridging the logic.
-    /// </summary>
+    /// <summary> The abstract method to override when bridging the logic. </summary>
     public abstract string Vend();
   }
 }
