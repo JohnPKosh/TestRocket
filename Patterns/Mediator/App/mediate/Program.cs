@@ -1,4 +1,5 @@
-﻿using mediate.Models;
+﻿using System;
+using mediate.Models;
 
 namespace mediate
 {
@@ -12,12 +13,14 @@ namespace mediate
       var jane = new Person("Jane");
       room.Join(john);
       room.Join(jane);
-      john.Say("hi room");
-      jane.Say("oh, hey john");
+      john.MessageRoom("hi room");
+      jane.MessageRoom("oh, hey john");
+      room.Leave(john);
       var simon = new Person("Simon");
       room.Join(simon);
-      simon.Say("hi everyone!");
-      jane.PrivateMessage("Simon", "glad you could join us!");
+      simon.MessageRoom("hi everyone!");
+      jane.MessagePerson("Simon", "glad you could join us!");
+      Console.WriteLine($"{room.PersonCount} people in chat room");
 
       // Game sample
       var game = new Game();
