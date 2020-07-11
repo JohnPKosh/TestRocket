@@ -69,7 +69,7 @@ namespace mediate
 
       // Get a count of persons in the room
       hr();
-      con("Show numer of persons in room...");
+      con("Show the number of persons in room...");
       hr();
 
       Console.WriteLine($"{room.PersonCount} people in room");
