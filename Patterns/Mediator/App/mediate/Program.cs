@@ -7,28 +7,13 @@ namespace mediate
   {
     static void Main(string[] args)
     {
-      ModuleController controller = new ModuleController();
-      controller.AttachModule("alimentary residue inhibitor");
+      // The chat room example exemplifies the traditional GoF mediate pattern.
+      RunChatRoom();
 
-      hr();
-      controller.AttachComponentToModule("alimentary residue inhibitor", "containment valve");
-      hr();
-      controller.DetachComponentFromModule("alimentary residue inhibitor", "containment valve");
-      hr();
-      controller.AttachComponentToModule("alimentary residue inhibitor", "nasalis restrictor");
-
-
-      controller.AttachModule("taurus egesta polishing restrictor");
-      hr();
-      controller.AttachComponentToModule("taurus egesta polishing restrictor", "bs grandiloquence impeder");
-      hr();
-
-      ////// The chat room example exemplifies the traditional GoF mediate pattern.
-      ////RunChatRoom();
-
-      ////// Using events which allow a different implementation
-      ////RunGame();
+      // The Module Controller example exemplifies an additional event driven design.
+      RunServiceModules();
     }
+
 
     private static void RunChatRoom()
     {
@@ -39,7 +24,7 @@ namespace mediate
       var buzz = new Person("Buzz");
 
       hr();
-      con("Let the chatting begin!");
+      con("Sample #1 - Let the chatting begin!");
       hr();
 
       // Add some people to room
@@ -101,23 +86,38 @@ namespace mediate
 
     }
 
-    private static void RunGame()
+    private static void RunServiceModules()
     {
       hr();
-      con("Let the game begin!");
+      con("Sample #2 - Mediating components in the service module(s) using events.");
+      con("*** Not strictly part of the pattern, but a good optional bolt on! ***");
       hr();
 
-      // Create the game and participants
-      var game = new Game();
-      var player = new Player(game, "Sam");
-      var coach = new Coach(game);
 
-      // Raise some events
-      player.Score(); // coach says: well done, Sam
-      player.Score(); // coach says: well done, Sam
-      player.Score(); //
+      hr();
+      con("First we add a controller and attach at least one module. (could be similiar to a chat room with some imagination)");
+
+      ModuleController controller = new ModuleController();
+      controller.AttachModule("alimentary residue inhibitor");
+
+      hr();
+      con("Then we join (Attach) components to the first module.");
+
+      hr();
+      controller.AttachComponentToModule("alimentary residue inhibitor", "containment valve");
+
+      controller.DetachComponentFromModule("alimentary residue inhibitor", "containment valve");
+
+      controller.AttachComponentToModule("alimentary residue inhibitor", "nasalis restrictor");
+
+      hr();
+      con("Finally we create another module and join (Attach) a component to it.");
+      controller.AttachModule("taurus egesta polishing restrictor");
+
+      hr();
+      controller.AttachComponentToModule("taurus egesta polishing restrictor", "bs grandiloquence impeder");
+      hr();
     }
-
 
     // Helpers to make things easier to read above.
     private static void hr() => Console.WriteLine("\n**********************************\n");
