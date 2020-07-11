@@ -7,9 +7,27 @@ namespace mediate
   {
     static void Main(string[] args)
     {
-      RunChatRoom();
+      ModuleController controller = new ModuleController();
+      controller.AttachModule("alimentary residue inhibitor");
 
-      RunGame();
+      hr();
+      controller.AttachComponentToModule("alimentary residue inhibitor", "containment valve");
+      hr();
+      controller.DetachComponentFromModule("alimentary residue inhibitor", "containment valve");
+      hr();
+      controller.AttachComponentToModule("alimentary residue inhibitor", "nasalis restrictor");
+
+
+      controller.AttachModule("taurus egesta polishing restrictor");
+      hr();
+      controller.AttachComponentToModule("taurus egesta polishing restrictor", "bs grandiloquence impeder");
+      hr();
+
+      ////// The chat room example exemplifies the traditional GoF mediate pattern.
+      ////RunChatRoom();
+
+      ////// Using events which allow a different implementation
+      ////RunGame();
     }
 
     private static void RunChatRoom()
