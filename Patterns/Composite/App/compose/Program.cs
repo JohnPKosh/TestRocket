@@ -185,7 +185,21 @@ namespace compose
 
       defectRobots.ReParent(autoRobots);
 
+      // Get the first child
+      var larry = autoRobots.FindNodes(x => x.Meta.DisplayName == "Larry").FirstOrDefault();
+      Console.WriteLine("We found {0}, who has several other siblings...", larry.Meta.DisplayName);
+
+      foreach (var s in autoRobots.Children[0].Siblings.Where(x=> x.IsLeaf))
+      {
+        Console.WriteLine("{0} is a sibling of {1}", s.Meta.DisplayName, larry.Meta.DisplayName);
+      }
+
       Console.WriteLine("\r\nknuck, knuck, knuck!");
     }
+
+
+    // Helpers to make things easier to read above.
+    private static void hr() => Console.WriteLine("\n**********************************\n");
+    private static void con(string text) => Console.WriteLine(text);
   }
 }

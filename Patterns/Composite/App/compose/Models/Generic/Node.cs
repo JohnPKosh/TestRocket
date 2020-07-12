@@ -10,6 +10,7 @@ namespace compose.Models.Generic
     public const string ADD_SELF_MSG = "You cannot add a node to itself!";
     public const string REMOVE_SELF_MSG = "You cannot remove a node from itself!";
     public const string REPARENT_SELF_MSG = "You cannot reparent a node to itself!";
+    public const string REPARENT_ROOT_MSG = "You cannot reparent the root node!";
 
     #region Constructors and Class Initialization
 
@@ -35,7 +36,11 @@ namespace compose.Models.Generic
 
     public List<Node<T>> Children = new List<Node<T>>();
 
+    public IEnumerable<Node<T>> Siblings => Parents?.SelectMany(m => m.Children.Except(this));
+
     public bool IsRootNode => !Parents.Any();
+
+    public abstract bool LockRoot { get; protected set; }
 
     #endregion
 
@@ -45,6 +50,7 @@ namespace compose.Models.Generic
     {
       if (newParents == null) throw new ArgumentNullException(nameof(newParents));
       if (ReferenceEquals(this, newParents)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParents));
+      if (LockRoot && IsRootNode) throw new ArgumentException(REPARENT_ROOT_MSG, nameof(newParents));
 
       Parents.Clear();
       ((Node<T>)newParents).AddChildren(this);
@@ -195,18 +201,4 @@ namespace compose.Models.Generic
 
     #endregion
   }
-
-  public class NodeMeta
-  {
-    public string DisplayName { get; set; }
-
-    public string Name { get; set; }
-
-    public string GroupName { get; set; }
-
-    public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
-  }
-
-
-
 }

@@ -11,5 +11,7 @@
     #endregion
 
     public override bool IsLeaf { get; protected set; } = true;
+
+    public override bool LockRoot { get; protected set; } = false;
   }
 }
