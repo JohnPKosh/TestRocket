@@ -5,13 +5,14 @@ using System.Linq;
 namespace mediate.Models
 {
   /// <summary>
-  /// The module controller class that acts as a mediator for attaching modules
-  /// to the controller that can in turn connect to components.
-  /// The one rule our mediator enforces is that only one distict component
-  /// should only exist in one module at a time. The Service Modules have
-  /// no idea about how this is done since they rely on the mediator to
-  /// enforce that logic.
+  /// The module controller class acts as a control unit (mediator) for attaching
+  /// and providing power for service modules that can in turn connect components.
+  /// The one rule our mediator enforces is that there should be no duplicate
+  /// attached components accross all of the attached modules. The Service Modules
+  /// however have no idea about the other service modules or how this is done since
+  /// they rely on the mediator to enforce that logic.
   /// </summary>
+  /// <remarks> We could add additional message logic like in the chat room if needed </remarks>
   public class ModuleController
   {
     #region Fields and Properties
@@ -34,8 +35,8 @@ namespace mediate.Models
     public void AttachModule(ServiceModule module)
     {
       module.Controller = this;
-      module.AttachHandler += m_AttachHandler;
-      module.DetachHandler += m_DetachHandler;
+      module.AttachedEventHandler += m_AttachHandler;
+      module.DetachedEventHandler += m_DetachHandler;
       m_Modules.Add(module);
     }
 
@@ -46,8 +47,8 @@ namespace mediate.Models
       if (module != null)
       {
         module.Controller = null;
-        module.AttachHandler -= m_AttachHandler;
-        module.DetachHandler -= m_DetachHandler;
+        module.AttachedEventHandler -= m_AttachHandler;
+        module.DetachedEventHandler -= m_DetachHandler;
         m_Modules.Remove(module);
       }
     }
