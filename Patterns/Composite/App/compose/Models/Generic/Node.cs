@@ -36,16 +36,16 @@ namespace compose.Models.Generic
     #region Create New Child Methods
 
     public virtual void CreateNewLeaf(T value, NodeMeta meta = null) =>
-      this.ConnectTo(new LeafNode<T>() { Value = value, Meta = meta });
+      this.AddChildren(new LeafNode<T>() { Value = value, Meta = meta });
 
     public virtual void CreateNewLeaves(IEnumerable<T> values) =>
-      this.ConnectTo(values.Select(x => new LeafNode<T>() { Value = x }));
+      this.AddChildren(values.Select(x => new LeafNode<T>() { Value = x }));
 
     public virtual void CreateNewComposite(T value, NodeMeta meta = null) =>
-      this.ConnectTo(new CompositeNode<T>() { Value = value, Meta = meta });
+      this.AddChildren(new CompositeNode<T>() { Value = value, Meta = meta });
 
     public virtual void CreateNewComposites(IEnumerable<T> values) =>
-      this.ConnectTo(values.Select(x => new CompositeNode<T>() { Value = x }));
+      this.AddChildren(values.Select(x => new CompositeNode<T>() { Value = x }));
 
     #endregion
 
@@ -87,92 +87,6 @@ namespace compose.Models.Generic
       return this.Descendants(i => i.Out).Where(x => !x.IsLeaf).Where(finder);
     }
 
-
-    //public void ConnectTo(IEnumerable<Node<T>> child)
-    //{
-    //  if (ReferenceEquals(this, child)) return;
-
-    //  foreach (var from in this)
-    //    foreach (var to in child)
-    //    {
-    //      from.Out.Add(to);
-    //      to.In.Add(from);
-    //    }
-    //}
-
-    //public void Disconnect(IEnumerable<Node<T>> child)
-    //{
-    //  if (ReferenceEquals(this, child)) return;
-
-    //  foreach (var from in this)
-    //  {
-    //    var items = child.ToList();
-    //    foreach (var to in items)
-    //    {
-    //      Out.Remove(to);
-    //      to.In.Remove(this);
-    //    }
-    //  }
-    //}
-
-    //public void ReParent(IEnumerable<Node<T>> newParent, IEnumerable<Node<T>> child)
-    //{
-    //  DisconnectChildren(child);
-    //  foreach (var p in newParent)
-    //  {
-    //    p.ConnectTo(child);
-    //  }
-    //}
-
-    //private void DisconnectChildren(IEnumerable<Node<T>> children)
-    //{
-    //  if (ReferenceEquals(this, children)) return;
-    //  var items = children.ToList();
-    //  foreach (var to in items)
-    //  {
-    //    Out.Remove(to);
-    //    to.In.Remove(this);
-    //  }
-    //}
-
-    //public void ReParent(IEnumerable<Node<T>> newParent)
-    //{
-    //  if (ReferenceEquals(this, newParent)) return;
-
-    //  foreach (var p in newParent)
-    //  {
-    //    p.ReParent(p, Out);
-    //  }
-    //}
-
-
-    //public void ReParent(IEnumerable<Node<T>> newParent, Func<Node<T>, bool> predicate)
-    //{
-    //  if (ReferenceEquals(this, newParent)) return;
-
-    //  var children = this.Out.Where(predicate);
-    //  DisconnectChildren(children);
-    //  foreach (var p in newParent)
-    //  {
-    //    p.ConnectTo(children);
-    //  }
-    //}
-
-    // , Func<Node<T>, bool> predicate
-
-    //public void ReParentChildren<T>(Node<T> newParent)
-    //{
-    //  if (ReferenceEquals(this, newParent)) return;
-
-    //  var children = Out.ToList();
-    //  foreach (var o in children)
-    //  {
-    //    o.In.First(x => x.Equals(this)).ReParentChild(newParent, o);
-    //  }
-    //}
-
-
-
     #endregion
 
     #region IEnumerable Implementation
@@ -203,22 +117,9 @@ namespace compose.Models.Generic
 
   public static class NodeExtensions
   {
-    //public static IEnumerable<Node<T>> Descendants<T>(this IEnumerable<Node<T>> source, Func<Node<T>, IEnumerable<Node<T>>> DescendBy)
-    //{
-    //  foreach (Node<T> value in source)
-    //  {
-    //    yield return value;
-
-    //    foreach (Node<T> child in DescendBy(value).Descendants(DescendBy))
-    //    {
-    //      yield return child;
-    //    }
-    //  }
-    //}
-
     #region IEnumerable Scoped Methods
 
-    public static void ConnectTo<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
+    public static void AddChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
     {
       if (ReferenceEquals(self, child)) return;
 
@@ -230,7 +131,7 @@ namespace compose.Models.Generic
         }
     }
 
-    public static void Disconnect<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
+    public static void RemoveChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
     {
       if (ReferenceEquals(self, child)) return;
 
@@ -242,17 +143,58 @@ namespace compose.Models.Generic
         }
     }
 
-    public static void ReParent<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, IEnumerable<Node<T>> child)
+    public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, IEnumerable<Node<T>> child)
     {
-      self.Disconnect(child);
-      newParent.ConnectTo(child);
+      if (ReferenceEquals(self, child)) return;
+
+      self.RemoveChildren(child);
+      newParent.AddChildren(child);
+    }
+
+    public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent)
+    {
+      if (ReferenceEquals(self, newParent)) return;
+
+      foreach (var from in self)
+      {
+        var children = from.Out.ToList();
+        foreach (var o in children)
+        {
+          o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
+        }
+      }
+    }
+
+    public static void ReParentChildrenWhere<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, Func<Node<T>, bool> predicate)
+    {
+      if (ReferenceEquals(self, newParent)) return;
+
+      foreach (var from in self)
+      {
+        var children = from.Out.Where(predicate).ToList();
+        foreach (var o in children)
+        {
+          o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
+        }
+      }
     }
 
     #endregion
 
     #region Single Scoped Node Methods
 
-    private static void DisconnectChildren<T>(this Node<T> self, IEnumerable<Node<T>> children)
+    public static void AddChildren<T>(this Node<T> self, IEnumerable<Node<T>> child)
+    {
+      if (ReferenceEquals(self, child)) return;
+
+      foreach (var to in child)
+      {
+        self.Out.Add(to);
+        to.In.Add(self);
+      }
+    }
+
+    private static void RemoveChildren<T>(this Node<T> self, IEnumerable<Node<T>> children)
     {
       if (ReferenceEquals(self, children)) return;
 
@@ -263,10 +205,12 @@ namespace compose.Models.Generic
       }
     }
 
-    private static void ReParentChild<T>(this Node<T> self, Node<T> newParent, IEnumerable<Node<T>> child)
+    private static void ReParentChildren<T>(this Node<T> self, Node<T> newParent, IEnumerable<Node<T>> child)
     {
-      self.DisconnectChildren(child);
-      newParent.ConnectTo(child);
+      if (ReferenceEquals(self, child)) return;
+
+      self.RemoveChildren(child);
+      newParent.AddChildren(child);
     }
 
     public static void ReParentChildren<T>(this Node<T> self, Node<T> newParent)
@@ -276,18 +220,18 @@ namespace compose.Models.Generic
       var children = self.Out.ToList();
       foreach (var o in children)
       {
-        o.In.First(x => x.Equals(self)).ReParentChild(newParent, o);
+        o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
       }
     }
 
-    public static void ReParentChildren<T>(this Node<T> self, Node<T> newParent, Func<Node<T>, bool> predicate)
+    public static void ReParentChildrenWhere<T>(this Node<T> self, Node<T> newParent, Func<Node<T>, bool> predicate)
     {
       if (ReferenceEquals(self, newParent)) return;
 
       var children = self.Out.Where(predicate).ToList();
       foreach (var o in children)
       {
-        o.In.First(x => x.Equals(self)).ReParentChild(newParent, o);
+        o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
       }
     }
 

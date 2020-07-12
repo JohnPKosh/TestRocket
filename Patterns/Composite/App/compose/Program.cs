@@ -12,11 +12,11 @@ namespace compose
   {
     static void Main(string[] args)
     {
-      //RunGeneric();
-      //RunGenericWithNodeBase();
-      //RunPlaylist();
       //RunGoF();
-      RunRobotTree();
+      //RunGeneric();
+      RunGenericWithNodeBase();
+      //RunPlaylist();
+      //RunRobotTree();
     }
 
     private static void RunGoF()
@@ -88,7 +88,7 @@ namespace compose
         Value = "Wendy"
       };
 
-      dad.ConnectTo(mom);
+      dad.AddChildren(mom);
 
       var childNames = new List<string>() { "Parker", "Sierra" };
       //var children = new ChildNodes<string>(childNames);
@@ -109,19 +109,19 @@ namespace compose
       var mom = new CompositeNode<NodeBase>(new NodeItem(string.Empty, "Wendy", 2));
       var pc = new LeafNode<NodeBase>(new NodeItem(string.Empty, "Computer", 6));
 
-      dad.ConnectTo(mom);
-      dad.ConnectTo(pc);
+      dad.AddChildren(mom);
+      dad.AddChildren(pc);
 
-      mom.ConnectTo(new LeafNode<NodeBase>(new NodeItem(string.Empty, "Parker", 3)));
-      mom.ConnectTo(new LeafNode<NodeBase>(new NodeItem(string.Empty, "Sierra", 4)));
+      mom.AddChildren(new LeafNode<NodeBase>(new NodeItem(string.Empty, "Parker", 3)));
+      mom.AddChildren(new LeafNode<NodeBase>(new NodeItem(string.Empty, "Sierra", 4)));
 
       var alien = new CompositeNode<NodeBase>(new NodeItem(string.Empty, "Bsdlkfjewkj", 5));
-      dad.ReParent(alien, mom);
+      dad.ReParentChildren(alien, mom);
 
       mom.ReParentChildren(dad);
       //mom.ReParent(dad);
 
-      dad.ReParentChildren(alien, x => x.Value.Name == "Computer");
+      dad.ReParentChildrenWhere(alien, x => x.Value.Name == "Computer");
       //dad.ReParent(alien, x => x.Value.Name == "Computer");
 
       mom.CreateNewLeaf(new NodeItem(string.Empty, "Findley", 7));
@@ -143,18 +143,18 @@ namespace compose
         new Robot(new RobotChassis() { ArmCount = 4 }, "Curly", "3 stooges"),
         new Robot(new RobotChassis() { ArmCount = 5 }, "Moe", "3 stooges")
       };
-      autoRobots.ConnectTo(autoList);
+      autoRobots.AddChildren(autoList);
 
       var defectRobots = new RobotContainer("Faulty Robots");
       var r4 = new Robot(new RobotChassis() { ArmCount = 13 }, "Shemp", "3 stooges");
-      defectRobots.ConnectTo(r4);
+      defectRobots.AddChildren(r4);
 
       var spareParts = new RobotContainer("Spare Parts");
-      spareParts.ConnectTo(new Robot(new RobotChassis() { ArmCount = 2 }, "C3PO", "Star Wars"));
-      defectRobots.ConnectTo(spareParts);
+      spareParts.AddChildren(new Robot(new RobotChassis() { ArmCount = 2 }, "C3PO", "Star Wars"));
+      defectRobots.AddChildren(spareParts);
 
-      root.ConnectTo(autoRobots);
-      root.ConnectTo(defectRobots);
+      root.AddChildren(autoRobots);
+      root.AddChildren(defectRobots);
 
 
       var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is Robot); // we really only need to check Robot if we had other polymorphic classes to consider.
