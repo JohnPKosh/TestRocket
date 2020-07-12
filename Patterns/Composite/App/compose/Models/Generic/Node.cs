@@ -7,6 +7,10 @@ namespace compose.Models.Generic
 {
   public abstract class Node<T> : IEnumerable<Node<T>>
   {
+    public const string ADD_SELF_MSG = "You cannot add a node to itself!";
+    public const string REMOVE_SELF_MSG = "You cannot remove a node from itself!";
+    public const string REPARENT_SELF_MSG = "You cannot reparent a node to itself!";
+
     #region Constructors and Class Initialization
 
     public Node() { }
@@ -27,36 +31,113 @@ namespace compose.Models.Generic
 
     public NodeMeta Meta { get; set; } = new NodeMeta();
 
-    public List<Node<T>> In = new List<Node<T>>();
+    public List<Node<T>> Parents = new List<Node<T>>();
 
-    public List<Node<T>> Out = new List<Node<T>>();
+    public List<Node<T>> Children = new List<Node<T>>();
+
+    #endregion
+
+    #region Basic Public Methods
+
+    public virtual void AddChildren(IEnumerable<Node<T>> childNodes)
+    {
+      if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
+      if (ReferenceEquals(this, childNodes)) throw new ArgumentException(ADD_SELF_MSG, nameof(childNodes));
+
+      foreach (var self in this)
+        foreach (var child in childNodes)
+        {
+          self.Children.Add(child);
+          child.Parents.Add(self);
+        }
+    }
+
+    public virtual void RemoveChildren(IEnumerable<Node<T>> childNodes)
+    {
+      if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
+      if (ReferenceEquals(this, childNodes)) throw new ArgumentException(REMOVE_SELF_MSG, nameof(childNodes));
+
+      foreach (var self in this)
+        foreach (var child in childNodes)
+        {
+          self.Children.Remove(child);
+          child.Parents.Remove(self);
+        }
+    }
+
+    public virtual void ReParentChildren(IEnumerable<Node<T>> newParents, IEnumerable<Node<T>> childNodes)
+    {
+      if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
+      if (newParents == null) throw new ArgumentNullException(nameof(newParents));
+      if (ReferenceEquals(this, newParents)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParents));
+
+      RemoveChildren(childNodes);
+
+      foreach (var self in newParents)
+        foreach (var child in childNodes)
+        {
+          self.Children.Add(child);
+          child.Parents.Add(self);
+        }
+    }
+
+    public virtual void ReParentChildren(IEnumerable<Node<T>> newParents)
+    {
+      if (newParents == null) throw new ArgumentNullException(nameof(newParents));
+      if (ReferenceEquals(this, newParents)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParents));
+
+      foreach (var self in this)
+      {
+        var children = self.Children.ToList();
+        foreach (var child in children)
+        {
+          child.Parents.First(x => x.Equals(self)).ReParentChildren(newParents, child);
+        }
+      }
+    }
+
+    public virtual void ReParentChildrenWhere(IEnumerable<Node<T>> newParents, Func<Node<T>, bool> predicate)
+    {
+      if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+      if (newParents == null) throw new ArgumentNullException(nameof(newParents));
+      if (ReferenceEquals(this, newParents)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParents));
+
+      foreach (var self in this)
+      {
+        var children = self.Children.Where(predicate).ToList();
+        foreach (var child in children)
+        {
+          child.Parents.First(x => x.Equals(self)).ReParentChildren(newParents, child);
+        }
+      }
+    }
 
     #endregion
 
     #region Create New Child Methods
 
     public virtual void CreateNewLeaf(T value, NodeMeta meta = null) =>
-      this.AddChildren(new LeafNode<T>() { Value = value, Meta = meta });
+      AddChildren(new LeafNode<T>() { Value = value, Meta = meta });
 
     public virtual void CreateNewLeaves(IEnumerable<T> values) =>
-      this.AddChildren(values.Select(x => new LeafNode<T>() { Value = x }));
+      AddChildren(values.Select(x => new LeafNode<T>() { Value = x }));
 
     public virtual void CreateNewComposite(T value, NodeMeta meta = null) =>
-      this.AddChildren(new CompositeNode<T>() { Value = value, Meta = meta });
+      AddChildren(new CompositeNode<T>() { Value = value, Meta = meta });
 
     public virtual void CreateNewComposites(IEnumerable<T> values) =>
-      this.AddChildren(values.Select(x => new CompositeNode<T>() { Value = x }));
+      AddChildren(values.Select(x => new CompositeNode<T>() { Value = x }));
 
     #endregion
 
     #region Get Descendents Methods
 
-    public IEnumerable<Node<T>> GetDescendents()
+    public virtual IEnumerable<Node<T>> GetDescendents()
     {
-      return this.Descendants(i => i.Out);
+      return Descendants(i => i.Children);
     }
 
-    public IEnumerable<Node<T>> Descendants(Func<Node<T>, IEnumerable<Node<T>>> descendBy)
+    public virtual IEnumerable<Node<T>> Descendants(Func<Node<T>, IEnumerable<Node<T>>> descendBy)
     {
       foreach (Node<T> value in this)
       {
@@ -72,19 +153,19 @@ namespace compose.Models.Generic
       }
     }
 
-    public IEnumerable<Node<T>> FindNodes(Func<Node<T>, bool> finder)
+    public virtual IEnumerable<Node<T>> FindNodes(Func<Node<T>, bool> finder)
     {
-      return this.Descendants(i => i.Out).Where(finder);
+      return Descendants(i => i.Children).Where(finder);
     }
 
-    public IEnumerable<Node<T>> FindLeafNodes(Func<Node<T>, bool> finder)
+    public virtual IEnumerable<Node<T>> FindLeafNodes(Func<Node<T>, bool> finder)
     {
-      return this.Descendants(i => i.Out).Where(x => x.IsLeaf).Where(finder);
+      return Descendants(i => i.Children).Where(x => x.IsLeaf).Where(finder);
     }
 
-    public IEnumerable<Node<T>> FindCompositeNodes(Func<Node<T>, bool> finder)
+    public virtual IEnumerable<Node<T>> FindCompositeNodes(Func<Node<T>, bool> finder)
     {
-      return this.Descendants(i => i.Out).Where(x => !x.IsLeaf).Where(finder);
+      return Descendants(i => i.Children).Where(x => !x.IsLeaf).Where(finder);
     }
 
     #endregion
@@ -115,128 +196,128 @@ namespace compose.Models.Generic
     public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
   }
 
-  public static class NodeExtensions
-  {
-    #region IEnumerable Scoped Methods
+  ////public static class NodeExtensions
+  ////{
+  ////  #region IEnumerable Scoped Methods
 
-    public static void AddChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
-    {
-      if (ReferenceEquals(self, child)) return;
+  ////  public static void AddChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
+  ////  {
+  ////    if (ReferenceEquals(self, child)) return;
 
-      foreach (var from in self)
-        foreach (var to in child)
-        {
-          from.Out.Add(to);
-          to.In.Add(from);
-        }
-    }
+  ////    foreach (var from in self)
+  ////      foreach (var to in child)
+  ////      {
+  ////        from.Children.Add(to);
+  ////        to.In.Add(from);
+  ////      }
+  ////  }
 
-    public static void RemoveChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
-    {
-      if (ReferenceEquals(self, child)) return;
+  ////  public static void RemoveChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
+  ////  {
+  ////    if (ReferenceEquals(self, child)) return;
 
-      foreach (var from in self)
-        foreach (var to in child)
-        {
-          from.Out.Remove(to);
-          to.In.Remove(from);
-        }
-    }
+  ////    foreach (var from in self)
+  ////      foreach (var to in child)
+  ////      {
+  ////        from.Children.Remove(to);
+  ////        to.In.Remove(from);
+  ////      }
+  ////  }
 
-    public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, IEnumerable<Node<T>> child)
-    {
-      if (ReferenceEquals(self, child)) return;
+  ////  public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, IEnumerable<Node<T>> child)
+  ////  {
+  ////    if (ReferenceEquals(self, child)) return;
 
-      self.RemoveChildren(child);
-      newParent.AddChildren(child);
-    }
+  ////    self.RemoveChildren(child);
+  ////    newParent.AddChildren(child);
+  ////  }
 
-    public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent)
-    {
-      if (ReferenceEquals(self, newParent)) return;
+  ////  public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent)
+  ////  {
+  ////    if (ReferenceEquals(self, newParent)) return;
 
-      foreach (var from in self)
-      {
-        var children = from.Out.ToList();
-        foreach (var o in children)
-        {
-          o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
-        }
-      }
-    }
+  ////    foreach (var from in self)
+  ////    {
+  ////      var children = from.Children.ToList();
+  ////      foreach (var o in children)
+  ////      {
+  ////        o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
+  ////      }
+  ////    }
+  ////  }
 
-    public static void ReParentChildrenWhere<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, Func<Node<T>, bool> predicate)
-    {
-      if (ReferenceEquals(self, newParent)) return;
+  ////  public static void ReParentChildrenWhere<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, Func<Node<T>, bool> predicate)
+  ////  {
+  ////    if (ReferenceEquals(self, newParent)) return;
 
-      foreach (var from in self)
-      {
-        var children = from.Out.Where(predicate).ToList();
-        foreach (var o in children)
-        {
-          o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
-        }
-      }
-    }
+  ////    foreach (var from in self)
+  ////    {
+  ////      var children = from.Children.Where(predicate).ToList();
+  ////      foreach (var o in children)
+  ////      {
+  ////        o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
+  ////      }
+  ////    }
+  ////  }
 
-    #endregion
+  ////  #endregion
 
-    #region Single Scoped Node Methods
+  ////  #region Single Scoped Node Methods
 
-    public static void AddChildren<T>(this Node<T> self, IEnumerable<Node<T>> child)
-    {
-      if (ReferenceEquals(self, child)) return;
+  ////  public static void AddChildren<T>(this Node<T> self, IEnumerable<Node<T>> child)
+  ////  {
+  ////    if (ReferenceEquals(self, child)) return;
 
-      foreach (var to in child)
-      {
-        self.Out.Add(to);
-        to.In.Add(self);
-      }
-    }
+  ////    foreach (var to in child)
+  ////    {
+  ////      self.Children.Add(to);
+  ////      to.In.Add(self);
+  ////    }
+  ////  }
 
-    private static void RemoveChildren<T>(this Node<T> self, IEnumerable<Node<T>> children)
-    {
-      if (ReferenceEquals(self, children)) return;
+  ////  private static void RemoveChildren<T>(this Node<T> self, IEnumerable<Node<T>> children)
+  ////  {
+  ////    if (ReferenceEquals(self, children)) return;
 
-      foreach (var to in children)
-      {
-        self.Out.Remove(to);
-        to.In.Remove(self);
-      }
-    }
+  ////    foreach (var to in children)
+  ////    {
+  ////      self.Children.Remove(to);
+  ////      to.In.Remove(self);
+  ////    }
+  ////  }
 
-    private static void ReParentChildren<T>(this Node<T> self, Node<T> newParent, IEnumerable<Node<T>> child)
-    {
-      if (ReferenceEquals(self, child)) return;
+  ////  private static void ReParentChildren<T>(this Node<T> self, Node<T> newParent, IEnumerable<Node<T>> child)
+  ////  {
+  ////    if (ReferenceEquals(self, child)) return;
 
-      self.RemoveChildren(child);
-      newParent.AddChildren(child);
-    }
+  ////    self.RemoveChildren(child);
+  ////    newParent.AddChildren(child);
+  ////  }
 
-    public static void ReParentChildren<T>(this Node<T> self, Node<T> newParent)
-    {
-      if (ReferenceEquals(self, newParent)) return;
+  ////  public static void ReParentChildren<T>(this Node<T> self, Node<T> newParent)
+  ////  {
+  ////    if (ReferenceEquals(self, newParent)) return;
 
-      var children = self.Out.ToList();
-      foreach (var o in children)
-      {
-        o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
-      }
-    }
+  ////    var children = self.Children.ToList();
+  ////    foreach (var o in children)
+  ////    {
+  ////      o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
+  ////    }
+  ////  }
 
-    public static void ReParentChildrenWhere<T>(this Node<T> self, Node<T> newParent, Func<Node<T>, bool> predicate)
-    {
-      if (ReferenceEquals(self, newParent)) return;
+  ////  public static void ReParentChildrenWhere<T>(this Node<T> self, Node<T> newParent, Func<Node<T>, bool> predicate)
+  ////  {
+  ////    if (ReferenceEquals(self, newParent)) return;
 
-      var children = self.Out.Where(predicate).ToList();
-      foreach (var o in children)
-      {
-        o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
-      }
-    }
+  ////    var children = self.Children.Where(predicate).ToList();
+  ////    foreach (var o in children)
+  ////    {
+  ////      o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
+  ////    }
+  ////  }
 
-    #endregion
+  ////  #endregion
 
-  }
+  ////}
 
 }

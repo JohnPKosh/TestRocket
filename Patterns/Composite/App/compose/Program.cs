@@ -100,7 +100,7 @@ namespace compose
       var compNodes = dad.FindCompositeNodes(x => x == x).ToList();
       var leafNodes = dad.FindLeafNodes(x => x == x).ToList();
 
-      Console.WriteLine("In: {0} / Out {1}", mom.In.Count, mom.Out.Count);
+      Console.WriteLine("In: {0} / Children {1}", mom.Parents.Count, mom.Children.Count);
     }
 
     private static void RunGenericWithNodeBase()
@@ -126,7 +126,7 @@ namespace compose
 
       mom.CreateNewLeaf(new NodeItem(string.Empty, "Findley", 7));
 
-      Console.WriteLine("In: {0} / Out {1}", mom.In.Count, mom.Out.Count);
+      Console.WriteLine("In: {0} / Children {1}", mom.Parents.Count, mom.Children.Count);
     }
 
 
