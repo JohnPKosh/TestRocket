@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace mediate.Models
 {
@@ -18,6 +20,8 @@ namespace mediate.Models
 
     public string ModuleName { get; private set; }
 
+    public List<string> AttachedComponents { get; set; } = new List<string>();
+
     public ModuleController Controller { get; set; }
 
     #endregion
@@ -27,10 +31,30 @@ namespace mediate.Models
 
     #region *** Attach Specific Methods
 
+    public void AttachToController(ModuleController controller)
+    {
+      controller.AttachModule(this);
+    }
+
     public void AttachComponent(string componentName)
     {
-      var component = new ComponentAttachEventArgs(componentName);
-      OnAttachComponent(component);
+      if(Controller != null)
+      {
+        if (!Controller.ComponentExists(componentName))
+        {
+          AttachedComponents.Add(componentName);
+          var component = new ComponentAttachEventArgs(componentName);
+          OnAttachComponent(component);
+        }
+        else
+        {
+          Console.WriteLine("The {0} already exists in some other module. You can only have one per controller module.", componentName);
+        }
+      }
+      else
+      {
+        Console.WriteLine("You cannot connect a module unless it is attached to a ModuleController.");
+      }
     }
 
     protected virtual void OnAttachComponent(ComponentAttachEventArgs args)
@@ -44,8 +68,17 @@ namespace mediate.Models
 
     public void DetachComponent(string componentName)
     {
-      var component = new ComponentDetachEventArgs(componentName);
-      OnDetachComponent(component);
+      var c = AttachedComponents.FirstOrDefault(x => x == componentName);
+      if (c != null)
+      {
+        AttachedComponents.Remove(componentName);
+        var component = new ComponentDetachEventArgs(componentName);
+        OnDetachComponent(component);
+      }
+      else
+      {
+        Console.WriteLine("Component {0} is not attached to this module.");
+      }
     }
 
     protected virtual void OnDetachComponent(ComponentDetachEventArgs args)

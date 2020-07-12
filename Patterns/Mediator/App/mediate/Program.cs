@@ -7,7 +7,7 @@ namespace mediate
   {
     static void Main(string[] args)
     {
-      // The chat room example exemplifies the traditional GoF mediate pattern.
+      // The chat room example exemplifies the traditional GoF mediator pattern.
       RunChatRoom();
 
       // The Module Controller example exemplifies an additional event driven design.
@@ -111,11 +111,29 @@ namespace mediate
       controller.AttachComponentToModule("alimentary residue inhibitor", "nasalis restrictor");
 
       hr();
-      con("Finally we create another module and join (Attach) a component to it.");
+      con("Next we create another module and join (Attach) a component to it.");
       controller.AttachModule("taurus egesta polishing restrictor");
 
       hr();
       controller.AttachComponentToModule("taurus egesta polishing restrictor", "bs grandiloquence impeder");
+
+      hr();
+      con("We also want to connect the other direction from a module to a controller...");
+      var randomModule = new ServiceModule("Randomizer");
+      randomModule.AttachToController(controller);
+
+      hr();
+      con("Then we can add a component directly to the module");
+
+      hr();
+      randomModule.AttachComponent("cruft filter");
+
+      hr();
+      con("If we try to add a component that already exists somewhere else we can't!");
+      con("Perhaps our mediator (ModuleController) is a curmudgeon?");
+
+      hr();
+      controller.AttachComponentToModule("Randomizer", "bs grandiloquence impeder");
       hr();
     }
 
