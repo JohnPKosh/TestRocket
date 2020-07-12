@@ -10,11 +10,11 @@ namespace mediate
       // The chat room example exemplifies the traditional GoF mediator pattern.
       RunChatRoom();
 
-      // The Module Controller example exemplifies an additional event driven design.
-      RunServiceModules();
+      ////// The Module Controller example exemplifies an additional event driven design.
+      ////RunServiceModules();
     }
 
-
+    // Sample #1
     private static void RunChatRoom()
     {
       // Create a chat room and some people who like to babble
@@ -86,6 +86,7 @@ namespace mediate
 
     }
 
+    // Sample #2
     private static void RunServiceModules()
     {
       hr();

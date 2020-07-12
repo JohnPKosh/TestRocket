@@ -22,11 +22,11 @@ namespace compose
     private static void RunGoF()
     {
       // Create a tree structure
-      Composite root = new Composite("root");
+      var root = new Composite("root");
       root.Add(new Leaf("Leaf A"));
       root.Add(new Leaf("Leaf B"));
 
-      Composite comp = new Composite("Composite X");
+      var comp = new Composite("Composite X");
       comp.Add(new Leaf("Leaf XA"));
       comp.Add(new Leaf("Leaf XB"));
 
