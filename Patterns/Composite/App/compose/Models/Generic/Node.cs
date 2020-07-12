@@ -35,9 +35,20 @@ namespace compose.Models.Generic
 
     public List<Node<T>> Children = new List<Node<T>>();
 
+    public bool IsRootNode => !Parents.Any();
+
     #endregion
 
     #region Basic Public Methods
+
+    public virtual void ReParent(IEnumerable<Node<T>> newParents)
+    {
+      if (newParents == null) throw new ArgumentNullException(nameof(newParents));
+      if (ReferenceEquals(this, newParents)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParents));
+
+      Parents.Clear();
+      ((Node<T>)newParents).AddChildren(this);
+    }
 
     public virtual void AddChildren(IEnumerable<Node<T>> childNodes)
     {
@@ -196,128 +207,6 @@ namespace compose.Models.Generic
     public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
   }
 
-  ////public static class NodeExtensions
-  ////{
-  ////  #region IEnumerable Scoped Methods
 
-  ////  public static void AddChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
-  ////  {
-  ////    if (ReferenceEquals(self, child)) return;
-
-  ////    foreach (var from in self)
-  ////      foreach (var to in child)
-  ////      {
-  ////        from.Children.Add(to);
-  ////        to.In.Add(from);
-  ////      }
-  ////  }
-
-  ////  public static void RemoveChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> child)
-  ////  {
-  ////    if (ReferenceEquals(self, child)) return;
-
-  ////    foreach (var from in self)
-  ////      foreach (var to in child)
-  ////      {
-  ////        from.Children.Remove(to);
-  ////        to.In.Remove(from);
-  ////      }
-  ////  }
-
-  ////  public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, IEnumerable<Node<T>> child)
-  ////  {
-  ////    if (ReferenceEquals(self, child)) return;
-
-  ////    self.RemoveChildren(child);
-  ////    newParent.AddChildren(child);
-  ////  }
-
-  ////  public static void ReParentChildren<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent)
-  ////  {
-  ////    if (ReferenceEquals(self, newParent)) return;
-
-  ////    foreach (var from in self)
-  ////    {
-  ////      var children = from.Children.ToList();
-  ////      foreach (var o in children)
-  ////      {
-  ////        o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
-  ////      }
-  ////    }
-  ////  }
-
-  ////  public static void ReParentChildrenWhere<T>(this IEnumerable<Node<T>> self, IEnumerable<Node<T>> newParent, Func<Node<T>, bool> predicate)
-  ////  {
-  ////    if (ReferenceEquals(self, newParent)) return;
-
-  ////    foreach (var from in self)
-  ////    {
-  ////      var children = from.Children.Where(predicate).ToList();
-  ////      foreach (var o in children)
-  ////      {
-  ////        o.In.First(x => x.Equals(from)).ReParentChildren(newParent, o);
-  ////      }
-  ////    }
-  ////  }
-
-  ////  #endregion
-
-  ////  #region Single Scoped Node Methods
-
-  ////  public static void AddChildren<T>(this Node<T> self, IEnumerable<Node<T>> child)
-  ////  {
-  ////    if (ReferenceEquals(self, child)) return;
-
-  ////    foreach (var to in child)
-  ////    {
-  ////      self.Children.Add(to);
-  ////      to.In.Add(self);
-  ////    }
-  ////  }
-
-  ////  private static void RemoveChildren<T>(this Node<T> self, IEnumerable<Node<T>> children)
-  ////  {
-  ////    if (ReferenceEquals(self, children)) return;
-
-  ////    foreach (var to in children)
-  ////    {
-  ////      self.Children.Remove(to);
-  ////      to.In.Remove(self);
-  ////    }
-  ////  }
-
-  ////  private static void ReParentChildren<T>(this Node<T> self, Node<T> newParent, IEnumerable<Node<T>> child)
-  ////  {
-  ////    if (ReferenceEquals(self, child)) return;
-
-  ////    self.RemoveChildren(child);
-  ////    newParent.AddChildren(child);
-  ////  }
-
-  ////  public static void ReParentChildren<T>(this Node<T> self, Node<T> newParent)
-  ////  {
-  ////    if (ReferenceEquals(self, newParent)) return;
-
-  ////    var children = self.Children.ToList();
-  ////    foreach (var o in children)
-  ////    {
-  ////      o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
-  ////    }
-  ////  }
-
-  ////  public static void ReParentChildrenWhere<T>(this Node<T> self, Node<T> newParent, Func<Node<T>, bool> predicate)
-  ////  {
-  ////    if (ReferenceEquals(self, newParent)) return;
-
-  ////    var children = self.Children.Where(predicate).ToList();
-  ////    foreach (var o in children)
-  ////    {
-  ////      o.In.First(x => x.Equals(self)).ReParentChildren(newParent, o);
-  ////    }
-  ////  }
-
-  ////  #endregion
-
-  ////}
 
 }

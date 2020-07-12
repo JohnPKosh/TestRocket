@@ -14,9 +14,9 @@ namespace compose
     {
       //RunGoF();
       //RunGeneric();
-      RunGenericWithNodeBase();
+      //RunGenericWithNodeBase();
       //RunPlaylist();
-      //RunRobotTree();
+      RunRobotTree();
     }
 
     private static void RunGoF()
@@ -182,6 +182,8 @@ namespace compose
           Console.WriteLine("{0} has {1} arms!", f.Meta.DisplayName, f.Value.ArmCount);
         }
       }
+
+      defectRobots.ReParent(autoRobots);
 
       Console.WriteLine("\r\nknuck, knuck, knuck!");
     }
