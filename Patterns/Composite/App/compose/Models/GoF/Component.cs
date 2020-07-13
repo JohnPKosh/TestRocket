@@ -64,12 +64,12 @@ namespace compose.Models.GoF
 
     public override void Add(Component c)
     {
-      Console.WriteLine("Cannot add to a leaf");
+      Console.WriteLine("You should not be able to add to a leaf");
     }
 
     public override void Remove(Component c)
     {
-      Console.WriteLine("Cannot remove from a leaf");
+      Console.WriteLine("You should not be able to remove from a leaf");
     }
 
     public override void Display(int depth)
