@@ -130,13 +130,23 @@ namespace compose
     }
 
 
-    // TODO: consider mixing the below with the prototype pattern for some interesting code?
-
     private static void RunRobotTree()
     {
-      var root = new RobotContainer("ROOT");
+      /*
+        Using generics and some abstraction we can accomplish some very flexible
+        scenarios while working with the composite pattern.
+      */
 
+      hr();
+      con("Hello Mr. Roboto!");
+      hr();
+
+      /* ================================================== */
+
+      // First we will create our root node and add a child container for autonomous robots.
+      var root = new RobotContainer("ROOT");
       var autoRobots = new RobotContainer("Fully Autonomous Robots");
+      // Then we will add some children to the autoRobots container and add as a child to the root.
       var autoList = new List<Robot>
       {
         new Robot(new RobotChassis() { ArmCount = 3 }, "Larry", "3 stooges"),
@@ -144,62 +154,90 @@ namespace compose
         new Robot(new RobotChassis() { ArmCount = 5 }, "Moe", "3 stooges")
       };
       autoRobots.AddChildren(autoList);
+      root.AddChildren(autoRobots);
 
+      hr();
+      con("We have created exactly {0} stooges as children of the autoRobots container.", autoRobots.GetDescendents().Count());
+
+      /* ================================================== */
+
+      hr();
+      con("Now let's add some more complex branching...");
+
+      // *** Next we will 2 levels of faulty robots and some spare parts.
       var defectRobots = new RobotContainer("Faulty Robots");
       var r4 = new Robot(new RobotChassis() { ArmCount = 13 }, "Shemp", "3 stooges");
       defectRobots.AddChildren(r4);
-
-      var spareParts = new RobotContainer("Spare Parts");
+      // Creating our spare parts container now...
+      var spareParts = new RobotContainer("Spare Parts"); // This will be a child of the defective robots.
       spareParts.AddChildren(new Robot(new RobotChassis() { ArmCount = 2 }, "C3PO", "Star Wars"));
       defectRobots.AddChildren(spareParts);
-
-      root.AddChildren(autoRobots);
+      // Add it all as a child of the root.
       root.AddChildren(defectRobots);
 
+      hr();
+      con("The entire graph now has {0} descendents.", root.GetDescendents().Count());
 
-      var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is Robot); // we really only need to check Robot if we had other polymorphic classes to consider.
+      /* ================================================== */
 
-      Console.WriteLine("\r\nGetting the more popular stooges.");
+      hr();
+      con("Finding all of the robots except Shemp:");
 
+      // Now we can navigate the tree to find descendents matching a particular condition
+      var robotItems = root.FindLeafNodes(x => x.Meta.DisplayName != "Shemp" && x is Robot);
       foreach (var r in robotItems)
       {
         // We get an instance name from the metadata.
         // The arm count is a property of our generic T type of Robot.
         // This is where the potential madness begins with
         // all of the possible composite options.
-        Console.WriteLine("{0} has {1} arms!",r.Meta.DisplayName, r.Value.ArmCount);
+        con("{0} has {1} arms!",r.Meta.DisplayName, r.Value.ArmCount);
       }
 
-      var faultyContainers = root.FindCompositeNodes(x => x.Meta.DisplayName == "Faulty Robots");
+      /* ================================================== */
 
-      Console.WriteLine("\r\nGetting the faulty stooges.");
+      hr();
+      con("Getting the faulty stooges next:");
+
+      var faultyContainers = root.FindCompositeNodes(x => x.Meta.DisplayName == "Faulty Robots");
       foreach (var c in faultyContainers)
       {
-        // Now we go and lose all sanity...
-        var faultyBots = c.FindLeafNodes(x => x is Robot);
+        var faultyBots = c.FindLeafNodes(x => x is Robot); // Now we go and lose all sanity...
         foreach (var f in faultyBots)
         {
-          Console.WriteLine("{0} has {1} arms!", f.Meta.DisplayName, f.Value.ArmCount);
+          con("{0} has {1} arms!", f.Meta.DisplayName, f.Value.ArmCount);
         }
       }
 
-      defectRobots.ReParent(autoRobots);
+      /* ================================================== */
 
-      // Get the first child
+      hr();
+      con("For giggles we can change the parent of the defect robots to the autonomous robots.");
+      defectRobots.ReParent(autoRobots); // debug to see the parent value change.
+
+      /* ================================================== */
+
+      hr();
+      con("Finally we want to get Larry and find all of his leaf node siblings on the same level.");
+
       var larry = autoRobots.FindNodes(x => x.Meta.DisplayName == "Larry").FirstOrDefault();
-      Console.WriteLine("We found {0}, who has several other siblings...", larry.Meta.DisplayName);
-
+      hr();
+      con("We found {0}, who has several other siblings:", larry.Meta.DisplayName);
       foreach (var s in autoRobots.Children[0].Siblings.Where(x=> x.IsLeaf))
       {
-        Console.WriteLine("{0} is a sibling of {1}", s.Meta.DisplayName, larry.Meta.DisplayName);
+        con("{0} is a sibling of {1}", s.Meta.DisplayName, larry.Meta.DisplayName);
       }
 
-      Console.WriteLine("\r\nknuck, knuck, knuck!");
+      /* ================================================== */
+
+      hr();
+      con("\r\nknuck, knuck, knuck!");
     }
 
 
     // Helpers to make things easier to read above.
     private static void hr() => Console.WriteLine("\n**********************************\n");
     private static void con(string text) => Console.WriteLine(text);
+    private static void con(string text, params object[] args) => Console.WriteLine(text, args);
   }
 }
