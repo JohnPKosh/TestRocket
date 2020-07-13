@@ -7,49 +7,51 @@ namespace compose.Models.GoF
   /// The 'Component' abstract class
   /// </summary>
 
-  abstract class Component
+  public abstract class Component
   {
-    protected string name;
+    protected const char LVL_CHAR = '-';
 
-    // Constructor
-    public Component(string name)
-    {
-      this.name = name;
-    }
+    public Component(string name) => Name = name;
 
-    public abstract void Add(Component c);
-    public abstract void Remove(Component c);
-    public abstract void Display(int depth);
+    public string Name { get; protected set; }
+
+    public abstract void AddChild(Component c);
+
+    public abstract void RemoveChild(Component c);
+
+    public abstract void RecurseTree();
+
+    protected internal abstract void RecurseTree(int depth);
   }
 
   /// <summary>
   /// The 'Composite' class
   /// </summary>
-  class Composite : Component
+  public class Composite : Component
   {
-    private List<Component> _children = new List<Component>();
+    public List<Component> Children { get; set; } = new List<Component>();
 
     // Constructor
     public Composite(string name) : base(name) { }
 
-    public override void Add(Component component)
+    public override void AddChild(Component component)
     {
-      _children.Add(component); // TODO: determine if we could add a parent id here?
+      Children.Add(component);
     }
 
-    public override void Remove(Component component)
+    public override void RemoveChild(Component component)
     {
-      _children.Remove(component);
+      Children.Remove(component);
     }
 
-    public override void Display(int depth)
-    {
-      Console.WriteLine(new String('-', depth) + name);
+    public override void RecurseTree() => RecurseTree(1);
 
-      // Recursively display child nodes
-      foreach (Component component in _children)
+    protected internal override void RecurseTree(int depth)
+    {
+      Console.WriteLine(new string(LVL_CHAR, depth) + Name);
+      foreach (var component in Children)
       {
-        component.Display(depth + 2);
+        component.RecurseTree(depth + 2);
       }
     }
   }
@@ -57,24 +59,26 @@ namespace compose.Models.GoF
   /// <summary>
   /// The 'Leaf' class
   /// </summary>
-  class Leaf : Component
+  public class Leaf : Component
   {
     // Constructor
     public Leaf(string name) : base(name) { }
 
-    public override void Add(Component c)
+    public override void AddChild(Component c)
     {
       Console.WriteLine("You should not be able to add to a leaf");
     }
 
-    public override void Remove(Component c)
+    public override void RemoveChild(Component c)
     {
       Console.WriteLine("You should not be able to remove from a leaf");
     }
 
-    public override void Display(int depth)
+    public override void RecurseTree() => RecurseTree(1);
+
+    protected internal override void RecurseTree(int depth)
     {
-      Console.WriteLine(new String('-', depth) + name);
+      Console.WriteLine(new string(LVL_CHAR, depth) + Name);
     }
   }
 }

@@ -25,27 +25,25 @@ namespace compose
     private static void RunGoF()
     {
       // Create a tree structure
-      var root = new Composite("root");
-      root.Add(new Leaf("Leaf A"));
-      root.Add(new Leaf("Leaf B"));
+      var root = new Composite("ROOT");
+      root.AddChild(new Leaf("Leaf A"));
+      root.AddChild(new Leaf("Leaf B"));
 
-      var comp = new Composite("Composite X");
-      comp.Add(new Leaf("Leaf XA"));
-      comp.Add(new Leaf("Leaf XB"));
+      var comp = new Composite("Branch 1");
+      comp.AddChild(new Leaf("Leaf 1A"));
+      comp.AddChild(new Leaf("Leaf 1B"));
 
-      root.Add(comp);
+      root.AddChild(comp);
 
-      root.Add(new Leaf("Leaf C"));
+      root.AddChild(new Leaf("Leaf C"));
 
       // Add and remove a leaf
       Leaf leaf = new Leaf("Leaf D");
-      root.Add(leaf);
-      root.Remove(leaf);
+      root.AddChild(leaf);
+      root.RemoveChild(leaf);
 
       // Recursively display tree
-      root.Display(1);
-
-
+      root.RecurseTree();
     }
 
     private static void RunRobotGraph()
