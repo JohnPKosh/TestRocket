@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace compose.Models.Generic
 {
@@ -32,12 +33,16 @@ namespace compose.Models.Generic
 
     public NodeMeta Meta { get; set; } = new NodeMeta();
 
+    [JsonIgnore]
     public List<Node<T>> Parents = new List<Node<T>>();
 
+    [JsonProperty(ReferenceLoopHandling = ReferenceLoopHandling.Serialize)]
     public List<Node<T>> Children = new List<Node<T>>();
 
+    [JsonIgnore]
     public IEnumerable<Node<T>> Siblings => Parents?.SelectMany(m => m.Children.Except(this));
 
+    [JsonIgnore]
     public bool IsRootNode => !Parents.Any();
 
     public abstract bool LockRoot { get; protected set; }

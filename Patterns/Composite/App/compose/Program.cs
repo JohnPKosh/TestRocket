@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using compose.Models.Concrete;
 using compose.Models.GoF;
+using Newtonsoft.Json;
 
 namespace compose
 {
@@ -14,10 +15,10 @@ namespace compose
       // highlighting scalar and composite objects.
       RunGoF();
 
-      ////// The over the top and perhaps a little insane
-      ////// advanced version utilizing generics and fair
-      ////// bit of abstraction to handle this powerful pattern.
-      ////RunRobotGraph();
+      // The over the top and perhaps a little insane
+      // advanced version utilizing generics and fair
+      // bit of abstraction to handle this powerful pattern.
+      RunRobotGraph();
     }
 
     // TODO: refactor this to be more clear.
@@ -30,10 +31,10 @@ namespace compose
       root.AddChild(new Leaf("Leaf B"));
 
       var comp = new Composite("Branch 1");
+      root.AddChild(comp);
       comp.AddChild(new Leaf("Leaf 1A"));
       comp.AddChild(new Leaf("Leaf 1B"));
 
-      root.AddChild(comp);
 
       root.AddChild(new Leaf("Leaf C"));
 
@@ -44,6 +45,8 @@ namespace compose
 
       // Recursively display tree
       root.RecurseTree();
+
+      con(root.ToPrettyJson());
     }
 
     private static void RunRobotGraph()
@@ -153,6 +156,8 @@ namespace compose
 
       hr();
       con("\r\nknuck, knuck, knuck!");
+
+      con(root.ToPrettyJson());
     }
 
 

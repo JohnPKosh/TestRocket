@@ -1,23 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace compose.Models.GoF
 {
+  public interface IComponent
+  {
+    string Name { get; }
+    void RecurseTree();
+  }
+
+  public interface IComposite: IComponent
+  {
+    void AddChild(Component c);
+    void RemoveChild(Component c);
+  }
+
   /// <summary>
   /// The 'Component' abstract class
   /// </summary>
 
-  public abstract class Component
+  public abstract class Component : IComponent
   {
     protected const char LVL_CHAR = '-';
 
     public Component(string name) => Name = name;
 
+    [JsonProperty(Order = 1)]
     public string Name { get; protected set; }
-
-    public abstract void AddChild(Component c);
-
-    public abstract void RemoveChild(Component c);
 
     public abstract void RecurseTree();
 
@@ -27,19 +37,20 @@ namespace compose.Models.GoF
   /// <summary>
   /// The 'Composite' class
   /// </summary>
-  public class Composite : Component
+  public class Composite : Component, IComposite
   {
+    [JsonProperty(Order = 2, ReferenceLoopHandling = ReferenceLoopHandling.Serialize)]
     public List<Component> Children { get; set; } = new List<Component>();
 
-    // Constructor
+
     public Composite(string name) : base(name) { }
 
-    public override void AddChild(Component component)
+    public void AddChild(Component component)
     {
       Children.Add(component);
     }
 
-    public override void RemoveChild(Component component)
+    public void RemoveChild(Component component)
     {
       Children.Remove(component);
     }
@@ -49,7 +60,7 @@ namespace compose.Models.GoF
     protected internal override void RecurseTree(int depth)
     {
       Console.WriteLine(new string(LVL_CHAR, depth) + Name);
-      foreach (var component in Children)
+      foreach (Component component in Children)
       {
         component.RecurseTree(depth + 2);
       }
@@ -59,20 +70,10 @@ namespace compose.Models.GoF
   /// <summary>
   /// The 'Leaf' class
   /// </summary>
-  public class Leaf : Component
+  public class Leaf : Component, IComponent
   {
     // Constructor
     public Leaf(string name) : base(name) { }
-
-    public override void AddChild(Component c)
-    {
-      Console.WriteLine("You should not be able to add to a leaf");
-    }
-
-    public override void RemoveChild(Component c)
-    {
-      Console.WriteLine("You should not be able to remove from a leaf");
-    }
 
     public override void RecurseTree() => RecurseTree(1);
 
