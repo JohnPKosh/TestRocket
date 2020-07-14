@@ -11,9 +11,9 @@ namespace compose
   {
     static void Main(string[] args)
     {
-      // The traditional GoF simple conceptual example
-      // highlighting scalar and composite objects.
-      RunGoF();
+      //// The traditional GoF simple conceptual example
+      //// highlighting scalar and composite objects.
+      //RunGoF();
 
       // The over the top and perhaps a little insane
       // advanced version utilizing generics and fair
@@ -78,10 +78,12 @@ namespace compose
         new Robot(new RobotChassis() { ArmCount = 5 }, "Moe", "3 stooges")
       };
       autoRobots.AddChildren(autoList);
-      root.AddChildren(autoRobots);
+      root.AddChild(autoRobots);
+
+      var d = root.Descendants;
 
       hr();
-      con("We have created exactly {0} stooges as children of the autoRobots container.", autoRobots.GetDescendents().Count());
+      con("We have created exactly {0} stooges as children of the autoRobots container.", autoRobots.Descendants.Count());
 
       /* ================================================== */
 
@@ -91,16 +93,16 @@ namespace compose
       // *** Next we will 2 levels of faulty robots and some spare parts.
       var defectRobots = new RobotContainer("Faulty Robots");
       var r4 = new Robot(new RobotChassis() { ArmCount = 13 }, "Shemp", "3 stooges");
-      defectRobots.AddChildren(r4);
+      defectRobots.AddChild(r4);
       // Creating our spare parts container now...
       var spareParts = new RobotContainer("Spare Parts"); // This will be a child of the defective robots.
-      spareParts.AddChildren(new Robot(new RobotChassis() { ArmCount = 2 }, "C3PO", "Star Wars"));
-      defectRobots.AddChildren(spareParts);
+      spareParts.AddChild(new Robot(new RobotChassis() { ArmCount = 2 }, "C3PO", "Star Wars"));
+      defectRobots.AddChild(spareParts);
       // Add it all as a child of the root.
-      root.AddChildren(defectRobots);
+      root.AddChild(defectRobots);
 
       hr();
-      con("The entire graph now has {0} descendents.", root.GetDescendents().Count());
+      con("The entire graph now has {0} items.", root.DescendantsAndSelf.Count());
 
       /* ================================================== */
 
@@ -157,7 +159,9 @@ namespace compose
       hr();
       con("\r\nknuck, knuck, knuck!");
 
-      con(root.ToPrettyJson());
+      // We will save the file in the projects bin\debug for further examination.
+      if (System.IO.File.Exists("test-graph.json")) System.IO.File.Delete("test-graph.json");
+      System.IO.File.WriteAllText("test-graph.json", root.ToPrettyJson());
     }
 
 
