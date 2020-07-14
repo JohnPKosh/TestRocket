@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using compose.Models.Concrete;
 using compose.Models.GoF;
-using Newtonsoft.Json;
 
 namespace compose
 {
@@ -11,42 +10,54 @@ namespace compose
   {
     static void Main(string[] args)
     {
-      //// The traditional GoF simple conceptual example
-      //// highlighting scalar and composite objects.
-      //RunGoF();
+      // The traditional conceptual example highlighting
+      // only scalar (leaf) and composite objects.
+      RunGoF();
 
       // The over the top and perhaps a little insane
       // advanced version utilizing generics and fair
       // bit of abstraction to handle this powerful pattern.
+      // Notice how we use recursion to walk our object graph
+      // when working with parents, children, and descendants.
       RunRobotGraph();
     }
 
-    // TODO: refactor this to be more clear.
-
     private static void RunGoF()
     {
-      // Create a tree structure
+      hr();
+      con("Lets plant a tree to honor our mad scientists.");
+      hr();
+
+      // First we will create a new composite root object.
       var root = new Composite("ROOT");
+
+      // Then add some leaves. (leaves cannot have children BTW)
       root.AddChild(new Leaf("Leaf A"));
       root.AddChild(new Leaf("Leaf B"));
 
-      var comp = new Composite("Branch 1");
-      root.AddChild(comp);
-      comp.AddChild(new Leaf("Leaf 1A"));
-      comp.AddChild(new Leaf("Leaf 1B"));
+      // Next we will add a composite branch that can have children.
+      var branch = new Composite("Branch 1");
 
+      // We add it as a child of the root.
+      root.AddChild(branch);
 
-      root.AddChild(new Leaf("Leaf C"));
+      // Since the branch can have children let's add some leaves.
+      branch.AddChild(new Leaf("Leaf 1A"));
+      branch.AddChild(new Leaf("Leaf 1B"));
 
-      // Add and remove a leaf
-      Leaf leaf = new Leaf("Leaf D");
-      root.AddChild(leaf);
-      root.RemoveChild(leaf);
+      // Let's add some colored leaves next to our branch.
+      var brownLeaf = new Leaf("Brown Leaf");
+      var greenLeaf = new Leaf("Green Leaf");
+      branch.AddChild(brownLeaf);
+      branch.AddChild(greenLeaf);
 
-      // Recursively display tree
-      root.RecurseTree();
+      // Since we want to keep our tree green, let's remone the brown leaf.
+      branch.RemoveChild(brownLeaf);
 
+      // Now let's write out our entire tree to JSON
       con(root.ToPrettyJson());
+
+      // Notice - the brown leaf is no longer there.
     }
 
     private static void RunRobotGraph()
@@ -56,7 +67,7 @@ namespace compose
         and advanced scenarios while working with the composite pattern. Because
         of the combinitory explosion of complexity involved with the composite pattern
         and object graph functionality their is a large amount of scenarios to
-        consider. Below are some of the most common use cases, yet it is not exhaustive.
+        consider. Below are some of the more common functionality, yet it is not exhaustive.
         You may want to review the below several times to fully appreciate all of the
         scenarios possible with this pattern.
       */

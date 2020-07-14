@@ -1,85 +1,77 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace compose.Models.GoF
 {
-  public interface IComponent
+  /// <summary>
+  /// The public interface allowing for the
+  /// adding and removing of children
+  /// </summary>
+  public interface IComposite
   {
-    string Name { get; }
-    void RecurseTree();
-  }
-
-  public interface IComposite: IComponent
-  {
+    /// <summary> The public method to add a child </summary>
     void AddChild(Component c);
+
+    /// <summary> The public method to remove a child </summary>
     void RemoveChild(Component c);
   }
 
   /// <summary>
-  /// The 'Component' abstract class
+  /// The base public abstract component class that
+  /// composites and leaf class inherit from.
   /// </summary>
-
-  public abstract class Component : IComponent
+  public abstract class Component
   {
-    protected const char LVL_CHAR = '-';
-
+    /// <summary>
+    /// The public abstract base class for composite objects
+    /// </summary>
     public Component(string name) => Name = name;
 
+    /// <summary>
+    /// The public name property of the component
+    /// </summary>
     [JsonProperty(Order = 1)]
     public string Name { get; protected set; }
-
-    public abstract void RecurseTree();
-
-    protected internal abstract void RecurseTree(int depth);
   }
 
   /// <summary>
-  /// The 'Composite' class
+  /// The public concrete composite class (+ children)
   /// </summary>
   public class Composite : Component, IComposite
   {
-    [JsonProperty(Order = 2, ReferenceLoopHandling = ReferenceLoopHandling.Serialize)]
-    public List<Component> Children { get; set; } = new List<Component>();
-
-
+    /// <summary> The default Composite constructor </summary>
     public Composite(string name) : base(name) { }
 
+    /// <summary> The Children of a composite</summary>
+    [JsonProperty(
+      Order = 2,
+      ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+    )]
+    public List<Component> Children { get; set; }
+      = new List<Component>();
+
+    #region IComposite Interface Implementations
+
+    /// <summary> The public method to add a child </summary>
     public void AddChild(Component component)
     {
       Children.Add(component);
     }
 
+    /// <summary> The public method to remove a child </summary>
     public void RemoveChild(Component component)
     {
       Children.Remove(component);
     }
 
-    public override void RecurseTree() => RecurseTree(1);
-
-    protected internal override void RecurseTree(int depth)
-    {
-      Console.WriteLine(new string(LVL_CHAR, depth) + Name);
-      foreach (Component component in Children)
-      {
-        component.RecurseTree(depth + 2);
-      }
-    }
+    #endregion
   }
 
   /// <summary>
-  /// The 'Leaf' class
+  /// The public concrete leaf class (no children)
   /// </summary>
-  public class Leaf : Component, IComponent
+  public class Leaf : Component
   {
-    // Constructor
     public Leaf(string name) : base(name) { }
-
-    public override void RecurseTree() => RecurseTree(1);
-
-    protected internal override void RecurseTree(int depth)
-    {
-      Console.WriteLine(new string(LVL_CHAR, depth) + Name);
-    }
   }
 }

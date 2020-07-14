@@ -1,21 +1,29 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
 namespace compose.Models.Generic
 {
-  public abstract class Node<T> //: IEnumerable<Node<T>>
+  /// <summary>
+  /// The public abstract base generic class for composite object graphs
+  /// </summary>
+  public abstract class Node<T>
   {
-    public const string ADD_SELF_MSG = "You cannot add a node to itself!";
-    public const string REMOVE_SELF_MSG = "You cannot remove a node from itself!";
-    public const string REPARENT_SELF_MSG = "You cannot reparent a node to itself!";
+    protected const string ADD_SELF_MSG = "You cannot add a node to itself!";
+    protected const string REMOVE_SELF_MSG = "You cannot remove a node from itself!";
+    protected const string REPARENT_SELF_MSG = "You cannot reparent a node to itself!";
 
     #region Constructors and Class Initialization
 
+    /// <summary>
+    /// The default parameterless constructor
+    /// </summary>
     public Node() { }
 
+    /// <summary>
+    /// The base constructor accepting a T value and optional NodeMeta
+    /// </summary>
     public Node(T value, NodeMeta meta = null)
     {
       Value = value;
@@ -26,25 +34,58 @@ namespace compose.Models.Generic
 
     #region Fields and Props
 
+    /// <summary>
+    /// The T Value property of the class
+    /// </summary>
     public T Value { get; set; } = default;
 
+    /// <summary>
+    /// The public abstract property indicating if this is a leaf
+    /// </summary>
     public abstract bool IsLeaf { get; protected set; }
 
+    /// <summary>
+    /// The public NodeMeta property to contain metadata
+    /// </summary>
     public NodeMeta Meta { get; set; } = new NodeMeta();
 
+    /// <summary>
+    /// The public Parent property of the node
+    /// </summary>
     [JsonIgnore]
-    public Node<T> Parent { get; set; } = null;
+    public CompositeNode<T> Parent { get; set; } = null;
 
+    /// <summary>
+    /// The public Children property collection
+    /// </summary>
     [JsonProperty(ReferenceLoopHandling = ReferenceLoopHandling.Serialize)]
     public List<Node<T>> Children { get; set; } = new List<Node<T>>();
 
+    /// <summary>
+    /// The public readonly Siblings property (calculated)
+    /// </summary>
     [JsonIgnore]
     public IEnumerable<Node<T>> Siblings => Parent?.Children.Where(x=> !x.Equals(this));
 
+    /// <summary>
+    /// The public readonly Descendants and Self property (calculated)
+    /// </summary>
+    [JsonIgnore]
+    public virtual IEnumerable<Node<T>> DescendantsAndSelf => GetDescendants(true);
+
+    /// <summary>
+    /// The public readonly Descendants property (calculated)
+    /// </summary>
+    [JsonIgnore]
+    public virtual IEnumerable<Node<T>> Descendants => GetDescendants(false);
+
     #endregion
 
-    #region Basic Public Methods
+    #region Public Methods
 
+    /// <summary>
+    /// The public virtual method to update the current object's parent
+    /// </summary>
     public virtual void ReParent(CompositeNode<T> newParent)
     {
       if (newParent == null) throw new ArgumentNullException(nameof(newParent));
@@ -52,108 +93,12 @@ namespace compose.Models.Generic
 
       Parent.RemoveChildren(new[] { this });
       Parent = newParent;
-      newParent.AddChildren(new[]{ this});
+      newParent.AddChildren(new[] { this });
     }
 
-    public virtual void AddChild(Node<T> child)
-    {
-      if (child == null) throw new ArgumentNullException(nameof(child));
-      if (ReferenceEquals(this, child)) throw new ArgumentException(ADD_SELF_MSG, nameof(child));
-
-      Children.Add(child);
-      child.Parent = this;
-    }
-
-    public virtual void AddChildren(IEnumerable<Node<T>> childNodes)
-    {
-      if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
-      if (ReferenceEquals(this, childNodes)) throw new ArgumentException(ADD_SELF_MSG, nameof(childNodes));
-
-      foreach (var child in childNodes)
-      {
-        Children.Add(child);
-        child.Parent = this;
-      }
-    }
-
-    public virtual bool RemoveChild(Node<T> child)
-    {
-      if (child == null) throw new ArgumentNullException(nameof(child));
-      if (ReferenceEquals(this, child)) throw new ArgumentException(REMOVE_SELF_MSG, nameof(child));
-
-      if (Children.Remove(child))
-      {
-        child.Parent = null;
-        return true;
-      }
-      return false;
-    }
-
-    public virtual void RemoveChildren(IEnumerable<Node<T>> childNodes)
-    {
-      if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
-      foreach (var child in childNodes)
-      {
-        RemoveChild(child);
-      }
-    }
-
-    public virtual void ReParentChildren(CompositeNode<T> newParent, IEnumerable<Node<T>> childNodes)
-    {
-      if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
-      if (newParent == null) throw new ArgumentNullException(nameof(newParent));
-      if (ReferenceEquals(this, newParent)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParent));
-
-      RemoveChildren(childNodes);
-      foreach (var child in childNodes)
-      {
-        if (RemoveChild(child)) child.ReParent(newParent);
-      }
-    }
-
-    public virtual void ReParentChildren(CompositeNode<T> newParent)
-    {
-      if (newParent == null) throw new ArgumentNullException(nameof(newParent));
-      if (ReferenceEquals(this, newParent)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParent));
-
-      ReParentChildren(newParent, Children);
-    }
-
-    public virtual void ReParentChildrenWhere(CompositeNode<T> newParent, Func<Node<T>, bool> predicate)
-    {
-      if (predicate == null) throw new ArgumentNullException(nameof(predicate));
-      if (newParent == null) throw new ArgumentNullException(nameof(newParent));
-      if (ReferenceEquals(this, newParent)) throw new ArgumentException(REPARENT_SELF_MSG, nameof(newParent));
-
-      ReParentChildren(newParent, Children.Where(predicate));
-    }
-
-    #endregion
-
-    #region Create New Child Methods
-
-    public virtual void CreateNewLeaf(T value, NodeMeta meta = null) =>
-      AddChild(new LeafNode<T>() { Value = value, Meta = meta });
-
-    public virtual void CreateNewLeaves(IEnumerable<T> values) =>
-      AddChildren(values.Select(x => new LeafNode<T>() { Value = x }));
-
-    public virtual void CreateNewComposite(T value, NodeMeta meta = null) =>
-      AddChild(new CompositeNode<T>() { Value = value, Meta = meta });
-
-    public virtual void CreateNewComposites(IEnumerable<T> values) =>
-      AddChildren(values.Select(x => new CompositeNode<T>() { Value = x }));
-
-    #endregion
-
-    #region Get Descendents Methods
-
-    [JsonIgnore]
-    public virtual IEnumerable<Node<T>> DescendantsAndSelf => GetDescendants(true);
-
-    [JsonIgnore]
-    public virtual IEnumerable<Node<T>> Descendants => GetDescendants(false);
-
+    /// <summary>
+    /// The protected method to recursively walk the descendants and optional self
+    /// </summary>
     protected virtual IEnumerable<Node<T>> GetDescendants(bool includeSelf = true)
     {
       if (includeSelf) yield return this;
@@ -166,19 +111,28 @@ namespace compose.Models.Generic
       }
     }
 
-    public virtual IEnumerable<Node<T>> FindNodes(Func<Node<T>, bool> finder, bool includeSelf = true)
+    /// <summary>
+    /// The public virtual method to find all nodes matching a specific predicate
+    /// </summary>
+    public virtual IEnumerable<Node<T>> FindNodes(Func<Node<T>, bool> predicate, bool includeSelf = true)
     {
-      return GetDescendants(includeSelf).Where(finder);
+      return GetDescendants(includeSelf).Where(predicate);
     }
 
-    public virtual IEnumerable<Node<T>> FindLeafNodes(Func<Node<T>, bool> finder, bool includeSelf = true)
+    /// <summary>
+    /// The public virtual method to find leaf nodes matching a specific predicate
+    /// </summary>
+    public virtual IEnumerable<Node<T>> FindLeafNodes(Func<Node<T>, bool> predicate, bool includeSelf = true)
     {
-      return GetDescendants(includeSelf).Where(x => x.IsLeaf).Where(finder);
+      return GetDescendants(includeSelf).Where(x => x.IsLeaf).Where(predicate);
     }
 
-    public virtual IEnumerable<Node<T>> FindCompositeNodes(Func<Node<T>, bool> finder, bool includeSelf = true)
+    // <summary>
+    /// The public virtual method to find composite nodes matching a specific predicate
+    /// </summary>
+    public virtual IEnumerable<Node<T>> FindCompositeNodes(Func<Node<T>, bool> predicate, bool includeSelf = true)
     {
-      return GetDescendants(includeSelf).Where(x => !x.IsLeaf).Where(finder);
+      return GetDescendants(includeSelf).Where(x => !x.IsLeaf).Where(predicate);
     }
 
     #endregion

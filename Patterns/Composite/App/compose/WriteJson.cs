@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace compose
 {
@@ -8,17 +7,21 @@ namespace compose
   /// </summary>
   public static class WriteJson
   {
+    // NOTE* - To serialize composite objects you should specify
+    // ReferenceLoopHandling.Serialize like below in Json.Net.
+    // Loop handling will not be part of .Net Core until .Net 5.0.
+    // NewtonSoft Json.net is used here instead by using
+    // the ReferenceLoopHandling.Serialize JsonSerializerSettings or
+    // [JsonProperty(ReferenceLoopHandling = ReferenceLoopHandling.Serialize)] attribute.
+
     /// <summary>
     /// Converts an object of T to a JSON string (with indenting)
     /// </summary>
+    /// <remarks>
+    /// Add [JsonProperty(ReferenceLoopHandling = ReferenceLoopHandling.Serialize)] to composites.
+    /// </remarks>
     public static string ToPrettyJson<T>(this T instance) where T : class
       => JsonConvert.SerializeObject(instance, Formatting.Indented);
-
-    // NOTE* - To serialize composite objects you should specify
-    // ReferenceLoopHandling.Serialize like below. Loop handling will
-    // not be part of .Net Core until .Net 5.0.
-    // NewtonSoft Json.net is used here instead by using JsonSerializerSettings or
-    // [JsonProperty(ReferenceLoopHandling = ReferenceLoopHandling.Serialize)] attribute.
 
     /// <summary>
     /// Converts an object of T to a JSON string with additional Formatting and JsonSerializerSettings
