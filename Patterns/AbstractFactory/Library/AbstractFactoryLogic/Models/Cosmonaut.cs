@@ -8,23 +8,14 @@ namespace AbstractFactoryLogic.Models
   /// </summary>
   public class Cosmonaut : ICosmonaut
   {
-    /// <summary>Say some clever phrase here.</summary>
-    public string Speak()
-    {
-      return FactoryConstants.CSM_SPK;
-    }
+    /// <summary> Say some clever phrase here. </summary>
+    public string Speak() => FactoryConstants.CSM_SPK;
 
-    /// <summary>Begin launch command instruction.</summary>
-    public string LaunchCommand()
-    {
-      return FactoryConstants.CSM_LAUNCH;
-    }
+    /// <summary> Begin launch command instruction. </summary>
+    public string LaunchCommand() => FactoryConstants.CSM_LAUNCH;
 
-    /// <summary>Flip out cosmonaut.</summary>
-    public string FlipSwitch()
-    {
-      return FactoryConstants.CSM_FLIP;
-    }
+    /// <summary> Flip out cosmonaut. </summary>
+    public string FlipSwitch() => FactoryConstants.CSM_FLIP;
   }
 
   /// <summary>
@@ -32,23 +23,14 @@ namespace AbstractFactoryLogic.Models
   /// </summary>
   public class WeightlessCosmonaut : ICosmonaut
   {
-    /// <summary>Say some clever phrase here.</summary>
-    public string Speak()
-    {
-      return FactoryConstants.CSM_SPK_ZERO_G;
-    }
+    /// <summary> Say some clever phrase here. </summary>
+    public string Speak() => FactoryConstants.CSM_SPK_ZERO_G;
 
-    /// <summary>Begin launch command instruction.</summary>
-    public string LaunchCommand()
-    {
-      return FactoryConstants.CSM_LAUNCH_ZERO_G;
-    }
+    /// <summary> Begin launch command instruction. </summary>
+    public string LaunchCommand() => FactoryConstants.CSM_LAUNCH_ZERO_G;
 
-    /// <summary>Flip out cosmonaut.</summary>
-    public string FlipSwitch()
-    {
-      return FactoryConstants.CSM_FLIP_ZERO_G;
-    }
+    /// <summary> Flip out cosmonaut. </summary>
+    public string FlipSwitch() => FactoryConstants.CSM_FLIP_ZERO_G;
   }
 
 
