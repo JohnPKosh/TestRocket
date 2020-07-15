@@ -3,10 +3,16 @@ using compose.Models.Generic;
 
 namespace compose.Models.Concrete
 {
+  /// <summary>
+  /// A public concrete class composite RobotChassis container node
+  /// </summary>
   public class RobotContainer : CompositeNode<RobotChassis>
   {
     private const string GROUP_NAME = "Robot Container";
 
+    /// <summary>
+    /// The public default constructor accepting a container name
+    /// </summary>
     public RobotContainer(string containerName)
     {
       Meta.Name = Guid.NewGuid().ToString();
@@ -14,7 +20,10 @@ namespace compose.Models.Concrete
       Meta.DisplayName = containerName;
     }
 
-    public void CreateNewComposite(RobotChassis value, string containerName)
+    /// <summary>
+    /// Additional public method overload to simplify node meta creation
+    /// </summary>
+    public void AddChildComposite(RobotChassis value, string containerName)
     {
       var meta = new NodeMeta
       {
@@ -22,13 +31,16 @@ namespace compose.Models.Concrete
         GroupName = GROUP_NAME,
         DisplayName = containerName
       };
-      base.CreateNewComposite(value, meta);
+      base.AddChildComposite(value, meta);
     }
 
-    public override void CreateNewComposite(RobotChassis value, NodeMeta meta)
+    /// <summary>
+    /// The overriden public method to add a child composite (custom logic attached)
+    /// </summary>
+    public override void AddChildComposite(RobotChassis value, NodeMeta meta)
     {
-      if (string.IsNullOrWhiteSpace(meta.GroupName)) meta.GroupName = GROUP_NAME;
-      base.CreateNewComposite(value, meta);
+      if (meta != null && string.IsNullOrWhiteSpace(meta.GroupName)) meta.GroupName = GROUP_NAME;
+      base.AddChildComposite(value, meta);
     }
   }
 }

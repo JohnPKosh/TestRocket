@@ -4,21 +4,34 @@ using System.Linq;
 
 namespace compose.Models.Generic
 {
+  /// <summary>
+  /// The public generic concrete composite implementation of a node.
+  /// </summary>
   public class CompositeNode<T> : Node<T>
   {
     #region Constructors and Class Initialization
 
+    /// <summary> The default paramaterless constructor </summary>
     public CompositeNode() : base() { }
 
+    /// <summary>
+    /// The public constructor accepting a T value and meta data
+    /// </summary>
     public CompositeNode(T value, NodeMeta meta = null) : base(value, meta) { }
 
     #endregion
 
+    /// <summary>
+    /// The overriden public property indicating that this IS NOT a leaf node
+    /// </summary>
     public override bool IsLeaf { get; protected set; } = false;
 
 
     #region Basic Public Methods
 
+    /// <summary>
+    /// The public virtual method to add a child node of T
+    /// </summary>
     public virtual void AddChild(Node<T> child)
     {
       if (child == null) throw new ArgumentNullException(nameof(child));
@@ -28,6 +41,9 @@ namespace compose.Models.Generic
       child.Parent = this;
     }
 
+    /// <summary>
+    /// The public virtual method to add child nodes of T
+    /// </summary>
     public virtual void AddChildren(IEnumerable<Node<T>> childNodes)
     {
       if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
@@ -40,6 +56,9 @@ namespace compose.Models.Generic
       }
     }
 
+    /// <summary>
+    /// The public virtual method to remove the matching child node of T
+    /// </summary>
     public virtual bool RemoveChild(Node<T> child)
     {
       if (child == null) throw new ArgumentNullException(nameof(child));
@@ -53,6 +72,9 @@ namespace compose.Models.Generic
       return false;
     }
 
+    /// <summary>
+    /// The public virtual method to remove the matching child nodes of T
+    /// </summary>
     public virtual void RemoveChildren(IEnumerable<Node<T>> childNodes)
     {
       if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
@@ -62,6 +84,9 @@ namespace compose.Models.Generic
       }
     }
 
+    /// <summary>
+    /// The public virtual method to move matching child nodes of T to a new parent
+    /// </summary>
     public virtual void ReParentChildren(CompositeNode<T> newParent, IEnumerable<Node<T>> childNodes)
     {
       if (childNodes == null) throw new ArgumentNullException(nameof(childNodes));
@@ -75,6 +100,9 @@ namespace compose.Models.Generic
       }
     }
 
+    /// <summary>
+    /// The public virtual method to move all current child nodes of T to a new parent
+    /// </summary>
     public virtual void ReParentChildren(CompositeNode<T> newParent)
     {
       if (newParent == null) throw new ArgumentNullException(nameof(newParent));
@@ -83,6 +111,9 @@ namespace compose.Models.Generic
       ReParentChildren(newParent, Children);
     }
 
+    /// <summary>
+    /// The public virtual method to move all predicate matched current child nodes of T to a new parent
+    /// </summary>
     public virtual void ReParentChildrenWhere(CompositeNode<T> newParent, Func<Node<T>, bool> predicate)
     {
       if (predicate == null) throw new ArgumentNullException(nameof(predicate));
@@ -96,17 +127,18 @@ namespace compose.Models.Generic
 
     #region Create New Child Methods
 
-    public virtual void CreateNewLeaf(T value, NodeMeta meta = null) =>
+    /// <summary>
+    /// The public virtual factory method to create and add a new child leaf node
+    /// </summary>
+    public virtual void AddChildLeaf(T value, NodeMeta meta = null) =>
       AddChild(new LeafNode<T>() { Value = value, Meta = meta });
 
-    public virtual void CreateNewLeaves(IEnumerable<T> values) =>
-      AddChildren(values.Select(x => new LeafNode<T>() { Value = x }));
-
-    public virtual void CreateNewComposite(T value, NodeMeta meta = null) =>
+    /// <summary>
+    /// The public virtual factory method to create and add a new child composite
+    /// </summary>
+    public virtual void AddChildComposite(T value, NodeMeta meta = null) =>
       AddChild(new CompositeNode<T>() { Value = value, Meta = meta });
 
-    public virtual void CreateNewComposites(IEnumerable<T> values) =>
-      AddChildren(values.Select(x => new CompositeNode<T>() { Value = x }));
 
     #endregion
 
