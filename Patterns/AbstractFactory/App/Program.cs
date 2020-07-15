@@ -44,6 +44,9 @@ namespace abstractfactory
       hr();
 
       con("Thanks for flying with us!");
+
+      con("Press any key to abort mission!");
+      Console.ReadKey(true);
     }
 
     /// <summary>

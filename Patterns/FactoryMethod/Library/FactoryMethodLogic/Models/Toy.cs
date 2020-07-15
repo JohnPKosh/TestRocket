@@ -22,13 +22,13 @@ namespace FactoryMethodLogic.Models
   /// </summary>
   public class Toy : IPassenger
   {
-    /// <summary>Say some clever phrase here.</summary>
+    /// <summary> Say some clever phrase here. </summary>
     public string Speak()
     {
       return FactoryConstants.TOY_SPK;
     }
 
-    /// <summary>Begin launch command instruction.</summary>
+    /// <summary> Begin launch command instruction. </summary>
     public string LaunchCommand()
     {
       return FactoryConstants.TOY_LAUNCH;

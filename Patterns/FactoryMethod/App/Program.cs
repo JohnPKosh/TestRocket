@@ -41,7 +41,8 @@ namespace factorymethod
       toy.LaunchCommand();
       */
 
-      //Console.ReadKey(true);
+      con("Press any key to abort mission!");
+      Console.ReadKey(true);
     }
 
     private static void prepareForLaunch(PassengerType type)

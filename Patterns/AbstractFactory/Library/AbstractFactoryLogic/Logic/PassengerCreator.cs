@@ -3,8 +3,12 @@ using AbstractFactoryLogic.Models.Interfaces;
 
 namespace AbstractFactoryLogic.Logic
 {
+  /// <summary>
+  /// A static factory method creator class that extends how we are using our factory pattern.
+  /// </summary>
   public static class PassengerCreator
   {
+    /// <summary> The static method to return an IAstronaut with a specified gravity value. </summary>
     public static IAstronaut GetAstronaut(GravityType gravity)
     {
       switch (gravity)
@@ -16,6 +20,7 @@ namespace AbstractFactoryLogic.Logic
       }
     }
 
+    /// <summary> The static method to return an ICosmonaut with a specified gravity value. </summary>
     public static ICosmonaut GetCosmonaut(GravityType gravity)
     {
       switch (gravity)
@@ -27,6 +32,7 @@ namespace AbstractFactoryLogic.Logic
       }
     }
 
+    /// <summary> The static method to return an IToy with a specified gravity value. </summary>
     public static IToy GetToy(GravityType gravity)
     {
       switch (gravity)
@@ -38,6 +44,11 @@ namespace AbstractFactoryLogic.Logic
       }
     }
 
+    /// <summary>
+    /// The public static method to create a new IPassenger of a specified type
+    /// corresponding to the enumeration of PassengerType provided with the
+    /// desired gravity enumeration applied.
+    /// </summary>
     public static IPassenger GetPassenger(PassengerType passengerType, GravityType gravity)
     {
       switch (passengerType)

@@ -8,23 +8,14 @@ namespace AbstractFactoryLogic.Models
   /// </summary>
   public class Astronaut : IAstronaut
   {
-    /// <summary>Say some clever phrase here.</summary>
-    public string Speak()
-    {
-      return FactoryConstants.AST_SPK;
-    }
+    /// <summary> Say some clever phrase here. </summary>
+    public string Speak() => FactoryConstants.AST_SPK;
 
-    /// <summary>Begin launch command instruction.</summary>
-    public string LaunchCommand()
-    {
-      return FactoryConstants.AST_LAUNCH;
-    }
+    /// <summary> Begin launch command instruction. </summary>
+    public string LaunchCommand() => FactoryConstants.AST_LAUNCH;
 
-    /// <summary>Push astronaut's button.</summary>
-    public string PushButton()
-    {
-      return FactoryConstants.AST_PUSH_BTN;
-    }
+    /// <summary> Push astronaut's button. </summary>
+    public string PushButton() => FactoryConstants.AST_PUSH_BTN;
   }
 
   /// <summary>
@@ -32,22 +23,13 @@ namespace AbstractFactoryLogic.Models
   /// </summary>
   public class WeightlessAstronaut : IAstronaut
   {
-    /// <summary>Say some clever phrase here.</summary>
-    public string Speak()
-    {
-      return FactoryConstants.AST_SPK_ZERO_G;
-    }
+    /// <summary> Say some clever phrase here. </summary>
+    public string Speak() => FactoryConstants.AST_SPK_ZERO_G;
 
-    /// <summary>Begin launch command instruction.</summary>
-    public string LaunchCommand()
-    {
-      return FactoryConstants.AST_LAUNCH_ZERO_G;
-    }
+    /// <summary> Begin launch command instruction. </summary>
+    public string LaunchCommand() => FactoryConstants.AST_LAUNCH_ZERO_G;
 
-    /// <summary>Push astronaut's button.</summary>
-    public string PushButton()
-    {
-      return FactoryConstants.AST_PUSH_BTN_ZERO_G;
-    }
+    /// <summary> Push astronaut's button. </summary>
+    public string PushButton() => FactoryConstants.AST_PUSH_BTN_ZERO_G;
   }
 }

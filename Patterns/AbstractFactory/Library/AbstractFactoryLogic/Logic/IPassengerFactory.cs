@@ -7,19 +7,13 @@ namespace AbstractFactoryLogic.Logic
   /// The following interface is acting like a factory of factories.</summary>
   public interface IPassengerFactory
   {
-    /// <summary>
-    /// *** This is the public method used to create a new Astronaut ***
-    /// </summary>
+    /// <summary> *** This is the public method used to create a new Astronaut *** </summary>
     IAstronaut NewAstronaut();
 
-    /// <summary>
-    /// *** This is the public method used to create a new Cosmonaut ***
-    /// </summary>
+    /// <summary> *** This is the public method used to create a new Cosmonaut *** </summary>
     ICosmonaut NewCosmonaut();
 
-    /// <summary>
-    /// *** This is the public method used to create a new Toy ***
-    /// </summary>
+    /// <summary> *** This is the public method used to create a new Toy *** </summary>
     IToy NewToy();
   }
 }

@@ -5,10 +5,14 @@ using FactoryMethodLogic.Models.Interfaces;
 namespace FactoryMethodLogic.Logic
 {
   /// <summary>
-  /// A static creator class that extends how we are using our factory method pattern.
+  /// A static factory method creator class that extends how we are using our factory pattern.
   /// </summary>
   public static class PassengerCreator
   {
+    /// <summary>
+    /// The public static method to create a new IPassenger of a specified type
+    /// corresponding to the enumeration of PassengerType provided.
+    /// </summary>
     public static IPassenger Create(PassengerType type)
     {
       switch (type)

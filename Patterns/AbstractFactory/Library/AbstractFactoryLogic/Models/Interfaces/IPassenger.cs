@@ -5,10 +5,10 @@
   /// </summary>
   public interface IPassenger
   {
-    /// <summary>Say some clever phrase here.</summary>
+    /// <summary> Say some clever phrase here. </summary>
     string Speak();
 
-    /// <summary>Begin launch command instruction.</summary>
+    /// <summary> Begin launch command instruction. </summary>
     string LaunchCommand();
   }
 
@@ -17,7 +17,7 @@
   /// </summary>
   public interface IAstronaut : IPassenger
   {
-    /// <summary>Push astronaut's button.</summary>
+    /// <summary> Push astronaut's button. </summary>
     string PushButton();
   }
 
@@ -26,7 +26,7 @@
   /// </summary>
   public interface ICosmonaut : IPassenger
   {
-    /// <summary>Flip out cosmonaut.</summary>
+    /// <summary> Flip out cosmonaut. </summary>
     string FlipSwitch();
   }
 
@@ -35,7 +35,7 @@
   /// </summary>
   public interface IToy : IPassenger
   {
-    /// <summary>Pull his strings.</summary>
+    /// <summary> Pull his strings. </summary>
     string PullString();
   }
 }
