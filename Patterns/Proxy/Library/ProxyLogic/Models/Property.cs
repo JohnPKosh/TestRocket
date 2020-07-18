@@ -1,6 +1,6 @@
 namespace ProxyLogic.Models
 {
-  /* Just putting this Property Proxy code sample here for later dissection */
+  /* TODO: Just putting this Property Proxy code sample here for later dissection */
 
   /// <summary>
   /// A generic Property of T class to allow encapsulation of generic property functionality.

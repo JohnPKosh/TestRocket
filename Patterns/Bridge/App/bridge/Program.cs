@@ -64,8 +64,10 @@ namespace bridge
     }
 
 
+
     // Helpers to make things easier to read above.
     private static void hr() => Console.WriteLine("\n**********************************\n");
     private static void con(string text) => Console.WriteLine(text);
+    private static void con(string text, params object[] args) => Console.WriteLine(text, args);
   }
 }
