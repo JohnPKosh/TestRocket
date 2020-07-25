@@ -187,3 +187,9 @@ or to launch:
 ```shell
 dotnet run --project ./State/App/alterstate.csproj
 ```
+
+
+[Basic Github Flavor Markdown Formatting](docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
+
+[Basic Github Flavor Markdown](github.github.com/gfm)
+
