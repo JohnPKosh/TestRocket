@@ -1,0 +1,118 @@
+{
+  "IsLeaf": false,
+  "Value": null,
+  "Meta": {
+    "DisplayName": "ROOT",
+    "Name": "6ef1fb3e-558e-4fde-ba2e-c8db008b9d3f",
+    "GroupName": "Robot Container",
+    "Properties": {}
+  },
+  "Children": [
+    {
+      "IsLeaf": false,
+      "Value": null,
+      "Meta": {
+        "DisplayName": "Fully Autonomous Robots",
+        "Name": "cc9ace79-cd05-4510-a787-524fb23de5bc",
+        "GroupName": "Robot Container",
+        "Properties": {}
+      },
+      "Children": [
+        {
+          "IsLeaf": true,
+          "Value": {
+            "ArmCount": 3,
+            "SerialNumber": null
+          },
+          "Meta": {
+            "DisplayName": "Larry",
+            "Name": "568dbdfa-ce14-4769-9ca6-765ad1a63ac1",
+            "GroupName": "3 stooges",
+            "Properties": {}
+          },
+          "Children": []
+        },
+        {
+          "IsLeaf": true,
+          "Value": {
+            "ArmCount": 4,
+            "SerialNumber": null
+          },
+          "Meta": {
+            "DisplayName": "Curly",
+            "Name": "92de3945-2365-4897-b3e0-ec60f20c8082",
+            "GroupName": "3 stooges",
+            "Properties": {}
+          },
+          "Children": []
+        },
+        {
+          "IsLeaf": true,
+          "Value": {
+            "ArmCount": 5,
+            "SerialNumber": null
+          },
+          "Meta": {
+            "DisplayName": "Moe",
+            "Name": "79d245c2-2e8b-482d-8398-73668af9302e",
+            "GroupName": "3 stooges",
+            "Properties": {}
+          },
+          "Children": []
+        },
+        {
+          "IsLeaf": false,
+          "Value": null,
+          "Meta": {
+            "DisplayName": "Faulty Robots",
+            "Name": "67d55dac-aef9-4050-85ae-449a0b8576af",
+            "GroupName": "Robot Container",
+            "Properties": {}
+          },
+          "Children": [
+            {
+              "IsLeaf": true,
+              "Value": {
+                "ArmCount": 13,
+                "SerialNumber": null
+              },
+              "Meta": {
+                "DisplayName": "Shemp",
+                "Name": "5b0d495c-e8a9-4fbe-ad00-f59b3b92f666",
+                "GroupName": "3 stooges",
+                "Properties": {}
+              },
+              "Children": []
+            },
+            {
+              "IsLeaf": false,
+              "Value": null,
+              "Meta": {
+                "DisplayName": "Spare Parts",
+                "Name": "e771226e-b262-434b-afa8-3c75818437a2",
+                "GroupName": "Robot Container",
+                "Properties": {}
+              },
+              "Children": [
+                {
+                  "IsLeaf": true,
+                  "Value": {
+                    "ArmCount": 2,
+                    "SerialNumber": null
+                  },
+                  "Meta": {
+                    "DisplayName": "C3PO",
+                    "Name": "1fb0d4ea-4442-4e49-ad7d-079ae75210fc",
+                    "GroupName": "Star Wars",
+                    "Properties": {}
+                  },
+                  "Children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
