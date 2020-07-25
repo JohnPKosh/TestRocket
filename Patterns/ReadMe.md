@@ -46,9 +46,9 @@ dotnet test ./AbstractFactory/Tests/AbstractFactoryTests/AbstractFactoryTests.cs
 
 ---
 
-### The Adapter Factory Pattern
+### The Adapter Pattern
 
-#### The Adapter Factory console (Adapter\App\) folder
+#### The Adapter console (Adapter\App\) folder
 
 ```shell
 cd %GIT%\TestRocket\Patterns\Adapter\App
@@ -60,3 +60,130 @@ or to launch:
 dotnet run --project ./Adapter/App/adapt.csproj
 ```
 
+---
+
+### The Bridge Pattern
+
+#### The Bridge console (Bridge\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\Bridge\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./Bridge/App/bridge.csproj
+```
+
+---
+
+### The Composite Pattern
+
+#### The Compose console (Composite\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\Composite\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./Composite/App/compose.csproj
+```
+
+---
+
+### The Decorator Pattern
+
+#### The Decorate console (Decorator\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\Decorator\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./Decorator/App/decorate.csproj
+```
+
+---
+
+### The Factory Method Pattern
+
+#### The FactoryMethod console (FactoryMethod\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\FactoryMethod\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./FactoryMethod/App/factorymethod.csproj
+```
+
+---
+
+### The Mediator Pattern
+
+#### The Mediate console (Mediator\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\Mediator\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./Mediator/App/mediate.csproj
+```
+
+---
+
+### The Proxy Pattern
+
+#### The Proxy console (Proxy\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\Proxy\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./Proxy/App/proxy.csproj
+```
+
+---
+
+### The Singleton Pattern
+
+#### The Single console (Singleton\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\Singleton\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./Singleton/App/single.csproj
+```
+
+---
+
+### The State Pattern
+
+#### The AlterState console (State\App\) folder
+
+```shell
+cd %GIT%\TestRocket\Patterns\State\App
+```
+
+or to launch:
+
+```shell
+dotnet run --project ./State/App/alterstate.csproj
+```
