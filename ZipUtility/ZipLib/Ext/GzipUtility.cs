@@ -110,7 +110,7 @@ namespace ZipLib.Ext
       outputFile.Refresh();
       return outputFile;
     }
-    
+
     private static FileInfo ExecuteCompress(
       FileInfo inputFile,
       FileInfo m_OutputFileInfo,

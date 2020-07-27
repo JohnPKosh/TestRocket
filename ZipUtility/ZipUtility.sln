@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XunitZipTests", "Test\Xunit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSNetZipTests", "Test\MSNetZipTests\MSNetZipTests.csproj", "{19FB5AE1-25D3-46FB-9CEE-0D0BB1EF485C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenApiDemo", "OpenApiDemo\OpenApiDemo.csproj", "{74E849B1-7131-421F-BF46-0F0E7C4848D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenApiDemo", "OpenApiDemo\OpenApiDemo.csproj", "{74E849B1-7131-421F-BF46-0F0E7C4848D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zipper", "zipper\zipper.csproj", "{AD2B88BE-EF3D-419D-BCB8-42A32E7A46CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{74E849B1-7131-421F-BF46-0F0E7C4848D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74E849B1-7131-421F-BF46-0F0E7C4848D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74E849B1-7131-421F-BF46-0F0E7C4848D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD2B88BE-EF3D-419D-BCB8-42A32E7A46CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2B88BE-EF3D-419D-BCB8-42A32E7A46CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2B88BE-EF3D-419D-BCB8-42A32E7A46CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2B88BE-EF3D-419D-BCB8-42A32E7A46CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
