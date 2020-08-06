@@ -5,6 +5,8 @@ using System.CommandLine.Parsing;
 using System.IO;
 using ZipLib.Enums;
 using ZipLib.Ext;
+using zipper.Attributes;
+using zipper.Models;
 
 namespace zipper
 {
@@ -22,6 +24,12 @@ namespace zipper
       rootCommand.AddCommand(GetCompressCommand());
       //TODO: Add additional commands for license and Readme etc. in base class
       //TODO: General refactoring and commenting needed.
+
+      var cmds = CmdAttribute.GetCommands(typeof(CommandItems));
+      foreach (var c in cmds)
+      {
+        rootCommand.AddCommand(c.GetCommand());
+      }
 
       // Invoke Command based on provided args
       return rootCommand.InvokeAsync(args).Result;
