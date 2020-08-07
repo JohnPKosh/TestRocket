@@ -27,13 +27,23 @@ namespace moncon
             .ConfigureLogging((hostBuilderContext, configureLogging) =>
             {
               configureLogging.ClearProviders(); // Clears the default Host log providers
-              configureLogging.AddProvider(new ColorConsoleLoggerProvider(
-                            new ColorConsoleLoggerConfiguration
-                            {
-                              LogLevel = LogLevel.Information,
-                              Color = ConsoleColor.Green
-                            }));
+              configureLogging.AddProvider(GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray));
+              configureLogging.SetMinimumLevel(LogLevel.Trace);
             })
             ;
+
+
+    private static ColorConsoleLoggerProvider GetLoggerProvider(LogLevel logLevel, ConsoleColor consoleColor)
+    {
+      return new ColorConsoleLoggerProvider(
+                    new ColorConsoleLoggerConfiguration
+                    {
+                      LogLevel = logLevel,
+                      Color = consoleColor
+                    });
+    }
+
   }
+
+
 }
