@@ -1,10 +1,16 @@
-﻿using System;
+﻿//#define DEBUG
+//#define TRACE
+
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 
 namespace ZipLib.Models.Workers
 {
@@ -33,12 +39,22 @@ namespace ZipLib.Models.Workers
     {
       try
       {
-        _logger.LogTrace("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-        _logger.LogDebug("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+        //Debug.WriteLine("Debug write line...");
+        //Trace.WriteLine("Trace write line...");
+
+        //_logger.LogTrace("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+        _logger.Log(LogLevel.Trace, "I am tracing");
+        _logger.Log(LogLevel.Debug, "I am debugging");
+        //_logger.LogDebug("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
         _logger.LogInformation("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-        _logger.LogWarning("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+        //_logger.LogWarning("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
         DoWork();
         await Task.Delay(RepeatIntervalMs, stoppingToken);
+      }
+      catch(TaskCanceledException e)
+      {
+        ////_logger.LogWarning(e, "{worker} TASK CANCELLED: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+        _logger.LogWarning("{worker} TASK CANCELLED: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
       }
       catch (Exception e)
       {

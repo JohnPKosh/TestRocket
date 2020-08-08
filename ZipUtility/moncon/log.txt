@@ -1,0 +1,70 @@
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 09:49:23 -04:00
+Information - 0 - Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+Information - 0 - Microsoft.Hosting.Lifetime - Hosting environment: Development
+Information - 0 - Microsoft.Hosting.Lifetime - Content root path: C:\vscode\github\TestRocket\ZipUtility\moncon
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 09:49:24 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 09:49:25 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 09:49:26 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 09:49:27 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 09:49:28 -04:00
+Information - 0 - Microsoft.Hosting.Lifetime - Application is shutting down...
+Warning - 0 - ZipLib.Models.Workers.WorkerBase - Worker TASK CANCELLED: 08/08/2020 09:49:31 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:28 -04:00
+Information - 0 - Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+Information - 0 - Microsoft.Hosting.Lifetime - Hosting environment: Development
+Information - 0 - Microsoft.Hosting.Lifetime - Content root path: C:\vscode\github\TestRocket\ZipUtility\moncon
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:29 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:30 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:31 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:32 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:33 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:34 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:35 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:36 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:37 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:38 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:39 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:40 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:41 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:42 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:43 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:44 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:45 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:46 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:47 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:48 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:49 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:50 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:51 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:52 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:53 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:54 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:55 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:56 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:57 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:58 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:01:59 -04:00
+Information - 0 - Microsoft.Hosting.Lifetime - Application is shutting down...
+Warning - 0 - ZipLib.Models.Workers.WorkerBase - Worker TASK CANCELLED: 08/08/2020 10:02:00 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:23 -04:00
+Information - 0 - Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+Information - 0 - Microsoft.Hosting.Lifetime - Hosting environment: Development
+Information - 0 - Microsoft.Hosting.Lifetime - Content root path: C:\vscode\github\TestRocket\ZipUtility\moncon
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:24 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:25 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:26 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:27 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:28 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:29 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:30 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:31 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:32 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:33 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:34 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:35 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:37 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:38 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:39 -04:00
+Information - 0 - ZipLib.Models.Workers.WorkerBase - Worker running at: 08/08/2020 10:04:40 -04:00
+Information - 0 - Microsoft.Hosting.Lifetime - Application is shutting down...
+Warning - 0 - ZipLib.Models.Workers.WorkerBase - Worker TASK CANCELLED: 08/08/2020 10:04:41 -04:00

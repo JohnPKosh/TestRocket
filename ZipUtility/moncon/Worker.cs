@@ -1,3 +1,6 @@
+//#define DEBUG
+//#define TRACE
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +22,7 @@ namespace moncon
 
     public override void DoWork()
     {
-      throw new NotImplementedException();
+      //throw new NotImplementedException();
     }
   }
 

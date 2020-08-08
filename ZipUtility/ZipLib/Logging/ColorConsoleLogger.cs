@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
@@ -34,12 +35,17 @@ namespace ZipLib.Logging
       Func<TState, Exception, string> formatter
       )
     {
-      if (!IsEnabled(logLevel)) return;
+      //////if (!IsEnabled(logLevel)) return;
 
-      var color = Console.ForegroundColor;
-      Console.ForegroundColor = logLevel.LogColor(_config.ColorSettingss);
-      Console.WriteLine($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
-      Console.ForegroundColor = color;
+      //if (logLevel == LogLevel.Debug) return;
+      //if (logLevel == LogLevel.Trace) return;
+
+      LogTextWriter.AppendLog($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
+
+      //var color = Console.ForegroundColor;
+      //Console.ForegroundColor = logLevel.LogColor(_config.ColorSettingss);
+      //Console.WriteLine($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
+      //Console.ForegroundColor = color;
 
       ////if (_config.EventId == 0 || _config.EventId == eventId.Id)
       ////{

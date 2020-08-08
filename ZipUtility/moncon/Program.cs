@@ -1,5 +1,9 @@
+//#define DEBUG
+//#define TRACE
+
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +17,11 @@ namespace moncon
   {
     public static void Main(string[] args)
     {
+//#if (DEBUG)
+            ConsoleTraceListener myWriter = new ConsoleTraceListener();
+            Trace.Listeners.Add(myWriter);
+//#endif
+
       CreateHostBuilder(args).Build().Run();
     }
 
@@ -26,8 +35,15 @@ namespace moncon
             // Configure Custom Logging
             .ConfigureLogging((hostBuilderContext, configureLogging) =>
             {
-              configureLogging.ClearProviders(); // Clears the default Host log providers
-              configureLogging.AddProvider(GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray));
+              //configureLogging.ClearProviders(); // Clears the default Host log providers
+              //ConsoleTraceListener myWriter = new ConsoleTraceListener();
+              //Trace.Listeners.Add(myWriter);
+
+              //configureLogging.AddDebug();
+
+
+              var provider = GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray);
+              configureLogging.AddProvider(provider);
               configureLogging.SetMinimumLevel(LogLevel.Trace);
             })
             ;
