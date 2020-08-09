@@ -19,21 +19,9 @@ namespace moncon
 
     public static void Main(string[] args)
     {
-      //#if (DEBUG)
-      //ConsoleTraceListener myWriter = new ConsoleTraceListener(false);
-      //Trace.Listeners.Add(myWriter);
-      //#endif
-
-      ILoggerFactory loggerFactory = new LoggerFactory(
-                            new[] { GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray) }
-                        );
-      //or
-      //ILoggerFactory loggerFactory = new LoggerFactory().AddConsole();
-
+      ILoggerFactory loggerFactory = new LoggerFactory(new[] { GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray) });
       ILogger logger = loggerFactory.CreateLogger<Program>();
-      logger.LogInformation("This is log message.");
-
-
+      logger.LogInformation("Program Start");
 
       try
       {
@@ -43,7 +31,9 @@ namespace moncon
           using (CancellationTokenSource source = new CancellationTokenSource())
           {
             CancellationToken token = source.Token;
-            Console.WriteLine("Starting processes...(Press CTRL + P to Pause)");
+            hr(ConsoleColor.DarkGreen);
+            con("Starting processes...(Press CTRL + P to Pause)");
+            hr(ConsoleColor.DarkGreen);
             CreateHostBuilder(args).Build().RunAsync(token);
             key = Console.ReadKey(true);
             if (((key.Modifiers & ConsoleModifiers.Control) != 0) && (key.KeyChar == '\u0010'))
@@ -52,15 +42,17 @@ namespace moncon
               bool quit;
               while (true)
               {
-                Console.WriteLine("Type \"Q\" to Quit or type \"R\" to Resume:");
+                con("Type \"Q\" to Quit or type \"R\" to Resume:");
                 var nextStep = Console.ReadLine();
                 if (nextStep.Trim().Equals("Q", StringComparison.OrdinalIgnoreCase))
                 {
+                  con("Quiting...");
                   quit = true;
                   break;
                 }
                 if (nextStep.Trim().Equals("R", StringComparison.OrdinalIgnoreCase))
                 {
+                  con("Restarting...");
                   quit = false;
                   break;
                 }
@@ -72,11 +64,16 @@ namespace moncon
       }
       catch (Exception ex)
       {
-        Console.WriteLine("An Unhandled Exception Occurred: {0}\r\n{1}", ex.Message, ex.StackTrace);
+        hr();
+        con("An Unhandled Exception Occurred: {0}\r\n{1}", ex.Message, ex.StackTrace);
+        hr();
+        logger.LogError(ex, ex.Message);
         Environment.ExitCode = -1;
       }
-      Console.WriteLine("Goodbye!");
-      logger.LogInformation("Goodbye!");
+      hr();
+      con("Goodbye!");
+      hr();
+      logger.LogInformation("Program Exit");
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -111,6 +108,21 @@ namespace moncon
                       LogLevel = logLevel,
                       Color = consoleColor
                     });
+    }
+
+
+
+    // Helpers to make things easier to read above.
+    private static void hr() => Console.WriteLine("\n**********************************\n");
+    private static void con(string text) => Console.WriteLine(text);
+    private static void con(string text, params object[] args) => Console.WriteLine(text, args);
+
+    private static void hr(ConsoleColor color)
+    {
+      var orig = Console.ForegroundColor;
+      Console.ForegroundColor = color;
+      Console.WriteLine("\n**********************************\n");
+      Console.ForegroundColor = orig;
     }
 
   }
