@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using ZipLib.Logging;
 
 namespace moncon
@@ -22,9 +23,13 @@ namespace moncon
       ILoggerFactory loggerFactory = new LoggerFactory(new[] { GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray) });
       ILogger logger = loggerFactory.CreateLogger<Program>();
       logger.LogInformation("Program Start");
+      hr(ConsoleColor.DarkGray);
+      con("Application Starting!", ConsoleColor.White);
+      //hr(ConsoleColor.DarkGray);
 
       try
       {
+        //con("Worker Starting...(Press CTRL + P to Pause)");
         ConsoleKeyInfo key;
         while (true)
         {
@@ -32,13 +37,20 @@ namespace moncon
           {
             CancellationToken token = source.Token;
             hr(ConsoleColor.DarkGreen);
-            con("Starting processes...(Press CTRL + P to Pause)");
+            con("Worker Starting...(Press CTRL + P to Pause)");
             hr(ConsoleColor.DarkGreen);
-            CreateHostBuilder(args).Build().RunAsync(token);
+            logger.LogInformation("Worker Starting");
+            var worker = CreateHostBuilder(args).Build().RunAsync(token);
+
             key = Console.ReadKey(true);
             if (((key.Modifiers & ConsoleModifiers.Control) != 0) && (key.KeyChar == '\u0010'))
             {
+              logger.LogInformation("***Pausing Worker***");
+              //con("Pausing Worker", ConsoleColor.DarkYellow);
               source.Cancel();
+              logger.LogInformation("***Worker Paused***");
+              con("Worker Paused", ConsoleColor.DarkYellow);
+
               bool quit;
               while (true)
               {
@@ -46,13 +58,15 @@ namespace moncon
                 var nextStep = Console.ReadLine();
                 if (nextStep.Trim().Equals("Q", StringComparison.OrdinalIgnoreCase))
                 {
-                  con("Quiting...");
+                  con("Quiting Worker...", ConsoleColor.DarkMagenta);
+                  logger.LogInformation("Quiting Worker");
                   quit = true;
                   break;
                 }
                 if (nextStep.Trim().Equals("R", StringComparison.OrdinalIgnoreCase))
                 {
-                  con("Restarting...");
+                  con("Restarting Worker...", ConsoleColor.Green);
+                  logger.LogInformation("Restarting Worker");
                   quit = false;
                   break;
                 }
@@ -64,15 +78,15 @@ namespace moncon
       }
       catch (Exception ex)
       {
-        hr();
+        hr(ConsoleColor.Red);
         con("An Unhandled Exception Occurred: {0}\r\n{1}", ex.Message, ex.StackTrace);
-        hr();
+        hr(ConsoleColor.Red);
         logger.LogError(ex, ex.Message);
         Environment.ExitCode = -1;
       }
-      hr();
-      con("Goodbye!");
-      hr();
+      //hr(ConsoleColor.DarkGray);
+      con("Goodbye!", ConsoleColor.White);
+      hr(ConsoleColor.DarkGray);
       logger.LogInformation("Program Exit");
     }
 
@@ -91,11 +105,14 @@ namespace moncon
               //Trace.Listeners.Add(myWriter);
 
               //configureLogging.AddDebug();
+              //configureLogging.AddConsole();
 
 
               var provider = GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray);
               configureLogging.AddProvider(provider);
               configureLogging.SetMinimumLevel(LogLevel.Trace);
+
+              //configureLogging.AddFilter<ConsoleLoggerProvider>("Default", LogLevel.Error);
             })
             ;
 
@@ -122,6 +139,13 @@ namespace moncon
       var orig = Console.ForegroundColor;
       Console.ForegroundColor = color;
       Console.WriteLine("\n**********************************\n");
+      Console.ForegroundColor = orig;
+    }
+    private static void con(string text, ConsoleColor color)
+    {
+      var orig = Console.ForegroundColor;
+      Console.ForegroundColor = color;
+      Console.WriteLine(text);
       Console.ForegroundColor = orig;
     }
 

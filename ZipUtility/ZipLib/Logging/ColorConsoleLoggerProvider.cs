@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ZipLib.Logging
 {
+  [ProviderAlias("File")]
   public class ColorConsoleLoggerProvider : ILoggerProvider
   {
     private readonly ColorConsoleLoggerConfiguration _config;

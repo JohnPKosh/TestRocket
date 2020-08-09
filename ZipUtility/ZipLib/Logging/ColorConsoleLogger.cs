@@ -42,6 +42,8 @@ namespace ZipLib.Logging
 
       LogTextWriter.AppendLog($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
 
+      if (logLevel >= LogLevel.Warning) Console.WriteLine($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
+
       //var color = Console.ForegroundColor;
       //Console.ForegroundColor = logLevel.LogColor(_config.ColorSettingss);
       //Console.WriteLine($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");

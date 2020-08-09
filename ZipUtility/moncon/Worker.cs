@@ -22,7 +22,8 @@ namespace moncon
 
     public override void DoWork()
     {
-      //throw new NotImplementedException();
+      Thread.Sleep(10000);
+      throw new NotImplementedException();
     }
   }
 
