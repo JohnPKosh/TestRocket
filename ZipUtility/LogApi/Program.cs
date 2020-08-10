@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -24,10 +25,9 @@ namespace LogApi
             {
               logging.ClearProviders();
               logging.AddConsole();
-              //logging.AddDebug();
               logging.AddFileLogger();
-              //logging.AddFileLogger(options => {  });
             })
+
             .ConfigureWebHostDefaults(webBuilder =>
             {
               webBuilder.UseStartup<Startup>();

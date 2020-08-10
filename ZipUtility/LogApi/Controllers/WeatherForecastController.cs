@@ -27,8 +27,10 @@ namespace LogApi.Controllers
     public IEnumerable<WeatherForecast> Get()
     {
       _logger.LogWarning("{name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
-      _logger.LogTrace("{name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
-
+      //_logger.LogTrace("{name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
+      //_logger.LogDebug("{name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
+      _logger.Log(LogLevel.Debug, "Hello DEBUG!!!!!!");
+      _logger.Log(LogLevel.Trace, "Hello TRACE!!!!!!");
       _logger.LogError("{name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
 
       var rng = new Random();

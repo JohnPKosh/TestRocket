@@ -63,7 +63,7 @@ namespace SRF.FileLogger
         /// <summary>
         /// The active log level. Defaults to LogLevel.Information
         /// </summary>
-        public LogLevel LogLevel { get; set; } = Microsoft.Extensions.Logging.LogLevel.Information;
+        public LogLevel LogLevel { get; set; } = LogLevel.Trace;
         /// <summary>
         /// The folder where log files should be placed. Defaults to this Assembly location
         /// </summary>
