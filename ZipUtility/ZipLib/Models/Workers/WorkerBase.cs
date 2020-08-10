@@ -44,15 +44,15 @@ namespace ZipLib.Models.Workers
           //Debug.WriteLine("Debug write line...");
           //Trace.WriteLine("Trace write line...");
 
-          _logger.Log(LogLevel.Trace, "I am tracing");
-          _logger.Log(LogLevel.Debug, "I am debugging");
-          _logger.Log(LogLevel.Warning, "I am warning");
-          _logger.Log(LogLevel.Information, "I am Information");
+          //_logger.Log(LogLevel.Trace, "I am tracing");
+          //_logger.Log(LogLevel.Debug, "I am debugging");
+          //_logger.Log(LogLevel.Warning, "I am warning");
+          //_logger.Log(LogLevel.Information, "I am Information");
 
-          //_logger.LogTrace("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-          //_logger.LogDebug("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+          _logger.LogTrace("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+          _logger.LogDebug("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
           _logger.LogInformation("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-          //_logger.LogWarning("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+          _logger.LogWarning("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
           DoWork();
           await Task.Delay(RepeatIntervalMs, stoppingToken);
         }

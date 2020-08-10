@@ -11,6 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging.Configuration;
+
+
 using ZipLib.Logging;
 
 namespace moncon
@@ -92,6 +98,11 @@ namespace moncon
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((context, config) =>
+            {
+              // config.AddXmlFile("appsettings.xml", optional: true, reloadOnChange: true);
+              // config.AddIniFile("config.ini", optional: true, reloadOnChange: true);
+            })
             // Configure Service
             .ConfigureServices((hostContext, services) =>
             {
@@ -106,11 +117,12 @@ namespace moncon
 
               //configureLogging.AddDebug();
               //configureLogging.AddConsole();
-
+              configureLogging.AddConfiguration();
+              //configureLogging.AddColorConsoleLogger();
 
               var provider = GetLoggerProvider(LogLevel.Trace, ConsoleColor.Gray);
               configureLogging.AddProvider(provider);
-              configureLogging.SetMinimumLevel(LogLevel.Trace);
+              //configureLogging.SetMinimumLevel(LogLevel.Trace);
 
               //configureLogging.AddFilter<ConsoleLoggerProvider>("Default", LogLevel.Error);
             })

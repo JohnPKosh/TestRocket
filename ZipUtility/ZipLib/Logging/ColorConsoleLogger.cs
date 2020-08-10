@@ -37,26 +37,15 @@ namespace ZipLib.Logging
     {
       //////if (!IsEnabled(logLevel)) return;
 
-      //if (logLevel == LogLevel.Debug) return;
-      //if (logLevel == LogLevel.Trace) return;
+      if (!_name.Contains("Microsoft.Hosting.Lifetime") && !_name.Contains("Microsoft.Extensions.Hosting"))
+      {
+        LogTextWriter.AppendLog($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
+      }
 
-      LogTextWriter.AppendLog($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
 
       if (logLevel >= LogLevel.Warning) Console.WriteLine($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
 
-      //var color = Console.ForegroundColor;
-      //Console.ForegroundColor = logLevel.LogColor(_config.ColorSettingss);
-      //Console.WriteLine($"{logLevel} - {eventId.Id} - {_name} - {formatter(state, exception)}");
-      //Console.ForegroundColor = color;
 
-      ////if (_config.EventId == 0 || _config.EventId == eventId.Id)
-      ////{
-      //var color = Console.ForegroundColor;
-      //  Console.ForegroundColor = _config.Color;
-      //  Console.WriteLine($"{logLevel} - {eventId.Id} " +
-      //                    $"- {_name} - {formatter(state, exception)}");
-      //  Console.ForegroundColor = color;
-      ////}
     }
   }
 }

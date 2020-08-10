@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenApiDemo", "OpenApiDemo\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zipper", "zipper\zipper.csproj", "{AD2B88BE-EF3D-419D-BCB8-42A32E7A46CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "moncon", "moncon\moncon.csproj", "{8200B3E6-9CFC-4B1A-A1A2-8FCFA1BB49BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "moncon", "moncon\moncon.csproj", "{8200B3E6-9CFC-4B1A-A1A2-8FCFA1BB49BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRF.FileLogger", "FileLogger\SRF.FileLogger.csproj", "{FC639569-5FC9-4977-BB9C-E8331C18640D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogApi", "LogApi\LogApi.csproj", "{DC9672B0-E065-467E-B5E3-CCE91BB63893}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{8200B3E6-9CFC-4B1A-A1A2-8FCFA1BB49BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8200B3E6-9CFC-4B1A-A1A2-8FCFA1BB49BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8200B3E6-9CFC-4B1A-A1A2-8FCFA1BB49BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC639569-5FC9-4977-BB9C-E8331C18640D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC639569-5FC9-4977-BB9C-E8331C18640D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC639569-5FC9-4977-BB9C-E8331C18640D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC639569-5FC9-4977-BB9C-E8331C18640D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC9672B0-E065-467E-B5E3-CCE91BB63893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC9672B0-E065-467E-B5E3-CCE91BB63893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC9672B0-E065-467E-B5E3-CCE91BB63893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC9672B0-E065-467E-B5E3-CCE91BB63893}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
