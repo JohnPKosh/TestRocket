@@ -1,31 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SRF.FileLogger
 {
+  /// <summary>
+  /// Scope information regarding a log entry
+  /// </summary>
+  public class LogScopeInfo
+  {
+    /// <summary>
+    /// Used when the Scope is just a string type, else it is null.
+    /// </summary>
+    public string Text { get; set; }
 
     /// <summary>
-    /// Scope information regarding a log entry
+    /// Used when the Scope is a Dictionary-like object
     /// </summary>
-    public class LogScopeInfo
-    {
-        /* construction */
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public LogScopeInfo()
-        {
-        }
-
-        /* properties */
-        /// <summary>
-        /// Used when the Scope is just a string type, else it is null.
-        /// </summary>
-        public string Text { get; set; }
-        /// <summary>
-        /// Used when the Scope is a Dictionary-like object
-        /// </summary>
-        public Dictionary<string, object> Properties { get; set; }
-    }
+    public Dictionary<string, object> Properties { get; set; }
+  }
 }
