@@ -11,7 +11,7 @@ namespace SRF.FileLogger
   internal class Logger : ILogger
   {
     /// <summary>
-    /// Constructor.
+    /// The internal ILogger implementation used by an ILoggerProvider.
     /// <para>CAUTION: You never create a logger directly. This is a responsibility of the logging framework by calling the provider's CreateLogger().</para>
     /// </summary>
     public Logger(LoggerProvider Provider, string Category)
@@ -20,9 +20,7 @@ namespace SRF.FileLogger
       this.Category = Category;
     }
 
-    /// <summary>
-    /// The logger provider who created this instance
-    /// </summary>
+    /// <summary>The logger provider who created this instance</summary>
     public LoggerProvider Provider { get; private set; }
 
     /// <summary>
@@ -31,7 +29,8 @@ namespace SRF.FileLogger
     /// </summary>
     public string Category { get; private set; }
 
-    /* ILogger implementation */
+    #region ILogger implementation
+
     /// <summary>
     /// Begins a logical operation scope. Returns an IDisposable that ends the logical operation scope on dispose.
     /// </summary>
@@ -116,5 +115,6 @@ namespace SRF.FileLogger
       }
     }
 
+    #endregion
   }
 }

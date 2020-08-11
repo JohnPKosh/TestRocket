@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
-
 using System.Collections.Concurrent;
+
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 
@@ -15,43 +15,43 @@ namespace SRF.FileLogger
   /// A logger provider that writes log entries to a text file.
   /// <para>"File" is the provider alias of this provider and can be used in the Logging section of the appsettings.json.</para>
   /// </summary>
-  [Microsoft.Extensions.Logging.ProviderAlias("File")]
+  [ProviderAlias("File")]
   public class FileLoggerProvider : LoggerProvider
   {
-    bool Terminated;
-    int Counter = 0;
-    string FilePath;
-    Dictionary<string, int> Lengths = new Dictionary<string, int>();
-    ConcurrentQueue<LogEntry> InfoQueue = new ConcurrentQueue<LogEntry>();
+    private bool m_Terminated;
+    private int m_Counter = 0;
+    private string m_FilePath;
+    private Dictionary<string, int> m_FieldLengths = new Dictionary<string, int>();
+    private ConcurrentQueue<LogEntry> m_LogEntryQueue = new ConcurrentQueue<LogEntry>();
 
-    /* construction */
+    /// <summary>The FileLoggerOptions property passed into the constructor.</summary>
+    internal FileLoggerOptions LoggerOptions { get; private set; }
+
+    #region Constructors
+
     /// <summary>
-    /// Constructor.
+    /// Constructor accepting a <![CDATA[IOptionsMonitor<FileLoggerOptions>]]> that passes the current settings to the default constructor.
+    /// <see cref=": https://docs.microsoft.com/en-us/aspnet/core/fundamentals/change-tokens"/>
     /// <para>The IOptionsMonitor provides the OnChange() method which is called when the user alters the settings of this provider in the appsettings.json file.</para>
     /// </summary>
-    public FileLoggerProvider(IOptionsMonitor<FileLoggerOptions> Settings)
-        : this(Settings.CurrentValue)
+    public FileLoggerProvider(IOptionsMonitor<FileLoggerOptions> options) : this(options.CurrentValue)
     {
-      // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/change-tokens
-      SettingsChangeToken = Settings.OnChange(settings =>
+      SettingsChangeToken = options.OnChange(changedOptions =>
       {
-        this.Settings = settings;
+        LoggerOptions = changedOptions;
       });
     }
 
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public FileLoggerProvider(FileLoggerOptions Settings)
+    /// <summary>The default constructor accepting a FileLoggerOptions.</summary>
+    public FileLoggerProvider(FileLoggerOptions options)
     {
+      LoggerOptions = options;
       PrepareLengths();
-      this.Settings = Settings;
-
-      // create the first file
-      BeginFile();
-
+      BeginFile(); // create the first file
       ThreadProc();
     }
+
+    #endregion
 
     /// <summary>Applies the log file retains policy according to options</summary>
     void ApplyRetainPolicy()
@@ -59,12 +59,12 @@ namespace SRF.FileLogger
       FileInfo FI;
       try
       {
-        List<FileInfo> FileList = new DirectoryInfo(Settings.Folder)
+        List<FileInfo> FileList = new DirectoryInfo(LoggerOptions.Folder)
         .GetFiles("*.log", SearchOption.TopDirectoryOnly)
         .OrderBy(fi => fi.CreationTime)
         .ToList();
 
-        while (FileList.Count >= Settings.RetainPolicyFileCount)
+        while (FileList.Count >= LoggerOptions.RetainPolicyFileCount)
         {
           FI = FileList.First();
           FI.Delete();
@@ -81,16 +81,16 @@ namespace SRF.FileLogger
     void WriteLine(string Text)
     {
       // check the file size after any 100 writes
-      Counter++;
-      if (Counter % 100 == 0)
+      m_Counter++;
+      if (m_Counter % 100 == 0)
       {
-        FileInfo FI = new FileInfo(FilePath);
-        if (FI.Length > (1024 * 1024 * Settings.MaxFileSizeInMB))
+        FileInfo FI = new FileInfo(m_FilePath);
+        if (FI.Length > (1024 * 1024 * LoggerOptions.MaxFileSizeInMB))
         {
           BeginFile();
         }
       }
-      File.AppendAllText(FilePath, Text);
+      File.AppendAllText(m_FilePath, Text);
     }
 
     /// <summary>
@@ -111,13 +111,13 @@ namespace SRF.FileLogger
     void PrepareLengths()
     {
       // prepare the lengths table
-      Lengths["Time"] = 24;
-      Lengths["Host"] = 16;
-      Lengths["User"] = 16;
-      Lengths["Level"] = 14;
-      Lengths["EventId"] = 32;
-      Lengths["Category"] = 92;
-      Lengths["Scope"] = 64;
+      m_FieldLengths["Time"] = 24;
+      m_FieldLengths["Host"] = 16;
+      m_FieldLengths["User"] = 16;
+      m_FieldLengths["Level"] = 14;
+      m_FieldLengths["EventId"] = 32;
+      m_FieldLengths["Category"] = 92;
+      m_FieldLengths["Scope"] = 64;
     }
 
     /// <summary>
@@ -125,21 +125,21 @@ namespace SRF.FileLogger
     /// </summary>
     void BeginFile()
     {
-      Directory.CreateDirectory(Settings.Folder);
-      FilePath = Path.Combine(Settings.Folder, LogEntry.StaticHostName + "-" + DateTime.Now.ToString("yyyyMMdd-HHmm") + ".log");
+      Directory.CreateDirectory(LoggerOptions.Folder);
+      m_FilePath = Path.Combine(LoggerOptions.Folder, LogEntry.StaticHostName + "-" + DateTime.Now.ToString("yyyyMMdd-HHmm") + ".log");
 
       // titles
       StringBuilder SB = new StringBuilder();
-      SB.Append(Pad("Time", Lengths["Time"]));
-      SB.Append(Pad("Host", Lengths["Host"]));
-      SB.Append(Pad("User", Lengths["User"]));
-      SB.Append(Pad("Level", Lengths["Level"]));
-      SB.Append(Pad("EventId", Lengths["EventId"]));
-      SB.Append(Pad("Category", Lengths["Category"]));
-      SB.Append(Pad("Scope", Lengths["Scope"]));
+      SB.Append(Pad("Time", m_FieldLengths["Time"]));
+      SB.Append(Pad("Host", m_FieldLengths["Host"]));
+      SB.Append(Pad("User", m_FieldLengths["User"]));
+      SB.Append(Pad("Level", m_FieldLengths["Level"]));
+      SB.Append(Pad("EventId", m_FieldLengths["EventId"]));
+      SB.Append(Pad("Category", m_FieldLengths["Category"]));
+      SB.Append(Pad("Scope", m_FieldLengths["Scope"]));
       SB.AppendLine("Text");
 
-      File.WriteAllText(FilePath, SB.ToString());
+      File.WriteAllText(m_FilePath, SB.ToString());
 
       ApplyRetainPolicy();
     }
@@ -149,17 +149,16 @@ namespace SRF.FileLogger
     /// </summary>
     void WriteLogLine()
     {
-      LogEntry Info = null;
-      if (InfoQueue.TryDequeue(out Info))
+      if (m_LogEntryQueue.TryDequeue(out LogEntry Info))
       {
         string S;
         StringBuilder SB = new StringBuilder();
-        SB.Append(Pad(Info.TimeStampUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.ff"), Lengths["Time"]));
-        SB.Append(Pad(Info.HostName, Lengths["Host"]));
-        SB.Append(Pad(Info.UserName, Lengths["User"]));
-        SB.Append(Pad(Info.Level.ToString(), Lengths["Level"]));
-        SB.Append(Pad(Info.EventId != null ? Info.EventId.ToString() : "", Lengths["EventId"]));
-        SB.Append(Pad(Info.Category, Lengths["Category"]));
+        SB.Append(Pad(Info.TimeStampUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.ff"), m_FieldLengths["Time"]));
+        SB.Append(Pad(Info.HostName, m_FieldLengths["Host"]));
+        SB.Append(Pad(Info.UserName, m_FieldLengths["User"]));
+        SB.Append(Pad(Info.Level.ToString(), m_FieldLengths["Level"]));
+        SB.Append(Pad(Info.EventId != null ? Info.EventId.ToString() : "", m_FieldLengths["EventId"]));
+        SB.Append(Pad(Info.Category, m_FieldLengths["Category"]));
 
         S = "";
         if (Info.Scopes != null && Info.Scopes.Count > 0)
@@ -173,7 +172,7 @@ namespace SRF.FileLogger
           {
           }
         }
-        SB.Append(Pad(S, Lengths["Scope"]));
+        SB.Append(Pad(S, m_FieldLengths["Scope"]));
 
         string Text = Info.Text;
 
@@ -198,8 +197,7 @@ namespace SRF.FileLogger
     {
       Task.Run(() =>
       {
-
-        while (!Terminated)
+        while (!m_Terminated)
         {
           try
           {
@@ -210,46 +208,28 @@ namespace SRF.FileLogger
           {
           }
         }
-
       });
     }
 
-    /* overrides */
-    /// <summary>
-    /// Disposes the options change toker. IDisposable pattern implementation.
-    /// </summary>
+    #region LoggerProvider Overrides
+
+    /// <summary>Checks if the given logLevel is enabled. It is called by the Logger.</summary>
+    public override bool IsEnabled(LogLevel logLevel) =>
+          logLevel != LogLevel.None
+          && LoggerOptions.LogLevel != LogLevel.None
+          && Convert.ToInt32(logLevel) >= Convert.ToInt32(LoggerOptions.LogLevel);
+
+    /// <summary>Writes the specified log information to a log file.</summary>
+    public override void WriteLog(LogEntry Info) => m_LogEntryQueue.Enqueue(Info);
+
+    /// <summary>Disposes the options change token.</summary>
     protected override void Dispose(bool disposing)
     {
-      Terminated = true;
+      m_Terminated = true;
       base.Dispose(disposing);
     }
 
-
-    /* public */
-    /// <summary>
-    /// Checks if the given logLevel is enabled. It is called by the Logger.
-    /// </summary>
-    public override bool IsEnabled(LogLevel logLevel)
-    {
-      bool Result = logLevel != LogLevel.None
-         && this.Settings.LogLevel != LogLevel.None
-         && Convert.ToInt32(logLevel) >= Convert.ToInt32(this.Settings.LogLevel);
-
-      return Result;
-    }
-    /// <summary>
-    /// Writes the specified log information to a log file.
-    /// </summary>
-    public override void WriteLog(LogEntry Info)
-    {
-      InfoQueue.Enqueue(Info);
-    }
-
-    /* properties */
-    /// <summary>
-    /// Returns the settings
-    /// </summary>
-    internal FileLoggerOptions Settings { get; private set; }
+    #endregion
 
   }
 }
