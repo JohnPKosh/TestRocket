@@ -11,14 +11,14 @@ using Microsoft.Extensions.Logging;
 using SRF.FileLogging.Models;
 using SRF.FileLogging.Common;
 
-namespace SRF.FileLogging
+namespace SRF.FileLogging.Structured
 {
   /// <summary>
   /// A logger provider that writes log entries to a text file.
   /// <para>"File" is the provider alias of this provider and can be used in the Logging section of the appsettings.json.</para>
   /// </summary>
   [ProviderAlias("File")]
-  public class FileLoggerProvider : LoggerProvider
+  public class StructuredLoggerProvider : LoggerProvider
   {
     private bool m_Terminated;
     private int m_Counter = 0;
@@ -26,17 +26,17 @@ namespace SRF.FileLogging
     private Dictionary<string, int> m_FieldLengths = new Dictionary<string, int>();
     private ConcurrentQueue<LogEntry> m_LogEntryQueue = new ConcurrentQueue<LogEntry>();
 
-    /// <summary>The FileLoggerOptions property passed into the constructor.</summary>
-    internal FileLoggerOptions LoggerOptions { get; private set; }
+    /// <summary>The StructuredLoggerOptions property passed into the constructor.</summary>
+    internal StructuredLoggerOptions LoggerOptions { get; private set; }
 
     #region Constructors
 
     /// <summary>
-    /// Constructor accepting a <![CDATA[IOptionsMonitor<FileLoggerOptions>]]> that passes the current settings to the default constructor.
+    /// Constructor accepting a <![CDATA[IOptionsMonitor<StructuredLoggerOptions>]]> that passes the current settings to the default constructor.
     /// <see cref=": https://docs.microsoft.com/en-us/aspnet/core/fundamentals/change-tokens"/>
     /// <para>The IOptionsMonitor provides the OnChange() method which is called when the user alters the settings of this provider in the appsettings.json file.</para>
     /// </summary>
-    public FileLoggerProvider(IOptionsMonitor<FileLoggerOptions> options) : this(options.CurrentValue)
+    public StructuredLoggerProvider(IOptionsMonitor<StructuredLoggerOptions> options) : this(options.CurrentValue)
     {
       SettingsChangeToken = options.OnChange(changedOptions =>
       {
@@ -44,15 +44,14 @@ namespace SRF.FileLogging
       });
     }
 
-    /// <summary>The default constructor accepting a FileLoggerOptions.</summary>
-    public FileLoggerProvider(FileLoggerOptions options)
+    /// <summary>The default constructor accepting a StructuredLoggerOptions.</summary>
+    public StructuredLoggerProvider(StructuredLoggerOptions options)
     {
       LoggerOptions = options;
       Initialize();
     }
 
     #endregion
-
 
     #region LoggerProvider Overrides
 
@@ -101,7 +100,7 @@ namespace SRF.FileLogging
           FileList.Remove(FI);
         }
       }
-      catch{ }
+      catch { }
     }
 
     /// <summary>
@@ -115,7 +114,7 @@ namespace SRF.FileLogging
       if (m_Counter % 100 == 0)
       {
         FileInfo FI = new FileInfo(m_FilePath);
-        if (FI.Length > (1024 * 1024 * LoggerOptions.MaxFileSizeInMB))
+        if (FI.Length > 1024 * 1024 * LoggerOptions.MaxFileSizeInMB)
         {
           InitializeFile();
         }

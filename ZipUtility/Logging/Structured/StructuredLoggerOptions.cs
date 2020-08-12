@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace SRF.FileLogging
+namespace SRF.FileLogging.Structured
 {
   /// <summary>
   /// Options for the file logger.
@@ -29,19 +29,19 @@ namespace SRF.FileLogging
   ///   },
   /// </code>
   /// </summary>
-  public class FileLoggerOptions
+  public class StructuredLoggerOptions
   {
     private string m_Folder;
     private int m_MaxFileSizeInMB;
     private int m_RetainPolicyFileCount;
 
-    /// <summary>The active log level. Defaults to LogLevel.Information</summary>
+    /// <summary>The active log level. Defaults to LogLevel.Trace</summary>
     public LogLevel LogLevel { get; set; } = LogLevel.Trace;
 
     /// <summary>The folder where log files should be placed. Defaults to this Assembly location</summary>
     public string Folder
     {
-      get { return !string.IsNullOrWhiteSpace(m_Folder) ? m_Folder : System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location); }
+      get { return !string.IsNullOrWhiteSpace(m_Folder) ? m_Folder : System.IO.Path.GetDirectoryName(GetType().Assembly.Location); }
       set { m_Folder = value; }
     }
 
