@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging.Configuration;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging
 {
   /// <summary>
   /// Configures a FileLoggerOptions instance by using ConfigurationBinder.Bind against an IConfiguration.

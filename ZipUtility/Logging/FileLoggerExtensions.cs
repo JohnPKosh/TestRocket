@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging
 {
   /// <summary>File logger extension methods.</summary>
   static public class FileLoggerExtensions

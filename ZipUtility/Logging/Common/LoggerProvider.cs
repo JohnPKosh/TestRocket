@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
-
 using Microsoft.Extensions.Logging;
+using SRF.FileLogging.Models;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging.Common
 {
   /// <summary>
   /// A base logger provider class.
@@ -104,7 +104,7 @@ namespace SRF.FileLogger
     /// <summary>Disposes this instance</summary>
     void IDisposable.Dispose()
     {
-      if (!this.IsDisposed)
+      if (!IsDisposed)
       {
         try
         {
@@ -113,7 +113,7 @@ namespace SRF.FileLogger
         catch
         {
         }
-        this.IsDisposed = true;
+        IsDisposed = true;
         GC.SuppressFinalize(this);  // instructs GC not bother to call the destructor
       }
     }
@@ -132,7 +132,7 @@ namespace SRF.FileLogger
     /// <summary>Destructor.</summary>
     ~LoggerProvider()
     {
-      if (!this.IsDisposed)
+      if (!IsDisposed)
       {
         Dispose(false);
       }
@@ -141,6 +141,4 @@ namespace SRF.FileLogger
     #endregion
 
   }
-
-
 }

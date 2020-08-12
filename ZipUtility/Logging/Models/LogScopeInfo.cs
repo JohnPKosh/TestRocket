@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging.Models
 {
   /// <summary>
   /// Scope information regarding a log entry

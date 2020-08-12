@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging.Models
 {
   /// <summary>
   /// The information of a log entry.

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using SRF.FileLogging.Models;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging.Common
 {
   /// <summary>
   /// Represents an object that handles log information.
@@ -56,7 +57,7 @@ namespace SRF.FileLogger
       if ((this as ILogger).IsEnabled(logLevel))
       {
         LogEntry Info = new LogEntry();
-        Info.Category = this.Category;
+        Info.Category = Category;
         Info.Level = logLevel;
         // well, the passed default formatter function does not takes the exception into account
         // SEE:  https://github.com/aspnet/Extensions/blob/master/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs

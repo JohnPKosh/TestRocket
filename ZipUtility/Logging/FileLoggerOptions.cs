@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging
 {
   /// <summary>
   /// Options for the file logger.

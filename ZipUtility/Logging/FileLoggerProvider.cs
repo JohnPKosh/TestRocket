@@ -8,8 +8,10 @@ using System.Collections.Concurrent;
 
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using SRF.FileLogging.Models;
+using SRF.FileLogging.Common;
 
-namespace SRF.FileLogger
+namespace SRF.FileLogging
 {
   /// <summary>
   /// A logger provider that writes log entries to a text file.
