@@ -55,6 +55,11 @@ namespace SRF.FileLogger
     /// </summary>
     public abstract void WriteLog(LogEntry Info);
 
+    /// <summary>
+    /// This method allows for custom class initialization logic to occur during class construction.
+    /// </summary>
+    protected abstract void Initialize();
+
     #endregion
 
 

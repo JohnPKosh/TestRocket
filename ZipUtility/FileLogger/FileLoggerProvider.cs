@@ -46,12 +46,40 @@ namespace SRF.FileLogger
     public FileLoggerProvider(FileLoggerOptions options)
     {
       LoggerOptions = options;
+      Initialize();
+    }
+
+    #endregion
+
+
+    #region LoggerProvider Overrides
+
+    protected override void Initialize()
+    {
       PrepareLengths();
       BeginFile(); // create the first file
       ThreadProc();
     }
 
+    /// <summary>Checks if the given logLevel is enabled. It is called by the Logger.</summary>
+    public override bool IsEnabled(LogLevel logLevel) =>
+          logLevel != LogLevel.None
+          && LoggerOptions.LogLevel != LogLevel.None
+          && Convert.ToInt32(logLevel) >= Convert.ToInt32(LoggerOptions.LogLevel);
+
+    /// <summary>Writes the specified log information to a log file.</summary>
+    public override void WriteLog(LogEntry Info) => m_LogEntryQueue.Enqueue(Info);
+
+    /// <summary>Disposes the options change token.</summary>
+    protected override void Dispose(bool disposing)
+    {
+      m_Terminated = true;
+      base.Dispose(disposing);
+    }
+
     #endregion
+
+    #region Private Utility Methods
 
     /// <summary>Applies the log file retains policy according to options</summary>
     void ApplyRetainPolicy()
@@ -211,25 +239,6 @@ namespace SRF.FileLogger
       });
     }
 
-    #region LoggerProvider Overrides
-
-    /// <summary>Checks if the given logLevel is enabled. It is called by the Logger.</summary>
-    public override bool IsEnabled(LogLevel logLevel) =>
-          logLevel != LogLevel.None
-          && LoggerOptions.LogLevel != LogLevel.None
-          && Convert.ToInt32(logLevel) >= Convert.ToInt32(LoggerOptions.LogLevel);
-
-    /// <summary>Writes the specified log information to a log file.</summary>
-    public override void WriteLog(LogEntry Info) => m_LogEntryQueue.Enqueue(Info);
-
-    /// <summary>Disposes the options change token.</summary>
-    protected override void Dispose(bool disposing)
-    {
-      m_Terminated = true;
-      base.Dispose(disposing);
-    }
-
     #endregion
-
   }
 }
