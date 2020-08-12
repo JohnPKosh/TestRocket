@@ -31,12 +31,9 @@ namespace SRF.FileLogger
   /// </summary>
   public class FileLoggerOptions
   {
-    string fFolder;
-    int fMaxFileSizeInMB;
-    int fRetainPolicyFileCount;
-
-    /// <summary>Constructor</summary>
-    public FileLoggerOptions(){ }
+    private string m_Folder;
+    private int m_MaxFileSizeInMB;
+    private int m_RetainPolicyFileCount;
 
     /// <summary>The active log level. Defaults to LogLevel.Information</summary>
     public LogLevel LogLevel { get; set; } = LogLevel.Trace;
@@ -44,22 +41,22 @@ namespace SRF.FileLogger
     /// <summary>The folder where log files should be placed. Defaults to this Assembly location</summary>
     public string Folder
     {
-      get { return !string.IsNullOrWhiteSpace(fFolder) ? fFolder : System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location); }
-      set { fFolder = value; }
+      get { return !string.IsNullOrWhiteSpace(m_Folder) ? m_Folder : System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location); }
+      set { m_Folder = value; }
     }
 
     /// <summary>The maximum number in MB of a single log file. Defaults to 2.</summary>
     public int MaxFileSizeInMB
     {
-      get { return fMaxFileSizeInMB > 0 ? fMaxFileSizeInMB : 2; }
-      set { fMaxFileSizeInMB = value; }
+      get { return m_MaxFileSizeInMB > 0 ? m_MaxFileSizeInMB : 2; }
+      set { m_MaxFileSizeInMB = value; }
     }
 
     /// <summary>The maximum number of log files to retain. Defaults to 5.</summary>
     public int RetainPolicyFileCount
     {
-      get { return fRetainPolicyFileCount < 5 ? 5 : fRetainPolicyFileCount; }
-      set { fRetainPolicyFileCount = value; }
+      get { return m_RetainPolicyFileCount < 5 ? 5 : m_RetainPolicyFileCount; }
+      set { m_RetainPolicyFileCount = value; }
     }
   }
 }

@@ -57,7 +57,7 @@ namespace SRF.FileLogger
     protected override void Initialize()
     {
       PrepareLengths();
-      BeginFile(); // create the first file
+      InitializeFile(); // create the first file
       ThreadProc();
     }
 
@@ -115,7 +115,7 @@ namespace SRF.FileLogger
         FileInfo FI = new FileInfo(m_FilePath);
         if (FI.Length > (1024 * 1024 * LoggerOptions.MaxFileSizeInMB))
         {
-          BeginFile();
+          InitializeFile();
         }
       }
       File.AppendAllText(m_FilePath, Text);
@@ -151,12 +151,18 @@ namespace SRF.FileLogger
     /// <summary>
     /// Creates a new disk file and writes the column titles
     /// </summary>
-    void BeginFile()
+    void InitializeFile()
     {
       Directory.CreateDirectory(LoggerOptions.Folder);
       m_FilePath = Path.Combine(LoggerOptions.Folder, LogEntry.StaticHostName + "-" + DateTime.Now.ToString("yyyyMMdd-HHmm") + ".log");
 
-      // titles
+      WriteLogHeaderLine();
+
+      ApplyRetainPolicy();
+    }
+
+    private void WriteLogHeaderLine()
+    {
       StringBuilder SB = new StringBuilder();
       SB.Append(Pad("Time", m_FieldLengths["Time"]));
       SB.Append(Pad("Host", m_FieldLengths["Host"]));
@@ -168,8 +174,6 @@ namespace SRF.FileLogger
       SB.AppendLine("Text");
 
       File.WriteAllText(m_FilePath, SB.ToString());
-
-      ApplyRetainPolicy();
     }
 
     /// <summary>
