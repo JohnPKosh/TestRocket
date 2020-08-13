@@ -8,33 +8,17 @@ using Microsoft.Extensions.Logging;
 
 namespace LogApi.Logic
 {
-  public class Worker : BackgroundService
+  public class Worker : WorkerBase
   {
-    private const int DEFAULT_START_WAIT = 15_000;
-
-    private readonly ILogger<Worker> _logger;
-
-    public Worker(ILogger<Worker> logger)
+    public Worker(ILogger<WorkerBase> logger) : base(logger)
     {
-      _logger = logger;
+      WorkerName = nameof(Worker);
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    public override async Task DoWork(CancellationToken stoppingToken)
     {
-      // We should allow ample time for Microsoft.Hosting.Lifetime to perform startup operations before actually running our workers.
-      await Task.Delay(DEFAULT_START_WAIT, stoppingToken);
-
-      while (!stoppingToken.IsCancellationRequested)
-      {
-        _logger.LogTrace("LogTrace {name} {method} Method Called!", nameof(Worker), nameof(ExecuteAsync));
-        _logger.LogDebug("LogDebug {name} {method} Method Called!", nameof(Worker), nameof(ExecuteAsync));
-        _logger.LogInformation("LogInformation {name} {method} Method Called!", nameof(Worker), nameof(ExecuteAsync));
-        _logger.LogWarning("LogWarning {name} {method} Method Called!", nameof(Worker), nameof(ExecuteAsync));
-        _logger.LogError("LogError {name} {method} Method Called!", nameof(Worker), nameof(ExecuteAsync));
-
-        _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-        await Task.Delay(1000, stoppingToken);
-      }
+      await Task.Delay(5000);
+      throw new NotImplementedException();
     }
   }
 }
