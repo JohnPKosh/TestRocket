@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="localhost.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="localhost.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Logging\SRF.FileLogging.csproj" />
   </ItemGroup>
 

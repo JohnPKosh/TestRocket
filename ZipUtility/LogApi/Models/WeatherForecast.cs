@@ -1,6 +1,6 @@
 using System;
 
-namespace LogApi
+namespace LogApi.Models
 {
   public class WeatherForecast
   {
