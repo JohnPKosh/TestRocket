@@ -16,8 +16,8 @@ namespace SRF.FileLogging.Structured
   /// A logger provider that writes log entries to a text file.
   /// <para>"File" is the provider alias of this provider and can be used in the Logging section of the appsettings.json.</para>
   /// </summary>
-  [ProviderAlias("File")]
-  public class StructuredLoggerProvider : LoggerProvider
+  [ProviderAlias("SlimFile")]
+  public class SlimFileLoggerProvider : LoggerProvider
   {
     private bool m_Terminated;
     private int m_Counter = 0;
@@ -25,17 +25,17 @@ namespace SRF.FileLogging.Structured
     private Dictionary<string, int> m_FieldLengths = new Dictionary<string, int>();
     private ConcurrentQueue<LogEntry> m_LogEntryQueue = new ConcurrentQueue<LogEntry>();
 
-    /// <summary>The StructuredLoggerOptions property passed into the constructor.</summary>
-    internal StructuredLoggerOptions LoggerOptions { get; private set; }
+    /// <summary>The SlimFileLoggerOptions property passed into the constructor.</summary>
+    internal SlimFileLoggerOptions LoggerOptions { get; private set; }
 
     #region Constructors
 
     /// <summary>
-    /// Constructor accepting a <![CDATA[IOptionsMonitor<StructuredLoggerOptions>]]> that passes the current settings to the default constructor.
+    /// Constructor accepting a <![CDATA[IOptionsMonitor<SlimFileLoggerOptions>]]> that passes the current settings to the default constructor.
     /// <see cref=": https://docs.microsoft.com/en-us/aspnet/core/fundamentals/change-tokens"/>
     /// <para>The IOptionsMonitor provides the OnChange() method which is called when the user alters the settings of this provider in the appsettings.json file.</para>
     /// </summary>
-    public StructuredLoggerProvider(IOptionsMonitor<StructuredLoggerOptions> options) : this(options.CurrentValue)
+    public SlimFileLoggerProvider(IOptionsMonitor<SlimFileLoggerOptions> options) : this(options.CurrentValue)
     {
       SettingsChangeToken = options.OnChange(changedOptions =>
       {
@@ -43,8 +43,8 @@ namespace SRF.FileLogging.Structured
       });
     }
 
-    /// <summary>The default constructor accepting a StructuredLoggerOptions.</summary>
-    public StructuredLoggerProvider(StructuredLoggerOptions options)
+    /// <summary>The default constructor accepting a SlimFileLoggerOptions.</summary>
+    public SlimFileLoggerProvider(SlimFileLoggerOptions options)
     {
       LoggerOptions = options;
       Initialize();

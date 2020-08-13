@@ -12,13 +12,13 @@ using SRF.FileLogging.Common;
 namespace SRF.FileLogging.Structured
 {
   /// <summary>
-  /// Configures a StructuredLoggerOptions instance by using ConfigurationBinder.Bind against an IConfiguration.
-  /// <para>This class essentially binds a StructuredLoggerOptions instance with a section in the appsettings.json file.</para>
+  /// Configures a SlimFileLoggerOptions instance by using ConfigurationBinder.Bind against an IConfiguration.
+  /// <para>This class essentially binds a SlimFileLoggerOptions instance with a section in the appsettings.json file.</para>
   /// </summary>
-  internal class StructuredLoggerOptionsSetup : ConfigureFromConfigurationOptions<StructuredLoggerOptions>
+  internal class SlimFileLoggerOptionsSetup : ConfigureFromConfigurationOptions<SlimFileLoggerOptions>
   {
     /// <summary>Constructor that takes the IConfiguration instance to bind against.</summary>
-    public StructuredLoggerOptionsSetup(ILoggerProviderConfiguration<StructuredLoggerProvider> providerConfiguration)
+    public SlimFileLoggerOptionsSetup(ILoggerProviderConfiguration<SlimFileLoggerProvider> providerConfiguration)
         : base(providerConfiguration.Configuration) { }
   }
 
@@ -31,8 +31,8 @@ namespace SRF.FileLogging.Structured
   /// .ConfigureLogging(logging =&gt;
   /// {
   ///     logging.ClearProviders();
-  ///     // logging.AddStructuredLogger();
-  ///     logging.AddStructuredLogger(options =&gt; {
+  ///     // logging.AddSlimFileLogger();
+  ///     logging.AddSlimFileLogger(options =&gt; {
   ///         options.MaxFileSizeInMB = 5;
   ///     });
   /// })
@@ -43,46 +43,55 @@ namespace SRF.FileLogging.Structured
   ///     "LogLevel": {
   ///       "Default": "Warning"
   ///     },
-  ///     "File": {
-  ///       "LogLevel": "Debug",
-  ///       "MaxFileSizeInMB": 5
-  ///     }
+  ///     "SlimFile": {
+  ///       "LogLevel": {
+  ///         "Default": "Trace",
+  ///         "Microsoft": "Warning",
+  ///         "Microsoft.Hosting.Lifetime": "Information",
+  ///         "LogApi": "Trace"
+  ///       },
+  ///       "Folder": "./bin/Logs",
+  ///       "FileExtension": ".log",
+  ///       "MaxFileSizeInMB": 5,
+  ///       "LogSizeCheckInterval": 200
+  ///      }
   ///   },
   /// </code>
   /// </summary>
-  public class StructuredLoggerOptions : FileLoggerOptions
+  public class SlimFileLoggerOptions : FileLoggerOptions
   {
     /// <summary>The file extension to suffix the log file with based on appsettings value or default ".log"</summary>
     public override string FileExtension { get; set; } = ".log";
   }
 
+
   /// <summary>File logger extension methods.</summary>
-  static public class StructuredLoggerExtensions
+  static public class SlimFileLoggerExtensions
   {
     /// <summary>
     /// Adds the file logger provider, aliased as 'File', in the available services as singleton and binds the file logger options class to the 'File' section of the appsettings.json file.
     /// </summary>
-    static public ILoggingBuilder AddStructuredLogger(this ILoggingBuilder builder)
+    static public ILoggingBuilder AddSlimFileLogger(this ILoggingBuilder builder)
     {
       builder.AddConfiguration();
 
-      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, StructuredLoggerProvider>());
-      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<StructuredLoggerOptions>, StructuredLoggerOptionsSetup>());
-      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IOptionsChangeTokenSource<StructuredLoggerOptions>, LoggerProviderOptionsChangeTokenSource<StructuredLoggerOptions, StructuredLoggerProvider>>());
+      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, SlimFileLoggerProvider>());
+      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<SlimFileLoggerOptions>, SlimFileLoggerOptionsSetup>());
+      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IOptionsChangeTokenSource<SlimFileLoggerOptions>, LoggerProviderOptionsChangeTokenSource<SlimFileLoggerOptions, SlimFileLoggerProvider>>());
       return builder;
     }
 
     /// <summary>
     /// Adds the file logger provider, aliased as 'File', in the available services as singleton and binds the file logger options class to the 'File' section of the appsettings.json file.
     /// </summary>
-    static public ILoggingBuilder AddStructuredLogger(this ILoggingBuilder builder, Action<StructuredLoggerOptions> configure)
+    static public ILoggingBuilder AddSlimFileLogger(this ILoggingBuilder builder, Action<SlimFileLoggerOptions> configure)
     {
       if (configure == null)
       {
         throw new ArgumentNullException(nameof(configure));
       }
 
-      builder.AddStructuredLogger();
+      builder.AddSlimFileLogger();
       builder.Services.Configure(configure);
 
       return builder;
