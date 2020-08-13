@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LogApi.Logic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,9 @@ namespace LogApi
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+
+      //// You can optionally add the background service here instead of in Program.cs.
+      //services.AddHostedService<Worker>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
