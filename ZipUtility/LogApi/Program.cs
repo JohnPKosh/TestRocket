@@ -25,7 +25,7 @@ namespace LogApi
             {
               logging.ClearProviders();
               logging.AddConsole();
-              logging.AddFileLogger();
+              logging.AddStructuredLogger();
             })
 
             .ConfigureWebHostDefaults(webBuilder =>

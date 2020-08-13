@@ -1,7 +1,28 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
+using SRF.FileLogging.Common;
 
 namespace SRF.FileLogging.Structured
 {
+  /// <summary>
+  /// Configures a StructuredLoggerOptions instance by using ConfigurationBinder.Bind against an IConfiguration.
+  /// <para>This class essentially binds a StructuredLoggerOptions instance with a section in the appsettings.json file.</para>
+  /// </summary>
+  internal class StructuredLoggerOptionsSetup : ConfigureFromConfigurationOptions<StructuredLoggerOptions>
+  {
+    /// <summary>Constructor that takes the IConfiguration instance to bind against.</summary>
+    public StructuredLoggerOptionsSetup(ILoggerProviderConfiguration<StructuredLoggerProvider> providerConfiguration)
+        : base(providerConfiguration.Configuration) { }
+  }
+
+
   /// <summary>
   /// Options for the file logger.
   /// <para>There are two ways to configure file logger: 1. using the ConfigureLogging() in Program.cs or using the appsettings.json file.</para>
@@ -10,8 +31,8 @@ namespace SRF.FileLogging.Structured
   /// .ConfigureLogging(logging =&gt;
   /// {
   ///     logging.ClearProviders();
-  ///     // logging.AddFileLogger();
-  ///     logging.AddFileLogger(options =&gt; {
+  ///     // logging.AddStructuredLogger();
+  ///     logging.AddStructuredLogger(options =&gt; {
   ///         options.MaxFileSizeInMB = 5;
   ///     });
   /// })
@@ -29,34 +50,44 @@ namespace SRF.FileLogging.Structured
   ///   },
   /// </code>
   /// </summary>
-  public class StructuredLoggerOptions
+  public class StructuredLoggerOptions : FileLoggerOptions
   {
-    private string m_Folder;
-    private int m_MaxFileSizeInMB;
-    private int m_RetainPolicyFileCount;
+    /// <summary>The file extension to suffix the log file with based on appsettings value or default ".log"</summary>
+    public override string FileExtension { get; set; } = ".log";
+  }
 
-    /// <summary>The active log level. Defaults to LogLevel.Trace</summary>
-    public LogLevel LogLevel { get; set; } = LogLevel.Trace;
-
-    /// <summary>The folder where log files should be placed. Defaults to this Assembly location</summary>
-    public string Folder
+  /// <summary>File logger extension methods.</summary>
+  static public class StructuredLoggerExtensions
+  {
+    /// <summary>
+    /// Adds the file logger provider, aliased as 'File', in the available services as singleton and binds the file logger options class to the 'File' section of the appsettings.json file.
+    /// </summary>
+    static public ILoggingBuilder AddStructuredLogger(this ILoggingBuilder builder)
     {
-      get { return !string.IsNullOrWhiteSpace(m_Folder) ? m_Folder : System.IO.Path.GetDirectoryName(GetType().Assembly.Location); }
-      set { m_Folder = value; }
+      builder.AddConfiguration();
+
+      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, StructuredLoggerProvider>());
+      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<StructuredLoggerOptions>, StructuredLoggerOptionsSetup>());
+      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IOptionsChangeTokenSource<StructuredLoggerOptions>, LoggerProviderOptionsChangeTokenSource<StructuredLoggerOptions, StructuredLoggerProvider>>());
+      return builder;
     }
 
-    /// <summary>The maximum number in MB of a single log file. Defaults to 2.</summary>
-    public int MaxFileSizeInMB
+    /// <summary>
+    /// Adds the file logger provider, aliased as 'File', in the available services as singleton and binds the file logger options class to the 'File' section of the appsettings.json file.
+    /// </summary>
+    static public ILoggingBuilder AddStructuredLogger(this ILoggingBuilder builder, Action<StructuredLoggerOptions> configure)
     {
-      get { return m_MaxFileSizeInMB > 0 ? m_MaxFileSizeInMB : 2; }
-      set { m_MaxFileSizeInMB = value; }
-    }
+      if (configure == null)
+      {
+        throw new ArgumentNullException(nameof(configure));
+      }
 
-    /// <summary>The maximum number of log files to retain. Defaults to 5.</summary>
-    public int RetainPolicyFileCount
-    {
-      get { return m_RetainPolicyFileCount < 5 ? 5 : m_RetainPolicyFileCount; }
-      set { m_RetainPolicyFileCount = value; }
+      builder.AddStructuredLogger();
+      builder.Services.Configure(configure);
+
+      return builder;
     }
   }
+
+
 }

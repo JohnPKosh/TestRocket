@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text;
 using System.Collections.Concurrent;
-
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using SRF.FileLogging.Models;
@@ -111,7 +110,7 @@ namespace SRF.FileLogging.Structured
     {
       // check the file size after any 100 writes
       m_Counter++;
-      if (m_Counter % 100 == 0)
+      if (m_Counter % LoggerOptions.LogSizeCheckInterval == 0)
       {
         FileInfo FI = new FileInfo(m_FilePath);
         if (FI.Length > 1024 * 1024 * LoggerOptions.MaxFileSizeInMB)
@@ -155,7 +154,7 @@ namespace SRF.FileLogging.Structured
     void InitializeFile()
     {
       Directory.CreateDirectory(LoggerOptions.Folder);
-      m_FilePath = Path.Combine(LoggerOptions.Folder, LogEntry.StaticHostName + "-" + DateTime.Now.ToString("yyyyMMdd-HHmm") + ".log");
+      m_FilePath = Path.Combine(LoggerOptions.Folder, $"{LogEntry.StaticHostName}-{DateTime.Now:yyyyMMdd-HHmm}{LoggerOptions.FileExtension}");
 
       WriteLogHeaderLine();
 
