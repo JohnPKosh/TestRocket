@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace LogApi.Logic
 {
-  public interface IWorkerPause
+  public interface IBackgroundServiceToggle
   {
-    bool IsPaused { get; }
-    void Pause();
-    void UnPause();
+    bool IsEnabled { get; }
+    void Disable();
+    void Enable();
   }
 }

@@ -1,0 +1,67 @@
+﻿
+
+
+GET https://localhost:5001/weatherforecast HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+
+###
+
+GET https://localhost:5001/sys/backgroundservices HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET https://localhost:5001/sys/backgroundservices/enable HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET https://localhost:5001/sys/backgroundservices/disable HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+
+
+
+### disable
+
+POST https://localhost:5001/sys/backgroundservices/ HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+{
+  "requestType":0
+}
+
+
+### enable
+
+POST https://localhost:5001/sys/backgroundservices/ HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+{
+  "requestType":1
+}
+
+
+### status
+
+POST https://localhost:5001/sys/backgroundservices/ HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+{
+  "requestType":2
+}

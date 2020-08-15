@@ -16,12 +16,12 @@ namespace LogApi.Logic
 
     private readonly ILogger<WorkerBase> m_Logger;
 
-    private readonly IWorkerPause m_WorkerPause;
+    private readonly IBackgroundServiceToggle m_ServiceToggle;
 
-    public WorkerBase(ILogger<WorkerBase> logger, IWorkerPause workerPause)
+    public WorkerBase(ILogger<WorkerBase> logger, IBackgroundServiceToggle serviceToggle)
     {
       m_Logger = logger;
-      m_WorkerPause = workerPause;
+      m_ServiceToggle = serviceToggle;
     }
 
     public int RepeatIntervalMs { get; set; } = 1000;
@@ -30,7 +30,7 @@ namespace LogApi.Logic
 
     public string WorkerName { get; set; }
 
-    //protected virtual bool IsPaused { get; set; } = false;
+    //protected virtual bool IsEnabled { get; set; } = false;
 
     #endregion
 
@@ -68,9 +68,9 @@ namespace LogApi.Logic
         if (!stoppingToken.IsCancellationRequested)
         {
           await Task.Delay(RepeatIntervalMs, stoppingToken);
-          if (m_WorkerPause.IsPaused)
+          if (!m_ServiceToggle.IsEnabled)
           {
-            m_Logger.LogWarning("{worker} PAUSED at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+            m_Logger.LogWarning("{worker} DISABLED at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
           }
           else
           {

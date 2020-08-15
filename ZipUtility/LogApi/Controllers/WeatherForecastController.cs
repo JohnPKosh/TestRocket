@@ -20,9 +20,9 @@ namespace LogApi.Controllers
 
     private readonly ILogger<WeatherForecastController> m_Logger;
 
-    private readonly IWorkerPause m_WorkerPause;
+    private readonly IBackgroundServiceToggle m_WorkerPause;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IWorkerPause workerPause)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IBackgroundServiceToggle workerPause)
     {
       m_Logger = logger;
       m_WorkerPause = workerPause;
@@ -47,30 +47,6 @@ namespace LogApi.Controllers
         Summary = Summaries[rng.Next(Summaries.Length)]
       })
       .ToArray();
-    }
-
-    [HttpGet("worker-enable")]
-    public WorkerPauseResult StartWorker()
-    {
-      m_WorkerPause.UnPause();
-      m_Logger.LogInformation("start-worker of {name} {method} Method Called! Result = {started}", nameof(WeatherForecastController), nameof(StartWorker), m_WorkerPause.IsPaused);
-      return new WorkerPauseResult { IsPaused = m_WorkerPause.IsPaused, RequestType = PauseRequestType.UnPause };
-    }
-
-
-    [HttpGet("worker-disable")]
-    public WorkerPauseResult StopWorker()
-    {
-      m_WorkerPause.Pause();
-      m_Logger.LogInformation("stop-worker of {name} {method} Method Called! Result = {started}", nameof(WeatherForecastController), nameof(StopWorker), m_WorkerPause.IsPaused);
-      return new WorkerPauseResult { IsPaused = m_WorkerPause.IsPaused, RequestType = PauseRequestType.Pause };
-    }
-
-
-    [HttpGet("worker-status")]
-    public WorkerPauseResult CheckWorker()
-    {
-      return new WorkerPauseResult { IsPaused = m_WorkerPause.IsPaused, RequestType = PauseRequestType.Status };
     }
   }
 }

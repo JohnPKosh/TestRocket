@@ -10,7 +10,7 @@ namespace LogApi.Logic
 {
   public class Worker : WorkerBase
   {
-    public Worker(ILogger<WorkerBase> logger, IWorkerPause workerPause) : base(logger, workerPause)
+    public Worker(ILogger<WorkerBase> logger, IBackgroundServiceToggle serviceToggle) : base(logger, serviceToggle)
     {
       WorkerName = nameof(Worker);
     }

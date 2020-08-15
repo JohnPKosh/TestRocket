@@ -62,7 +62,7 @@ namespace LogApi
       // You can optionally add the background service in Startup.cs instead of here.
       .ConfigureServices((hostContext, services) =>
       {
-        services.AddSingleton<IWorkerPause, WorkerPause>();
+        services.AddSingleton<IBackgroundServiceToggle, BackgroundServiceToggle>();
         services.AddHostedService<Worker>();
       })
 
