@@ -12,11 +12,16 @@ namespace LogApi.Logic
 {
   public abstract class WorkerBase : BackgroundService
   {
-    private readonly ILogger<WorkerBase> _logger;
+    #region Fields and Properties
 
-    public WorkerBase(ILogger<WorkerBase> logger)
+    private readonly ILogger<WorkerBase> m_Logger;
+
+    private readonly IWorkerPause m_WorkerPause;
+
+    public WorkerBase(ILogger<WorkerBase> logger, IWorkerPause workerPause)
     {
-      _logger = logger;
+      m_Logger = logger;
+      m_WorkerPause = workerPause;
     }
 
     public int RepeatIntervalMs { get; set; } = 1000;
@@ -25,11 +30,34 @@ namespace LogApi.Logic
 
     public string WorkerName { get; set; }
 
+    //protected virtual bool IsPaused { get; set; } = false;
+
+    #endregion
+
+    /// <summary>
+    /// This method is called when the Microsoft.Extensions.Hosting.IHostedService starts.
+    /// The implementation should return a task that represents the lifetime of the long
+    /// running operation(s) being performed.
+    /// </summary>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-      while (!stoppingToken.IsCancellationRequested)
+      // We should allow ample time for Microsoft.Hosting.Lifetime to perform startup operations before actually running our BackgroundService.
+      await Task.Delay(StartUpDelayMs, stoppingToken);
+
+      try
       {
-        await ProcessWork(stoppingToken);
+        while (!stoppingToken.IsCancellationRequested)
+        {
+          await ProcessWork(stoppingToken);
+        }
+      }
+      catch (TaskCanceledException)
+      {
+        m_Logger.LogWarning("{worker} TASK CANCELLED: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+      }
+      catch (Exception e)
+      {
+        m_Logger.LogError(e, "{worker} {emsg}: {time}", WorkerName ?? "Worker", e.Message, DateTimeOffset.Now);
       }
     }
 
@@ -37,27 +65,30 @@ namespace LogApi.Logic
     {
       try
       {
-        // We should allow ample time for Microsoft.Hosting.Lifetime to perform startup operations before actually running our workers.
-        await Task.Delay(StartUpDelayMs, stoppingToken);
-
         if (!stoppingToken.IsCancellationRequested)
         {
-          _logger.LogTrace("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-          _logger.LogDebug("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-          _logger.LogInformation("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-          _logger.LogWarning("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-          await DoWork(stoppingToken);
           await Task.Delay(RepeatIntervalMs, stoppingToken);
+          if (m_WorkerPause.IsPaused)
+          {
+            m_Logger.LogWarning("{worker} PAUSED at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+          }
+          else
+          {
+            m_Logger.LogTrace("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+            m_Logger.LogDebug("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+            m_Logger.LogInformation("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+            m_Logger.LogWarning("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+            await DoWork(stoppingToken);
+          }
         }
       }
       catch (TaskCanceledException)
       {
-        _logger.LogWarning("{worker} TASK CANCELLED: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+        m_Logger.LogWarning("{worker} TASK CANCELLED: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
       }
       catch (Exception e)
       {
-        _logger.LogError(e, "{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-        await Task.Delay(RepeatIntervalMs, stoppingToken);
+        m_Logger.LogError(e, "{worker} {emsg}: {time}", WorkerName ?? "Worker", e.Message, DateTimeOffset.Now);
         //throw;  // TODO: Think about how to handle repeated failures
       }
     }

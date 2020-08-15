@@ -59,10 +59,14 @@ namespace LogApi
               .UseStartup<Startup>();
             })
 
-            // You can optionally add the background service in Program.cs instead of here.
-            .ConfigureServices((hostContext, services) =>
-            {
-              services.AddHostedService<Worker>();
-            });
+      // You can optionally add the background service in Startup.cs instead of here.
+      .ConfigureServices((hostContext, services) =>
+      {
+        services.AddSingleton<IWorkerPause, WorkerPause>();
+        services.AddHostedService<Worker>();
+      })
+
+
+      ;
   }
 }

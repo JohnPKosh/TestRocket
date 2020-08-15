@@ -234,7 +234,7 @@ namespace SRF.FileLogging.Structured
           try
           {
             WriteLogLine();
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(100); // TODO: Determine if this is should be Task.Delay instead.
           }
           catch // (Exception ex)
           {
