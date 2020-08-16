@@ -1,5 +1,4 @@
-﻿using System;
-using SRF.CommandItems;
+﻿using SRF.CommandItems;
 
 namespace LogApiTestClient
 {
