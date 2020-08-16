@@ -75,6 +75,7 @@ namespace SRF.FileLogging.Structured
     {
       builder.AddConfiguration();
 
+      builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILogEntryWriter, SlimFileLogEntryWriter>());
       builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, SlimFileLoggerProvider>());
       builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<SlimFileLoggerOptions>, SlimFileLoggerOptionsSetup>());
       builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IOptionsChangeTokenSource<SlimFileLoggerOptions>, LoggerProviderOptionsChangeTokenSource<SlimFileLoggerOptions, SlimFileLoggerProvider>>());

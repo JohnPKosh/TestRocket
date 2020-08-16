@@ -22,8 +22,10 @@ namespace SRF.FileLogging.Structured
     private bool m_Terminated;
     private int m_Counter = 0;
     private string m_FilePath;
-    private Dictionary<string, int> m_FieldLengths = new Dictionary<string, int>();
     private ConcurrentQueue<LogEntry> m_LogEntryQueue = new ConcurrentQueue<LogEntry>();
+
+    /// <summary>The SlimFileLogEntryWriter property passed into the constructor.</summary>
+    internal ILogEntryWriter LogEntryWriter { get; private set; }
 
     /// <summary>The SlimFileLoggerOptions property passed into the constructor.</summary>
     internal SlimFileLoggerOptions LoggerOptions { get; private set; }
@@ -35,7 +37,7 @@ namespace SRF.FileLogging.Structured
     /// <see cref=": https://docs.microsoft.com/en-us/aspnet/core/fundamentals/change-tokens"/>
     /// <para>The IOptionsMonitor provides the OnChange() method which is called when the user alters the settings of this provider in the appsettings.json file.</para>
     /// </summary>
-    public SlimFileLoggerProvider(IOptionsMonitor<SlimFileLoggerOptions> options) : this(options.CurrentValue)
+    public SlimFileLoggerProvider(IOptionsMonitor<SlimFileLoggerOptions> options, ILogEntryWriter logEntryWriter) : this(options.CurrentValue, logEntryWriter)
     {
       SettingsChangeToken = options.OnChange(changedOptions =>
       {
@@ -44,9 +46,10 @@ namespace SRF.FileLogging.Structured
     }
 
     /// <summary>The default constructor accepting a SlimFileLoggerOptions.</summary>
-    public SlimFileLoggerProvider(SlimFileLoggerOptions options)
+    public SlimFileLoggerProvider(SlimFileLoggerOptions options, ILogEntryWriter logEntryWriter)
     {
       LoggerOptions = options;
+      LogEntryWriter = logEntryWriter;
       Initialize();
     }
 
@@ -56,9 +59,8 @@ namespace SRF.FileLogging.Structured
 
     protected override void Initialize()
     {
-      PrepareLengths();
-      InitializeFile(); // create the first file
-      ThreadProc();
+      InitializeSink(); // create the first file
+      RunProcessLogTask();
     }
 
     /// <summary>Checks if the given logLevel is enabled. It is called by the Logger.</summary>
@@ -79,10 +81,9 @@ namespace SRF.FileLogging.Structured
 
     #endregion
 
-    #region Private Utility Methods
-
+    #region Sink specific methods
     /// <summary>Applies the log file retains policy according to options</summary>
-    void ApplyRetainPolicy()
+    private void ApplyRetainPolicy()
     {
       FileInfo FI;
       try
@@ -109,7 +110,7 @@ namespace SRF.FileLogging.Structured
     /// Writes a line of text to the current file.
     /// If the file reaches the size limit, creates a new file and uses that new file.
     /// </summary>
-    void WriteLine(string Text)
+    private void WriteEntryToSink(string Text)
     {
       // check the file size after any 100 writes
       m_Counter++;
@@ -118,117 +119,47 @@ namespace SRF.FileLogging.Structured
         FileInfo FI = new FileInfo(m_FilePath);
         if (FI.Length > 1024 * 1024 * LoggerOptions.MaxFileSizeInMB)
         {
-          InitializeFile();
+          InitializeSink();
         }
       }
       File.AppendAllText(m_FilePath, Text);
     }
 
-    /// <summary>
-    /// Pads a string with spaces to a max length. Truncates the string to max length if the string exceeds the limit.
-    /// </summary>
-    string Pad(string Text, int MaxLength)
-    {
-      if (string.IsNullOrWhiteSpace(Text))
-        return "".PadRight(MaxLength);
-
-      if (Text.Length > MaxLength)
-        return Text.Substring(0, MaxLength);
-
-      return Text.PadRight(MaxLength);
-    }
-
-    /// <summary>Prepares the lengths of the columns in the log file.</summary>
-    void PrepareLengths()
-    {
-      // prepare the lengths table
-      m_FieldLengths["Time"] = 24;
-      m_FieldLengths["Host"] = 16;
-      m_FieldLengths["User"] = 16;
-      m_FieldLengths["Level"] = 14;
-      m_FieldLengths["EventId"] = 32;
-      m_FieldLengths["Category"] = 92;
-      m_FieldLengths["Scope"] = 64;
-    }
-
-    /// <summary>
-    /// Creates a new disk file and writes the column titles
-    /// </summary>
-    void InitializeFile()
+    /// <summary>Creates a new disk file and writes the column titles</summary>
+    private void InitializeSink()
     {
       Directory.CreateDirectory(LoggerOptions.Folder);
       m_FilePath = Path.Combine(LoggerOptions.Folder, $"{LogEntry.StaticHostName}-{DateTime.Now:yyyyMMdd-HHmm}{LoggerOptions.FileExtension}");
 
-      WriteLogHeaderLine();
+      WriteLogHeader();
 
       ApplyRetainPolicy();
     }
 
-    private void WriteLogHeaderLine()
+    /// <summary>For file based loggers that include a header row this method writes the first line to the sink</summary>
+    private void WriteLogHeader()
     {
-      StringBuilder SB = new StringBuilder();
-      SB.Append(Pad("Time", m_FieldLengths["Time"]));
-      SB.Append(Pad("Host", m_FieldLengths["Host"]));
-      SB.Append(Pad("User", m_FieldLengths["User"]));
-      SB.Append(Pad("Level", m_FieldLengths["Level"]));
-      SB.Append(Pad("EventId", m_FieldLengths["EventId"]));
-      SB.Append(Pad("Category", m_FieldLengths["Category"]));
-      SB.Append(Pad("Scope", m_FieldLengths["Scope"]));
-      SB.AppendLine("Text");
-
-      File.WriteAllText(m_FilePath, SB.ToString());
+      File.WriteAllText(m_FilePath, LogEntryWriter.GenerateLogHeaderLine());
     }
 
-    /// <summary>
-    /// Pops a log info instance from the stack, prepares the text line, and writes the line to the text file.
-    /// </summary>
-    void WriteLogLine()
+    /// <summary>Dequeues all log info instances from the queue, prepares the text line, and writes to the sink.</summary>
+    private void FlushLogEntryQueue()
     {
       while (m_LogEntryQueue.TryDequeue(out LogEntry Info))
       {
-        string S;
-        StringBuilder SB = new StringBuilder();
-        SB.Append(Pad(Info.TimeStampUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.ff"), m_FieldLengths["Time"]));
-        SB.Append(Pad(Info.HostName, m_FieldLengths["Host"]));
-        SB.Append(Pad(Info.UserName, m_FieldLengths["User"]));
-        SB.Append(Pad(Info.Level.ToString(), m_FieldLengths["Level"]));
-        SB.Append(Pad(Info.EventId != null ? Info.EventId.ToString() : "", m_FieldLengths["EventId"]));
-        SB.Append(Pad(Info.Category, m_FieldLengths["Category"]));
-
-        S = "";
-        if (Info.Scopes != null && Info.Scopes.Count > 0)
-        {
-          LogScopeInfo SI = Info.Scopes.Last();
-          if (!string.IsNullOrWhiteSpace(SI.Text))
-          {
-            S = SI.Text;
-          }
-          else
-          {
-          }
-        }
-        SB.Append(Pad(S, m_FieldLengths["Scope"]));
-
-        string Text = Info.Text;
-
-        /* writing properties is too much for a text file logger
-        if (Info.StateProperties != null && Info.StateProperties.Count > 0)
-        {
-            Text = Text + " Properties = " + Newtonsoft.Json.JsonConvert.SerializeObject(Info.StateProperties);
-        }
-         */
-
-        if (!string.IsNullOrWhiteSpace(Text))
-        {
-          SB.Append(Text.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " "));
-        }
-
-        SB.AppendLine();
-        WriteLine(SB.ToString());
+        var line = LogEntryWriter.GenerateLogEntryLine(Info);
+        WriteEntryToSink(line);
       }
     }
 
-    void ThreadProc()
+    #endregion
+
+    #region Private Utility Methods
+
+    /// <summary>
+    /// Starts a recurring task that continually runs the log sink flush process until the provider is disposed.
+    /// </summary>
+    private void RunProcessLogTask()
     {
       Task.Run(() =>
       {
@@ -236,7 +167,7 @@ namespace SRF.FileLogging.Structured
         {
           try
           {
-            WriteLogLine();
+            FlushLogEntryQueue();
             System.Threading.Thread.Sleep(100); // TODO: Determine if this is should be Task.Delay instead.
           }
           catch(Exception e)
