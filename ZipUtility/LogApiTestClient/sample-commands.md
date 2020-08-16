@@ -1,6 +1,18 @@
 ﻿# Command Line Samples
 
-Open a command prompt in the deployment directory:
+Open a command propt in the API deployment directory:
+
+```shell
+cd C:\vscode\github\TestRocket\ZipUtility\LogApi\bin\Release\netcoreapp3.1
+```
+
+Start the API:
+
+```shell
+LogApi.exe
+```
+
+Open a command prompt in the API client deployment directory:
 
 ```shell
 cd C:\vscode\github\TestRocket\ZipUtility\LogApiTestClient\bin\Release\netcoreapp3.1

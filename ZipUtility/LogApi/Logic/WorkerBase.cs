@@ -65,14 +65,11 @@ namespace LogApi.Logic
           await Task.Delay(RepeatIntervalMs, stoppingToken);
           if (!m_ServiceToggle.IsEnabled)
           {
-            m_Logger.LogWarning("{worker} DISABLED at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
+            m_Logger.LogTrace("{worker} DISABLED at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
           }
           else
           {
             m_Logger.LogTrace("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-            m_Logger.LogDebug("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-            m_Logger.LogInformation("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
-            m_Logger.LogWarning("{worker} running at: {time}", WorkerName ?? "Worker", DateTimeOffset.Now);
             await DoWork(stoppingToken);
           }
         }

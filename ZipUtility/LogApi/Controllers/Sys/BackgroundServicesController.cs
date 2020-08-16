@@ -69,14 +69,14 @@ namespace LogApi.Controllers.Sys
     private BackgroundServiceStateResult enable()
     {
       m_WorkerPause.Enable();
-      m_Logger.LogInformation("Enable of {name} {method} Method Called! Result = {started}", nameof(BackgroundServicesController), nameof(EnableBackgroundServices), m_WorkerPause.IsEnabled);
+      m_Logger.LogWarning("Enable of {name} {method} Method Called! Result = {started}", nameof(BackgroundServicesController), nameof(EnableBackgroundServices), m_WorkerPause.IsEnabled);
       return new BackgroundServiceStateResult { IsEnabled = m_WorkerPause.IsEnabled, RequestType = BackgroundServiceSignalType.Enable };
     }
 
     private BackgroundServiceStateResult disable()
     {
       m_WorkerPause.Disable();
-      m_Logger.LogInformation("Disable of {name} {method} Method Called! Result = {started}", nameof(BackgroundServicesController), nameof(DisableBackgroundServices), m_WorkerPause.IsEnabled);
+      m_Logger.LogWarning("Disable of {name} {method} Method Called! Result = {started}", nameof(BackgroundServicesController), nameof(DisableBackgroundServices), m_WorkerPause.IsEnabled);
       return new BackgroundServiceStateResult { IsEnabled = m_WorkerPause.IsEnabled, RequestType = BackgroundServiceSignalType.Disable };
     }
 
