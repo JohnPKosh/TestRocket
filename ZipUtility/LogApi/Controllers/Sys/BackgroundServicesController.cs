@@ -63,7 +63,7 @@ namespace LogApi.Controllers.Sys
     }
 
 
-
+    // TODO: move below logic out of controller
 
     private BackgroundServiceStateResult get()
     {

@@ -66,7 +66,6 @@ namespace LogApi
         services.AddHostedService<Worker>();
       })
 
-
       ;
   }
 }

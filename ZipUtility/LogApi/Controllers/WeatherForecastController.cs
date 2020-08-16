@@ -31,11 +31,11 @@ namespace LogApi.Controllers
     [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {
-      m_Logger.LogTrace("LogTrace {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
-      m_Logger.LogDebug("LogDebug {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
+      //m_Logger.LogTrace("LogTrace {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
+      //m_Logger.LogDebug("LogDebug {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
       m_Logger.LogInformation("LogInformation {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
-      m_Logger.LogWarning("LogWarning {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
-      m_Logger.LogError("LogError {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
+      //m_Logger.LogWarning("LogWarning {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
+      //m_Logger.LogError("LogError {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
 
       //var started = _worker.Start();
 

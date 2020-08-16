@@ -16,6 +16,10 @@ Content-Type: application/json
 
 ###
 
+curl --request GET --url https://localhost:5001/sys/backgroundservices --header 'accept: application/json' --header 'content-type: application/json'
+
+###
+
 GET https://localhost:5001/sys/backgroundservices/enable HTTP/1.2
 # Authorization: Basic stanleyjobson:swordfish
 Accept: application/json

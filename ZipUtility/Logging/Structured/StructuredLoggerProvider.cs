@@ -99,7 +99,10 @@ namespace SRF.FileLogging.Structured
           FileList.Remove(FI);
         }
       }
-      catch { }
+      catch (Exception e)
+      {
+        Console.WriteLine(e.Message); // TODO: consider how to handle low level logging failures e.g. IOExceptions
+      }
     }
 
     /// <summary>
@@ -181,7 +184,7 @@ namespace SRF.FileLogging.Structured
     /// </summary>
     void WriteLogLine()
     {
-      if (m_LogEntryQueue.TryDequeue(out LogEntry Info))
+      while (m_LogEntryQueue.TryDequeue(out LogEntry Info))
       {
         string S;
         StringBuilder SB = new StringBuilder();
@@ -236,8 +239,9 @@ namespace SRF.FileLogging.Structured
             WriteLogLine();
             System.Threading.Thread.Sleep(100); // TODO: Determine if this is should be Task.Delay instead.
           }
-          catch // (Exception ex)
+          catch(Exception e)
           {
+            Console.WriteLine(e.Message); // TODO: consider how to handle low level logging failures e.g. IOExceptions
           }
         }
       });

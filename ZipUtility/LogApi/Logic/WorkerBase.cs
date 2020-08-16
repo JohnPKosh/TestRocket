@@ -30,8 +30,6 @@ namespace LogApi.Logic
 
     public string WorkerName { get; set; }
 
-    //protected virtual bool IsEnabled { get; set; } = false;
-
     #endregion
 
     /// <summary>

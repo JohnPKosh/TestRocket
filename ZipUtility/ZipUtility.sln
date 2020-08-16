@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogApi", "LogApi\LogApi.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRF.FileLogging", "Logging\SRF.FileLogging.csproj", "{9EE8D6F0-FEB9-48DA-A52E-33983B00DA84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogWorker", "LogWorker\LogWorker.csproj", "{7AD14EED-0B02-4D7C-9970-4AF0389DD224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWorker", "LogWorker\LogWorker.csproj", "{7AD14EED-0B02-4D7C-9970-4AF0389DD224}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRF.CommandItems", "SRF.CommandItems\SRF.CommandItems.csproj", "{3DD2781D-01BB-4B9A-87D5-3E3E99F0B088}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogApiTestClient", "LogApiTestClient\LogApiTestClient.csproj", "{30A09044-4938-4665-9E19-A539E149B0FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +69,14 @@ Global
 		{7AD14EED-0B02-4D7C-9970-4AF0389DD224}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AD14EED-0B02-4D7C-9970-4AF0389DD224}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AD14EED-0B02-4D7C-9970-4AF0389DD224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DD2781D-01BB-4B9A-87D5-3E3E99F0B088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD2781D-01BB-4B9A-87D5-3E3E99F0B088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD2781D-01BB-4B9A-87D5-3E3E99F0B088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD2781D-01BB-4B9A-87D5-3E3E99F0B088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30A09044-4938-4665-9E19-A539E149B0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30A09044-4938-4665-9E19-A539E149B0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30A09044-4938-4665-9E19-A539E149B0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30A09044-4938-4665-9E19-A539E149B0FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
