@@ -23,7 +23,7 @@ namespace LogApiTestClient
       var client = new Client();
       var sw = new Stopwatch();
       sw.Start();
-      client.GetAsync(url, n).Wait();
+      client.Get(url, n);
       sw.Stop();
       Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
     }
