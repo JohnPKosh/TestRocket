@@ -5,7 +5,11 @@ using SRF.CommandItems.Attributes;
 
 namespace LogApiTestClient
 {
-  public class Commands
+  /// <summary>
+  /// Command line targeted methods container class to interface
+  /// CmdAttribute decorated methods to specific business logic.
+  /// </summary>
+  public class BootstrapCommands
   {
     /// <summary>
     /// An HTTP GET test method attributed with CmdAttribute to be called by the main Bootstrap.Run method.
@@ -23,7 +27,7 @@ namespace LogApiTestClient
       var client = new Client();
       var sw = new Stopwatch();
       sw.Start();
-      client.Get(url, n);
+      client.Get(url, n); // Pass logic to implementation
       sw.Stop();
       Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
     }
@@ -45,7 +49,7 @@ namespace LogApiTestClient
       var client = new Client();
       var sw = new Stopwatch();
       sw.Start();
-      client.ParallelGet(url, n, maxDop);
+      client.ParallelGet(url, n, maxDop);  // Pass logic to implementation
       sw.Stop();
       Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
     }
