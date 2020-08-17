@@ -15,5 +15,15 @@ namespace LogApiTestClient.Logic
         Console.WriteLine(content);
       }
     }
+
+    public void ParallelGet(string url, int n, int maxDop = 4)
+    {
+      using var client = new HttpClient();
+      Parallel.For(0, n, new ParallelOptions() { MaxDegreeOfParallelism = maxDop }, i =>
+      {
+        var response = client.GetAsync(url).Result;
+        Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+      });
+    }
   }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
-using System.Text;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
@@ -19,8 +18,9 @@ namespace SRF.FileLogging.Structured
   [ProviderAlias("SlimFile")]
   public class SlimFileLoggerProvider : LoggerProvider
   {
+    #region Fields and Properties
+
     private bool m_Terminated;
-    private int m_Counter = 0;
     private string m_FilePath;
     private ConcurrentQueue<LogEntry> m_LogEntryQueue = new ConcurrentQueue<LogEntry>();
 
@@ -29,6 +29,8 @@ namespace SRF.FileLogging.Structured
 
     /// <summary>The SlimFileLoggerOptions property passed into the constructor.</summary>
     internal SlimFileLoggerOptions LoggerOptions { get; private set; }
+
+    #endregion
 
     #region Constructors
 
@@ -81,7 +83,10 @@ namespace SRF.FileLogging.Structured
 
     #endregion
 
+    // TODO: excise the sink specific methods below to an appropriate interface.
+
     #region Sink specific methods
+
     /// <summary>Applies the log file retains policy according to options</summary>
     private void ApplyRetainPolicy()
     {
@@ -106,50 +111,39 @@ namespace SRF.FileLogging.Structured
       }
     }
 
-    /// <summary>
-    /// Writes a line of text to the current file.
-    /// If the file reaches the size limit, creates a new file and uses that new file.
-    /// </summary>
-    private void WriteEntryToSink(string Text)
-    {
-      // check the file size after any 100 writes
-      m_Counter++;
-      if (m_Counter % LoggerOptions.LogSizeCheckInterval == 0)
-      {
-        FileInfo FI = new FileInfo(m_FilePath);
-        if (FI.Length > 1024 * 1024 * LoggerOptions.MaxFileSizeInMB)
-        {
-          InitializeSink();
-        }
-      }
-      File.AppendAllText(m_FilePath, Text);
-    }
-
     /// <summary>Creates a new disk file and writes the column titles</summary>
     private void InitializeSink()
     {
       Directory.CreateDirectory(LoggerOptions.Folder);
       m_FilePath = Path.Combine(LoggerOptions.Folder, $"{LogEntry.StaticHostName}-{DateTime.Now:yyyyMMdd-HHmm}{LoggerOptions.FileExtension}");
-
       WriteLogHeader();
-
       ApplyRetainPolicy();
     }
 
     /// <summary>For file based loggers that include a header row this method writes the first line to the sink</summary>
     private void WriteLogHeader()
     {
-      File.WriteAllText(m_FilePath, LogEntryWriter.GenerateLogHeaderLine());
+      File.WriteAllText(m_FilePath, LogEntryWriter.GenerateLogHeaderLine().ToString());
     }
 
     /// <summary>Dequeues all log info instances from the queue, prepares the text line, and writes to the sink.</summary>
     private void FlushLogEntryQueue()
     {
+      if (m_LogEntryQueue.Count == 0) return;
+      FileInfo fileinfo = new FileInfo(m_FilePath);
+      if (fileinfo.Length > 1_048_576 * LoggerOptions.MaxFileSizeInMB)
+      {
+        InitializeSink();
+        fileinfo = new FileInfo(m_FilePath);
+      }
+      using var fs = fileinfo.Open(FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+      using var sw = new StreamWriter(fs);
       while (m_LogEntryQueue.TryDequeue(out LogEntry Info))
       {
         var line = LogEntryWriter.GenerateLogEntryLine(Info);
-        WriteEntryToSink(line);
+        sw.Write(line.ToString());
       }
+      sw.Flush();
     }
 
     #endregion
@@ -168,7 +162,7 @@ namespace SRF.FileLogging.Structured
           try
           {
             FlushLogEntryQueue();
-            System.Threading.Thread.Sleep(100); // TODO: Determine if this is should be Task.Delay instead.
+            System.Threading.Thread.Sleep(2000); // TODO: Determine if this is should be Task.Delay instead.
           }
           catch(Exception e)
           {

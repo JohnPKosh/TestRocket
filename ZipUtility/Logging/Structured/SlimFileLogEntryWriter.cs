@@ -1,114 +1,129 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using SRF.FileLogging.Common;
 using SRF.FileLogging.Models;
 
 namespace SRF.FileLogging.Structured
 {
+  /// <summary>
+  /// The Slim File Log Entry Writer class that transforms
+  /// a LogEntry object to a string line for persistence.
+  /// </summary>
   public class SlimFileLogEntryWriter : ILogEntryWriter
   {
+    private const char SPACE_CHAR = ' ';
+    private const char UNIX_NEWLINE_CHAR = '\n';
+
+    #region Fields and Properties
+
     private Dictionary<string, int> m_FieldLengths = new Dictionary<string, int>();
 
-    public SlimFileLogEntryWriter()
-    {
-      PrepareLengths();
-    }
+    private Tuple<int, int>[] m_Segments = new Tuple<int, int>[8] {
+      new Tuple<int, int>(0, 23),
+      new Tuple<int, int>(24, 39),
+      new Tuple<int, int>(40, 55),
+      new Tuple<int, int>(56, 69),
+      new Tuple<int, int>(70, 101),
+      new Tuple<int, int>(102, 193),
+      new Tuple<int, int>(194, 257),
+      new Tuple<int, int>(258, 262)
+    };
+
+    private char[][] m_HeaderChars = new char[8][]{
+       "Time".ToArray(),
+       "Host".ToArray(),
+       "User".ToArray(),
+       "Level".ToArray(),
+       "EventId".ToArray(),
+       "Category".ToArray(),
+       "Scope".ToArray(),
+       "Text".ToArray()
+      };
+
+    #endregion
 
     #region ILogEntryWriter implementation methods
 
-    public string GenerateLogEntryLine(LogEntry Info)
+    /// <summary>
+    /// Generates a <![CDATA[ReadOnlySpan<char>]]> representing a structured format header row.
+    /// </summary>
+    public ReadOnlySpan<char> GenerateLogHeaderLine()
     {
-      string S;
-      StringBuilder SB = new StringBuilder();
-      SB.Append(Pad(Info.TimeStampUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.ff"), m_FieldLengths["Time"]));
-      SB.Append(Pad(Info.HostName, m_FieldLengths["Host"]));
-      SB.Append(Pad(Info.UserName, m_FieldLengths["User"]));
-      SB.Append(Pad(Info.Level.ToString(), m_FieldLengths["Level"]));
-      SB.Append(Pad(Info.EventId != null ? Info.EventId.ToString() : "", m_FieldLengths["EventId"]));
-      SB.Append(Pad(Info.Category, m_FieldLengths["Category"]));
+      var l = new Span<char>(new char[263]);
+      l.Fill(SPACE_CHAR);
+      for (int i = 0; i < m_Segments.Length; i++)
+      {
+        var len = Math.Min(m_HeaderChars[i].Length, m_Segments[i].Item2 - m_Segments[i].Item1) + m_Segments[i].Item1;
+        var pos = m_Segments[i].Item1;
+        for (int j = pos; j < len; j++)
+        {
+          l[j] = m_HeaderChars[i][j - pos];
+        }
+      }
+      l[^1] = UNIX_NEWLINE_CHAR;
+      return l;
+    }
 
-      S = "";
+    /// <summary>
+    /// Generates a <![CDATA[ReadOnlySpan<char>]]> representing a structured format converted LogEntry.
+    /// </summary>
+    public ReadOnlySpan<char> GenerateLogEntryLine(LogEntry Info)
+    {
+      char[][] logChars = GetLogEntryArray(Info);
+
+      var lineLen = logChars[7] == null ? 0 : logChars[7].Length;
+      var l = new Span<char>(new char[259 + lineLen]);
+      l.Fill(SPACE_CHAR);
+      for (int i = 0; i < m_Segments.Length - 1; i++)
+      {
+        var len = Math.Min(logChars[i].Length, m_Segments[i].Item2 - m_Segments[i].Item1) + m_Segments[i].Item1;
+        var pos = m_Segments[i].Item1;
+        for (int j = pos; j < len; j++)
+        {
+          l[j] = logChars[i][j - pos];
+        }
+      }
+      // write last line to length of Info.Text (ignore m_Segments length)
+      var lenLast = logChars[7].Length + m_Segments[7].Item1;
+      var posLast = m_Segments[7].Item1;
+      for (int j = posLast; j < lenLast; j++)
+      {
+        l[j] = logChars[7][j - posLast];
+      }
+      l[^1] = UNIX_NEWLINE_CHAR;
+      return l;
+    }
+
+    #endregion
+
+    #region Private Utility Methods
+
+    private static char[][] GetLogEntryArray(LogEntry Info)
+    {
+      string scope = null;
       if (Info.Scopes != null && Info.Scopes.Count > 0)
       {
         LogScopeInfo SI = Info.Scopes.Last();
         if (!string.IsNullOrWhiteSpace(SI.Text))
         {
-          S = SI.Text;
-        }
-        else
-        {
+          scope = SI.Text;
         }
       }
-      SB.Append(Pad(S, m_FieldLengths["Scope"]));
 
-      string Text = Info.Text;
-
-      /* writing properties is too much for a text file logger
-      if (Info.StateProperties != null && Info.StateProperties.Count > 0)
-      {
-          Text = Text + " Properties = " + Newtonsoft.Json.JsonConvert.SerializeObject(Info.StateProperties);
-      }
-       */
-
-      if (!string.IsNullOrWhiteSpace(Text))
-      {
-        SB.Append(Text.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " "));
-      }
-
-      SB.AppendLine();
-      //WriteEntryToSink(SB.ToString());
-      return SB.ToString();
-    }
-
-    public string GenerateLogHeaderLine()
-    {
-      StringBuilder SB = new StringBuilder();
-      SB.Append(Pad("Time", m_FieldLengths["Time"]));
-      SB.Append(Pad("Host", m_FieldLengths["Host"]));
-      SB.Append(Pad("User", m_FieldLengths["User"]));
-      SB.Append(Pad("Level", m_FieldLengths["Level"]));
-      SB.Append(Pad("EventId", m_FieldLengths["EventId"]));
-      SB.Append(Pad("Category", m_FieldLengths["Category"]));
-      SB.Append(Pad("Scope", m_FieldLengths["Scope"]));
-      SB.AppendLine("Text");
-      return SB.ToString();
+      var logChars = new char[8][]{
+       Info.TimeStampUtc.ToString("yyyy-MM-dd HH:mm:ss.ff").ToArray(),
+       Info.HostName.ToArray(),
+       Info.UserName.ToArray(),
+       Info.Level.ToString().ToArray(),
+       Info.EventId != null ? Info.EventId.ToString().ToArray() : new char[0],
+       Info.Category.ToArray(),
+       string.IsNullOrWhiteSpace(scope) ? new char[0]: scope.ToArray(),
+       Info.Text?.ToArray()
+      };
+      return logChars;
     }
 
     #endregion
-
-    #region private utility methods
-
-    /// <summary>
-    /// Pads a string with spaces to a max length. Truncates the string to max length if the string exceeds the limit.
-    /// </summary>
-    string Pad(string Text, int MaxLength)
-    {
-      if (string.IsNullOrWhiteSpace(Text))
-        return "".PadRight(MaxLength);
-
-      if (Text.Length > MaxLength)
-        return Text.Substring(0, MaxLength);
-
-      return Text.PadRight(MaxLength);
-    }
-
-
-    /// <summary>Prepares the lengths of the columns in the log file.</summary>
-    void PrepareLengths()
-    {
-      // prepare the lengths table
-      m_FieldLengths["Time"] = 24;
-      m_FieldLengths["Host"] = 16;
-      m_FieldLengths["User"] = 16;
-      m_FieldLengths["Level"] = 14;
-      m_FieldLengths["EventId"] = 32;
-      m_FieldLengths["Category"] = 92;
-      m_FieldLengths["Scope"] = 64;
-    }
-
-    #endregion
-
   }
 }

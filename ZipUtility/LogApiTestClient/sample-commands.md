@@ -36,3 +36,23 @@ LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices/enable
 ```shell
 LogApiTestClient get --url "https://localhost:5001/weatherforecast" -n 25
 ```
+
+
+To execute Parallel GET method n times:
+
+```shell
+LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices" -n 25 -m 4
+```
+
+```shell
+LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices/disable" -n 25 -m 4
+```
+
+```shell
+LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices/enable" -n 25 -m 4
+```
+
+
+```shell
+LogApiTestClient pget --url "https://localhost:5001/weatherforecast" -n 25 -m 4
+```
