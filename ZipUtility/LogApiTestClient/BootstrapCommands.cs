@@ -28,8 +28,8 @@ namespace LogApiTestClient
     [Cmd("get", description: "A command to test an API GET method.")]
     internal static void Get(
       [Option("--url", "-u,\\u", description: "The API target method URL")] string url
-      , [Option("--ntimes", "-n,\\n", description: "Number of times to call the method")] int ntimes
-      , [Option("--fail", "-f,\\f", description: "Max failures allowed before abandoning process")] int fail = DEFAULT_MAX_FAIL_ALLOWED
+      , [Option("--ntimes", "-n,\\n", description: "Number of times to call the API target method")] int ntimes
+      , [Option("--fail", "-f,\\f", description: "Max failures allowed before abandoning process", required: false)] int fail = DEFAULT_MAX_FAIL_ALLOWED
       )
     {
       Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail}");
@@ -47,12 +47,12 @@ namespace LogApiTestClient
     /// <example>
     /// LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices" -n 25
     /// </example>
-    [Cmd("pget", description: "A command to test an API GET method.")]
+    [Cmd("pget", description: "A multi-threaded parallel command to test an API GET method.")]
     internal static void ParallelGet(
       [Option("--url", "-u,\\u", description: "The API target method URL")] string url
-      , [Option("--ntimes", "-n,\\n", description: "Number of times to call the method")] int ntimes
-      , [Option("--fail", "-f,\\f", description: "Max failures allowed before abandoning process")] int fail = DEFAULT_MAX_FAIL_ALLOWED
-      , [Option("--maxdop", "-m,\\m", description: "Max degree of parallelism")] int maxdop = DEFAULT_MAX_DOP
+      , [Option("--ntimes", "-n,\\n", description: "Number of times to call the API target method")] int ntimes
+      , [Option("--fail", "-f,\\f", description: "Max failures allowed before abandoning process", required: false)] int fail = DEFAULT_MAX_FAIL_ALLOWED
+      , [Option("--maxdop", "-m,\\m", description: "Max degree of parallelism", required: false)] int maxdop = DEFAULT_MAX_DOP
       )
     {
       Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail}  Max DOP: {maxdop}");

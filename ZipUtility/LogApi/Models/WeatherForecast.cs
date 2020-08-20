@@ -2,6 +2,9 @@ using System;
 
 namespace LogApi.Models
 {
+  /// <summary>
+  /// Sample model used by the WeatherForcastController
+  /// </summary>
   public class WeatherForecast
   {
     public DateTime Date { get; set; }

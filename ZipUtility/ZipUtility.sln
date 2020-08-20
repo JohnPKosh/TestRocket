@@ -23,9 +23,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRF.FileLogging", "Logging\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogWorker", "LogWorker\LogWorker.csproj", "{7AD14EED-0B02-4D7C-9970-4AF0389DD224}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRF.CommandItems", "SRF.CommandItems\SRF.CommandItems.csproj", "{3DD2781D-01BB-4B9A-87D5-3E3E99F0B088}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRF.CommandItems", "SRF.CommandItems\SRF.CommandItems.csproj", "{3DD2781D-01BB-4B9A-87D5-3E3E99F0B088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogApiTestClient", "LogApiTestClient\LogApiTestClient.csproj", "{30A09044-4938-4665-9E19-A539E149B0FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogApiTestClient", "LogApiTestClient\LogApiTestClient.csproj", "{30A09044-4938-4665-9E19-A539E149B0FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9EFCCDE8-118C-41D0-9741-7ECC66E530D3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

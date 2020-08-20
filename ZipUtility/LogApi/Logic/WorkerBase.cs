@@ -4,27 +4,42 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-
 namespace LogApi.Logic
 {
+  /// <summary>
+  /// An abstract wrapper encapsulating an interuptable background service
+  /// that executes a named worker on a regular delay interval.
+  /// </summary>
   public abstract class WorkerBase : BackgroundService
   {
-    #region Fields and Properties
-
-    private readonly ILogger<WorkerBase> m_Logger;
-
-    private readonly IBackgroundServiceToggle m_ServiceToggle;
-
+    /// <summary>
+    /// The default constructor accepting an ILogger and IBackgroundServiceToggle
+    /// </summary>
     public WorkerBase(ILogger<WorkerBase> logger, IBackgroundServiceToggle serviceToggle)
     {
       m_Logger = logger;
       m_ServiceToggle = serviceToggle;
     }
 
+    #region Fields and Properties
+
+    private readonly ILogger<WorkerBase> m_Logger;
+
+    private readonly IBackgroundServiceToggle m_ServiceToggle;
+
+    /// <summary>
+    /// The public repeat interval delay between DoWork method executions.
+    /// </summary>
     public int RepeatIntervalMs { get; set; } = 1000;
 
+    /// <summary>
+    /// A start up delay to avoid any other host startup operations from being disrupted
+    /// </summary>
     public int StartUpDelayMs { get; set; } = 15_000;
 
+    /// <summary>
+    /// The worker name used for process identification
+    /// </summary>
     public string WorkerName { get; set; }
 
     #endregion
@@ -85,6 +100,9 @@ namespace LogApi.Logic
       }
     }
 
+    /// <summary>
+    /// The abstract DoWork task that executes on the background task.
+    /// </summary>
     public abstract Task DoWork(CancellationToken stoppingToken);
   }
 }
