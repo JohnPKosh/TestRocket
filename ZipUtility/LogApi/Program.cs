@@ -48,7 +48,7 @@ namespace LogApi
                       listenOptions.UseHttps("localhost.pfx", "YourSecurePassword");
                     });
 
-                serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(2);
+                serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(5);
                 serverOptions.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(1);
               }) // TODO: Move to "Kestrel" appsettings.json configuration section
               .UseStartup<Startup>();
