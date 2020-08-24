@@ -29,16 +29,19 @@ namespace LogApiTestClient
     internal static void Get(
       [Option("--url", "-u,\\u", description: "The API target method URL")] string url
       , [Option("--ntimes", "-n,\\n", description: "Number of times to call the API target method")] int ntimes
+      , [Option("--user", "-user,\\user", description: "The Basic Auth UserName", required: false)] string user = null
+      , [Option("--pwd", "-pwd,\\pwd", description: "The Basic Auth Password", required: false)] string pwd = null
       , [Option("--fail", "-f,\\f", description: "Max failures allowed before abandoning process", required: false)] int fail = DEFAULT_MAX_FAIL_ALLOWED
       )
     {
-      Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail}");
-      var client = new Client();
-      var sw = new Stopwatch();
-      sw.Start();
-      client.Get(url, ntimes, fail); // Pass logic to implementation
-      sw.Stop();
-      Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
+      if(!string.IsNullOrWhiteSpace(user) && !string.IsNullOrWhiteSpace(pwd))
+      {
+        BasicAuthGet(url, ntimes, user, pwd, fail);
+      }
+      else
+      {
+        AnonymousGet(url, ntimes, fail);
+      }
     }
 
     /// <summary>
@@ -51,17 +54,68 @@ namespace LogApiTestClient
     internal static void ParallelGet(
       [Option("--url", "-u,\\u", description: "The API target method URL")] string url
       , [Option("--ntimes", "-n,\\n", description: "Number of times to call the API target method")] int ntimes
+      , [Option("--user", "-user,\\user", description: "The Basic Auth UserName", required: false)] string user = null
+      , [Option("--pwd", "-pwd,\\pwd", description: "The Basic Auth Password", required: false)] string pwd = null
       , [Option("--fail", "-f,\\f", description: "Max failures allowed before abandoning process", required: false)] int fail = DEFAULT_MAX_FAIL_ALLOWED
       , [Option("--maxdop", "-m,\\m", description: "Max degree of parallelism", required: false)] int maxdop = DEFAULT_MAX_DOP
       )
     {
-      Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail}  Max DOP: {maxdop}");
+      if (!string.IsNullOrWhiteSpace(user) && !string.IsNullOrWhiteSpace(pwd))
+      {
+        BasicAuthParallelGet(url, ntimes, user, pwd, fail, maxdop);
+      }
+      else
+      {
+        AnonymousParallelGet(url, ntimes, fail, maxdop);
+      }
+    }
+
+    #region Private Methods
+
+    private static void AnonymousGet(string url, int ntimes, int fail)
+    {
+      Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail}");
       var client = new Client();
       var sw = new Stopwatch();
       sw.Start();
-      client.ParallelGet(url, ntimes, maxdop, fail);  // Pass logic to implementation
+      client.Get(url, ntimes, fail); // Pass logic to implementation
       sw.Stop();
       Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
     }
+
+    private static void BasicAuthGet(string url, int ntimes, string user, string pwd, int fail)
+    {
+      Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail}");
+      var client = new BasicAuthClient();
+      var sw = new Stopwatch();
+      sw.Start();
+      client.Get(url, user, pwd, ntimes, fail); // Pass logic to implementation
+      sw.Stop();
+      Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
+    }
+
+    private static void AnonymousParallelGet(string url, int ntimes, int fail, int maxdop)
+    {
+      Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail} Max DOP: {maxdop}");
+      var client = new Client();
+      var sw = new Stopwatch();
+      sw.Start();
+      client.ParallelGet(url, ntimes, fail, maxdop); // Pass logic to implementation
+      sw.Stop();
+      Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
+    }
+
+    private static void BasicAuthParallelGet(string url, int ntimes, string user, string pwd, int fail, int maxdop)
+    {
+      Console.WriteLine($"Running {url} {ntimes} times! Max Failures Allowed: {fail} Max DOP: {maxdop}");
+      var client = new BasicAuthClient();
+      var sw = new Stopwatch();
+      sw.Start();
+      client.ParallelGet(url, user, pwd, ntimes, fail, maxdop); // Pass logic to implementation
+      sw.Stop();
+      Console.WriteLine("Total ms run time {0}", sw.ElapsedMilliseconds);
+    }
+
+    #endregion
   }
 }

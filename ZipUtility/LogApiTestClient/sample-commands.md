@@ -27,15 +27,15 @@ LogApiTestClient get --help
 ### To execute GET method n times:
 
 ```shell
-LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices" -n 25 --fail 10
+LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices" -n 25 --fail 10 --user stanleyjobson --pwd swordfish
 ```
 
 ```shell
-LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices/disable" -n 25 --fail 10
+LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices/disable" -n 25 --fail 10 --user stanleyjobson --pwd swordfish
 ```
 
 ```shell
-LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices/enable" -n 25 --fail 10
+LogApiTestClient get --url "https://localhost:5001/sys/backgroundservices/enable" -n 25 --fail 10 --user stanleyjobson --pwd swordfish
 ```
 
 
@@ -54,15 +54,15 @@ LogApiTestClient pget --help
 ### To execute Parallel GET method n times:
 
 ```shell
-LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices" -n 25 -m 4 -f 10
+LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices" -n 25 -m 4 -f 10 --user stanleyjobson --pwd swordfish
 ```
 
 ```shell
-LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices/disable" -n 25 -m 4 -f 10
+LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices/disable" -n 25 -m 4 -f 10 --user stanleyjobson --pwd swordfish
 ```
 
 ```shell
-LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices/enable" -n 25 -m 4 -f 10
+LogApiTestClient pget --url "https://localhost:5001/sys/backgroundservices/enable" -n 25 -m 4 -f 10 --user stanleyjobson --pwd swordfish
 ```
 
 
