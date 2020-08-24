@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SRF.BasicAuth\SRF.BasicAuth.csproj" />
     <ProjectReference Include="..\SRF.CommandItems\SRF.CommandItems.csproj" />
   </ItemGroup>
 

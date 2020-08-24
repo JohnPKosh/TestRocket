@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using LogApiTestClient.Logic;
+using SRF.BasicAuth.Models;
 using SRF.CommandItems.Attributes;
 
 namespace LogApiTestClient
@@ -68,6 +69,26 @@ namespace LogApiTestClient
       {
         AnonymousParallelGet(url, ntimes, fail, maxdop);
       }
+    }
+
+    [Cmd("token", description: "Gets a sample JWT Token.")]
+    internal static void GetToken()
+    {
+      string DEFAULT_ADDRESS = "https://localhost:5001";
+
+      var treq = new TokenRequest()
+      {
+        Email = "jkosh@somewhere.com",
+        Name = "John Kosh",
+        UserIdentity = "jkosh"
+      };
+
+      var connector = new TokenClient();
+
+      var authenticated = connector.TryAuthenticateAsync(new Uri(DEFAULT_ADDRESS + "/token"), treq);
+      var result = authenticated.Result;
+      //if (!authenticated.Result) throw new Exception("fubar");
+      Console.WriteLine(connector.Token);
     }
 
     #region Private Methods

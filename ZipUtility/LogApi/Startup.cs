@@ -1,17 +1,26 @@
+using System;
+using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Converters;
 using NJsonSchema.Generation;
 using SRF.BasicAuth.Logic;
+using SRF.BasicAuth.Models;
 
 namespace LogApi
 {
   public class Startup
   {
+    private readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
+
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
@@ -29,9 +38,34 @@ namespace LogApi
       //// You can optionally add the background service here instead of in Program.cs.
       //services.AddHostedService<Worker>();
 
+      services.AddSingleton<ITokenBuilder, JwtTokenBuilder>();
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
+        {
+          policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+          policy.RequireClaim(ClaimTypes.Name);
+        });
+      });
+      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+          .AddJwtBearer(options =>
+          {
+            options.TokenValidationParameters =
+                      new TokenValidationParameters
+                      {
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateActor = false,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = SecurityKey
+                      };
+          });
+
+
       // configure basic authentication
       services.AddAuthentication("BasicAuthentication")
           .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
 
       // configure DI for application services
       services.AddScoped<IUserService, UserService>();
@@ -87,6 +121,16 @@ namespace LogApi
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+
+        // TODO: refactor and improve below logic.  POST will be prefered way to pass token data.
+        endpoints.MapPost("token", context =>
+        {
+          var tokenManager = app.ApplicationServices.GetService<ITokenBuilder>();
+          var cancellationToken = context.RequestAborted;
+          var body = JsonSerializer.DeserializeAsync<TokenRequest>(context.Request.Body, null, cancellationToken);
+
+          return context.Response.WriteAsync(tokenManager.GenerateToken(body.Result, SecurityKey));
+        });
       });
     }
   }
