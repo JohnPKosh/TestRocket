@@ -1,5 +1,6 @@
 ﻿using LogApi.Logic;
 using LogApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -8,6 +9,7 @@ namespace LogApi.Controllers.Sys
   /// <summary>
   /// Represents a systems level controller that allows for API management of the BackgroundServices
   /// </summary>
+  [Authorize]
   [Route("sys/[controller]")]
   [ApiController]
   public class BackgroundServicesController : ControllerBase

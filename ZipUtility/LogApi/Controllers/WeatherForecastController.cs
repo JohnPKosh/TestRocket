@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LogApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using NSwag.Annotations;
 
 namespace LogApi.Controllers
 {
+  [Authorize]
   [ApiController]
   [Route("[controller]")]
   public class WeatherForecastController : ControllerBase
@@ -29,12 +31,14 @@ namespace LogApi.Controllers
     /// <summary>Gets a weather forecast</summary>
     /// <response code="200" nullable="true">Weather Forecast Provided.</response>
     /// <response code="500" nullable="true">Internal Server Error.</response>
+    [AllowAnonymous]
     [HttpGet]
     [OpenApiOperation("Get", "Gets weather forcasts", "Used to get a collection of weather forcasts")]
     [ProducesResponseType(typeof(IEnumerable<WeatherForecast>), 200)]
     [ProducesResponseType(typeof(void), 500)]
     public IEnumerable<WeatherForecast> Get()
     {
+      if(!User.Identity.IsAuthenticated) m_Logger.LogError("Anonymous access");
       m_Logger.LogInformation("LogInformation {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
 
       var rng = new Random();
@@ -58,6 +62,7 @@ namespace LogApi.Controllers
     [OpenApiOperation("Find Summary", "Gets weather forcast by summary", "Used to get a weather forcast by summary value 0-9")]
     [Produces("application/json")]
     [ProducesResponseType(typeof(WeatherForecast), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<WeatherForecast>> FindForecast(int summary)

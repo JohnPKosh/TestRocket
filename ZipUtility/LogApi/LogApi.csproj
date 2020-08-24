@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Logging\SRF.FileLogging.csproj" />
+    <ProjectReference Include="..\SRF.BasicAuth\SRF.BasicAuth.csproj" />
   </ItemGroup>
 
 

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Converters;
 using NJsonSchema.Generation;
+using SRF.BasicAuth.Logic;
 
 namespace LogApi
 {
@@ -26,6 +28,13 @@ namespace LogApi
 
       //// You can optionally add the background service here instead of in Program.cs.
       //services.AddHostedService<Worker>();
+
+      // configure basic authentication
+      services.AddAuthentication("BasicAuthentication")
+          .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
+      // configure DI for application services
+      services.AddScoped<IUserService, UserService>();
 
       services.AddOpenApiDocument(document =>
         {
@@ -72,6 +81,7 @@ namespace LogApi
 
       app.UseRouting();
 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>

@@ -1,5 +1,10 @@
 ﻿
+GET https://localhost:5001/WeatherForecast/3 HTTP/1.2
+Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
 
+###
 
 GET https://localhost:5001/weatherforecast HTTP/1.2
 # Authorization: Basic stanleyjobson:swordfish
@@ -11,24 +16,25 @@ Content-Type: application/json
 
 GET https://localhost:5001/sys/backgroundservices HTTP/1.2
 # Authorization: Basic stanleyjobson:swordfish
+Authorization: Basic c3RhbmxleWpvYnNvbjpzd29yZGZpc2g=
 Accept: application/json
 Content-Type: application/json
 
 ###
 
-curl --request GET --url https://localhost:5001/sys/backgroundservices --header 'accept: application/json' --header 'content-type: application/json'
+curl --request GET --url https://localhost:5001/sys/backgroundservices --header 'accept: application/json' --header 'content-type: application/json' --header 'Authorization: Basic c3RhbmxleWpvYnNvbjpzd29yZGZpc2g='
 
 ###
 
 GET https://localhost:5001/sys/backgroundservices/enable HTTP/1.2
-# Authorization: Basic stanleyjobson:swordfish
+Authorization: Basic stanleyjobson:swordfish
 Accept: application/json
 Content-Type: application/json
 
 ###
 
 GET https://localhost:5001/sys/backgroundservices/disable HTTP/1.2
-# Authorization: Basic stanleyjobson:swordfish
+Authorization: Basic stanleyjobson:swordfish
 Accept: application/json
 Content-Type: application/json
 
@@ -38,34 +44,34 @@ Content-Type: application/json
 ### disable
 
 POST https://localhost:5001/sys/backgroundservices/ HTTP/1.2
-# Authorization: Basic stanleyjobson:swordfish
+Authorization: Basic c3RhbmxleWpvYnNvbjpzd29yZGZpc2g=
 Accept: application/json
 Content-Type: application/json
 
 {
-  "requestType":0
+  "requestType":"Disable"
 }
 
 
 ### enable
 
 POST https://localhost:5001/sys/backgroundservices/ HTTP/1.2
-# Authorization: Basic stanleyjobson:swordfish
+Authorization: Basic stanleyjobson:swordfish
 Accept: application/json
 Content-Type: application/json
 
 {
-  "requestType":1
+  "requestType":"Enable"
 }
 
 
 ### status
 
 POST https://localhost:5001/sys/backgroundservices/ HTTP/1.2
-# Authorization: Basic stanleyjobson:swordfish
+Authorization: Basic stanleyjobson:swordfish
 Accept: application/json
 Content-Type: application/json
 
 {
-  "requestType":2
+  "requestType":"Status"
 }
