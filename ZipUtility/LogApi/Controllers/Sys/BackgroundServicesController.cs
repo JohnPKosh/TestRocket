@@ -1,8 +1,10 @@
 ﻿using LogApi.Logic;
 using LogApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NSwag.Annotations;
 
 namespace LogApi.Controllers.Sys
 {
@@ -26,6 +28,10 @@ namespace LogApi.Controllers.Sys
 
     // GET: api/<BackgroundServicesController>
     [HttpGet]
+    [OpenApiOperation("GETs the background service status", "GETs and sets the current status of IsEnabled=true/false")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(BackgroundServiceStateResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status401Unauthorized)]
     public BackgroundServiceStateResult Get()
     {
       return get();
@@ -33,6 +39,10 @@ namespace LogApi.Controllers.Sys
 
 
     [HttpGet("enable")]
+    [OpenApiOperation("Signals the background service to start executing recurring tasks", "GETs and sets the current status to IsEnabled=true")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(BackgroundServiceStateResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status401Unauthorized)]
     public BackgroundServiceStateResult EnableBackgroundServices()
     {
       return enable();
@@ -40,6 +50,10 @@ namespace LogApi.Controllers.Sys
 
 
     [HttpGet("disable")]
+    [OpenApiOperation("Signals the background service to stop executing recurring tasks", "GETs and sets the current status to IsEnabled=false")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(BackgroundServiceStateResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status401Unauthorized)]
     public BackgroundServiceStateResult DisableBackgroundServices()
     {
       return disable();
@@ -48,6 +62,12 @@ namespace LogApi.Controllers.Sys
 
     // POST api/<BackgroundServicesController>
     [HttpPost]
+    [OpenApiOperation("POSTs a background service signal", "POSTs a BackgroundServiceRequest object to the API to Enable, Disable, or return the current Status")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(BackgroundServiceStateResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     public BackgroundServiceStateResult Post(BackgroundServiceRequest value)
     {
       switch (value.RequestType)

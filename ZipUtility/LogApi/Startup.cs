@@ -70,12 +70,12 @@ namespace LogApi
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
-      }
 
-      // Register the Swagger generator and the Swagger UI middlewares
-      app.UseOpenApi();
-      app.UseSwaggerUi3();   // view Swagger UI at: /swagger/
-      //app.UseReDoc();
+        // Register the Swagger generator and the Swagger UI middlewares
+        app.UseOpenApi();
+        app.UseSwaggerUi3();   // view Swagger UI at: /swagger/
+        //app.UseReDoc();
+      }
 
       app.UseHttpsRedirection();
 
