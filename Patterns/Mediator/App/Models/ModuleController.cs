@@ -81,7 +81,7 @@ namespace mediate.Models
 
     // THIS is where we provide our handler logic that will be registered on each ServiceModule.
     // Because we provided some clever inheritance structure we can now define the below methods
-    // to accept an abstract ComponentEventArgs and both of the below will in tunr call the same
+    // to accept an abstract ComponentEventArgs and both of the below will in turn call the same
     // private SendChangeMsg method, but the results will vary appropriatly due to inheritance.
 
     private void m_AttachHandler(object sender, ComponentEventArgs e) => SendChangeMsg(sender, e);
