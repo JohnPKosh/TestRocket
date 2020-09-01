@@ -3,6 +3,7 @@
 Test rockets, robots, and other fun experiments. Feel free to kick the tires and create something fun that you think could be contributed to this repo.
 
 > Check out my new "Agile Software Reboot" article [HERE](Docs/agile-software-reboot.pdf)
+> [IT Mechanisms for Success](Docs/choose-your-weapon.pdf) - "Don't bring a knife to a gunfight"
 
 ## Why is this project here?
 
