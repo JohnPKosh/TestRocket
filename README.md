@@ -40,7 +40,7 @@ Well, this project hopefully checks off **#9**, **#7**, and **#6** on my list of
 
 ## Code Review Documents (WIP)
 
-**["Team Code Review Template"](code-review-template.md)**
+**["Team Code Review Template"](Docs/code-review-template.md)**
 
 ---
 
