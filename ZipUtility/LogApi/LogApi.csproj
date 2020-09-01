@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NSwag.AspNetCore" Version="13.7.0" />
+    <PackageReference Include="NSwag.Annotations" Version="13.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="localhost.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="localhost.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logging\SRF.FileLogging.csproj" />
+    <ProjectReference Include="..\SRF.BasicAuth\SRF.BasicAuth.csproj" />
+  </ItemGroup>
+
+
+</Project>
