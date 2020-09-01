@@ -1,12 +1,12 @@
-# TestRocket
+<img src="elm/design/img/test-rocket-header.svg" alt="Logo" >
 
 Test rockets, robots, and other fun experiments. Feel free to kick the tires and create something fun that you think could be contributed to this repo.
 
 ## Articles
 
-### **["Agile Software Reboot"](Docs/agile-software-reboot.pdf)**
+### **["Agile Software Reboot"](doc/agile-software-reboot.pdf)**
 
-### **["IT Mechanisms for Success"](Docs/choose-your-weapon.pdf)** - _Don't bring a knife to a gunfight_
+### **["IT Mechanisms for Success"](doc/choose-your-weapon.pdf)** - _Don't bring a knife to a gunfight_
 
 ---
 
@@ -40,7 +40,7 @@ Well, this project hopefully checks off **#9**, **#7**, and **#6** on my list of
 
 ## Code Review Documents (WIP)
 
-**["Team Code Review Template"](Docs/code-review-template.md)**
+**["Team Code Review Template"](doc/code-review-template.md)**
 
 ---
 
@@ -211,4 +211,4 @@ To run this solution make sure you download and install the SDK.
 
 [Walkthrough - MS Docs](https://docs.microsoft.com/en-us/visualstudio/test/walkthrough-creating-and-running-unit-tests-for-managed-code?view=vs-2019)
 
-[unit-test-intro-slides.pdf](unit-test-intro-slides.pdf)
+[unit-test-intro-slides.pdf](doc/unit-test-intro-slides.pdf)
