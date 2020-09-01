@@ -6,8 +6,9 @@ Test rockets, robots, and other fun experiments. Feel free to kick the tires and
 
 ### **["Agile Software Reboot"](Docs/agile-software-reboot.pdf)**
 
-
 ### **["IT Mechanisms for Success"](Docs/choose-your-weapon.pdf)** - _Don't bring a knife to a gunfight_
+
+---
 
 ## Why is this project here?
 
@@ -34,6 +35,12 @@ Well, this project hopefully checks off **#9**, **#7**, and **#6** on my list of
 8. I will produce estimates that are honest both in magnitude and precision. I will not make promises without certainty.
 
 9. I will never stop learning and improving my craft.
+
+---
+
+## Code Review Documents (WIP)
+
+**["Team Code Review Template"](code-review-template.md)**
 
 ---
 
