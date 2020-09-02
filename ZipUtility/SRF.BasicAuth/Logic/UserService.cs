@@ -7,19 +7,19 @@ namespace SRF.BasicAuth.Logic
 {
   public interface IUserService
   {
-    Task<User> Authenticate(string username, string password);
-    Task<IEnumerable<User>> GetAll();
+    Task<UserModel> Authenticate(string username, string password);
+    Task<IEnumerable<UserModel>> GetAll();
   }
 
   public class UserService : IUserService
   {
     // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-    private List<User> _users = new List<User>
+    private List<UserModel> _users = new List<UserModel>
     {
-        new User { Id = 1, FirstName = "Test", LastName = "User", Username = "stanleyjobson", Password = "swordfish" }
+        new UserModel { Id = 1, FirstName = "Test", LastName = "User", Username = "stanleyjobson", Password = "swordfish" }
     };
 
-    public async Task<User> Authenticate(string username, string password)
+    public async Task<UserModel> Authenticate(string username, string password)
     {
       var user = await Task.Run(() => _users.SingleOrDefault(x => x.Username == username && x.Password == password));
 
@@ -31,7 +31,7 @@ namespace SRF.BasicAuth.Logic
       return user.WithoutPassword();
     }
 
-    public async Task<IEnumerable<User>> GetAll()
+    public async Task<IEnumerable<UserModel>> GetAll()
     {
       return await Task.Run(() => _users.WithoutPasswords());
     }

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,44 +32,18 @@ namespace LogApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      //services.AddSingleton<IBackgroundServiceToggle, BackgroundServiceToggle>();
       services.AddControllers()
         .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
-      //// You can optionally add the background service here instead of in Program.cs.
-      //services.AddHostedService<Worker>();
-
-      services.AddSingleton<ITokenBuilder, JwtTokenBuilder>();
-      services.AddAuthorization(options =>
-      {
-        options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
-        {
-          policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
-          policy.RequireClaim(ClaimTypes.Name);
-        });
-      });
-      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-          .AddJwtBearer(options =>
-          {
-            options.TokenValidationParameters =
-                      new TokenValidationParameters
-                      {
-                        ValidateAudience = false,
-                        ValidateIssuer = false,
-                        ValidateActor = false,
-                        ValidateLifetime = true,
-                        IssuerSigningKey = SecurityKey
-                      };
-          });
-
-
-      // configure basic authentication
-      services.AddAuthentication("BasicAuthentication")
-          .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
-
-
-      // configure DI for application services
+      // Add Basic Auth (SRF.BasicAuth.Logic.StartupExtensions) and UserService
+      services.AddBasicAuth(SecurityKey);
       services.AddScoped<IUserService, UserService>();
+
+      // configure DI for additional application services here:
+
+      // You can optionally add the background service in Program.cs instead of here.
+      //services.AddSingleton<IBackgroundServiceToggle, BackgroundServiceToggle>();
+      //services.AddHostedService<Worker>();
 
       services.AddOpenApiDocument(document =>
         {
@@ -94,7 +69,6 @@ namespace LogApi
           };
         }
       );; // add OpenAPI v3 document
-
 
     }
 
@@ -125,6 +99,13 @@ namespace LogApi
         // TODO: refactor and improve below logic.  POST will be prefered way to pass token data.
         endpoints.MapPost("token", context =>
         {
+          if (!context.User.Identity.IsAuthenticated)
+          {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return context.Response.CompleteAsync();
+            //return context.Response.WriteAsync("Unauthorized");
+          }
+
           var tokenManager = app.ApplicationServices.GetService<ITokenBuilder>();
           var cancellationToken = context.RequestAborted;
           var body = JsonSerializer.DeserializeAsync<TokenRequest>(context.Request.Body, null, cancellationToken);

@@ -6,12 +6,12 @@ namespace SRF.BasicAuth.Logic
 {
   public static class ExtensionMethods
   {
-    public static IEnumerable<User> WithoutPasswords(this IEnumerable<User> users)
+    public static IEnumerable<UserModel> WithoutPasswords(this IEnumerable<UserModel> users)
     {
       return users.Select(x => x.WithoutPassword());
     }
 
-    public static User WithoutPassword(this User user)
+    public static UserModel WithoutPassword(this UserModel user)
     {
       user.Password = null;
       return user;

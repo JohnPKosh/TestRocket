@@ -75,3 +75,36 @@ Content-Type: application/json
 {
   "requestType":"Status"
 }
+
+
+
+###
+
+POST https://localhost:5001/token HTTP/1.2
+Authorization: Basic stanleyjobson:swordfish
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Email":"jkosh@somewhere.com",
+  "Name":"John Kosh",
+  "UserIdentity": "jkosh"
+}
+
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSm9obiBLb3NoIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiamtvc2hAc29tZXdoZXJlLmNvbSIsIlVzZXJJZGVudGl0eSI6Imprb3NoIiwiZXhwIjoxNTk5MDExOTMzLCJpc3MiOiJFeGFtcGxlU2VydmVyIiwiYXVkIjoiRXhhbXBsZUNsaWVudHMifQ.HG0icfJ-7sMo_wAQcgzxjHaUktVIl_SlEjlmOAKvrJ0
+
+
+
+
+
+### status with bearer
+
+POST https://localhost:5001/sys/backgroundservices/ HTTP/1.2
+# Authorization: Basic stanleyjobson:swordfish
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSm9obiBLb3NoIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiamtvc2hAc29tZXdoZXJlLmNvbSIsIlVzZXJJZGVudGl0eSI6Imprb3NoIiwiZXhwIjoxNTk5MDEzNjEyLCJpc3MiOiJFeGFtcGxlU2VydmVyIiwiYXVkIjoiRXhhbXBsZUNsaWVudHMifQ.4HdhP05Gnud049u4O7jTjjBXvmrUO_jYx-nLbRZmDwE
+Accept: application/json
+Content-Type: application/json
+
+{
+  "requestType":"Status"
+}
