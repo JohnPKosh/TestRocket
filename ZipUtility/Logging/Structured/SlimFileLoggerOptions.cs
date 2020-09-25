@@ -50,7 +50,7 @@ namespace SRF.FileLogging.Structured
   ///         "Microsoft.Hosting.Lifetime": "Information",
   ///         "LogApi": "Trace"
   ///       },
-  ///       "Folder": "./bin/Logs",
+  ///       "Folder": "./logs",
   ///       "FileExtension": ".log",
   ///       "MaxFileSizeInMB": 5,
   ///       "LogSizeCheckInterval": 200
