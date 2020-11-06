@@ -38,6 +38,7 @@ namespace LogApi.Controllers
     [ProducesResponseType(typeof(void), 500)]
     public IEnumerable<WeatherForecast> Get()
     {
+      // We would not really allow anonymous then log the error and still proceed. Used just to test logging.
       if(!User.Identity.IsAuthenticated) m_Logger.LogError("Anonymous access");
       m_Logger.LogInformation("LogInformation {name} {method} Method Called!", nameof(WeatherForecastController), nameof(Get));
 
