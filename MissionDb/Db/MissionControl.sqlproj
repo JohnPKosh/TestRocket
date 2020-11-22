@@ -73,8 +73,21 @@
     <Build Include="StoredProcedures\GetTakeoutMenuByLaunchCenterId.sql" />
     <Build Include="Views\LaunchCenterTakeoutMenu.sql" />
     <Build Include="StoredProcedures\FindMenuItem.sql" />
+    <Build Include="Tables\GDID_IMPORT.sql" />
+    <Build Include="Tables\GDID_TEST.sql" />
+    <Build Include="Tables\GDID_BODY.sql" />
+    <Build Include="Tables\ROWID_BODY.sql" />
+    <Build Include="Tables\GDID_EXT_RES_CHILD.sql" />
+    <Build Include="Indexes\IDX_GDID_EXT_RES_CHILD.sql" />
+    <Build Include="Tables\ROWID_EXT_RES_CHILD.sql" />
+    <Build Include="Indexes\IDX_ROWID_EXT_RES_CHILD.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\Create-WMSG_Schema.sql" />
+    <None Include="Scripts\bcp.sql" />
+    <None Include="Scripts\GDID_TEST.bcp" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using LogApi.Logic;
 using LogApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ namespace LogApi.Controllers.Sys
   /// <summary>
   /// Represents a systems level controller that allows for API management of the BackgroundServices
   /// </summary>
-  [Authorize]
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]  // see https://docs.microsoft.com/en-us/aspnet/core/security/authorization/limitingidentitybyscheme?view=aspnetcore-3.1
   [Route("sys/[controller]")]
   [ApiController]
   public class BackgroundServicesController : ControllerBase
