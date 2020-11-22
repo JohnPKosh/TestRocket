@@ -4,11 +4,11 @@
 
 
 ```shell
-cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApi\bin\Debug\netcoreapp3.1
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApi\bin\Debug\netcoreapp5.0
 ```
 
 ```shell
-cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApi\bin\Release\netcoreapp3.1
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApi\bin\Release\netcoreapp5.0
 ```
 
 ## Start the API:
@@ -21,11 +21,11 @@ LogApi.exe
 
 
 ```shell
-cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApiTestClient\bin\Debug\netcoreapp3.1
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApiTestClient\bin\Debug\netcoreapp5.0
 ```
 
 ```shell
-cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApiTestClient\bin\Release\netcoreapp3.1
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApiTestClient\bin\Release\netcoreapp5.0
 ```
 
 ### To see Help for GET method:
