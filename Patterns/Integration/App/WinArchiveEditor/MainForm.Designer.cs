@@ -36,6 +36,7 @@ namespace WinArchiveEditor
       // 
       // btn_Generate
       // 
+      this.btn_Generate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.btn_Generate.Location = new System.Drawing.Point(676, 404);
       this.btn_Generate.Name = "btn_Generate";
       this.btn_Generate.Size = new System.Drawing.Size(112, 34);
@@ -70,6 +71,7 @@ namespace WinArchiveEditor
       this.Controls.Add(this.txt_Quantity);
       this.Controls.Add(this.btn_Generate);
       this.Name = "MainForm";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Win Archive Editor";
       this.ResumeLayout(false);
       this.PerformLayout();

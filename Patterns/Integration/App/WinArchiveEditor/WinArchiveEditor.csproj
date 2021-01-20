@@ -6,4 +6,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logic\ArchiveData\ArchiveData.csproj" />
+    <ProjectReference Include="..\..\Logic\ArchiveLogic\ArchiveLogic.csproj" />
+  </ItemGroup>
+
 </Project>
