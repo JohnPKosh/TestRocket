@@ -81,6 +81,7 @@
     <Build Include="Indexes\IDX_GDID_EXT_RES_CHILD.sql" />
     <Build Include="Tables\ROWID_EXT_RES_CHILD.sql" />
     <Build Include="Indexes\IDX_ROWID_EXT_RES_CHILD.sql" />
+    <Build Include="Tables\USGeoName.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeployment.sql" />

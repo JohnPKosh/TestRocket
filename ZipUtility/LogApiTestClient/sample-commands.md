@@ -2,8 +2,13 @@
 
 ## Open a command propt in the API deployment directory:
 
+
 ```shell
-cd C:\vscode\github\TestRocket\ZipUtility\LogApi\bin\Release\netcoreapp3.1
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApi\bin\Debug\netcoreapp5.0
+```
+
+```shell
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApi\bin\Release\netcoreapp5.0
 ```
 
 ## Start the API:
@@ -14,8 +19,13 @@ LogApi.exe
 
 ## Open a command prompt in the API client deployment directory:
 
+
 ```shell
-cd C:\vscode\github\TestRocket\ZipUtility\LogApiTestClient\bin\Release\netcoreapp3.1
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApiTestClient\bin\Debug\netcoreapp5.0
+```
+
+```shell
+cd %DEVHOME%\ghub\TestRocket\ZipUtility\LogApiTestClient\bin\Release\netcoreapp5.0
 ```
 
 ### To see Help for GET method:

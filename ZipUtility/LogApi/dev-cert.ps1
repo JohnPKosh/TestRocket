@@ -8,7 +8,7 @@ $certificate = New-SelfSignedCertificate `
     -NotBefore (Get-Date) `
     -NotAfter (Get-Date).AddYears(2) `
     -CertStoreLocation "cert:CurrentUser\My" `
-    -FriendlyName "Localhost Certificate for .NET Core" `
+    -FriendlyName "UNSAFE Localhost Certificate for .NET Core" `
     -HashAlgorithm SHA256 `
     -KeyUsage DigitalSignature, KeyEncipherment, DataEncipherment `
     -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.1")
