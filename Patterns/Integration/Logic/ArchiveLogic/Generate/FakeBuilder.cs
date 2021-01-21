@@ -10,17 +10,17 @@ using ArchiveData.Models;
 
 namespace ArchiveLogic.Generate
 {
-  public static class PersonBuilder
+  public static class FakeBuilder
   {
     /// <summary>
-    /// Creates and returns many random PersonRows with GDID global Ids based on
+    /// Creates and returns many random FakeRows with GDID global Ids based on
     /// the supplied era, authority, count (number to produce), and offset (starting point of GDID counter value)
     /// </summary>
-    public static IEnumerable<PersonRow> GenerateMany(uint era, int authority, ulong count, ulong offset = 0)
+    public static IEnumerable<T> GenerateMany<T>(uint era, int authority, ulong count, ulong offset = 0) where T: FakeRow , new()
     {
       for (ulong i = offset; i < count; i++)
       {
-        yield return PersonRow.MakeFake(new GDID(era, authority, i));
+        yield return new T().Populate(new GDID(era, authority, i)) as T;
       }
     }
   }

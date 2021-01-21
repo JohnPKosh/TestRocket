@@ -1,4 +1,5 @@
-﻿using ArchiveLogic.Generate;
+﻿using ArchiveData.Models;
+using ArchiveLogic.Generate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,9 +21,11 @@ namespace WinArchiveEditor
 
     private void btn_Generate_Click(object sender, EventArgs e)
     {
-      var peeps = PersonBuilder.GenerateMany(1, 1, 10_000).ToArray();
+      var peeps = FakeBuilder.GenerateMany<FakeLogMessage>(1, 1, 10_000).ToArray();
 
-      MessageBox.Show($"generated my peeps and got {peeps.Length} random people");
+      if (peeps.Any()) MessageBox.Show(peeps[0].Instance.ToJsonDataMap().ToString());
+
+      //MessageBox.Show($"generated my peeps and got {peeps.Length} random people");
 
 
     }
