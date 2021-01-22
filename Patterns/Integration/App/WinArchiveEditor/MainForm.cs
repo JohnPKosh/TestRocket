@@ -25,8 +25,8 @@ namespace WinArchiveEditor
       if (int.TryParse(txt_Quantity.Text, out int count))
       {
         var peeps = FakeBuilder.GenerateMany<FakeLogMessage>(1, 1, (ulong)count).Select(x=> x.Instance).ToArray();
-
-        if (peeps.Any()) MessageBox.Show(peeps[0].ToJsonDataMap().ToString());
+        txt_Item.Text = peeps[0].ToJsonDataMap().ToString();
+        //if (peeps.Any()) MessageBox.Show(peeps[0].ToJsonDataMap().ToString());
       }
 
       
