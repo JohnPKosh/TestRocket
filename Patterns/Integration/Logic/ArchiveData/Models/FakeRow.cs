@@ -46,6 +46,7 @@ namespace ArchiveData.Models
     #endregion
   }
 
+  #region Concrete FakeRow Models
 
   /// <summary>
   /// A fake person concrete implementation
@@ -53,7 +54,7 @@ namespace ArchiveData.Models
   [Bix("DCAE2B17-FE63-46D4-AEDD-A47C9ECBADC3")]
   public class PersonRow : FakeRow
   {
-    public PersonRow():base () { }
+    public PersonRow() : base() { }
 
     [Field(backendName: "nm")] public string Name { get; set; }
     [Field(backendName: "age")] public int Age { get; set; }
@@ -146,7 +147,6 @@ namespace ArchiveData.Models
 
 
 
-
   /// <summary>
   /// A fake SMS message concrete implementation
   /// </summary>
@@ -193,8 +193,8 @@ namespace ArchiveData.Models
     public override FileTargetRow Populate(GDID parentGdid)
     {
       ID = parentGdid;
-      Name = NaturalTextGenerator.GenerateWord(5,8) + NaturalTextGenerator.GenerateWord(5, 8) + ".txt";
-      FullName = $@"c:\{NaturalTextGenerator.GenerateWord(5,12)}\{NaturalTextGenerator.GenerateWord(3, 8)}\{Name}";
+      Name = NaturalTextGenerator.GenerateWord(5, 8) + NaturalTextGenerator.GenerateWord(5, 8) + ".txt";
+      FullName = $@"c:\{NaturalTextGenerator.GenerateWord(5, 12)}\{NaturalTextGenerator.GenerateWord(3, 8)}\{Name}";
       Host = $"127.0.0.{Ambient.Random.NextScaledRandomInteger(1, 20)}";
       FileId = Guid.NewGuid();
       CreateDate = DateTime.Now.AddHours(Ambient.Random.NextScaledRandomInteger(1, 12)).AddMinutes(Ambient.Random.NextScaledRandomInteger(1, 60));
@@ -223,7 +223,7 @@ namespace ArchiveData.Models
       ID = parentGdid;
       DeviceId = Ambient.Random.NextScaledRandomInteger(1, 10_000);
       Latitude = Math.Round(Ambient.Random.NextScaledRandomDouble(-80, 80), 4);
-      Longitude = Math.Round(Ambient.Random.NextScaledRandomDouble(-180, 180),4);
+      Longitude = Math.Round(Ambient.Random.NextScaledRandomDouble(-180, 180), 4);
       CreateDate = DateTime.Now.AddHours(Ambient.Random.NextScaledRandomInteger(1, 12)).AddMinutes(Ambient.Random.NextScaledRandomInteger(1, 60));
 
       return this;
@@ -292,7 +292,6 @@ namespace ArchiveData.Models
     [Field(backendName: "SUBGROUP")] public string FORMULARYID { get; set; }
     [Field(backendName: "SUBGROUP")] public string F107 { get; set; }
 
-
     public override EobRow Populate(GDID parentGdid)
     {
       var dt = DateTime.Now.AddHours(Ambient.Random.NextScaledRandomInteger(1, 12)).AddMinutes(Ambient.Random.NextScaledRandomInteger(1, 60));
@@ -315,16 +314,16 @@ namespace ArchiveData.Models
       ENTEREDDATE = dt;
       LICS = Ambient.Random.NextScaledRandomInteger(0, 5);
       LICSLEVEL = LICS.ToString();
-      MONY = (parentGdid.ID % 5) == 0 ? "M": null;
+      MONY = (parentGdid.ID % 5) == 0 ? "M" : null;
       BILLDISPFEE = COPAY > 50 ? Math.Round(Ambient.Random.NextScaledRandomDouble(1, 5), 2) : null;
       BILLCOST = COPAY.HasValue ? Math.Round(Ambient.Random.NextScaledRandomDouble(1, COPAY.Value), 2) : null;
       BILLTAX = (parentGdid.ID % 20) == 0 ? Math.Round(Ambient.Random.NextScaledRandomDouble(1, 2), 2) : null;
-      SDC = (parentGdid.ID % 50) == 0 ? Ambient.Random.NextScaledRandomInteger(0, 5) > 2 ? "xxxxxxxxxxxxxxx":"zzzzzz" : null;
+      SDC = (parentGdid.ID % 50) == 0 ? Ambient.Random.NextScaledRandomInteger(0, 5) > 2 ? "xxxxxxxxxxxxxxx" : "zzzzzz" : null;
       PPP = SDC.IsNotNullOrWhiteSpace() ? (decimal)Math.Round(Ambient.Random.NextScaledRandomDouble(0, 2), 2) : null;
       PTR = PPP;
       GROUPBILLCOPAY = QUANTITY == 90 ? BILLCOST : null;
       NDC = Math.Round(Ambient.Random.NextScaledRandomDouble(0, 10_000_000_000), 0).ToString("00000000000");
-      DRUGCRITERIA = (parentGdid.ID % 12) == 0 ? "Y": null;
+      DRUGCRITERIA = (parentGdid.ID % 12) == 0 ? "Y" : null;
       AUTHNUMBER = Math.Round(Ambient.Random.NextScaledRandomDouble(0, 10_000_000_000), 0).ToString("000000000000000");
       REVERSEDAUTH = (parentGdid.ID % 5000) == 0 ? "R" + Math.Round(Ambient.Random.NextScaledRandomDouble(0, 10_000_000_000), 0).ToString("000000000000000") : null;
       TIER = Ambient.Random.NextScaledRandomInteger(1, 6).ToString();
@@ -332,7 +331,7 @@ namespace ArchiveData.Models
       LICSIG = 0;
       LICSOG = 0;
       LICSUG = 0;
-      PLANPAYDED = COPAY.HasValue && COPAY.Value > 500 ? Math.Round(Ambient.Random.NextScaledRandomDouble(1, 500), 2): COPAYDED;
+      PLANPAYDED = COPAY.HasValue && COPAY.Value > 500 ? Math.Round(Ambient.Random.NextScaledRandomDouble(1, 500), 2) : COPAYDED;
       PLANPAYUG = COPAYUG;
       PLANPAYIG = COPAYIG;
       PLANPAYOG = COPAYOG;
@@ -354,4 +353,5 @@ namespace ArchiveData.Models
     }
   }
 
+  #endregion
 }

@@ -20,20 +20,13 @@ namespace WinArchiveEditor
     }
 
     private void btn_Generate_Click(object sender, EventArgs e)
-    {
-      //var count = txt_Quantity.Text;
+    {      
       if (int.TryParse(txt_Quantity.Text, out int count))
       {
+        // For fake logs we need to `Select` the instance property. With other FakeRow implementors it is not necessary.
         var peeps = FakeBuilder.GenerateMany<FakeLogMessage>(1, 1, (ulong)count).Select(x=> x.Instance).ToArray();
         txt_Item.Text = peeps[0].ToJsonDataMap().ToString();
-        //if (peeps.Any()) MessageBox.Show(peeps[0].ToJsonDataMap().ToString());
       }
-
-      
-
-      //MessageBox.Show($"generated my peeps and got {peeps.Length} random people");
-
-
     }
   }
 }

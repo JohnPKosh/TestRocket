@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Azos;
 using Azos.Data;
 using Azos.Log;
-using Azos.Text;
+using Azos.Serialization.Bix;
 
 namespace ArchiveData.Models
 {
@@ -16,6 +13,7 @@ namespace ArchiveData.Models
   /// This class differs from other FakeRow implementors only in the level of 
   /// complexity required to produce an adequately random set of logs data.
   /// </summary>
+  [Bix("9FBF53FC-DAAA-4AF2-B74B-C43493153BF8")]
   public class FakeLogMessage : FakeRow
   {
     private Message m_Instance = new Message();
@@ -37,12 +35,19 @@ namespace ArchiveData.Models
       ID = parentGdid;
       Instance.Gdid = ID;
 
+      // Since Log Messages are very dynamic in nature we want to use a random set of builders to create properties.
       Director.Construct(Director.GetRandomBuilder(), ref m_Instance);
 
       return this;
     }
   }
 
+  #region Director and Builder Logic
+
+  /// <summary>
+  /// The static Director class that orchestrates the construction of 
+  /// the Message properties using the provided IMessageBuilder.
+  /// </summary>
   internal static class Director
   {
     internal static void Construct(IMessageBuilder builder, ref Message message)
@@ -72,8 +77,6 @@ namespace ArchiveData.Models
 
     internal static IMessageBuilder GetRandomBuilder()
     {
-      // TODO: Set up random builder scenarios here!!!!!!!!!
-
       var choice = GetRandomInt(1, 1000);
       return choice switch
       {
@@ -82,18 +85,18 @@ namespace ArchiveData.Models
         > 200 and < 300 => new JsonRequestBuilder(),
         > 300 and < 400 => new JsonResponseBuilder(),
         > 400 and < 500 => new XmlRespBuilder(),
-
-
-
-        > 950 and < 975 => new ExceptionBuilder(),
-        > 975 and < 1000 => new DeleteFilesBuilder(),
+        > 500 and < 775 => new DZeroReqBuilder(),
+        > 775 and < 950 => new DZeroRespBuilder(),
+        > 950 and < 985 => new ExceptionBuilder(),
+        > 985 and < 1000 => new DeleteFilesBuilder(),
         _ => new DeleteFilesBuilder(),
       };
     }
-
   }
 
-  // Builders common interface
+  /// <summary>
+  /// Interface for Builder methods used by the Director
+  /// </summary>
   interface IMessageBuilder
   {
     Atom GetApp(GDID parentGdid);
@@ -109,7 +112,9 @@ namespace ArchiveData.Models
     string GetArchiveDimensions(GDID parentGdid);
   }
 
-
+  /// <summary>
+  /// A base abstract class that random builders should inherit from.
+  /// </summary>
   public abstract class BuilderBase
   {
     public abstract Atom GetApp(GDID parentGdid);
@@ -139,7 +144,11 @@ namespace ArchiveData.Models
     public abstract MessageType GetType(GDID parentGdid);
   }
 
-  public class DeleteFilesBuilder : BuilderBase, IMessageBuilder
+  #endregion
+
+  #region Concrete Random Builders
+
+  internal class DeleteFilesBuilder : BuilderBase, IMessageBuilder
   {
     public override Atom GetApp(GDID parentGdid) =>
       parentGdid.ID % 3 == 0 ? Atom.Encode("esgov") : Atom.Encode("hub");
@@ -155,7 +164,7 @@ namespace ArchiveData.Models
     public override MessageType GetType(GDID parentGdid) => MessageType.Info;
   }
 
-  public class XmlReqBuilder : BuilderBase, IMessageBuilder
+  internal class XmlReqBuilder : BuilderBase, IMessageBuilder
   {
     public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
 
@@ -177,7 +186,7 @@ namespace ArchiveData.Models
         1 => @"{ ""chn"" : ""XXX"", ""clr"" : ""10.0.52.32:53322"" }",
         2 => @"{ ""chn"" : ""YYY"", ""clr"" : ""10.1.28.43:53323"" }",
         3 => @"{ ""chn"" : ""ZZZ"", ""clr"" : ""10.0.88.56:53380"" }",
-        > 3 and < 7  => @"{ ""chn"" : ""--any--"", ""clr"" : ""10.1.33.44:53322"" }",
+        > 3 and < 7 => @"{ ""chn"" : ""--any--"", ""clr"" : ""10.1.33.44:53322"" }",
         > 7 and < 9 => @"{ ""chn"" : ""--any--"", ""clr"" : ""10.1.55.66:53322"" }",
         > 9 and < 12 => @"{ ""chn"" : ""--any--"", ""clr"" : ""10.1.77.88:53322"" }",
         _ => @"{ ""chn"" : ""ABCD"", ""clr"" : ""10.2.33.68:53399"" }",
@@ -190,7 +199,7 @@ namespace ArchiveData.Models
     }
   }
 
-  public class FlowInfoBuilder : BuilderBase, IMessageBuilder
+  internal class FlowInfoBuilder : BuilderBase, IMessageBuilder
   {
     public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
 
@@ -209,16 +218,16 @@ namespace ArchiveData.Models
       var choice = Ambient.Random.NextScaledRandomInteger(1, 4);
       return choice switch
       {
-        1 => FakeLogConstants.FAKE_FLOW_1,
-        2 => FakeLogConstants.FAKE_FLOW_2,
-        3 => FakeLogConstants.FAKE_FLOW_3,
-        _ => FakeLogConstants.FAKE_FLOW_3
+        1 => FakeLogConstants.FAKE_LOG_FLOW_1,
+        2 => FakeLogConstants.FAKE_LOG_FLOW_2,
+        3 => FakeLogConstants.FAKE_LOG_FLOW_3,
+        _ => FakeLogConstants.FAKE_LOG_FLOW_3
       };
     }
 
   }
 
-  public class JsonRequestBuilder : BuilderBase, IMessageBuilder
+  internal class JsonRequestBuilder : BuilderBase, IMessageBuilder
   {
     public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
 
@@ -232,11 +241,10 @@ namespace ArchiveData.Models
 
     public override MessageType GetType(GDID parentGdid) => MessageType.TraceB;
 
-    public override string GetParameters(GDID parentGdid) => FakeLogConstants.FAKE_JSON_REQ;
+    public override string GetParameters(GDID parentGdid) => FakeLogConstants.FAKE_LOG_JSON_REQ;
   }
 
-
-  public class JsonResponseBuilder : BuilderBase, IMessageBuilder
+  internal class JsonResponseBuilder : BuilderBase, IMessageBuilder
   {
     public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
 
@@ -250,11 +258,10 @@ namespace ArchiveData.Models
 
     public override MessageType GetType(GDID parentGdid) => MessageType.TraceD;
 
-    public override string GetParameters(GDID parentGdid) => FakeLogConstants.FAKE_JSON_RESP;
+    public override string GetParameters(GDID parentGdid) => FakeLogConstants.FAKE_LOG_JSON_RESP;
   }
 
-
-  public class XmlRespBuilder : BuilderBase, IMessageBuilder
+  internal class XmlRespBuilder : BuilderBase, IMessageBuilder
   {
     public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
 
@@ -289,8 +296,7 @@ namespace ArchiveData.Models
     }
   }
 
-
-  public class ExceptionBuilder : BuilderBase, IMessageBuilder
+  internal class ExceptionBuilder : BuilderBase, IMessageBuilder
   {
     public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
 
@@ -310,5 +316,75 @@ namespace ArchiveData.Models
     }
   }
 
+  internal class DZeroReqBuilder : BuilderBase, IMessageBuilder
+  {
+    public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
 
+    public override Atom GetChannel(GDID parentGdid) => Atom.Encode("oplog");
+
+    public override string GetFrom(GDID parentGdid) => "FakeLogic.DZeroAsync";
+
+    public override string GetText(GDID parentGdid) => $"[{Ambient.Random.NextScaledRandomInteger(0, 5)}] DZ req";
+
+    public override string GetTopic(GDID parentGdid) => "blogic";
+
+    public override MessageType GetType(GDID parentGdid) => MessageType.TraceA;
+
+    public override string GetArchiveDimensions(GDID parentGdid)
+    {
+      var choice = Ambient.Random.NextScaledRandomInteger(1, 12);
+      return choice switch
+      {
+        1 => @"{ ""bin"" : ""009999"", ""chn"" : ""--any--"", ""clr"" : ""15.1.35.68:53399"", ""dctx"" : ""fake"", ""mbr"" : ""mbr@pbm::JREMETEST2018/01"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFA"", ""pcn"" : ""ABCD"" }",
+        2 => @"{ ""bin"" : ""009999"", ""chn"" : ""FAKE"", ""clr"" : ""15.2.35.68:53399"", ""dctx"" : ""fake"", ""mbr"" : ""mbr@pbm::JREMETEST2018/02"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFB"", ""pcn"" : ""ABCD"" }",
+        3 => @"{ ""bin"" : ""009999"", ""chn"" : ""--any--"", ""clr"" : ""15.3.35.68:53399"", ""dctx"" : ""fake"", ""mbr"" : ""mbr@pbm::JREMETEST2018/03"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFC"", ""pcn"" : ""ABCD"" }",
+        > 3 and < 7 => @"{ ""bin"" : ""009993"", ""chn"" : ""none"", ""clr"" : ""15.4.35.68:53399"", ""dctx"" : ""none"", ""mbr"" : ""mbr@pbm::JREMETEST2018/01"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFD"", ""pcn"" : ""DCBA"" }",
+        > 7 and < 9 => @"{ ""bin"" : ""009994"", ""chn"" : ""SUM"", ""clr"" : ""20.5.35.68:53399"", ""dctx"" : ""sum"", ""mbr"" : ""mbr@pbm::JREMETEST2018/01"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFE"", ""pcn"" : ""XYZ"" }",
+        > 9 and < 12 => @"{ ""bin"" : ""009994"", ""chn"" : ""RED"", ""clr"" : ""30.0.0.69:53399"", ""dctx"" : ""red"", ""mbr"" : ""mbr@pbm::REDTEST2018/16"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFF"", ""pcn"" : ""XYZ"" }",
+        _ => @"{ ""bin"" : ""009994"", ""chn"" : ""RED"", ""clr"" : ""30.0.0.69:53399"", ""dctx"" : ""red"", ""mbr"" : ""mbr@pbm::REDTEST2018/16"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFF"", ""pcn"" : ""XYZ"" }",
+      };
+    }
+
+    public override string GetParameters(GDID parentGdid)
+    {
+      return FakeLogConstants.FAKE_LOG_DZERO_REQ;
+    }
+  }
+
+  internal class DZeroRespBuilder : BuilderBase, IMessageBuilder
+  {
+    public override Atom GetApp(GDID parentGdid) => Atom.Encode("fake");
+
+    public override Atom GetChannel(GDID parentGdid) => Atom.Encode("oplog");
+
+    public override string GetFrom(GDID parentGdid) => "FakeLogic.DZeroAsync";
+
+    public override string GetText(GDID parentGdid) => $"[{Ambient.Random.NextScaledRandomInteger(0, 5)}] DZ rsp";
+
+    public override string GetTopic(GDID parentGdid) => "blogic";
+
+    public override MessageType GetType(GDID parentGdid) => MessageType.TraceA;
+
+    public override string GetArchiveDimensions(GDID parentGdid)
+    {
+      var choice = Ambient.Random.NextScaledRandomInteger(1, 12);
+      return choice switch
+      {
+        1 => @"{ ""bin"" : ""009999"", ""chn"" : ""--any--"", ""clr"" : ""15.1.35.68:53399"", ""dctx"" : ""fake"", ""mbr"" : ""mbr@pbm::JREMETEST2018/01"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFA"", ""pcn"" : ""ABCD"" }",
+        2 => @"{ ""bin"" : ""009999"", ""chn"" : ""FAKE"", ""clr"" : ""15.2.35.68:53399"", ""dctx"" : ""fake"", ""mbr"" : ""mbr@pbm::JREMETEST2018/02"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFB"", ""pcn"" : ""ABCD"" }",
+        3 => @"{ ""bin"" : ""009999"", ""chn"" : ""--any--"", ""clr"" : ""15.3.35.68:53399"", ""dctx"" : ""fake"", ""mbr"" : ""mbr@pbm::JREMETEST2018/03"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFC"", ""pcn"" : ""ABCD"" }",
+        > 3 and < 7 => @"{ ""bin"" : ""009993"", ""chn"" : ""none"", ""clr"" : ""15.4.35.68:53399"", ""dctx"" : ""none"", ""mbr"" : ""mbr@pbm::JREMETEST2018/01"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFD"", ""pcn"" : ""DCBA"" }",
+        > 7 and < 9 => @"{ ""bin"" : ""009994"", ""chn"" : ""SUM"", ""clr"" : ""20.5.35.68:53399"", ""dctx"" : ""sum"", ""mbr"" : ""mbr@pbm::JREMETEST2018/01"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFE"", ""pcn"" : ""XYZ"" }",
+        > 9 and < 12 => @"{ ""bin"" : ""009994"", ""chn"" : ""RED"", ""clr"" : ""30.0.0.69:53399"", ""dctx"" : ""red"", ""mbr"" : ""mbr@pbm::REDTEST2018/16"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFF"", ""pcn"" : ""XYZ"" }",
+        _ => @"{ ""bin"" : ""009994"", ""chn"" : ""RED"", ""clr"" : ""30.0.0.69:53399"", ""dctx"" : ""red"", ""mbr"" : ""mbr@pbm::REDTEST2018/16"", ""mid"" : ""8045D45130CD41139FCC36781DA6FEFF"", ""pcn"" : ""XYZ"" }",
+      };
+    }
+
+    public override string GetParameters(GDID parentGdid)
+    {
+      return FakeLogConstants.FAKE_LOG_DZERO_RSP;
+    }
+  } 
+
+  #endregion
 }
