@@ -33,6 +33,8 @@ namespace WinArchiveEditor
       this.txt_Quantity = new System.Windows.Forms.TextBox();
       this.lbl_Quantity = new System.Windows.Forms.Label();
       this.txt_Item = new System.Windows.Forms.TextBox();
+      this.trk_Index = new System.Windows.Forms.TrackBar();
+      ((System.ComponentModel.ISupportInitialize)(this.trk_Index)).BeginInit();
       this.SuspendLayout();
       // 
       // btn_Generate
@@ -75,11 +77,22 @@ namespace WinArchiveEditor
       this.txt_Item.Size = new System.Drawing.Size(776, 302);
       this.txt_Item.TabIndex = 3;
       // 
+      // trk_Index
+      // 
+      this.trk_Index.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.trk_Index.Location = new System.Drawing.Point(198, 9);
+      this.trk_Index.Name = "trk_Index";
+      this.trk_Index.Size = new System.Drawing.Size(590, 69);
+      this.trk_Index.TabIndex = 4;
+      this.trk_Index.ValueChanged += new System.EventHandler(this.trk_Index_ValueChanged);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(800, 450);
+      this.Controls.Add(this.trk_Index);
       this.Controls.Add(this.txt_Item);
       this.Controls.Add(this.lbl_Quantity);
       this.Controls.Add(this.txt_Quantity);
@@ -87,6 +100,7 @@ namespace WinArchiveEditor
       this.Name = "MainForm";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Win Archive Editor";
+      ((System.ComponentModel.ISupportInitialize)(this.trk_Index)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -98,6 +112,7 @@ namespace WinArchiveEditor
     private System.Windows.Forms.TextBox txt_Quantity;
     private System.Windows.Forms.Label lbl_Quantity;
     private System.Windows.Forms.TextBox txt_Item;
+    private System.Windows.Forms.TrackBar trk_Index;
   }
 }
 
