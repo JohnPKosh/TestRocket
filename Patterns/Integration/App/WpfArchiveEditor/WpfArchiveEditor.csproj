@@ -14,5 +14,9 @@
     <ProjectReference Include="..\..\Logic\ArchiveData\ArchiveData.csproj" />
     <ProjectReference Include="..\..\Logic\ArchiveLogic\ArchiveLogic.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
   
 </Project>
