@@ -31,7 +31,7 @@
             <Slider x:Name="trk_Index" HorizontalAlignment="Stretch" Margin="8,0,8,0" VerticalAlignment="Center" Grid.Column="2" SmallChange="1" ValueChanged="trk_Index_ValueChanged"/>           
         </Grid>       
         
-        <TextBlock x:Name="txt_Item" HorizontalAlignment="Stretch" Margin="8,8,8,8" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{DynamicResource MahApps.Brushes.Gray3}" FontFamily="Source Code Pro" FontSize="14"/>
+        <TextBox x:Name="txt_Item" HorizontalAlignment="Stretch" Margin="8,8,8,8" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{DynamicResource MahApps.Brushes.Gray3}" FontFamily="Source Code Pro" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" IsHitTestVisible="True" IsTabStop="False" CaretBrush="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="0,0,0,0"/>
         <Button x:Name="btn_Generate" Content="Generate" HorizontalAlignment="Right" Margin="0,4,8,4" Grid.Row="2" VerticalAlignment="Top" Click="btn_Generate_Click" />
 
 
