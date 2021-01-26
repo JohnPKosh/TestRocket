@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:WpfArchiveEditor.Forms"
         mc:Ignorable="d"
         Title="Dashboard" Height="450" Width="800">
@@ -19,8 +20,8 @@
         <mah:MetroTabControl x:Name="metroTabControl" Grid.Row="0" Background="{x:Null}">
             <TabItem>
                 <TabItem.Header>
-                    <Grid Background="{DynamicResource MahApps.Brushes.Accent3}">
-                    <Label FontSize="14" FontWeight="Bold" Margin="8" Foreground="{DynamicResource MahApps.Brushes.Gray}">Tab Item 1</Label>
+                    <Grid ><!--Background="{DynamicResource MahApps.Brushes.Accent3}"-->
+                        <Label FontSize="14" FontWeight="Bold" Margin="0,8,0,8" Foreground="{DynamicResource MahApps.Brushes.Gray}">Tab Item 1</Label>
                     </Grid>
                 </TabItem.Header>
                 <Grid>
@@ -29,12 +30,14 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <Grid Background="{DynamicResource MahApps.Brushes.Accent3}">
-                        <Label FontSize="14" FontWeight="Bold" Margin="8" Foreground="{DynamicResource MahApps.Brushes.Gray}">Tab Item 2</Label>
+                    <Grid ><!--Background="{DynamicResource MahApps.Brushes.Accent3}"-->
+                        <Label FontSize="14" FontWeight="Bold" Margin="0,8,0,8" Foreground="{DynamicResource MahApps.Brushes.Gray}">Tab Item 2</Label>
                     </Grid>
                 </TabItem.Header>
                 <Grid>
-                    <Label FontSize="14" Margin="8" Foreground="{DynamicResource MahApps.Brushes.WindowTitle}">Tab Content 2</Label>
+                    <DockPanel>
+                        <wv2:WebView2 Name="webView" Source="file:///E:/devhome/ghub/TestRocket/Patterns/Integration/App/WpfArchiveEditor/Forms/test.html"/>
+                    </DockPanel>
                 </Grid>
             </TabItem>
         </mah:MetroTabControl>
