@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Pipelines;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace iopipeline
 
     private Stream _stream;
 
-    public int LineNumber { get; set; } = 1000;
+    public int LineNumber { get; set; } = 100000;
 
     public int LineCharMultiplier { get; set; } = 1;
 
@@ -61,7 +62,11 @@ namespace iopipeline
       try
       {
         GlobalSetup();
+        var sw = new Stopwatch();
+        sw.Start();
         var rv = await ReadLineUsingPipelineVer2Async().ConfigureAwait(false);
+        sw.Stop();
+        Console.WriteLine($"Run time {sw.ElapsedMilliseconds}");
         return rv;
       }
       finally
