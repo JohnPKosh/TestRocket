@@ -12,6 +12,10 @@ using System.Threading.Channels;
 
 namespace iopipeline
 {
+  // https://devblogs.microsoft.com/dotnet/an-introduction-to-system-threading-channels/
+  // https://www.stevejgordon.co.uk/an-introduction-to-system-threading-channels
+  // https://github.com/stevejgordon/ChannelSample/blob/master/ChannelSample/Program.cs
+
   public class ChannelProcessor
   {
     private static ReadOnlySpan<byte> m_NewLineBytes => new[] { (byte)'\r', (byte)'\n' };
@@ -61,11 +65,8 @@ namespace iopipeline
 
     public async Task<string> SingleProduceMultipleConsumers()
     {
-      //var channel = Channel.CreateUnbounded<string>();
-
       // In this example, multiple consumers are needed to keep up with a fast producer
 
-      //var producer1 = new Producer(channel.Writer, 1, 100);
       var consumer1 = new Consumer(m_Channel.Reader);
       var consumer2 = new Consumer(m_Channel.Reader);
       var consumer3 = new Consumer(m_Channel.Reader);
@@ -171,37 +172,6 @@ namespace iopipeline
     }
   }
 
-  //internal class Producer
-  //{
-  //  private readonly ChannelWriter<string> _writer;
-  //  private readonly int _identifier;
-  //  private readonly int _delay;
-
-  //  public Producer(ChannelWriter<string> writer, int identifier, int delay)
-  //  {
-  //    _writer = writer;
-  //    _identifier = identifier;
-  //    _delay = delay;
-  //  }
-
-  //  public async Task BeginProducing()
-  //  {
-  //    Console.WriteLine($"PRODUCER ({_identifier}): Starting");
-
-  //    for (var i = 0; i < 10; i++)
-  //    {
-  //      await Task.Delay(_delay); // simulate producer building/fetching some data
-
-  //      var msg = $"P{_identifier} - {DateTime.UtcNow:G}";
-
-  //      Console.WriteLine($"PRODUCER ({_identifier}): Creating {msg}");
-
-  //      await _writer.WriteAsync(msg);
-  //    }
-
-  //    Console.WriteLine($"PRODUCER ({_identifier}): Completed");
-  //  }
-  //}
 
   internal class Consumer
   {
