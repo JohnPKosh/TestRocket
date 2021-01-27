@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,6 +7,16 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <Version>1.0.1.0</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="test-file-02.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="test-file-02.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.IO.Pipelines" Version="5.0.1" />

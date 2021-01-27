@@ -9,7 +9,7 @@ namespace iopipeline
     {
       Console.WriteLine("Hello World!");
 
-      var processor = new ChannelProcessor();
+      var processor = new FileProcessor();
       var results = await processor.PerformRead().ConfigureAwait(false);
 
       Console.WriteLine(results);
