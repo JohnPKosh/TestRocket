@@ -18,6 +18,8 @@ namespace iopipeline
 
   public class FileProcessor
   {
+    private const int CONSUMER_CNT = 3;
+
     private static ReadOnlySpan<byte> m_NewLineBytes => new[] { (byte)'\r', (byte)'\n' };
 
     private Stream m_Stream;
@@ -43,20 +45,6 @@ namespace iopipeline
     private Stream PrepareStream()
     {
       return new FileStream("test-file-02.txt", FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
-
-      //var stream = new MemoryStream();
-
-      //using var sw = new StreamWriter(stream, Encoding.UTF8, leaveOpen: true);
-      //foreach (var no in Enumerable.Range(1, m_LineCount))
-      //{
-      //  foreach (var _ in Enumerable.Range(1, m_LineCharMultiplier))
-      //  {
-      //    sw.Write($"ABC{no:D7}");
-      //  }
-      //  sw.WriteLine();
-      //}
-      //sw.Flush();
-      //return stream;
     }
 
     private void GlobalCleanup()
@@ -86,18 +74,25 @@ namespace iopipeline
     {
       // In this example, multiple consumers are needed to keep up with a fast producer
 
-      Task<List<string>> consumerTask1 = ConsumeData();        // begin consuming
-      Task<List<string>> consumerTask2 = ConsumeData();        // begin consuming
-      Task<List<string>> consumerTask3 = ConsumeData();        // begin consuming
+      var consumers = new Task<List<string>>[CONSUMER_CNT];
+      for (int i = 0; i < CONSUMER_CNT; i++)
+      {
+        consumers[i] = ConsumeData();
+      }
+
       Task producerTask1 = ReadLineUsingPipelineVer2Async();   // begin producing
-
       await producerTask1.ContinueWith(_ => m_Channel.Writer.Complete());
-      await Task.WhenAll(consumerTask1, consumerTask2, consumerTask3);
+      await Task.WhenAll(consumers);
 
-      var c1 = consumerTask1.Result.Count;
-      var c2 = consumerTask2.Result.Count;
-      var c3 = consumerTask3.Result.Count;
-      return $"{c1}, {c2}, {c3} = {c1 + c2 +c3}";
+      var total = 0;
+      var rv = string.Empty;
+      foreach (var c in consumers)
+      {
+        total += c.Result.Count;
+        rv += $"[{c.Result.Count}] ";
+      }
+
+      return $"{rv} = {total}";
     }
 
     private async Task ReadLineUsingPipelineVer2Async()
