@@ -9,10 +9,11 @@ namespace iopipeline
     {
       Console.WriteLine("Hello World!");
 
-      var piper = new PipeProcessor();
-      var results = await piper.PerformRead().ConfigureAwait(false);
+      var processor = new ChannelProcessor();
+      var results = await processor.PerformRead().ConfigureAwait(false);
 
-      Console.WriteLine(results?.Length);
+      Console.WriteLine(results);
+      Console.ReadKey(true);
     }
   }
 }
