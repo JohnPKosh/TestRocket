@@ -62,31 +62,6 @@ namespace iopipeline
       m_Stream.Dispose();
     }
 
-
-    public async Task<string> SingleProduceMultipleConsumers()
-    {
-      // In this example, multiple consumers are needed to keep up with a fast producer
-
-      var consumer1 = new Consumer(m_Channel.Reader);
-      var consumer2 = new Consumer(m_Channel.Reader);
-      var consumer3 = new Consumer(m_Channel.Reader);
-
-      Task<List<string>> consumerTask1 = consumer1.ConsumeData(); // begin consuming
-      Task<List<string>> consumerTask2 = consumer2.ConsumeData(); // begin consuming
-      Task<List<string>> consumerTask3 = consumer3.ConsumeData(); // begin consuming
-
-      Task producerTask1 = ReadLineUsingPipelineVer2Async();
-
-      await producerTask1.ContinueWith(_ => m_Channel.Writer.Complete());
-
-      await Task.WhenAll(consumerTask1, consumerTask2, consumerTask3);
-
-      var c1 = consumerTask1.Result.Count;
-      var c2 = consumerTask2.Result.Count;
-      var c3 = consumerTask3.Result.Count;
-      return $"{c1}, {c2}, {c3} = {c1 + c2 +c3}";
-    }
-
     public async Task<string> PerformRead()
     {
       try
@@ -105,6 +80,24 @@ namespace iopipeline
       }
     }
 
+    public async Task<string> SingleProduceMultipleConsumers()
+    {
+      // In this example, multiple consumers are needed to keep up with a fast producer
+
+      Task<List<string>> consumerTask1 = ConsumeData();        // begin consuming
+      Task<List<string>> consumerTask2 = ConsumeData();        // begin consuming
+      Task<List<string>> consumerTask3 = ConsumeData();        // begin consuming
+      Task producerTask1 = ReadLineUsingPipelineVer2Async();   // begin producing
+
+      await producerTask1.ContinueWith(_ => m_Channel.Writer.Complete());
+      await Task.WhenAll(consumerTask1, consumerTask2, consumerTask3);
+
+      var c1 = consumerTask1.Result.Count;
+      var c2 = consumerTask2.Result.Count;
+      var c3 = consumerTask3.Result.Count;
+      return $"{c1}, {c2}, {c3} = {c1 + c2 +c3}";
+    }
+
     private async Task ReadLineUsingPipelineVer2Async()
     {
       m_Stream.Seek(0, SeekOrigin.Begin);
@@ -121,7 +114,6 @@ namespace iopipeline
         reader.AdvanceTo(buffer.Start, buffer.End);
         if (result.IsCompleted) break;
       }
-
       await reader.CompleteAsync();
     }
 
@@ -136,7 +128,6 @@ namespace iopipeline
         while (span.Length > 0)
         {
           var newLine = span.IndexOf(m_NewLineBytes);
-
           if (newLine == -1) break;
 
           var line = span.Slice(0, newLine);
@@ -153,7 +144,6 @@ namespace iopipeline
       else
       {
         var sequenceReader = new SequenceReader<byte>(buffer);
-
         while (!sequenceReader.End)
         {
           while (sequenceReader.TryReadTo(out ReadOnlySequence<byte> line, m_NewLineBytes))
@@ -163,36 +153,28 @@ namespace iopipeline
               Task.Delay(20);
             }
           }
-
           buffer = buffer.Slice(sequenceReader.Position);
           sequenceReader.Advance(buffer.Length);
         }
       }
-
-    }
-  }
-
-
-  internal class Consumer
-  {
-    private readonly ChannelReader<string> _reader;
-
-    public Consumer(ChannelReader<string> reader)
-    {
-      _reader = reader;
     }
 
     public async Task<List<string>> ConsumeData()
     {
       var rv = new List<string>();
-      while (await _reader.WaitToReadAsync())
+      while (await m_Channel.Reader.WaitToReadAsync())
       {
-        if (_reader.TryRead(out var value))
+        if (m_Channel.Reader.TryRead(out var value))
         {
           rv.Add(value);
         }
       }
       return rv;
     }
+
+
+
   }
+
+
 }
