@@ -19,7 +19,7 @@ namespace iopipeline
 
   public class FileProcessor
   {
-    private const int CONSUMER_CNT = 3;
+    private const int CONSUMER_CNT = 2;
 
     private static ReadOnlySpan<byte> m_NewLineBytes => new[] { (byte)'\r', (byte)'\n' };
 
@@ -102,7 +102,8 @@ namespace iopipeline
         ReadResult result = await reader.ReadAsync();
         ReadOnlySequence<byte> buffer = result.Buffer;
 
-        ProcessLine(ref buffer);
+        if (buffer.IsSingleSegment) ProcessSingleSegment(ref buffer);
+        else ProcessSegments(ref buffer);
 
         reader.AdvanceTo(buffer.Start, buffer.End);
         if (result.IsCompleted) break;
@@ -112,40 +113,40 @@ namespace iopipeline
 
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void ProcessLine(ref ReadOnlySequence<byte> buffer)
+    private void ProcessSingleSegment(ref ReadOnlySequence<byte> buffer)
     {
-      if (buffer.IsSingleSegment)
+      var span = buffer.FirstSpan;
+      int consumed;
+      while (span.Length > 0)
       {
-        var span = buffer.FirstSpan;
-        int consumed;
-        while (span.Length > 0)
-        {
-          var newLine = span.IndexOf(m_NewLineBytes);
-          if (newLine == -1) break;
+        var newLine = span.IndexOf(m_NewLineBytes);
+        if (newLine == -1) break;
 
-          var line = span.Slice(0, newLine);
+        var line = span.Slice(0, newLine);
 
-          m_Writer.WriteAsync(Encoding.UTF8.GetString(line), m_Token).GetAwaiter();
+        m_Writer.WriteAsync(Encoding.UTF8.GetString(line), m_Token).GetAwaiter();
 
-          consumed = line.Length + m_NewLineBytes.Length;
-          span = span.Slice(consumed);
-          buffer = buffer.Slice(consumed);
-        }
-      }
-      else
-      {
-        var sequenceReader = new SequenceReader<byte>(buffer);
-        while (!sequenceReader.End)
-        {
-          while (sequenceReader.TryReadTo(out ReadOnlySequence<byte> line, m_NewLineBytes))
-          {
-            m_Writer.WriteAsync(Encoding.UTF8.GetString(line), m_Token).GetAwaiter();
-          }
-          buffer = buffer.Slice(sequenceReader.Position);
-          sequenceReader.Advance(buffer.Length);
-        }
+        consumed = line.Length + m_NewLineBytes.Length;
+        span = span.Slice(consumed);
+        buffer = buffer.Slice(consumed);
       }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void ProcessSegments(ref ReadOnlySequence<byte> buffer)
+    {
+      var sequenceReader = new SequenceReader<byte>(buffer);
+      while (!sequenceReader.End)
+      {
+        while (sequenceReader.TryReadTo(out ReadOnlySequence<byte> line, m_NewLineBytes))
+        {
+          m_Writer.WriteAsync(Encoding.UTF8.GetString(line), m_Token).GetAwaiter();
+        }
+        buffer = buffer.Slice(sequenceReader.Position);
+        sequenceReader.Advance(buffer.Length);
+      }
+    }
+
 
     public async Task<List<string>> ConsumeData()
     {
