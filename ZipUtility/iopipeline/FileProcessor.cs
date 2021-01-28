@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Channels;
+using System.Threading;
 
 namespace iopipeline
 {
@@ -24,12 +25,18 @@ namespace iopipeline
 
     private Stream m_Stream;
 
-    private Channel<string> m_Channel = Channel.CreateUnbounded<string>();
+    // Define the cancellation token.
+    private CancellationTokenSource m_CancellationTokenSource = new CancellationTokenSource();
+    private CancellationToken m_Token;
+
+    //private Channel<string> m_Channel = Channel.CreateUnbounded<string>();
+    private Channel<string> m_Channel = Channel.CreateBounded<string>(100000); // TODO: for known stream sizes under 256 MB set as unbounded else bounded to 1_000_000
 
     private readonly ChannelWriter<string> m_Writer;
 
     public FileProcessor()
     {
+      m_Token = m_CancellationTokenSource.Token;
       m_Writer = m_Channel.Writer;
     }
 
@@ -117,10 +124,8 @@ namespace iopipeline
           if (newLine == -1) break;
 
           var line = span.Slice(0, newLine);
-          while (!m_Writer.TryWrite(Encoding.UTF8.GetString(line)))
-          {
-            Task.Delay(20);
-          }
+
+          m_Writer.WriteAsync(Encoding.UTF8.GetString(line), m_Token).GetAwaiter();
 
           consumed = line.Length + m_NewLineBytes.Length;
           span = span.Slice(consumed);
@@ -134,10 +139,7 @@ namespace iopipeline
         {
           while (sequenceReader.TryReadTo(out ReadOnlySequence<byte> line, m_NewLineBytes))
           {
-            while (!m_Writer.TryWrite(Encoding.UTF8.GetString(line)))
-            {
-              Task.Delay(20);
-            }
+            m_Writer.WriteAsync(Encoding.UTF8.GetString(line), m_Token).GetAwaiter();
           }
           buffer = buffer.Slice(sequenceReader.Position);
           sequenceReader.Advance(buffer.Length);
