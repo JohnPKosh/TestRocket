@@ -33,57 +33,47 @@ namespace iopipeline
       m_Writer = m_Channel.Writer;
     }
 
-    private int m_LineCount { get; set; } = 1_000_000;
-
-    private int m_LineCharMultiplier { get; set; } = 1;
-
-    private void GlobalSetup()
-    {
-      m_Stream = PrepareStream();
-    }
 
     private Stream PrepareStream()
     {
       return new FileStream("test-file-02.txt", FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
     }
 
-    private void GlobalCleanup()
-    {
-      m_Stream.Dispose();
-    }
-
     public async Task<string> PerformRead()
     {
       try
       {
-        GlobalSetup();
+        m_Stream = PrepareStream();
         var sw = new Stopwatch();
         sw.Start();
-        var rv = await SingleProduceMultipleConsumers().ConfigureAwait(false);
+        var rv = await ProduceAndConsume().ConfigureAwait(false);
         sw.Stop();
         Console.WriteLine($"Run time {sw.ElapsedMilliseconds}");
         return rv;
       }
       finally
       {
-        GlobalCleanup();
+        m_Stream.Dispose();
       }
     }
 
-    public async Task<string> SingleProduceMultipleConsumers()
+    private async Task<string> ProduceAndConsume()
     {
-      // In this example, multiple consumers are needed to keep up with a fast producer
-
+      // Create consumers
       var consumers = new Task<List<string>>[CONSUMER_CNT];
       for (int i = 0; i < CONSUMER_CNT; i++)
       {
         consumers[i] = ConsumeData();
       }
 
-      Task producerTask1 = ReadLineUsingPipelineVer2Async();   // begin producing
+      // Begin producing
+      Task producerTask1 = ProduceData();
+
+      // Wait for all data to process
       await producerTask1.ContinueWith(_ => m_Channel.Writer.Complete());
       await Task.WhenAll(consumers);
 
+      // Process Results
       var total = 0;
       var rv = string.Empty;
       foreach (var c in consumers)
@@ -95,10 +85,9 @@ namespace iopipeline
       return $"{rv} = {total}";
     }
 
-    private async Task ReadLineUsingPipelineVer2Async()
+    private async Task ProduceData()
     {
       m_Stream.Seek(0, SeekOrigin.Begin);
-
       var reader = PipeReader.Create(m_Stream, new StreamPipeReaderOptions(leaveOpen: true));
 
       while (true)
@@ -169,9 +158,5 @@ namespace iopipeline
       return rv;
     }
 
-
-
   }
-
-
 }
