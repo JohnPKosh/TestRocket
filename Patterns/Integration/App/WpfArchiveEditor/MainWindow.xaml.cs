@@ -50,5 +50,23 @@ namespace WpfArchiveEditor
       if (values != null)
         txt_Item.Text = ((adata.TypedDoc)values[(int)e.NewValue]).ToJsonDataMap().ToString();
     }
+
+    private void btn_Next_Click(object sender, RoutedEventArgs e)
+    {
+      if (values != null && trk_Index.Value < trk_Index.Maximum)
+      {
+        trk_Index.Value++;
+        txt_Item.Text = ((adata.TypedDoc)values[(int)trk_Index.Value]).ToJsonDataMap().ToString();
+      }        
+    }
+
+    private void btn_Previous_Click(object sender, RoutedEventArgs e)
+    {
+      if (values != null && trk_Index.Value > trk_Index.Minimum)
+      {
+        trk_Index.Value--;
+        txt_Item.Text = ((adata.TypedDoc)values[(int)trk_Index.Value]).ToJsonDataMap().ToString();
+      }
+    }
   }
 }
