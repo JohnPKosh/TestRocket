@@ -222,6 +222,30 @@ To run this solution make sure you download and install the SDK.
 
 ---
 
+## Dev Notes
+
+**[".Net Developer Quick Notes"](https://gist.github.com/JohnPKosh/b27c34f5c5594a10845b1f998cefb217)**
+
+---
+
+## Dotnet Command Cheats
+
+**["Dotnet Command Cheats"](https://gist.github.com/JohnPKosh/d22a6437def65dd275efadef5fe397af)**
+
+---
+
+## Docker Notes
+
+**["Docker Links"](https://gist.github.com/JohnPKosh/7512849d18ef8cbc843fafe06c176efe)**
+
+---
+
+## Mongo DB
+
+**["MongoDb Startup"](https://gist.github.com/JohnPKosh/690efb2da148ccc70c659e7467abe3b4)**
+
+---
+
 ## Markdown CheatSheet
 
 **["markdown-cheatsheet.md"](doc/markdown-cheatsheet.md)**
