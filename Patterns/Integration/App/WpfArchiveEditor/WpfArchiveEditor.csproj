@@ -14,5 +14,12 @@
     <ProjectReference Include="..\..\Logic\ArchiveData\ArchiveData.csproj" />
     <ProjectReference Include="..\..\Logic\ArchiveLogic\ArchiveLogic.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Resources\icons-accent.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   
 </Project>

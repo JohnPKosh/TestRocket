@@ -12,6 +12,8 @@
                 <!-- Theme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Green.xaml" />
                 <ResourceDictionary Source="/Resources/erx.xaml" />
+                <ResourceDictionary Source="/Resources/bs-icons.xaml" />
+                <ResourceDictionary Source="/Resources/icons-accent.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
