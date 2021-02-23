@@ -32,9 +32,36 @@
         </Grid>       
         
         <TextBox x:Name="txt_Item" HorizontalAlignment="Stretch" Margin="8,8,8,8" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{DynamicResource MahApps.Brushes.Gray3}" FontFamily="Source Code Pro" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" IsHitTestVisible="True" IsTabStop="False" CaretBrush="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="0,0,0,0"/>
-        <Button x:Name="btn_Generate" Content="Generate" HorizontalAlignment="Right" Margin="0,4,8,4" Grid.Row="2" VerticalAlignment="Top" Click="btn_Generate_Click" />
+        
+        
+        
+        <Grid HorizontalAlignment="Stretch" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
 
 
+            <WrapPanel Grid.Column="0" Margin="0,4,0,4" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                <Button x:Name="btn_Generate" Content="Generate" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,8,0" Click="btn_Generate_Click" Padding="5,4,5,4" Focusable="False" />
+                <Button x:Name="btn_Previous" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,8,0" Click="btn_Previous_Click" Padding="5,4,5,4" Focusable="False">
+                    <WrapPanel VerticalAlignment="Center">
+                        <Image HorizontalAlignment="Left" Height="14" VerticalAlignment="Top" Width="14" Margin="0,0,5,0" Source="{DynamicResource accent_arrow_left_circle_fillDrawingImage}"/>
+                        <Label Content="Previous" VerticalAlignment="Top" Padding="0,0,0,0"/>
+                    </WrapPanel>                    
+                </Button>
+                <Button x:Name="btn_Next" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,8,0" Padding="5,4,5,4" Click="btn_Next_Click" Focusable="False">
+                    <WrapPanel VerticalAlignment="Center">
+                        <Label Content="Next" VerticalAlignment="Top" Padding="0,0,5,0"/>
+                        <Image HorizontalAlignment="Left" Height="14" VerticalAlignment="Top" Width="14" Margin="0,0,0,0" Source="{DynamicResource accent_arrow_right_circle_fillDrawingImage}"/>
+                    </WrapPanel>
+                </Button>
+            </WrapPanel>
+
+            <Image x:Name="left" HorizontalAlignment="Left" Height="20" Margin="10" VerticalAlignment="Top" Width="20" Grid.Column="1" Source="{DynamicResource accent_arrow_left_circle_fillDrawingImage}"/>
+            <Image x:Name="right" HorizontalAlignment="Left" Height="20" Margin="10"  VerticalAlignment="Top" Width="20" Grid.Column="2" Source="{DynamicResource accent_arrow_right_circle_fillDrawingImage}"/>
+        </Grid>
 
     </Grid>
 </mah:MetroWindow>

@@ -89,6 +89,12 @@ or if you have installed .NET Core Test Explorer simply run from the window.
 dotnet new sln -o %GIT%\TestRocket\Rockets\src -n TestRocket
 ```
 
+### List All Templates for `dotnet new`
+
+```shell
+dotnet new -l
+``` 
+
 ### Create New RocketFactory Project
 
 ```shell

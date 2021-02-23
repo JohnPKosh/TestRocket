@@ -15,12 +15,18 @@ namespace WinArchiveEditor
 {
   public partial class MainForm : Form
   {
+    #region Class Initialization
+
     public MainForm()
     {
       InitializeComponent();
     }
 
-    public object[] values { get; set; }
+    public object[] values { get; set; } 
+
+    #endregion
+
+    #region Generate Fake Logs
 
     private void btn_Generate_Click(object sender, EventArgs e)
     {      
@@ -35,10 +41,49 @@ namespace WinArchiveEditor
       }
     }
 
+    #endregion
+
+    #region Navigate Fake Logs
+
     private void trk_Index_ValueChanged(object sender, EventArgs e)
     {
       if(values != null)
         txt_Item.Text = ((adata.TypedDoc)values[trk_Index.Value]).ToJsonDataMap().ToString();
     }
+
+    private void btn_Next_Click(object sender, EventArgs e)
+    {
+      if (values != null && trk_Index.Value < trk_Index.Maximum)
+      {
+        trk_Index.Value++;
+        txt_Item.Text = ((adata.TypedDoc)values[(int)trk_Index.Value]).ToJsonDataMap().ToString();
+      }
+    }
+
+    private void btn_Prev_Click(object sender, EventArgs e)
+    {
+      if (values != null && trk_Index.Value > trk_Index.Minimum)
+      {
+        trk_Index.Value--;
+        txt_Item.Text = ((adata.TypedDoc)values[(int)trk_Index.Value]).ToJsonDataMap().ToString();
+      }
+    }
+
+    #endregion
+
+    #region Open and Save
+
+    private void btn_Save_Click(object sender, EventArgs e)
+    {
+      var savef = new SaveForm();
+      savef.Show();      
+    }
+
+    private void btn_Open_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    #endregion
   }
 }
