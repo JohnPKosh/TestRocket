@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azos" Version="1.5.18" />
+    <PackageReference Include="Azos" Version="1.6.3" />
   </ItemGroup>
 
 </Project>
