@@ -112,7 +112,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveLogic", "Integration
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveData", "Integration\Logic\ArchiveData\ArchiveData.csproj", "{A72BE1F4-0784-470E-9FEA-CDB665EB98FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfArchiveEditor", "Integration\App\WpfArchiveEditor\WpfArchiveEditor.csproj", "{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfArchiveEditor", "Integration\App\WpfArchiveEditor\WpfArchiveEditor.csproj", "{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
