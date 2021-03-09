@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "Lessons.sln",
+    "projects": [
+      "Arrays\\Start\\Array-Start.csproj"
+    ]
+  }
+}
