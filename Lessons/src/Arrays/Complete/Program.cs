@@ -137,7 +137,7 @@ namespace Array
     }
 
     /// <summary>
-    /// Private exam method used by GatherMultiDimensionalSpecimens() and GatherInitializedMultiDimensionalSpecimens()
+    /// Private exam method used by *** GatherMultiDimensionalSpecimens() and GatherInitializedMultiDimensionalSpecimens() ***
     /// </summary>
     /// <param name="aliens">A two dimensional Array of strings</param>
     private static void examineTwoDimensionalArray(string[,] aliens)
