@@ -38,7 +38,19 @@ Well, this project hopefully checks off **#9**, **#7**, and **#6** on my list of
 
 ---
 
-## Code Review Documents (WIP)
+## **Code Review** Articles on the Web
+
+[Architecture Review Checklist by Adrian Grigoras](http://adriangrigoras.com/blog/architecture-review-checklist/)
+
+[Software Architecture Review Guidelines by Alexander Nowak](https://www.codeproject.com/Articles/20467/Software-Architecture-Review-Guidelines)
+
+[IT Architecture Review: The Basics, The Approach, The Outcome by Samir Roshan](https://thinkingloudoncloud.com/2012/11/architecture-review-basics-approach-outcome/)
+
+### Buy the Book(s)
+
+- [Implementing Effective Code Reviews](https://www.apress.com/us/book/9781484261613)
+
+## **Code Review** Documents (WIP)
 
 **["Team Code Review Template"](doc/code-review-template.md)**
 
