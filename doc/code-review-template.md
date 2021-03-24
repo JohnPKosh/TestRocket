@@ -63,16 +63,19 @@ Grade | Topic
 - Testability (entity factoring for mocking, UI control hooks etc..)
 - 3rd party dependencies (framework/package counts; lower - the better)
 
-### Reliability
-- Appropriate exception handling
-- Fault tolerance considerations risks impacting this or other processes
-- Level of issues with Failure, Recovery, Restart, or failed state
-- Level of service inter-dependencies
-- Distributed failure handling / domino cascade suppression e.g. circuit breaker
-- Distributed leader election / Split brain reparation
-- Automatic failover
-- SLA for failure modes
-- Identify SPF
+### Modifiability
+
+### Portability
+
+### Extensibility
+
+### Conceptual Integrity
+
+### Interoperability
+
+### Usability
+
+### Reusability
 
 ### Maintainability
 - Level at which the code exceeds a single or minimal set of responsibilities
@@ -86,12 +89,30 @@ Grade | Topic
 - Monitoring / Logging / Instrumentation
 - Remote management / administration
 
-### Testing
+### Reliability
+- Appropriate exception handling
+- Fault tolerance considerations risks impacting this or other processes
+- Level of issues with failure, recovery, restart, or failed state
+- Level of service inter-dependencies
+- SLA for failure modes
+- Identify SPF
+
+### Availability
+- Automatic failover
+- Distributed failure handling / domino cascade suppression e.g. circuit breaker
+- Distributed leader election / Split brain reparation
+- Stateless or resilient state management
+
+### Testing and Testability
 - Unit testing
 - Integration testing
 - Test environments
 - Test automation with DevOps
 - Identify most complex logic areas and areas with frequently changing requirements and determine their testing scenario coverage adequacy
+
+### Debug-ability /Monitoring
+
+### Efficiency
 
 ### Performance / Scalability
 - Level of resources required by this process risk affecting or being affected by systems performance
@@ -125,6 +146,12 @@ Grade | Topic
 - OWASP adherence
 - Identity provider
 - Amount of risk to normal business operations due to security breach or attack
+
+### Ease of Deployment
+
+### Ease of Administration
+
+### Development Productivity
 
 ### Fitness for Purpose
 - Requirements definition level - did business provide well-defined requirements?
