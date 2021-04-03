@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace compose.Models.Generic
+namespace CompositeLibrary.Infrastructure.Models.Generic
 {
   /// <summary>
   /// The public abstract base generic class for composite object graphs

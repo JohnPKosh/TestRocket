@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp5.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <ServerGarbageCollection>true</ServerGarbageCollection>
@@ -9,10 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Library\CompositeLibrary\CompositeLibrary.csproj" />
   </ItemGroup>
 
 </Project>

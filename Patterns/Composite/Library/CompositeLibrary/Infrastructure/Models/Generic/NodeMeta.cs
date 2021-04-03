@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace compose.Models.Generic
+namespace CompositeLibrary.Infrastructure.Models.Generic
 {
   /// <summary>
   /// Public model class to store node meta data

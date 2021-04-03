@@ -1,4 +1,4 @@
-﻿namespace compose.Models.Generic
+﻿namespace CompositeLibrary.Infrastructure.Models.Generic
 {
   /// <summary>
   /// The public generic concrete leaf implementation of a node.

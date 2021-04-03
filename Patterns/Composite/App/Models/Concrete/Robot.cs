@@ -1,5 +1,5 @@
 ﻿using System;
-using compose.Models.Generic;
+using CompositeLibrary.Infrastructure.Models.Generic;
 
 namespace compose.Models.Concrete
 {

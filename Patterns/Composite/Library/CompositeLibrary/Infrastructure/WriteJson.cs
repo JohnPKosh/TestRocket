@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace compose
+namespace CompositeLibrary.Infrastructure
 {
   /// <summary>
   /// Basic JSON Extensions using System.Text.Json

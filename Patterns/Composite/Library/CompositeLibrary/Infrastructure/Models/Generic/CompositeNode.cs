@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace compose.Models.Generic
+namespace CompositeLibrary.Infrastructure.Models.Generic
 {
   /// <summary>
   /// The public generic concrete composite implementation of a node.
