@@ -18,7 +18,9 @@ namespace MongoIdent.Models
 		public ApplicationUser(string userName, string email) : base(userName, email)
 		{
 		}
-	}
+
+    public string CompanyName { get; set; }
+  }
 
 	[CollectionName("roles")]
 	public class ApplicationRole : MongoIdentityRole<Guid>
