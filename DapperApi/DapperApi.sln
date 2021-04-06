@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperGRPC", "DapperGRPC\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRPCClient", "GRPCClient\GRPCClient.csproj", "{4885694D-37CE-4331-B316-000534CF5D08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperWeb", "DapperWeb\DapperWeb.csproj", "{29F5FC7D-036F-41B9-A05E-B6B7C9790877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperWeb", "DapperWeb\DapperWeb.csproj", "{29F5FC7D-036F-41B9-A05E-B6B7C9790877}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EFEE83D0-6352-46F2-8F1B-FCCB3DD68D51}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,6 +21,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ticketer", "Ticketer\Ticketer.csproj", "{2D643C88-619E-4706-B0B3-2363CF1192F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketerClient", "TicketerClient\TicketerClient.csproj", "{EF4218C5-CEEB-45E7-A5DC-9F2D052BE3C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoIdent", "MongoIdent\MongoIdent.csproj", "{A316921E-446C-49CF-B662-31C45B5D1841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{EF4218C5-CEEB-45E7-A5DC-9F2D052BE3C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF4218C5-CEEB-45E7-A5DC-9F2D052BE3C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF4218C5-CEEB-45E7-A5DC-9F2D052BE3C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A316921E-446C-49CF-B662-31C45B5D1841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A316921E-446C-49CF-B662-31C45B5D1841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A316921E-446C-49CF-B662-31C45B5D1841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A316921E-446C-49CF-B662-31C45B5D1841}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
