@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoIdent.Data;
+using MongoIdent.Intrastructure;
 using MongoIdent.Models;
 using System;
 using System.Collections.Generic;
@@ -33,11 +35,12 @@ namespace MongoIdent
               Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddDatabaseDeveloperPageExceptionFilter();
+      services.AddTransient<IEmailSender, EmailSender>();
 
       //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
       //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-      services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
+      services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = true)
       .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>
       (
         "mongodb://localhost:27017",
@@ -45,6 +48,7 @@ namespace MongoIdent
       )
       .AddDefaultUI()
       .AddDefaultTokenProviders();
+
 
       services.AddRazorPages();
     }
