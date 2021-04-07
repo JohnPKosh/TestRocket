@@ -1,12 +1,12 @@
 ﻿using System;
-
-using MailKit.Net.Smtp;
-using MailKit;
-using MimeKit;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+
+using MailKit.Net.Smtp;
+using MailKit;
+using MimeKit;
 using MailKit.Security;
 
 namespace MongoIdent.Intrastructure
@@ -23,9 +23,9 @@ namespace MongoIdent.Intrastructure
 
 
   public class EmailSender : IEmailSender
-{
-  public Task SendEmailAsync(string email, string subject, string message)
   {
+    public Task SendEmailAsync(string email, string subject, string message)
+    {
       var msg = new MimeMessage();
       msg.From.Add(new MailboxAddress("devprowork@live.com", "devprowork@live.com"));
       msg.To.Add(new MailboxAddress("devprohome@live.com", "devprohome@live.com"));
@@ -47,53 +47,9 @@ namespace MongoIdent.Intrastructure
         client.Disconnect(true);
       }
 
-
-
-
-
-
-
       return Task.CompletedTask;
+    }
   }
-}
-
-
-
-////////public class EmailSender : IEmailSender
-////////{
-
-////////  // Our private configuration variables
-////////  private string host;
-////////  private int port;
-////////  private bool enableSSL;
-////////  private string userName;
-////////  private string password;
-
-////////  // Get our parameterized configuration
-////////  public EmailSender(string host, int port, bool enableSSL, string userName, string password)
-////////  {
-////////    this.host = host;
-////////    this.port = port;
-////////    this.enableSSL = enableSSL;
-////////    this.userName = userName;
-////////    this.password = password;
-////////  }
-
-////////  // Use our configuration to send the email by using SmtpClient
-////////  public Task SendEmailAsync(string email, string subject, string htmlMessage)
-////////  {
-
-
-////////    var client = new SmtpClient(host, port)
-////////    {
-////////      Credentials = new NetworkCredential(userName, password),
-////////      EnableSsl = enableSSL
-////////    };
-////////    return client.SendMailAsync(
-////////        new MailMessage(userName, email, subject, htmlMessage) { IsBodyHtml = true }
-////////    );
-////////  }
-////////}
 }
 
 
