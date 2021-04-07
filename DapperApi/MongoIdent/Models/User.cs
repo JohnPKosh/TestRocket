@@ -19,8 +19,16 @@ namespace MongoIdent.Models
 		{
 		}
 
-    public string CompanyName { get; set; }
-  }
+		public string FirstName { get; set; }
+
+		public string LastName { get; set; }
+
+		public string OrgName { get; set; }
+
+		public Guid? TeamKey { get; set; }
+
+		public string TeamName { get; set; }
+	}
 
 	[CollectionName("roles")]
 	public class ApplicationRole : MongoIdentityRole<Guid>
