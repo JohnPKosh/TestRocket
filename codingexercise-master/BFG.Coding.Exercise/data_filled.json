@@ -1,0 +1,96 @@
+{
+  "books": [
+    {
+      "director": null,
+      "author": "Charles Dickens",
+      "title": "A Tale of Two Cities"
+    },
+    {
+      "director": null,
+      "author": "J.R.R. Tolkien",
+      "title": "Lord of the Rings"
+    },
+    {
+      "director": null,
+      "author": "Roger Allers",
+      "title": "The Lion King"
+    },
+    {
+      "director": null,
+      "author": "Leo Tolstoy",
+      "title": "War and Peace"
+    },
+    {
+      "director": null,
+      "author": "Harper Lee",
+      "title": "To Kill a Mockingbird"
+    },
+    {
+      "director": null,
+      "author": "Daniel Keyes",
+      "title": "Flowers for Algernon"
+    },
+    {
+      "director": null,
+      "author": "George Orwell",
+      "title": "Animal Farm"
+    },
+    {
+      "director": null,
+      "author": "Nathaniel Hawthorne",
+      "title": "The Scarlet Letter"
+    },
+    {
+      "director": null,
+      "author": "F. Scott Fitzgeral",
+      "title": "The Great Gatsby"
+    }
+  ],
+  "movies": [
+    {
+      "director": "Francis Ford Coppola",
+      "author": null,
+      "title": "The Godfather"
+    },
+    {
+      "director": "Victor Flemming",
+      "author": null,
+      "title": "The Wizard of Oz"
+    },
+    {
+      "director": "Steven Spielberg",
+      "author": null,
+      "title": "Jurassic Park"
+    },
+    {
+      "director": "Steven Spielberg",
+      "author": null,
+      "title": "Raiders of the Lost Arc"
+    },
+    {
+      "director": "Steven Spielberg",
+      "author": null,
+      "title": "Jaws"
+    },
+    {
+      "director": "David Fincher",
+      "author": null,
+      "title": "Fight Club"
+    },
+    {
+      "director": "Quentin Tarantino",
+      "author": null,
+      "title": "Pulp Fiction"
+    },
+    {
+      "director": "Robert Zemeckis",
+      "author": null,
+      "title": "Back to the Future"
+    },
+    {
+      "director": "Victor Flemming",
+      "author": null,
+      "title": "Gone With the Wind"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+﻿html, body {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    height: 100%;
+}
+
+body { font-family: tahoma; }
+img { border: none; }
+table { border-collapse: collapse; }
+
+a, a:visited, a:hover, a:focus {
+    color: royalblue;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+input { border: solid 1px #ccc; }
+input:focus { border: solid 1px royalblue; }
+
+footer {
+    margin-top: -100px;
+    height: 100px;    
+    text-align: center;
+}
+.page {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1280px;
+}
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 480px;
+    padding: 5px;
+    text-align: center;
+}
+
+.sticky_jar { min-height: 100%; }
+.sticky_push { height: 100px; }
+
+.dl-horizontal dt { white-space: normal; }
+
+table {
+    margin: auto;
+    width: auto;
+    max-width: 480px;
+}
+table * { vertical-align: middle; }
+table td, 
+table th {
+    padding: 5px;
+    vertical-align: middle;
+    text-align: left;    
+}
+
+table.media tbody tr:first-child { padding-right: 20px; }
+table.media tr td,
+table.media tr th {
+    border: solid 1px #eaeaea;
+}
+table.media { width: 100%; max-width: 480px; }
+table.media tr td:nth-child(2) { text-align: center; }
+/* table.media tbody tr:nth-child(odd) { background: #b2fffb; }
+table.media tbody tr:nth-child(even) { background: #acffcc; } */
