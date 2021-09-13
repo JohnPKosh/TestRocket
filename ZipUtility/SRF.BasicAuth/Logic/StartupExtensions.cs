@@ -23,7 +23,7 @@ namespace SRF.BasicAuth.Logic
           policy.RequireClaim(ClaimTypes.Name);
         });
       });
-      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+      services.AddAuthentication("BasicAuthentication")
           .AddJwtBearer(options =>
           {
             options.SaveToken = true; // ???
@@ -37,11 +37,13 @@ namespace SRF.BasicAuth.Logic
                         ValidateLifetime = true,
                         IssuerSigningKey = SecurityKey
                       };
-          });
+          })
+          .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+      ;
 
       // configure basic authentication
-      services.AddAuthentication("BasicAuthentication")
-          .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+      //services.AddAuthentication("BasicAuthentication")
+      //    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
       return services;
 
       // Multiple Policy schemes documentation:

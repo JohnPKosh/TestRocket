@@ -1,6 +1,9 @@
 using System;
 using System.Security.Claims;
 using System.Text.Json;
+
+using LogApi.Logic;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -41,7 +44,7 @@ namespace LogApi
 
       // configure DI for additional application services here:
 
-      // You can optionally add the background service in Program.cs instead of here.
+      //// You can optionally add the background service in Program.cs instead of here.
       //services.AddSingleton<IBackgroundServiceToggle, BackgroundServiceToggle>();
       //services.AddHostedService<Worker>();
 

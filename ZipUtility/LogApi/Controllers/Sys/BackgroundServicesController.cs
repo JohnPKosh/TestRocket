@@ -12,6 +12,7 @@ namespace LogApi.Controllers.Sys
   /// <summary>
   /// Represents a systems level controller that allows for API management of the BackgroundServices
   /// </summary>
+  [Authorize(AuthenticationSchemes ="BasicAuthentication")]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]  // see https://docs.microsoft.com/en-us/aspnet/core/security/authorization/limitingidentitybyscheme?view=aspnetcore-3.1
   [Route("sys/[controller]")]
   [ApiController]
