@@ -298,7 +298,7 @@ namespace ArchiveData.Models
 
       CARRIER = $"R{Ambient.Random.NextScaledRandomInteger(100, 300)}";
       MEMBERID = $"{Ambient.Random.NextScaledRandomInteger(10_0000, 2_000_000) }*{NaturalTextGenerator.GenerateWord(3, 6)}";
-      PERSONCODE = (parentGdid.ID % 2) == 0 ? 1 : (short)Ambient.Random.NextScaledRandomInteger(1, 4);
+      PERSONCODE = (short)((parentGdid.ID % 2) == 0 ? 1 : (short)Ambient.Random.NextScaledRandomInteger(1, 4));
       FILLDATE = dt;
       QUANTITY = (parentGdid.ID % 2) == 0 ? 30 : (parentGdid.ID % 3) == 0 ? 90 : 60;
       MPAMARK = (parentGdid.ID % 4) == 0 ? "X" : null;
