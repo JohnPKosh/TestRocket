@@ -36,7 +36,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DockPanel>
-                        <wv2:WebView2 Name="webView" Source="file:///E:/devhome/ghub/TestRocket/Patterns/Integration/App/WpfArchiveEditor/Forms/test.html"/>
+                        <wv2:WebView2 Name="webView" Loaded="webView_Loaded"/>
                     </DockPanel>
                 </Grid>
             </TabItem>

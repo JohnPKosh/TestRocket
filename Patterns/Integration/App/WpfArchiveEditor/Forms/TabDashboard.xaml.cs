@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfArchiveEditor.Util;
 
 namespace WpfArchiveEditor.Forms
 {
@@ -23,6 +25,12 @@ namespace WpfArchiveEditor.Forms
     public TabDashboard()
     {
       InitializeComponent();
+    }
+
+    private void webView_Loaded(object sender, RoutedEventArgs e)
+    {
+      var ctrl = (WebView2)sender;
+      ctrl.SetAppContextRelativeSource("test.html");
     }
   }
 }
