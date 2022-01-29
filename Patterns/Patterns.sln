@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AbstractFactory", "AbstractFactory", "{D2C9A11D-7B77-4323-835A-676993EFEE46}"
 EndProject
@@ -112,7 +112,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveLogic", "Integration
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveData", "Integration\Logic\ArchiveData\ArchiveData.csproj", "{A72BE1F4-0784-470E-9FEA-CDB665EB98FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfArchiveEditor", "Integration\App\WpfArchiveEditor\WpfArchiveEditor.csproj", "{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfArchiveEditor", "Integration\App\WpfArchiveEditor\WpfArchiveEditor.csproj", "{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaEditor", "Integration\MetaEditor\MetaEditor.csproj", "{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -376,6 +378,18 @@ Global
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}.Release|x64.Build.0 = Release|Any CPU
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}.Release|x86.Build.0 = Release|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Debug|x64.Build.0 = Debug|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Release|x64.ActiveCfg = Release|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Release|x64.Build.0 = Release|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -421,6 +435,7 @@ Global
 		{CC5E0B4F-FA7B-4F7F-8482-169145BBDCDC} = {D7249D74-44BE-4302-950E-BA7584CAD47C}
 		{A72BE1F4-0784-470E-9FEA-CDB665EB98FA} = {D7249D74-44BE-4302-950E-BA7584CAD47C}
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E} = {87CBA2EE-3055-44F2-913F-E58656B0DA51}
+		{C2336EB8-6BD8-4AEA-AF9D-37835B8C011B} = {87CBA2EE-3055-44F2-913F-E58656B0DA51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAE37A10-D5ED-430E-9A4E-03B5DF644084}

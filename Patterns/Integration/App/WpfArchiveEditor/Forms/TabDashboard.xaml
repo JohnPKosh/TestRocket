@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Dashboard" Height="450" Width="800">
     <mah:MetroWindow.Background>
-        <ImageBrush ImageSource="{StaticResource white_wave_scribble_10DrawingImage}" Stretch="UniformToFill"></ImageBrush>
+        <ImageBrush ImageSource="{StaticResource logo}" Stretch="UniformToFill"></ImageBrush>
     </mah:MetroWindow.Background>
     <Grid>
         <Grid.RowDefinitions>

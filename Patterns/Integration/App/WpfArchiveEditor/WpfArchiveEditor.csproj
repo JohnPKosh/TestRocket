@@ -29,5 +29,12 @@
   <ItemGroup>
     <Folder Include="Controls\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Resources\greatday-logo.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   
 </Project>
