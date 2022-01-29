@@ -48,7 +48,7 @@ namespace MetaEditor.Controls
 
     public VerticalAlignment TextVerticalAlignment { get; set; } = VerticalAlignment.Top;
 
-    public HorizontalAlignment TextHorizontalAlignment { get;set; } = HorizontalAlignment.Left;
+    public HorizontalAlignment TextHorizontalAlignment { get; set; } = HorizontalAlignment.Left;
 
     public Brush? TextBackground { get; set; } = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.ThemeBackground"]; // null; {x:Null}
 
@@ -68,13 +68,40 @@ namespace MetaEditor.Controls
 
     public FontFamily TextFontFamily { get; set; } = (FontFamily)Application.Current.Resources["MahApps.Fonts.Family.Control"];
 
-    public int MaxLength { get; set; } = DEFAULT_MAX_LEN;
+
+    private int maxLength = DEFAULT_MAX_LEN;
+    public int MaxLength
+    {
+      get => maxLength; 
+      set
+      {
+        maxLength = value;
+        if(maxLength > 36)
+        {
+          txtValue.TextWrapping = TextWrapping.Wrap;
+          MaxLines = (int)Math.Ceiling(maxLength / 36D);
+          TextMinHeight = Math.Min( (int)(((TextFontSize) * MaxLines)), 500);
+          var width = (int)((maxLength / MaxLines) * TextFontSize);
+          TextWidth = width;
+          txtValue.Width = width;
+        }
+        else
+        {
+          TextWidth = (int)(maxLength * TextFontSize);
+        }
+        
+      }
+    }
 
     public int MinLength { get; set; } = 0;
 
     public int MinLines { get; set; } = 1;
 
     public int MaxLines { get; set; } = 1;
+
+    public bool AcceptsReturn { get; set; }
+
+    public bool AcceptsTab { get; set; }
 
     //public int MinValue { get; set; }
 

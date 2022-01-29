@@ -150,8 +150,8 @@
                 <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250*" MinWidth="250" MaxWidth="400"/>
-                <ColumnDefinition Width="250*" MinWidth="250" MaxWidth="400"/>
+                <ColumnDefinition Width="720*" MinWidth="250"/>
+                <ColumnDefinition Width="250*" MinWidth="250"/>
               </Grid.ColumnDefinitions>
 
               <Label FontSize="14" Margin="4" VerticalAlignment="Top" Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Grid.Row="0" Grid.Column="0">Code Preview</Label>
@@ -164,11 +164,59 @@
                 </TextBox.Foreground>
               </TextBox>
 
-              <ui:TextBox x:Name="helloText" Grid.Row="2" Text="Hello" MaxLength="50"></ui:TextBox>
+              <ui:TextBox x:Name="helloText" Grid.Row="2" Text="Hello" MaxLength="115"></ui:TextBox>
               <Label Content="{Binding  Path=Text, ElementName=helloText}" Grid.Row="2" Grid.Column="1"/>
 
             </Grid>
           </Grid>
+        </ScrollViewer>
+      </TabItem>
+
+      <TabItem>
+        <TabItem.Header>
+          <Grid>
+            <Label FontSize="14" FontWeight="Bold" Margin="0,8,0,8" Foreground="{DynamicResource MahApps.Brushes.Gray}">Tab Item 3</Label>
+          </Grid>
+        </TabItem.Header>
+        <ScrollViewer>
+          <WrapPanel>
+
+
+            <WrapPanel Orientation="Vertical" Margin="4">
+              <ui:TextBox Title="Warning" Text="Hello Mr. Googleberg this is your final warning not to be stupid!" MaxLength="140"></ui:TextBox>
+              <ui:FormSeperator/>
+              <ui:TextBox Title="Last Name" Text="Googleberg" MaxLength="20"></ui:TextBox>
+              <ui:TextBox Title="First Name" Text="Hello" MaxLength="25"></ui:TextBox>
+              <ui:TextBox Title="Nick Name" Text="OogleMyGoogle" MaxLength="20"></ui:TextBox>
+              <ui:FormSeperator/>
+              <ui:TextBox Title="Location" Text="You can find Mr. Googleberg sitting in his chair stairing at the wall." MaxLength="140"></ui:TextBox>
+              <ui:TextBox Title="Favorite Sport" Text="Curling" MaxLength="25"></ui:TextBox>
+              <ui:FormSeperator/>
+              <ui:TextBox Title="Notes" MaxLength="140"></ui:TextBox>
+              <ui:TextBox Title="Favorite Day" Text="Sunday" MaxLength="10"></ui:TextBox>
+              <ui:TextBox Title="Favorite Candy" Text="Hello" MaxLength="25"></ui:TextBox>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Vertical" Margin="4">
+              <ui:TextBox Title="Ugggh" Text="Hello" MaxLength="288"></ui:TextBox>
+              <ui:TextBox Title="Error" Text="Hello" MaxLength="20"></ui:TextBox>
+              <ui:TextBox Title="Debug" Text="Hello" MaxLength="36"></ui:TextBox>
+              <ui:TextBox Title="Warning" Text="Hello" MaxLength="140"></ui:TextBox>
+              <ui:FormSeperator/>
+              <ui:TextBox Title="Demo" Text="Hello" MaxLength="20"></ui:TextBox>
+              <ui:TextBox Title="Subject" Text="Hello" MaxLength="36"></ui:TextBox>
+              <ui:TextBox Title="Boat" Text="Hello" MaxLength="140"></ui:TextBox>
+              <ui:TextBox Title="Auto" Text="Hello" MaxLength="20"></ui:TextBox>
+              <ui:TextBox Title="Home" Text="Hello" MaxLength="36"></ui:TextBox>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Vertical" Margin="4">
+              <ui:TextBox Title="More Notes" Text="Hello" MaxLength="50000" AcceptsReturn="True" AcceptsTab="True"></ui:TextBox>
+              <ui:TextBox Title="Mo Info" Text="blah" MaxLength="20"></ui:TextBox>
+              <ui:TextBox Title="Tezt" Text="12345" MaxLength="36"></ui:TextBox>
+            </WrapPanel>
+
+          </WrapPanel>
         </ScrollViewer>
       </TabItem>
 

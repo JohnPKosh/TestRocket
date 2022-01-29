@@ -7,23 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-      <TextBox Name="txtValue" 
-               Text="{Binding Text}"
-               Width="{Binding TextWidth}" 
-               MinHeight="{Binding TextMinHeight}"
-               Margin="{Binding TextMargin}" 
-               VerticalAlignment="{Binding TextVerticalAlignment}" 
-               HorizontalAlignment="{Binding TextHorizontalAlignment}"
-               Background="{Binding TextBackground}"
-               Foreground="{Binding TextForeground}"
-               BorderBrush="{Binding TextBorderBrush}"
-               FontWeight="{Binding TextFontWeight}"
-               FontStyle="{Binding TextFontStyle}"
-               FontSize="{Binding TextFontSize}"
-               CharacterCasing="{Binding TextCasing}"
-               FontFamily="{Binding TextFontFamily}"
-               MaxLength="{Binding MaxLength}"
-               >        
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+
+    <Label Name="Label" FontSize="14" Margin="4" VerticalAlignment="Top" Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Grid.Row="0" Content="{Binding Title}"/>
+
+    <TextBox  Grid.Row="1"
+              Name="txtValue" 
+              Text="{Binding Text}"
+              Width="{Binding TextWidth}" 
+              MinHeight="{Binding TextMinHeight}"
+              Margin="{Binding TextMargin}" 
+              VerticalAlignment="{Binding TextVerticalAlignment}" 
+              HorizontalAlignment="{Binding TextHorizontalAlignment}"
+              Background="{Binding TextBackground}"
+              Foreground="{Binding TextForeground}"
+              BorderBrush="{Binding TextBorderBrush}"
+              FontWeight="{Binding TextFontWeight}"
+              FontStyle="{Binding TextFontStyle}"
+              FontSize="{Binding TextFontSize}"
+              CharacterCasing="{Binding TextCasing}"
+              FontFamily="{Binding TextFontFamily}"
+              MaxLength="{Binding MaxLength}" VerticalScrollBarVisibility="Auto"
+              MaxHeight="500"
+              AcceptsReturn="{Binding AcceptsReturn}"
+              AcceptsTab="{Binding AcceptsTab}"
+              >        
       </TextBox>
   </Grid>
 </UserControl>
