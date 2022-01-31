@@ -46,9 +46,10 @@
               Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Background="{DynamicResource MahApps.Brushes.Control.Background}"           
               />
       </Grid>
-
       <Label Name="Label" FontSize="14" Margin="4" VerticalAlignment="Top" Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Content="{Binding Title}"/>
+      
     </StackPanel>
+    <Label HorizontalAlignment="Right" Name="ValidationLabel" FontSize="12" FontStyle="Italic" Margin="4" VerticalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Control.Validation}" Content="*The field is required"/>
       
     <TextBox  Grid.Row="1"
               Name="txtValue" 
