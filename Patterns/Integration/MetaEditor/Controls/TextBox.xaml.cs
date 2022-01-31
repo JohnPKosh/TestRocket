@@ -105,6 +105,8 @@ namespace MetaEditor.Controls
 
     public bool AcceptsTab { get; set; }
 
+    public bool ClearTextButton { get; set; }
+
     //public int MinValue { get; set; }
 
     //public int MaxValue { get; set; }

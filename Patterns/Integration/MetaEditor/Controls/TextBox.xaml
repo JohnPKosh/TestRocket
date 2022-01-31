@@ -71,6 +71,7 @@
               AcceptsReturn="{Binding AcceptsReturn}"
               AcceptsTab="{Binding AcceptsTab}"
               mah:TextBoxHelper.Watermark="{Binding TextWatermark}"
+              mah:TextBoxHelper.ClearTextButton="{Binding ClearTextButton}"
               >        
       </TextBox>
   </Grid>
