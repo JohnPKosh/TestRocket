@@ -115,5 +115,15 @@ namespace MetaEditor.Controls
     public string Title { get; set; }
 
     public FontWeight TitleFontWeight { get; set; }
+
+    private void helpMouseOver(object sender, MouseEventArgs e)
+    {
+      if (sender != null) ((ToolTip)((Grid)((Control)sender).Parent).ToolTip).IsOpen = true;
+    }
+
+    private void helpMouseLeave(object sender, MouseEventArgs e)
+    {
+      if(sender != null) ((ToolTip)((Grid)((Control)sender).Parent).ToolTip).IsOpen = false;
+    }
   }
 }
