@@ -32,14 +32,13 @@
     </mah:MetroHeader>-->
 
     <StackPanel Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal">
-      <Grid>
+      <Grid x:Name="grdHelpToolTip" Visibility="{Binding TooltipTextVisibility}">
         <Grid.ToolTip>
           <ToolTip>
-            <TextBlock Text="This is a help section!!!!!!!!!!"/>
+            <TextBlock Text="{Binding TooltipText}"/>
           </ToolTip>
         </Grid.ToolTip>
         <iconPacks:PackIconUnicons
-           MouseEnter="helpMouseOver" MouseLeave="helpMouseLeave"
               Name="iconHelp"
               Kind="QuestionCircle"
               VerticalAlignment="Center"

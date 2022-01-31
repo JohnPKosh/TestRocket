@@ -40,7 +40,7 @@ namespace MetaEditor.Controls
       set { SetValue(TextProperty, value); }
     }
 
-    public string TextWatermark { get; set; }
+    public string? TextWatermark { get; set; }
 
     public int TextWidth { get; set; } = (int)(DEFAULT_MAX_LEN * DEFAULT_TEXT_FONT_SIZE * 1.0);
 
@@ -109,21 +109,88 @@ namespace MetaEditor.Controls
 
     //public int MaxValue { get; set; }
 
+    //public static readonly DependencyProperty TooltipProperty = DependencyProperty.Register("TextTooltip", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
+
+    public string? TooltipText { get; set; }
+    //{
+    //  get { return (string)GetValue(TooltipProperty); }
+    //  set { SetValue(TooltipProperty, value); }
+    //}
+
+    public bool TooltipTextVisible
+    {
+      get {
+        try
+        {
+          return !string.IsNullOrWhiteSpace(TooltipText);
+        }
+        catch (Exception)
+        {
+          return false;
+        }
+      }
+    }
+
+    public Visibility TooltipTextVisibility
+    {
+      get
+      {
+        try
+        {
+          if (TooltipTextVisible) return Visibility.Visible;
+          return Visibility.Collapsed;
+        }
+        catch (Exception)
+        {
+          return Visibility.Collapsed;
+        }
+      }
+    }
 
     #endregion
 
-    public string Title { get; set; }
+    #region Title
+
+    public string? Title { get; set; }
 
     public FontWeight TitleFontWeight { get; set; }
 
-    private void helpMouseOver(object sender, MouseEventArgs e)
-    {
-      if (sender != null) ((ToolTip)((Grid)((Control)sender).Parent).ToolTip).IsOpen = true;
-    }
+    #endregion
 
-    private void helpMouseLeave(object sender, MouseEventArgs e)
-    {
-      if(sender != null) ((ToolTip)((Grid)((Control)sender).Parent).ToolTip).IsOpen = false;
-    }
+    //private void helpMouseOver(object sender, MouseEventArgs e)
+    //{
+    //  try
+    //  {
+    //    if(e.Handled) return;
+    //    var tip = (ToolTip)grdHelpToolTip.ToolTip;
+    //    if (TooltipTextVisible && tip != null && !tip.IsOpen) ((ToolTip)grdHelpToolTip.ToolTip).IsOpen = true;
+    //  }
+    //  catch (Exception)
+    //  {
+    //      // do nothing
+    //  }
+    //  finally
+    //  {
+    //    e.Handled = true;
+    //  }
+    //}
+
+    //private void helpMouseLeave(object sender, MouseEventArgs e)
+    //{
+    //  try
+    //  {
+    //    if (e.Handled) return;
+    //    var tip = (ToolTip)grdHelpToolTip.ToolTip;
+    //    if (TooltipTextVisible && tip != null && tip.IsOpen) tip.IsOpen = false;
+    //  }
+    //  catch (Exception)
+    //  {
+    //    // do nothing
+    //  }
+    //  finally
+    //  {
+    //    e.Handled = true;
+    //  }
+    //}
   }
 }
