@@ -185,7 +185,7 @@
             <WrapPanel Orientation="Vertical" Margin="4">
               <ui:TextBox Title="Warning" Text="Hello Mr. Googleberg this is your final warning not to be stupid!" MaxLength="140" TooltipText="Walla Walla Washington"></ui:TextBox>
               <ui:FormSeperator/>
-              <ui:TextBox Title="Last Name" Text="Googleberg" MaxLength="20"></ui:TextBox>
+              <ui:TextBox Title="Last Name" Text="Googleberg" MaxLength="20" TooltipText="What bulldshit"></ui:TextBox>
               <ui:TextBox Title="First Name" TextWatermark="Enter some data dummy!" MaxLength="25"></ui:TextBox>
               <ui:TextBox Title="Nick Name" Text="OogleMyGoogle" MaxLength="20"></ui:TextBox>
               <ui:FormSeperator/>

@@ -109,13 +109,13 @@ namespace MetaEditor.Controls
 
     //public int MaxValue { get; set; }
 
-    //public static readonly DependencyProperty TooltipProperty = DependencyProperty.Register("TextTooltip", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
+    public static readonly DependencyProperty TooltipProperty = DependencyProperty.Register("TextTooltip", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
 
-    public string? TooltipText { get; set; }
-    //{
-    //  get { return (string)GetValue(TooltipProperty); }
-    //  set { SetValue(TooltipProperty, value); }
-    //}
+    public string? TooltipText
+    {
+      get { return (string)GetValue(TooltipProperty); }
+      set { SetValue(TooltipProperty, value); }
+    }
 
     public bool TooltipTextVisible
     {
