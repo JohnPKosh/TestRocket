@@ -40,6 +40,8 @@ namespace MetaEditor.Controls
       set { SetValue(TextProperty, value); }
     }
 
+    public string TextWatermark { get; set; }
+
     public int TextWidth { get; set; } = (int)(DEFAULT_MAX_LEN * DEFAULT_TEXT_FONT_SIZE * 1.0);
 
     public int TextMinHeight { get; set; } = 26;
