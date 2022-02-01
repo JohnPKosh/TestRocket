@@ -15,22 +15,6 @@
     </Grid.RowDefinitions>
 
 
-    <!--<mah:MetroHeader Margin="2" Header="TextBox Header">
-      <mah:MetroHeader.HeaderTemplate>
-        <DataTemplate>
-          <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-            <iconPacks:PackIconMaterial Kind="EmoticonCool"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center" />
-            <TextBlock Margin="2 0 0 0"
-                             VerticalAlignment="Center"
-                             Text="{Binding}" />
-          </StackPanel>
-        </DataTemplate>
-      </mah:MetroHeader.HeaderTemplate>
-      <TextBox Text="Enabled" />
-    </mah:MetroHeader>-->
-
     <StackPanel Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal">
       <Grid x:Name="grdHelpToolTip" Visibility="{Binding TooltipTextVisibility}">
         <Grid.ToolTip>
@@ -53,31 +37,34 @@
 
     </StackPanel>
     <Label HorizontalAlignment="Right" Name="ValidationLabel" FontSize="12" FontStyle="Italic" Margin="4" VerticalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Control.Validation}" Content="{Binding ValidationLabelText}"/>
-      
-    <TextBox  Grid.Row="1"
+
+    <Border Grid.Row="1" Name="TextBorder" BorderBrush="{Binding ActiveBorder}" Padding="0" Margin="0" BorderThickness="1.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <TextBox  
               Name="txtValue" 
               Text="{Binding Text}"
               Width="{Binding TextWidth}" 
               MinHeight="{Binding TextMinHeight}"
-              Margin="{Binding TextMargin}" 
+              Margin="0" 
               VerticalAlignment="{Binding TextVerticalAlignment}" 
               HorizontalAlignment="{Binding TextHorizontalAlignment}"
               Background="{Binding TextBackground}"
               Foreground="{Binding TextForeground}"
-              BorderBrush="{Binding TextBorderBrush}"
+              BorderThickness="0"
               FontWeight="{Binding TextFontWeight}"
               FontStyle="{Binding TextFontStyle}"
               FontSize="{Binding TextFontSize}"
               CharacterCasing="{Binding TextCasing}"
               FontFamily="{Binding TextFontFamily}"
-              MaxLength="{Binding MaxLength}" VerticalScrollBarVisibility="Auto"
+              MaxLength="{Binding MaxLength}" 
+              VerticalScrollBarVisibility="Auto"
               MaxHeight="500"
               AcceptsReturn="{Binding AcceptsReturn}"
               AcceptsTab="{Binding AcceptsTab}"
               mah:TextBoxHelper.Watermark="{Binding TextWatermark}"
               mah:TextBoxHelper.ClearTextButton="{Binding ClearTextButton}" 
-              TextChanged="txtValue_TextChanged"              
+              TextChanged="txtValue_TextChanged"   
+              
               >        
-      </TextBox>
+      </TextBox></Border>
   </Grid>
 </UserControl>

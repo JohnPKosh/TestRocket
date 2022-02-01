@@ -60,6 +60,14 @@ namespace MetaEditor.Controls
 
     public Brush InvalidBorderBrush { get; set; } = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.Control.Validation"];
 
+    public static DependencyProperty ActiveBorderProperty = DependencyProperty.Register("ActiveBorder", typeof(Brush), typeof(TextBox), new FrameworkPropertyMetadata((SolidColorBrush)Application.Current.Resources["MahApps.Brushes.TextBox.Border"]));
+
+    public Brush ActiveBorder
+    {
+      get { return (Brush)GetValue(ActiveBorderProperty); }
+      set { SetValue(ActiveBorderProperty, value); }
+    }
+
     public FontWeight TextFontWeight { get; set; } = FontWeights.Normal;
 
     public FontStyle TextFontStyle { get; set; } = FontStyles.Normal;
@@ -210,10 +218,16 @@ namespace MetaEditor.Controls
 
     private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
     {
-      if (string.IsNullOrWhiteSpace(txtValue.Text)) //TODO: extract validation logic!!!!!
+      if (string.IsNullOrWhiteSpace(txtValue.Text)) //TODO: extract real validation logic!!!!!
       {
-        //txtValue.BorderBrush = InvalidBorderBrush;        
-        ValidationLabelText = "* The field is required!!!";
+        TextBorder.BorderBrush = InvalidBorderBrush;
+        ValidationLabelText = "*The field is required!!!";
+        ValidationLabel.Content = ValidationLabelText;
+      }
+      else
+      {
+        TextBorder.BorderBrush = TextBorderBrush;
+        ValidationLabelText = string.Empty;
         ValidationLabel.Content = ValidationLabelText;
       }
     }
