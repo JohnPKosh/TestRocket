@@ -115,9 +115,10 @@ namespace MetaEditor.Controls
 
     public bool ClearTextButton { get; set; }
 
-    public object MinValue { get; set; }
+    public object? MinValue { get; set; }
 
-    public object MaxValue { get; set; }
+    public object? MaxValue { get; set; }
+
 
     #region Tooltip
 
@@ -163,6 +164,8 @@ namespace MetaEditor.Controls
     #endregion
 
     #region Validation
+
+    public ValidationState ValidState { get; set; } = new ValidationState();
 
     public static readonly DependencyProperty ValidationLabelProperty = DependencyProperty.Register("ValidationLabelText", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
 
@@ -218,19 +221,12 @@ namespace MetaEditor.Controls
 
     private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
     {
-      if (string.IsNullOrWhiteSpace(txtValue.Text)) //TODO: extract real validation logic!!!!!
-      {
-        TextBorder.BorderBrush = InvalidBorderBrush;
-        ValidationLabelText = "*The field is required!!!";
-        ValidationLabel.Content = ValidationLabelText;
-      }
-      else
-      {
-        TextBorder.BorderBrush = TextBorderBrush;
-        ValidationLabelText = string.Empty;
-        ValidationLabel.Content = ValidationLabelText;
-      }
+      PerformValidation();
     }
 
+    private void txtValue_Loaded(object sender, RoutedEventArgs e)
+    {
+      PerformValidation();
+    }
   }
 }

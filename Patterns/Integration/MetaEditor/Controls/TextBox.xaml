@@ -62,7 +62,7 @@
               AcceptsTab="{Binding AcceptsTab}"
               mah:TextBoxHelper.Watermark="{Binding TextWatermark}"
               mah:TextBoxHelper.ClearTextButton="{Binding ClearTextButton}" 
-              TextChanged="txtValue_TextChanged"   
+              TextChanged="txtValue_TextChanged" Loaded="txtValue_Loaded"   
               
               >        
       </TextBox></Border>
