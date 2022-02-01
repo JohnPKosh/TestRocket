@@ -107,9 +107,11 @@ namespace MetaEditor.Controls
 
     public bool ClearTextButton { get; set; }
 
-    //public int MinValue { get; set; }
+    public object MinValue { get; set; }
 
-    //public int MaxValue { get; set; }
+    public object MaxValue { get; set; }
+
+    #region Tooltip
 
     public static readonly DependencyProperty TooltipProperty = DependencyProperty.Register("TextTooltip", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
 
@@ -121,7 +123,8 @@ namespace MetaEditor.Controls
 
     public bool TooltipTextVisible
     {
-      get {
+      get
+      {
         try
         {
           return !string.IsNullOrWhiteSpace(TooltipText);
@@ -151,48 +154,60 @@ namespace MetaEditor.Controls
 
     #endregion
 
+    #region Validation
+
+    public static readonly DependencyProperty ValidationLabelProperty = DependencyProperty.Register("ValidationLabelText", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
+
+    public string? ValidationLabelText
+    {
+      get { return (string)GetValue(ValidationLabelProperty); }
+      set { SetValue(ValidationLabelProperty, value); }
+    } 
+
+    #endregion
+
+    #endregion
+
     #region Title
 
     public string? Title { get; set; }
 
     public FontWeight TitleFontWeight { get; set; }
 
+    public static readonly DependencyProperty IsRequiredProperty = DependencyProperty.Register("Required", typeof(bool), typeof(TextBox), new FrameworkPropertyMetadata(false));
+
+    public bool IsRequired
+    {
+      get { return (bool)GetValue(IsRequiredProperty); }
+      set { SetValue(IsRequiredProperty, value); }
+    }
+
+    public Visibility IsRequiredVisibility
+    {
+      get
+      {
+        try
+        {
+          if (IsRequired) return Visibility.Visible;
+          return Visibility.Collapsed;
+        }
+        catch (Exception)
+        {
+          return Visibility.Collapsed;
+        }
+      }
+    }
+
     #endregion
 
-    //private void helpMouseOver(object sender, MouseEventArgs e)
-    //{
-    //  try
-    //  {
-    //    if(e.Handled) return;
-    //    var tip = (ToolTip)grdHelpToolTip.ToolTip;
-    //    if (TooltipTextVisible && tip != null && !tip.IsOpen) ((ToolTip)grdHelpToolTip.ToolTip).IsOpen = true;
-    //  }
-    //  catch (Exception)
-    //  {
-    //      // do nothing
-    //  }
-    //  finally
-    //  {
-    //    e.Handled = true;
-    //  }
-    //}
+    private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
+    {
+      if (string.IsNullOrWhiteSpace(txtValue.Text)) //TODO: extract validation logic!!!!!
+      {
+        ValidationLabelText = "* The field is required!!!";
+        ValidationLabel.Content = ValidationLabelText;
+      }
+    }
 
-    //private void helpMouseLeave(object sender, MouseEventArgs e)
-    //{
-    //  try
-    //  {
-    //    if (e.Handled) return;
-    //    var tip = (ToolTip)grdHelpToolTip.ToolTip;
-    //    if (TooltipTextVisible && tip != null && tip.IsOpen) tip.IsOpen = false;
-    //  }
-    //  catch (Exception)
-    //  {
-    //    // do nothing
-    //  }
-    //  finally
-    //  {
-    //    e.Handled = true;
-    //  }
-    //}
   }
 }

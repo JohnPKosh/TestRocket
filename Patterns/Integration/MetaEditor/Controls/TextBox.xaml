@@ -46,10 +46,13 @@
               Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Background="{DynamicResource MahApps.Brushes.Control.Background}"           
               />
       </Grid>
-      <Label Name="Label" FontSize="14" Margin="4" VerticalAlignment="Top" Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Content="{Binding Title}"/>
-      
+      <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="4,0,4,0" >
+        <Label FontSize="14" Margin="0,4,0,4" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Content="*" Padding="0,5,1,5" Visibility="{Binding IsRequiredVisibility}"/>
+        <Label Name="Label" FontSize="14" Margin="0,4,0,4" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="{DynamicResource MahApps.Brushes.WindowTitle}" Content="{Binding Title}" Padding="0,5,5,5"/>
+      </StackPanel>
+
     </StackPanel>
-    <Label HorizontalAlignment="Right" Name="ValidationLabel" FontSize="12" FontStyle="Italic" Margin="4" VerticalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Control.Validation}" Content="*The field is required"/>
+    <Label HorizontalAlignment="Right" Name="ValidationLabel" FontSize="12" FontStyle="Italic" Margin="4" VerticalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Control.Validation}" Content="{Binding ValidationLabelText}"/>
       
     <TextBox  Grid.Row="1"
               Name="txtValue" 
@@ -72,7 +75,8 @@
               AcceptsReturn="{Binding AcceptsReturn}"
               AcceptsTab="{Binding AcceptsTab}"
               mah:TextBoxHelper.Watermark="{Binding TextWatermark}"
-              mah:TextBoxHelper.ClearTextButton="{Binding ClearTextButton}"
+              mah:TextBoxHelper.ClearTextButton="{Binding ClearTextButton}" 
+              TextChanged="txtValue_TextChanged"              
               >        
       </TextBox>
   </Grid>

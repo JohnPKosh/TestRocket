@@ -190,12 +190,13 @@
                 MaxLength="140" 
                 TooltipText="Walla Walla Washington"
                 ClearTextButton="True"
+                IsRequired="True"
                 />
 
 
               <ui:FormSeperator/>
-              <ui:TextBox Title="Last Name" Text="Googleberg" MaxLength="20" TooltipText="What bulldshit"></ui:TextBox>
-              <ui:TextBox Title="First Name" TextWatermark="Enter some data dummy!" MaxLength="25"></ui:TextBox>
+              <ui:TextBox Title="Last Name" Text="Googleberg" MaxLength="20" TooltipText="What bulldshit" IsRequired="True"></ui:TextBox>
+              <ui:TextBox Title="First Name" TextWatermark="Enter some data dummy!" MaxLength="25" IsRequired="True"></ui:TextBox>
               <ui:TextBox Title="Nick Name" Text="OogleMyGoogle" MaxLength="20"></ui:TextBox>
               <ui:FormSeperator/>
               <ui:TextBox Title="Location" Text="You can find Mr. Googleberg sitting in his chair stairing at the wall." MaxLength="140"></ui:TextBox>
