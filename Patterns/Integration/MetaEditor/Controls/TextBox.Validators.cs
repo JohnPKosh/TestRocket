@@ -13,7 +13,8 @@ namespace MetaEditor.Controls
     {
       ValidState = new ValidationState().Validate(new[] {
         CheckRequired,
-        CheckMin
+        CheckMin,
+        CheckMax
       });
 
       if (!ValidState.IsValid)
@@ -36,13 +37,6 @@ namespace MetaEditor.Controls
       if (IsRequired && string.IsNullOrWhiteSpace(txtValue.Text)) existing.FailureMessage = "*The field is required!";
       return existing;
     }
-
-    private ValidationState CheckWaldo(ValidationState existing)
-    {
-      if (IsRequired && !txtValue.Text.Contains("Waldo", StringComparison.InvariantCultureIgnoreCase)) existing.FailureMessage = "*The field does not contain waldo!";
-      return existing;
-    }
-
 
     private ValidationState CheckMin(ValidationState existing)
     {
@@ -79,6 +73,44 @@ namespace MetaEditor.Controls
         }        
       }
       existing.FailureMessage = $"*The value must be equal to or greater than {minStr}!";
+      return existing;
+    }
+
+    private ValidationState CheckMax(ValidationState existing)
+    {
+      var maxStr = MaxValue?.ToString();
+      if (string.IsNullOrWhiteSpace(maxStr)) return existing;
+      maxStr = maxStr.Trim();
+
+      var val = txtValue?.Text.Replace("$", String.Empty).Replace(",", String.Empty);
+      if (string.IsNullOrWhiteSpace(val))
+      {
+        existing.FailureMessage = $"*The value must be equal to or less than {maxStr} date!";
+        return existing;
+      }
+      val = val.Trim();
+
+      if (maxStr.Contains('/') || (maxStr.Contains('-') && !maxStr.StartsWith("-"))) // check for dates
+      {
+        if (DateTime.TryParse(maxStr, out DateTime maxDt))
+        {
+          if (!string.IsNullOrWhiteSpace(val) && DateTime.TryParse(val, out DateTime valueDt))
+          {
+            if (valueDt <= maxDt) return existing;
+          }
+          existing.FailureMessage = $"*The value must be equal to or less than {maxStr} date!";
+          return existing;
+        }
+      }
+      else if (!string.IsNullOrWhiteSpace(val))
+      {
+        val = val.Replace("$", String.Empty).Replace(",", String.Empty);
+        if (decimal.TryParse(maxStr, out decimal minDecimal) && decimal.TryParse(val, out decimal valueDecimal))
+        {
+          if (valueDecimal <= minDecimal) return existing;
+        }
+      }
+      existing.FailureMessage = $"*The value must be equal to or less than {maxStr}!";
       return existing;
     }
   }
