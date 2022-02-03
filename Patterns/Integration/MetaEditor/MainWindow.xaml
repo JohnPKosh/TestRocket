@@ -221,7 +221,7 @@
             </WrapPanel>
 
             <WrapPanel Orientation="Vertical" Margin="4">
-              <ui:TextBox Title="More Notes" Text="Hello" MaxLength="50000" AcceptsReturn="True" AcceptsTab="True"></ui:TextBox>
+              <ui:TextBox Title="More Notes" Text="Hello" MinLength="3" MaxLength="50000" AcceptsReturn="True" AcceptsTab="True"></ui:TextBox>
               <ui:TextBox Title="Mo Info" Text="2022-01-01" MaxLength="20" MinValue="2021-12-31"></ui:TextBox>
               <ui:TextBox Title="Tezt" Text="12345" MaxLength="36" MinValue="1200" MaxValue="12345"></ui:TextBox>
             </WrapPanel>

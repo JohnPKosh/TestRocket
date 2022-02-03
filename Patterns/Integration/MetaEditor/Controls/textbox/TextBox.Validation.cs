@@ -20,21 +20,22 @@ namespace MetaEditor.Controls
     {
       ValidState = new ValidationState().Validate(new[] {
         CheckRequired,
-        CheckMin,
-        CheckMax
+        CheckMinLength,
+        CheckMinValue,
+        CheckMaxValue
       });
 
       if (!ValidState.IsValid)
       {
         TextBorder.BorderBrush = InvalidBorderBrush;
-        ValidationLabelText = ValidState.FailureMessage;
-        ValidationLabel.Content = ValidationLabelText;
+        ErrorLabelText = ValidState.FailureMessage;
+        ErrorLabel.Content = ErrorLabelText;
       }
       else
       {
         TextBorder.BorderBrush = TextBorderBrush;
-        ValidationLabelText = string.Empty;
-        ValidationLabel.Content = ValidationLabelText;
+        ErrorLabelText = string.Empty;
+        ErrorLabel.Content = ErrorLabelText;
       }
     }
 
@@ -44,7 +45,13 @@ namespace MetaEditor.Controls
       return existing;
     }
 
-    private ValidationState CheckMin(ValidationState existing)
+    private ValidationState CheckMinLength(ValidationState existing)
+    {
+      if (MinLength > 0 && !string.IsNullOrWhiteSpace(txtValue.Text) && txtValue.Text.Length < MinLength) existing.FailureMessage = $"*The value must be at least {MinLength} characters!";
+      return existing;
+    }
+
+    private ValidationState CheckMinValue(ValidationState existing)
     {
       var minStr = MinValue?.ToString();
       if (string.IsNullOrWhiteSpace(minStr)) return existing;
@@ -82,7 +89,7 @@ namespace MetaEditor.Controls
       return existing;
     }
 
-    private ValidationState CheckMax(ValidationState existing)
+    private ValidationState CheckMaxValue(ValidationState existing)
     {
       var maxStr = MaxValue?.ToString();
       if (string.IsNullOrWhiteSpace(maxStr)) return existing;

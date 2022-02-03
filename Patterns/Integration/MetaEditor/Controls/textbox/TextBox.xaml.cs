@@ -38,7 +38,7 @@ namespace MetaEditor.Controls
     /* ==================== Start TextBox ==================== */
     #region TextBox
 
-    #region Properties
+    #region Text Value Properties
 
     public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
 
@@ -47,6 +47,10 @@ namespace MetaEditor.Controls
       get { return (string)GetValue(TextProperty); }
       set { SetValue(TextProperty, value); }
     }
+
+    #endregion
+
+    #region Addtional Meta Properties
 
     public string? TextWatermark { get; set; }
 
@@ -57,7 +61,7 @@ namespace MetaEditor.Controls
     #endregion
 
 
-    #region Layout
+    #region Text Layout Properties
 
     public int TextWidth { get; set; } = (int)(DEFAULT_MAX_LEN * DEFAULT_TEXT_FONT_SIZE * 1.0);
 
@@ -72,7 +76,7 @@ namespace MetaEditor.Controls
     #endregion
 
 
-    #region Visual Brushes
+    #region Brush Properties
 
     public Brush? TextBackground { get; set; } = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.ThemeBackground"]; // null; {x:Null}
 
@@ -93,7 +97,7 @@ namespace MetaEditor.Controls
     #endregion
 
 
-    #region Font Styling
+    #region Font Styling Properties
 
     public FontWeight TextFontWeight { get; set; } = FontWeights.Normal;
 
@@ -106,7 +110,7 @@ namespace MetaEditor.Controls
     #endregion
 
 
-    #region Textbox Sizing
+    #region Textbox Sizing Properties
 
     private int maxLength = DEFAULT_MAX_LEN;
     public int MaxLength
@@ -141,7 +145,7 @@ namespace MetaEditor.Controls
     #endregion
 
 
-    #region Textbox Editing
+    #region Textbox Editing Properties
 
     public CharacterCasing TextCasing { get; set; } = CharacterCasing.Normal;
 
@@ -158,108 +162,5 @@ namespace MetaEditor.Controls
     /* ==================== End TextBox ==================== */
 
 
-    #region Tooltip Label
-
-    public static readonly DependencyProperty TooltipProperty = DependencyProperty.Register("TextTooltip", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
-
-    public string? TooltipText
-    {
-      get { return (string)GetValue(TooltipProperty); }
-      set { SetValue(TooltipProperty, value); }
-    }
-
-    public bool TooltipTextVisible
-    {
-      get
-      {
-        try
-        {
-          return !string.IsNullOrWhiteSpace(TooltipText);
-        }
-        catch (Exception)
-        {
-          return false;
-        }
-      }
-    }
-
-    public Visibility TooltipTextVisibility
-    {
-      get
-      {
-        try
-        {
-          if (TooltipTextVisible) return Visibility.Visible;
-          return Visibility.Collapsed;
-        }
-        catch (Exception)
-        {
-          return Visibility.Collapsed;
-        }
-      }
-    }
-
-    #endregion
-
-
-    #region Validation Label
-
-    public static readonly DependencyProperty ValidationLabelProperty = DependencyProperty.Register("ValidationLabelText", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
-
-    public string? ValidationLabelText
-    {
-      get { return (string)GetValue(ValidationLabelProperty); }
-      set { SetValue(ValidationLabelProperty, value); }
-    }
-
-    #endregion
-
-
-    #region Title Label
-
-    public string? Title { get; set; }
-
-    public FontWeight TitleFontWeight { get; set; }
-
-    public static readonly DependencyProperty IsRequiredProperty = DependencyProperty.Register("Required", typeof(bool), typeof(TextBox), new FrameworkPropertyMetadata(false));
-
-    public bool IsRequired
-    {
-      get { return (bool)GetValue(IsRequiredProperty); }
-      set { SetValue(IsRequiredProperty, value); }
-    }
-
-    public Visibility IsRequiredVisibility
-    {
-      get
-      {
-        try
-        {
-          if (IsRequired) return Visibility.Visible;
-          return Visibility.Collapsed;
-        }
-        catch (Exception)
-        {
-          return Visibility.Collapsed;
-        }
-      }
-    }
-
-    #endregion
-
-
-    #region UI Event Handlers
-
-    private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
-    {
-      PerformValidation();
-    }
-
-    private void txtValue_Loaded(object sender, RoutedEventArgs e)
-    {
-      PerformValidation();
-    } 
-
-    #endregion
   }
 }
