@@ -21,6 +21,8 @@ namespace MetaEditor.Controls
   /// </summary>
   public partial class TextBox : UserControl
   {
+    #region Initialization
+
     public TextBox()
     {
       InitializeComponent();
@@ -28,7 +30,9 @@ namespace MetaEditor.Controls
     }
 
     private const int DEFAULT_MAX_LEN = 20;
-    private const double DEFAULT_TEXT_FONT_SIZE = 12D;
+    private const double DEFAULT_TEXT_FONT_SIZE = 12D; 
+
+    #endregion
 
     #region TextBox Properties
 
@@ -42,6 +46,13 @@ namespace MetaEditor.Controls
 
     public string? TextWatermark { get; set; }
 
+    public object? MinValue { get; set; }
+
+    public object? MaxValue { get; set; }
+
+
+    #region Layout
+
     public int TextWidth { get; set; } = (int)(DEFAULT_MAX_LEN * DEFAULT_TEXT_FONT_SIZE * 1.0);
 
     public int TextMinHeight { get; set; } = 26;
@@ -51,6 +62,11 @@ namespace MetaEditor.Controls
     public VerticalAlignment TextVerticalAlignment { get; set; } = VerticalAlignment.Top;
 
     public HorizontalAlignment TextHorizontalAlignment { get; set; } = HorizontalAlignment.Left;
+
+    #endregion
+
+
+    #region Visual Brushes
 
     public Brush? TextBackground { get; set; } = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.ThemeBackground"]; // null; {x:Null}
 
@@ -66,7 +82,12 @@ namespace MetaEditor.Controls
     {
       get { return (Brush)GetValue(ActiveBorderProperty); }
       set { SetValue(ActiveBorderProperty, value); }
-    }
+    } 
+
+    #endregion
+
+
+    #region Font Styling
 
     public FontWeight TextFontWeight { get; set; } = FontWeights.Normal;
 
@@ -74,23 +95,25 @@ namespace MetaEditor.Controls
 
     public double TextFontSize { get; set; } = DEFAULT_TEXT_FONT_SIZE;
 
-    public CharacterCasing TextCasing { get; set; } = CharacterCasing.Normal;
-
     public FontFamily TextFontFamily { get; set; } = (FontFamily)Application.Current.Resources["MahApps.Fonts.Family.Control"];
 
+    #endregion
+
+
+    #region Textbox Sizing
 
     private int maxLength = DEFAULT_MAX_LEN;
     public int MaxLength
     {
-      get => maxLength; 
+      get => maxLength;
       set
       {
         maxLength = value;
-        if(maxLength > 36)
+        if (maxLength > 36)
         {
           txtValue.TextWrapping = TextWrapping.Wrap;
           MaxLines = (int)Math.Ceiling(maxLength / 36D);
-          TextMinHeight = Math.Min( (int)(((TextFontSize) * MaxLines)), 500);
+          TextMinHeight = Math.Min((int)(((TextFontSize) * MaxLines)), 500);
           var width = (int)((maxLength / MaxLines) * TextFontSize);
           TextWidth = width;
           txtValue.Width = width;
@@ -99,7 +122,7 @@ namespace MetaEditor.Controls
         {
           TextWidth = (int)(maxLength * TextFontSize);
         }
-        
+
       }
     }
 
@@ -109,15 +132,23 @@ namespace MetaEditor.Controls
 
     public int MaxLines { get; set; } = 1;
 
+    #endregion
+
+
+    #region Textbox Editing
+
+    public CharacterCasing TextCasing { get; set; } = CharacterCasing.Normal;
+
     public bool AcceptsReturn { get; set; }
 
     public bool AcceptsTab { get; set; }
 
-    public bool ClearTextButton { get; set; }
+    public bool ClearTextButton { get; set; } 
 
-    public object? MinValue { get; set; }
+    #endregion
 
-    public object? MaxValue { get; set; }
+
+    #endregion
 
 
     #region Tooltip
@@ -163,9 +194,8 @@ namespace MetaEditor.Controls
 
     #endregion
 
-    #region Validation
 
-    public ValidationState ValidState { get; set; } = new ValidationState();
+    #region Validation Label
 
     public static readonly DependencyProperty ValidationLabelProperty = DependencyProperty.Register("ValidationLabelText", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
 
@@ -174,6 +204,8 @@ namespace MetaEditor.Controls
       get { return (string)GetValue(ValidationLabelProperty); }
       set { SetValue(ValidationLabelProperty, value); }
     }
+
+    public ValidationState ValidState { get; set; } = new ValidationState();
 
     public static readonly DependencyProperty IsInvalidProperty = DependencyProperty.Register("IsInvalid", typeof(bool), typeof(TextBox), new FrameworkPropertyMetadata(false));
 
@@ -185,7 +217,6 @@ namespace MetaEditor.Controls
 
     #endregion
 
-    #endregion
 
     #region Title
 
@@ -219,6 +250,9 @@ namespace MetaEditor.Controls
 
     #endregion
 
+
+    #region UI Event Handlers
+
     private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
     {
       PerformValidation();
@@ -227,6 +261,8 @@ namespace MetaEditor.Controls
     private void txtValue_Loaded(object sender, RoutedEventArgs e)
     {
       PerformValidation();
-    }
+    } 
+
+    #endregion
   }
 }

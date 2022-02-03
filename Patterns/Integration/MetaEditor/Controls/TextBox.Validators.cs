@@ -47,7 +47,7 @@ namespace MetaEditor.Controls
       var val = txtValue?.Text.Replace("$", String.Empty).Replace(",", String.Empty);
       if (string.IsNullOrWhiteSpace(val))
       {
-        existing.FailureMessage = $"*The value must be equal to or greater than {minStr} date!";
+        existing.FailureMessage = $"*The value must be a date equal to or greater than {minStr} date!";
         return existing;
       }
       val = val.Trim();
@@ -60,7 +60,7 @@ namespace MetaEditor.Controls
           {
             if(valueDt >= minDt) return existing;
           }
-          existing.FailureMessage = $"*The value must be equal to or greater than {minStr} date!";
+          existing.FailureMessage = $"*The value must be a date equal to or greater than {minStr} date!";
           return existing;
         }
       }
@@ -72,7 +72,7 @@ namespace MetaEditor.Controls
           if (valueDecimal >= minDecimal) return existing;
         }        
       }
-      existing.FailureMessage = $"*The value must be equal to or greater than {minStr}!";
+      existing.FailureMessage = $"*The value must be a number equal to or greater than {minStr}!";
       return existing;
     }
 
