@@ -8,6 +8,13 @@ namespace MetaEditor.Controls
 {
   public partial class TextBox
   {
+    #region Properties
+
+    public ValidationState ValidState { get; set; } = new ValidationState(); 
+
+    #endregion
+
+    #region Private Methods
 
     private void PerformValidation()
     {
@@ -31,7 +38,6 @@ namespace MetaEditor.Controls
       }
     }
 
-
     private ValidationState CheckRequired(ValidationState existing)
     {
       if (IsRequired && string.IsNullOrWhiteSpace(txtValue.Text)) existing.FailureMessage = "*The field is required!";
@@ -54,23 +60,23 @@ namespace MetaEditor.Controls
 
       if (minStr.Contains('/') || (minStr.Contains('-') && !minStr.StartsWith("-"))) // check for dates
       {
-        if(DateTime.TryParse(minStr, out DateTime minDt))
+        if (DateTime.TryParse(minStr, out DateTime minDt))
         {
-          if(!string.IsNullOrWhiteSpace(val) && DateTime.TryParse(val, out DateTime valueDt))
+          if (!string.IsNullOrWhiteSpace(val) && DateTime.TryParse(val, out DateTime valueDt))
           {
-            if(valueDt >= minDt) return existing;
+            if (valueDt >= minDt) return existing;
           }
           existing.FailureMessage = $"*The value must be a date equal to or greater than {minStr} date!";
           return existing;
         }
       }
-      else if(!string.IsNullOrWhiteSpace(val))
+      else if (!string.IsNullOrWhiteSpace(val))
       {
         val = val.Replace("$", String.Empty).Replace(",", String.Empty);
-        if(decimal.TryParse(minStr, out decimal minDecimal) && decimal.TryParse(val, out decimal valueDecimal))
+        if (decimal.TryParse(minStr, out decimal minDecimal) && decimal.TryParse(val, out decimal valueDecimal))
         {
           if (valueDecimal >= minDecimal) return existing;
-        }        
+        }
       }
       existing.FailureMessage = $"*The value must be a number equal to or greater than {minStr}!";
       return existing;
@@ -112,6 +118,8 @@ namespace MetaEditor.Controls
       }
       existing.FailureMessage = $"*The value must be equal to or less than {maxStr}!";
       return existing;
-    }
+    } 
+
+    #endregion
   }
 }

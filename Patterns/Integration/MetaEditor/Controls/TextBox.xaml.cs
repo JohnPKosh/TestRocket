@@ -30,11 +30,15 @@ namespace MetaEditor.Controls
     }
 
     private const int DEFAULT_MAX_LEN = 20;
-    private const double DEFAULT_TEXT_FONT_SIZE = 12D; 
+    private const double DEFAULT_TEXT_FONT_SIZE = 12D;
 
     #endregion
 
-    #region TextBox Properties
+
+    /* ==================== Start TextBox ==================== */
+    #region TextBox
+
+    #region Properties
 
     public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
 
@@ -49,6 +53,8 @@ namespace MetaEditor.Controls
     public object? MinValue { get; set; }
 
     public object? MaxValue { get; set; }
+
+    #endregion
 
 
     #region Layout
@@ -143,15 +149,16 @@ namespace MetaEditor.Controls
 
     public bool AcceptsTab { get; set; }
 
-    public bool ClearTextButton { get; set; } 
+    public bool ClearTextButton { get; set; }
 
     #endregion
 
 
     #endregion
+    /* ==================== End TextBox ==================== */
 
 
-    #region Tooltip
+    #region Tooltip Label
 
     public static readonly DependencyProperty TooltipProperty = DependencyProperty.Register("TextTooltip", typeof(string), typeof(TextBox), new FrameworkPropertyMetadata(string.Empty));
 
@@ -205,20 +212,10 @@ namespace MetaEditor.Controls
       set { SetValue(ValidationLabelProperty, value); }
     }
 
-    public ValidationState ValidState { get; set; } = new ValidationState();
-
-    public static readonly DependencyProperty IsInvalidProperty = DependencyProperty.Register("IsInvalid", typeof(bool), typeof(TextBox), new FrameworkPropertyMetadata(false));
-
-    public bool IsInvalid
-    {
-      get { return (bool)GetValue(IsRequiredProperty); }
-      set { SetValue(IsRequiredProperty, value); }
-    }
-
     #endregion
 
 
-    #region Title
+    #region Title Label
 
     public string? Title { get; set; }
 
