@@ -26,6 +26,7 @@ namespace MetaEditor.Controls
     public TextBox()
     {
       InitializeComponent();
+      //DataObject.AddPastingHandler(txtValue, PasteHandler); // TODO: implement pasting logic validation
       this.DataContext = this;
     }
 

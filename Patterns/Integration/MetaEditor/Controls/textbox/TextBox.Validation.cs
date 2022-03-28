@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MetaEditor.Controls
 {
@@ -125,7 +127,33 @@ namespace MetaEditor.Controls
       }
       existing.FailureMessage = $"*The value must be equal to or less than {maxStr}!";
       return existing;
-    } 
+    }
+
+    #endregion
+
+    #region PastingHandler Validation Logic
+
+    private void PasteHandler(object sender, DataObjectPastingEventArgs e)  // TODO: refactor this method logic out
+    {
+      var tb = sender as System.Windows.Controls.TextBox; // TODO: Rename this User Control to something other than "TextBox" !!!!!!!!!!!!!!!!
+      bool textOK = false;
+
+      var current = tb.Text;
+
+      if (e.DataObject.GetDataPresent(typeof(string)))
+      {
+        if (e.DataObject.GetData(typeof(string)) is string pasteText)
+        {
+          Regex? r = new(@"^[a-zA-Z]+$");
+          if (r.IsMatch(pasteText))
+            textOK = true;
+        }
+        else textOK = true;
+      }
+
+      if (!textOK)
+        e.CancelCommand();
+    }
 
     #endregion
   }
