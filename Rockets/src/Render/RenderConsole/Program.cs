@@ -21,8 +21,8 @@ var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
     };
 
   var parameters = ParameterView.FromDictionary(dictionary);
-  //var output = await htmlRenderer.RenderComponentAsync<RenderMessage>(parameters);
-  var output = await htmlRenderer.RenderComponentAsync<LibraryMessage>(parameters);
+  var output = await htmlRenderer.RenderComponentAsync<RenderMessage>(parameters);
+  //var output = await htmlRenderer.RenderComponentAsync<LibraryMessage>(parameters);
 
   return output.ToHtmlString();
 });
