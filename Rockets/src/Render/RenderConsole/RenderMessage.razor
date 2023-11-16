@@ -1,0 +1,10 @@
+﻿<h1>Render Message</h1>
+
+<code>@Message</code>
+
+@((MarkupString)Message)
+
+@code {
+  [Parameter]
+  public string Message { get; set; }
+}
