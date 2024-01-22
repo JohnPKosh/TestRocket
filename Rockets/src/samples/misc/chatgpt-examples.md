@@ -213,3 +213,53 @@ This code will automatically fill in the username field with the last submitted 
 Please note that this is a basic example and does not include any form of authentication or secure storage of user credentials. In a real-world application, you would typically send the form data to a server for processing and use secure methods to store and retrieve user credentials. Also, local storage is limited to the specific browser on the specific device, so the saved username won't be available if the user switches browsers or devices. 
 
 For more information about HTML forms, JavaScript, and local storage, you can refer to the [Mozilla Developer Network](https://developer.mozilla.org/).
+
+
+
+
+---
+
+
+## 5. - Code a node.js app that uses lit.js to display HTML from a file.
+
+### Response
+
+
+
+Sure, here's a simple Node.js application that uses the `lit-html` library to render HTML from a file. 
+
+```javascript
+const fs = require('fs');
+const express = require('express');
+const { html, render } = require('lit-html');
+
+// Read HTML file
+const htmlFile = fs.readFileSync('./index.html', 'utf8');
+
+// Convert HTML string to lit-html template
+const template = html`${htmlFile}`;
+
+const app = express();
+
+app.get('/', (req, res) => {
+    let container = document.createElement('div');
+    render(template, container);
+    res.send(container.innerHTML);
+});
+
+app.listen(3000, () => console.log('App is listening on port 3000'));
+```
+
+This code reads an HTML file named `index.html` from the current directory, converts it into a lit-html template, and then serves it on an Express.js server at `localhost:3000`. 
+
+Please note that you'll need to have `express` and `lit-html` installed in your project. You can install them using npm:
+
+```bash
+npm install express lit-html
+```
+
+Also, this code assumes that you're running it in an environment where `document.createElement` is available. If you're running this on a server, you might need something like `jsdom` to provide DOM methods. 
+
+Remember to replace `'./index.html'` with the path to your actual HTML file. 
+
+This is a very basic example and might not cover all your needs, but it should give you a good starting point. Let me know if you need help with anything else! 😊
