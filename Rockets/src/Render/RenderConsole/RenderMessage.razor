@@ -1,0 +1,23 @@
+﻿@using RazorClassLibrary.Logic
+<h1>Render Message</h1>
+
+<code>@Message</code>
+
+@((MarkupString)Message)
+
+@ManualMessage()
+
+@code {
+  [Parameter]
+  public string Message { get; set; }
+
+  private MarkupString ManualMessage()
+  {
+    var innerContent = new object[] { "Hellowwww & mellow", new MarkupTag("b", "WOW!", false), " this is ", new MarkupTag("b", "COOL!", false) };
+    var outerTag = new MarkupTag("p", innerContent);
+
+    // var outerTagString = outerTag.ToString().FormatHtml();
+
+    return (MarkupString)outerTag.ToString().FormatHtml();
+  }
+}
