@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AbstractFactory", "AbstractFactory", "{D2C9A11D-7B77-4323-835A-676993EFEE46}"
 EndProject
@@ -113,6 +113,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiveData", "Integration\Logic\ArchiveData\ArchiveData.csproj", "{A72BE1F4-0784-470E-9FEA-CDB665EB98FA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfArchiveEditor", "Integration\App\WpfArchiveEditor\WpfArchiveEditor.csproj", "{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "State2", "State2", "{6522EC9D-A6AE-4860-8E30-DA01C31AD469}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{DC22CC61-74D2-4C8F-B864-7B555BF9587A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "alterstate2", "State2\App\alterstate2\alterstate2.csproj", "{E43FE815-A356-4860-AC92-9D87AC2270D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -376,6 +382,18 @@ Global
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}.Release|x64.Build.0 = Release|Any CPU
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E}.Release|x86.Build.0 = Release|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Debug|x64.Build.0 = Debug|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Debug|x86.Build.0 = Debug|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Release|x64.ActiveCfg = Release|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Release|x64.Build.0 = Release|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Release|x86.ActiveCfg = Release|Any CPU
+		{E43FE815-A356-4860-AC92-9D87AC2270D5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -421,6 +439,8 @@ Global
 		{CC5E0B4F-FA7B-4F7F-8482-169145BBDCDC} = {D7249D74-44BE-4302-950E-BA7584CAD47C}
 		{A72BE1F4-0784-470E-9FEA-CDB665EB98FA} = {D7249D74-44BE-4302-950E-BA7584CAD47C}
 		{BDC0A597-C0F6-4B3E-91D2-1B3CD0E18A1E} = {87CBA2EE-3055-44F2-913F-E58656B0DA51}
+		{DC22CC61-74D2-4C8F-B864-7B555BF9587A} = {6522EC9D-A6AE-4860-8E30-DA01C31AD469}
+		{E43FE815-A356-4860-AC92-9D87AC2270D5} = {DC22CC61-74D2-4C8F-B864-7B555BF9587A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAE37A10-D5ED-430E-9A4E-03B5DF644084}
