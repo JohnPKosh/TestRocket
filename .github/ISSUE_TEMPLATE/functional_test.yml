@@ -18,3 +18,75 @@ body:
       - DEV
       - TEST
       - PROD
+- type: checkboxes
+  id: cases
+  attributes:
+    label: Test data, cases, notes, scripts available to test?
+    description: You may select more than one.
+    options:
+      - label: Data
+      - label: Cases
+      - label: Notes
+      - label: Scripts
+- type: textarea
+  id: case-notes
+  attributes:
+    label: Testing notes
+    description: Test case, data, notes, scripts
+    placeholder: Add detailed test notes here!
+- type: markdown
+  attributes:
+    value: |
+      ## Functional Requirements
+      **The engineering team has provided** the following items needed for QA testing:
+- type: textarea
+  id: functionality-desc
+  attributes:
+    label: Functionality to test
+    description: A brief description of the functionality to test
+  validations:
+    required: true
+- type: textarea
+  id: preconditions
+  attributes:
+    label: Preconditions
+    description: The preconditions required to test
+  validations:
+    required: false
+- type: textarea
+  id: steps
+  attributes:
+    label: Test Steps
+    description: Required steps to test
+  validations:
+    required: false
+- type: textarea
+  id: expected-results
+  attributes:
+    label: Expected Results
+    description: A description of the expected results
+  validations:
+    required: false
+- type: markdown
+  attributes:
+    value: |
+      ## Exit Criteria Certifications Met
+      **The QA team certifies** the following results testing:
+
+      1. Achieves the specified expected result: 
+        - [x] Yes
+        - [ ] No
+      1. Meets generally acceptable quality standards: 
+        - [x] Yes
+        - [ ] No
+      1. The testing results are free of critical defects: 
+        - [x] Yes
+        - [ ] No
+      1. Will meet stakeholder expectations: 
+        - [x] Yes
+        - [ ] No
+      1. Test case and requirements documentation provided are accurate and complete: 
+        - [x] Yes
+        - [ ] No
+
+      Exit Notes:
