@@ -1,16 +1,13 @@
-name: Bug Report
-description: File a bug report
-title: "[Bug]: "
-labels: ["bug", "triage"]
-projects: ["octo-org/1", "octo-org/44"]
-assignees:
-  - octocat
+name: QA Test
+description: Creates a QA functional test issue
+title: "Test:Functional QA Test for issue #..."
+labels: ["Testing"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ## Test Readiness Review (TRR)
-        **The engineering team has provided** the following items needed for QA testing:
+  # - type: markdown
+  #   attributes:
+  #     value: |
+  #       ## Test Readiness Review (TRR)
+  #       **The engineering team has provided** the following items needed for QA testing:
   - type: dropdown
     id: environment
     attributes:
