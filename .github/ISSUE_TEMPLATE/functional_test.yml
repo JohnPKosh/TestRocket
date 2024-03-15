@@ -2,7 +2,6 @@ name: QA Test
 description: Creates a QA functional test issue
 title: "Test:Functional QA Test for issue #..."
 labels: ["Testing"]
-projects: []
 body:
   - type: markdown
     attributes:
