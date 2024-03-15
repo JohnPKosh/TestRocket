@@ -1,7 +1,10 @@
-name: QA Test
-description: Creates a QA functional test issue
-title: "Test:Functional QA Test for issue #..."
-labels: ["Testing"]
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug", "triage"]
+projects: ["octo-org/1", "octo-org/44"]
+assignees:
+  - octocat
 body:
   - type: markdown
     attributes:
