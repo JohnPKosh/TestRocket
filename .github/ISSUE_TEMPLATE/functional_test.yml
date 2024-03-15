@@ -4,6 +4,11 @@ title: "Test:Functional QA Test for issue #..."
 labels: ["Testing"]
 assignees: 'g8behrens-jungfer, g8Mitchell'
 body:
+# - type: markdown
+#   attributes:
+#     value: |
+#       ## Test Readiness Review (TRR)
+#       **The engineering team has provided** the following items needed for QA testing:
 - type: dropdown
   id: environment
   attributes:
