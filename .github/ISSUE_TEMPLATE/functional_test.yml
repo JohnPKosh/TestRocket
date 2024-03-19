@@ -1,6 +1,6 @@
 name: Folio QA Test
 description: Creates a new Folio QA functional test issue
-title: "Test: Functional QA Test for issue #..."
+title: "Test: Functional QA Test for issue(s) #..."
 labels: ["Testing"]
 assignees: 'g8behrens-jungfer, g8Mitchell'
 body:
