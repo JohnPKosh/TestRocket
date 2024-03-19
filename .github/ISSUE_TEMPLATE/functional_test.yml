@@ -7,9 +7,9 @@ body:
 - type: input
   id: issue
   attributes:
-    label: GitHub Dev Issue No.
+    label: 'GitHub Dev Issue #`s'
     description: Enter the GitHub issue prefixed with '#'
-    placeholder: '#NNN'
+    placeholder: '#NNN, #NNN, #NNN'
 - type: markdown
   id: trr
   attributes:
