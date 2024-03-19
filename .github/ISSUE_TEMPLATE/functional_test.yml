@@ -78,7 +78,7 @@ body:
 - type: checkboxes
   id: qa-criteria-met
   attributes:
-    label: QA Exit Criteria Certifications Met
+    label: '========= QA Exit Criteria Certifications Met ========='
     description: 'The QA team certifies the following results testing:'
     options:
       - label: Achieves the specified expected result
@@ -89,7 +89,7 @@ body:
 - type: textarea
   id: exit-notes
   attributes:
-    label: QA Exit Notes
+    label: '========= QA Exit Notes ========='
     description: Notes to be filled out by QA
     placeholder: Notes to be filled out by QA
   validations:
