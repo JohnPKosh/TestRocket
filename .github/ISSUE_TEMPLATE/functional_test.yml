@@ -79,7 +79,7 @@ body:
   id: qa-criteria-met
   attributes:
     label: QA Exit Criteria Certifications Met
-    description: The QA team certifies the following results testing:
+    description: 'The QA team certifies the following results testing:'
     options:
       - label: Achieves the specified expected result
       - label: Meets generally acceptable quality standards
