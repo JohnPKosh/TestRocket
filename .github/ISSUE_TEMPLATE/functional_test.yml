@@ -10,6 +10,8 @@ body:
     label: 'GitHub Dev Issue #`s'
     description: Enter the GitHub issue prefixed with '#'
     placeholder: '#NNN, #NNN, #NNN'
+  validations:
+    required: true
 - type: markdown
   id: trr
   attributes:
@@ -25,6 +27,8 @@ body:
       - DEV
       - TEST
       - PROD
+  validations:
+    required: true
 - type: checkboxes
   id: cases
   attributes:
@@ -92,5 +96,6 @@ body:
     label: '========= QA Exit Notes ========='
     description: Notes to be filled out by QA
     placeholder: Notes to be filled out by QA
+    value: '** QA TODO **'
   validations:
     required: false
