@@ -1,13 +1,20 @@
-name: QA Test
-description: Creates a QA functional test issue
+name: Folio QA Test
+description: Creates a new Folio QA functional test issue
 title: "Test:Functional QA Test for issue #..."
 labels: ["Testing"]
 assignees: 'g8behrens-jungfer, g8Mitchell'
 body:
+- type: input
+  id: issue
+  attributes:
+    label: GitHub Dev Issue No.
+    description: Enter the GitHub issue prefixed with '#'
+    placeholder: '#NNN'
 - type: markdown
+  id: trr
   attributes:
     value: |
-      ## Test Readiness Review (TRR)
+      ## DEV Test Readiness Review (TRR)
       **The engineering team has provided** the following items needed for QA testing:
 - type: dropdown
   id: environment
@@ -35,6 +42,7 @@ body:
     description: Test case, data, notes, scripts
     placeholder: Add detailed test notes here!
 - type: markdown
+  id: functional-req
   attributes:
     value: |
       ## Functional Requirements
@@ -67,26 +75,22 @@ body:
     description: A description of the expected results
   validations:
     required: false
-- type: markdown
+- type: checkboxes
+  id: qa-criteria-met
   attributes:
-    value: |
-      ## Exit Criteria Certifications Met
-      **The QA team certifies** the following results testing:
-
-      1. Achieves the specified expected result: 
-        - [x] Yes
-        - [ ] No
-      1. Meets generally acceptable quality standards: 
-        - [x] Yes
-        - [ ] No
-      1. The testing results are free of critical defects: 
-        - [x] Yes
-        - [ ] No
-      1. Will meet stakeholder expectations: 
-        - [x] Yes
-        - [ ] No
-      1. Test case and requirements documentation provided are accurate and complete: 
-        - [x] Yes
-        - [ ] No
-
-      Exit Notes:
+    label: QA Exit Criteria Certifications Met
+    description: **The QA team certifies** the following results testing:
+    options:
+      - label: Achieves the specified expected result
+      - label: Meets generally acceptable quality standards
+      - label: The testing results are free of critical defects
+      - label: Will meet stakeholder expectations
+      - label: Test case and requirements documentation provided are accurate and complete
+- type: textarea
+  id: exit-notes
+  attributes:
+    label: QA Exit Notes
+    description: Notes to be filled out by QA
+    placeholder: Notes to be filled out by QA
+  validations:
+    required: false
