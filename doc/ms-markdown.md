@@ -1,4 +1,4 @@
-# Microsoft Recommended Documentation and GFM (GitHub Flavored Markdown) samples
+# Microsoft Docs and GFM (GitHub Flavored Markdown) samples
 
 ### Linked image
 
