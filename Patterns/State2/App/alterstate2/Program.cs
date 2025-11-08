@@ -1,6 +1,6 @@
 ﻿using System;
 
-using alterstate.Models;
+using alterstate.Models2;
 
 namespace alterstate
 {

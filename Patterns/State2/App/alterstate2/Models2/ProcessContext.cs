@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace alterstate.Models
+namespace alterstate.Models2
 {
   /// <summary>
   /// EvenArgs for (from and to) process state changes
@@ -8,7 +8,7 @@ namespace alterstate.Models
   public class ProcessStateChangingEventArgs : EventArgs
   {
     public static ProcessStateChangingEventArgs Create(ProcessState fromState, ProcessState ToState)
-      => new ProcessStateChangingEventArgs() { FromState = fromState, ToState = ToState };
+      => new() { FromState = fromState, ToState = ToState };
 
     /// <summary> The original concrete state that is being changed from. </summary>
     public ProcessState FromState { get; set; }
@@ -31,9 +31,10 @@ namespace alterstate.Models
     /// </summary>
     public ProcessContext()
     {
-      CurrentState = new StoppedState(this);
+      m_CurrentState = new UninitializedState(this);
       ProcessStateChanged += OnProcessStateChanged;
       ProcessStateUnchanged += OnProcessStateUnChanged;
+      Initialize();
     }
 
     #endregion
@@ -45,6 +46,12 @@ namespace alterstate.Models
     /// <summary> The public property that exposes and sets the private backing field </summary>
     public ProcessState CurrentState { get => m_CurrentState; set => InvokeStateChange(value); }
 
+    /// <summary> The public get only Type Name of the CurrentState </summary>
+    public string CurrentStateName => CurrentState.GetType().Name;
+
+    /// <summary> A virtual flag indicating that after initialization occurs successfully Start() will called (otherwise Stop() will be called) </summary>
+    public virtual bool AutoStart => true;
+
     /// <summary> The public event handler field for our process changed event </summary>
     public event EventHandler<ProcessStateChangingEventArgs> ProcessStateChanged;
 
@@ -53,7 +60,67 @@ namespace alterstate.Models
 
     #endregion
 
+    #region Public Do on Change Virtual Methods
+
+    protected virtual void DoBeforeInitialize(){ }
+
+    protected virtual void DoInitialize() { }
+
+    protected virtual void DoAfterInitialize() { }
+
+    protected virtual void OnProcessFailed(Exception ex) { }
+
+    #endregion
+
     #region Public Methods (State Strategy Pattern)
+
+    /// <summary>
+    /// Public Method to update our current state to Stopped
+    /// </summary>
+    protected virtual void Initialize()
+    {
+      Exception? err = null;
+      try
+      {
+        DoBeforeInitialize();
+      }
+      catch (Exception ex)
+      {
+        err = ex;
+        setFailedState(ex);
+      }
+      if (err != null) return;
+
+      try
+      {
+        DoInitialize();
+        // here we delegate our state change passing our context to the current state
+        CurrentState.Initialize(this);
+      }
+      catch (Exception ex)
+      {
+        err = ex;
+        setFailedState(ex);
+      }
+      if (err != null) return;
+
+      try
+      {
+        DoAfterInitialize();
+        if (AutoStart) Start();
+      }
+      catch (Exception ex)
+      {
+        setFailedState(ex);  //TODO: review if this should change state from initialized to failed on exception
+      }
+    }
+
+    private void setFailedState(Exception ex)
+    {
+      InvokeStateChange(new FailedState(this));
+      //TODO: Log Exception Here!!!!!!!!!!!!!!!
+      OnProcessFailed(ex);
+    }
 
     /// <summary>
     /// Public Method to update our current state to Stopped
